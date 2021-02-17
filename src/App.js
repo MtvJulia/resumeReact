@@ -17,7 +17,7 @@ class App extends React.Component {
       <div className="container">
 
         <h2>
-          Compani API data
+          Резюме
         </h2>
         <BrowserRouter>
         <Link to="/login" className="btn btn-primary">Вход</Link>&nbsp;

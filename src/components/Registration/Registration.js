@@ -6,8 +6,31 @@ class Registration extends React.Component {
 
 
     
+    constructor(props) {
 
+        super(props);
 
+        //Начальное состояние состояния (state)
+        this.state = {
+            users: null
+        }
+
+        this.API_BASE_ADDRESS = "http://localhost:55555/register";        
+    
+    }
+
+    componentDidMount() {
+
+        //Встроенный метод для GET (и только) запросов
+        fetch(this.API_BASE_ADDRESS)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                this.setState({
+                    items: data
+                });
+            });
+    }
 
     render() {
 
@@ -31,7 +54,7 @@ class Registration extends React.Component {
     </nav>
     <div className="container">
         <h1>Регистрация нового пользователя</h1>   
-        <form className="form-horizontal" action="http://localhost:5000/registration" method="POST">
+        <form className="form-horizontal" action="http://localhost:55555/registration" method="POST">
             <div className="form-group">
                 <label className="control-label col-sm-2" for="userlogin">Логин:</label>
                 <div className="col-sm-10">
@@ -52,7 +75,7 @@ class Registration extends React.Component {
             </div>
             <div className="form-group">
                 <div className="col-sm-offset-2 col-sm-10">
-                    <button type="submit" className="btn btn-default">Регистрация</button>
+                    <button type="submit" className="btn btn-default" >Регистрация</button>
                 </div>
             </div>
         </form>
