@@ -6,8 +6,31 @@ class Registration extends React.Component {
 
 
     
+    constructor(props) {
 
+        super(props);
 
+        //Начальное состояние состояния (state)
+        this.state = {
+            users: null
+        }
+
+        this.API_BASE_ADDRESS = "http://localhost:55555/register";        
+    
+    }
+
+    componentDidMount() {
+
+        //Встроенный метод для GET (и только) запросов
+        fetch(this.API_BASE_ADDRESS)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                this.setState({
+                    items: data
+                });
+            });
+    }
 
     render() {
 
@@ -22,37 +45,33 @@ class Registration extends React.Component {
                    <nav className="nav nav-inverse">
         <div className="container-fluid">
             <div className="nav-header">               
-            </div>
-            <ul className="nav">
-                <li className="active"><a href="http://localhost:5000/login">Вход</a></li>
-                <li><a href="http://localhost:5000/registration">Регистрация</a></li>
-            </ul>
+            </div>            
         </div>
     </nav>
     <div className="container">
         <h1>Регистрация нового пользователя</h1>   
-        <form className="form-horizontal" action="http://localhost:5000/registration" method="POST">
+        <form className="form-horizontal" action="http://localhost:55555/registration" method="POST">
             <div className="form-group">
                 <label className="control-label col-sm-2" for="userlogin">Логин:</label>
-                <div className="col-sm-10">
+                <div className="col-sm-8">
                     <input type="text" className="form-control" id="userlogin" placeholder="Введите логин" name="UserLogin"/>
                 </div>
             </div>
             <div className="form-group">
                 <label className="control-label col-sm-2" for="pwd">Пароль:</label>
-                <div className="col-sm-10">
+                <div className="col-sm-8">
                     <input type="password" className="form-control" id="pwd" placeholder="Введите пароль" name="Password"/>
                 </div>
             </div>
             <div className="form-group">
                 <label className="control-label col-sm-2" for="pwdRep">Повторите пароль:</label>
-                <div className="col-sm-10">
+                <div className="col-sm-8">
                     <input type="password" className="form-control" id="pwdRep" placeholder="Повторите пароль" name="RepeatPassword"/>
                 </div>
             </div>
             <div className="form-group">
                 <div className="col-sm-offset-2 col-sm-10">
-                    <button type="submit" className="btn btn-default">Регистрация</button>
+                    <button type="submit" className="btn btn-default" >Регистрация</button>
                 </div>
             </div>
         </form>
