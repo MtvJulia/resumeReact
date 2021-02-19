@@ -45,11 +45,7 @@ class Registration extends React.Component {
                    <nav className="nav nav-inverse">
         <div className="container-fluid">
             <div className="nav-header">               
-            </div>
-            <ul className="nav">
-                <li className="active"><a href="http://localhost:5000/login">Вход</a></li>
-                <li><a href="http://localhost:5000/registration">Регистрация</a></li>
-            </ul>
+            </div>            
         </div>
     </nav>
     <div className="container">
@@ -57,19 +53,19 @@ class Registration extends React.Component {
         <form className="form-horizontal" action="http://localhost:55555/registration" method="POST">
             <div className="form-group">
                 <label className="control-label col-sm-2" for="userlogin">Логин:</label>
-                <div className="col-sm-10">
+                <div className="col-sm-8">
                     <input type="text" className="form-control" id="userlogin" placeholder="Введите логин" name="UserLogin"/>
                 </div>
             </div>
             <div className="form-group">
                 <label className="control-label col-sm-2" for="pwd">Пароль:</label>
-                <div className="col-sm-10">
+                <div className="col-sm-8">
                     <input type="password" className="form-control" id="pwd" placeholder="Введите пароль" name="Password"/>
                 </div>
             </div>
             <div className="form-group">
                 <label className="control-label col-sm-2" for="pwdRep">Повторите пароль:</label>
-                <div className="col-sm-10">
+                <div className="col-sm-8">
                     <input type="password" className="form-control" id="pwdRep" placeholder="Повторите пароль" name="RepeatPassword"/>
                 </div>
             </div>

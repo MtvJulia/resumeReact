@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import '../../../src/App.css';
+
+import './Login.css';
 
 class Login extends React.Component {
 
@@ -43,10 +44,7 @@ class Login extends React.Component {
                         <div className="container-fluid">
                             <div className="nav-header">
                             </div>
-                            <ul className="nav">
-                                <li className="active"><a href="http://localhost:3000/login">Вход</a></li>
-                                <li> <a href="http://localhost:3000/registration">Регистрация</a></li>
-                            </ul>
+                           
                         </div>
                     </nav>
 
@@ -56,13 +54,13 @@ class Login extends React.Component {
                         <form className="form-horizontal" action="http://localhost:55555/login" method="POST">
                             <div className="form-group">
                                 <label className="control-label col-sm-2" for="userlogin">Логин:</label>
-                                <div className="col-sm-10">
+                                <div className="col-sm-8">
                                     <input type="text" className="form-control" id="userlogin" placeholder="Введите логин" name="UserLogin" onChange={this.setLogin} />
                                 </div>
                             </div>
                             <div className="form-group">
                                 <label className="control-label col-sm-2" for="pwd">Пароль:</label>
-                                <div className="col-sm-10">
+                                <div className="col-sm-8">
                                     <input type="password" className="form-control" id="pwd" placeholder="Введите пароль" name="Password" onChange={this.setPassword} />
                                 </div>
                             </div>
