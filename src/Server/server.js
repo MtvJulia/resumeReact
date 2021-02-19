@@ -195,8 +195,16 @@ server.post("/registration", function (request, response) {
         ////создаем нового user в БД post
         //// потом переход в форму регистрации заполнение
         let newUser = request.body;
-
         console.log(newUser);
+
+        arrUsers.forEach(element => {
+            
+       if(element.userLogin === newUser.userLogin)
+       {
+        let objJSON = { "result": "Пользователь с данным логином уже зарегистрирован, придумайте новый логин !" };
+       return res.redirect("http://localhost:55555/registration");
+       }
+        });
 
 
         let query = `INSERT INTO user(userLogin, userPassword)
@@ -206,6 +214,7 @@ server.post("/registration", function (request, response) {
         let objJSON = { "result": "User added!" };      
 
        return requestToDbCUD(query, dbConnection, response, objJSON);
+
        ////ПЕРЕЙТИ НА НОВУЮ ПУСТУЮ КОЛБАСУ!!!
        //И надо получить ID вставленного нового пользователя!!!
 
