@@ -203,7 +203,7 @@ server.post("/registration", function (request, response) {
 
   VALUES(\'${newUser.UserLogin}\', \'${newUser.Password}\')`;
 
-        let objJSON = { "result": "User addad!" };      
+        let objJSON = { "result": "User added!" };      
 
        return requestToDbCUD(query, dbConnection, response, objJSON);
        ////ПЕРЕЙТИ НА НОВУЮ ПУСТУЮ КОЛБАСУ!!!
