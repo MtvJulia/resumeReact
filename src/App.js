@@ -7,7 +7,7 @@ import Registration from './components/Registration/Registration';
 import UserData from './components/UserData/UserData';
 
 import './App.css';
-import mainPhoto from './images/dance2.jpg';
+// import mainPhoto from './images/dance2.jpg';
 
 
 class App extends React.Component {
