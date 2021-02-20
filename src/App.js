@@ -4,9 +4,10 @@ import { Route, Link, BrowserRouter } from 'react-router-dom';
 
 import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
+import UserData from './components/UserData/UserData';
 
 import './App.css';
-import mainPhoto from './images/dance2.jpg';
+// import mainPhoto from './images/dance2.jpg';
 
 
 class App extends React.Component {
@@ -41,6 +42,7 @@ class App extends React.Component {
                 <div className="container">
                   <Route path="/login" component={Login} />
                   <Route path="/registration" component={Registration} />
+                  <Route path="/userdata" component={UserData} />
                 </div>
 
               </BrowserRouter>
