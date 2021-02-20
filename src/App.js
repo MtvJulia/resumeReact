@@ -4,12 +4,14 @@ import { Route, Link, BrowserRouter } from 'react-router-dom';
 
 import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
+import UserData from './components/UserData/UserData';
 
 import './App.css';
 import mainPhoto from './images/dance2.jpg';
 
 
 class App extends React.Component {
+
 
   render() {
 
@@ -36,11 +38,13 @@ class App extends React.Component {
                   <li></li>
                   <li><Link to="/login" className="btn btn-primary">Вход</Link></li>
                   <li><Link to="/registration" className="btn btn-primary">Регистрация</Link></li>
+                 
                 </ul>
 
                 <div className="container">
                   <Route path="/login" component={Login} />
                   <Route path="/registration" component={Registration} />
+                  <Route path="/userdata" component={UserData} />
                 </div>
 
               </BrowserRouter>

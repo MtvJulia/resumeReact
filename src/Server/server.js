@@ -7,6 +7,8 @@ const fs = require("fs");
 
 var arrUsers = [];
 const server = express();
+var duplicateFlag = false;
+var userIDFromDB = 0;
 
 const connString = {
 
@@ -14,8 +16,8 @@ const connString = {
     port: "37826",//"localhost",    
     user: "studProgr",//"root"
     database: "resume_db",
-    password:"753Rg2D78H34f@"      
-   }
+    password: "753Rg2D78H34f@"
+}
 
 server.use(express.static(__dirname + '/public'));
 server.use(bodyParser.urlencoded({ extended: false }));
@@ -38,92 +40,25 @@ dbConnection.connect((err) => {
     else console.log("Connected to MySQL");
 });
 
-////--------------------FUNCTIONS------------------------
 
-// function produceTextResponseLogin(fileName, response, contentType) {
-
-//     let query = "SELECT * FROM user";
-//     fs.readFile(fileName, "utf8", function (err, data) {
-
-//         if (err) { console.log(err.message); }
-
-//         let responseHTML = "";
-
-//         //если данные пришли
-//         responseHTML = data;
-//         //формируем response для пользователя
-//         response.writeHead(HTTP_OK, { "Content-Type": contentType });
-//         response.write(responseHTML);//тело запроса из пришедших данных
-//         response.end();
-//     }, dbConnection.query(query, (err, result) => {
-
-//         if (err) { console.log(err.message); }
-//         arrUsers = result;
-//         console.log(arrUsers);
-
-//     }))
-// };
-
-
-// function produceTextResponse(fileName, response, contentType) {
-//     fs.readFile(fileName, "utf8", function (err, data) {
-
-//         if (err) {
-//             console.log(err.message);
-//         }
-
-//         let responseHTML = "";
-
-//         //если данные пришли
-//         responseHTML = data;
-//         //формируем response для пользователя
-//         response.writeHead(HTTP_OK, { "Content-Type": contentType });
-//         response.write(responseHTML);//тело запроса из пришедших данных
-//         response.end();
-//     });
-// }
-
-
-// function createNewUser(newUserLoginData) {
-
-//     console.log(newUserLoginData);
-
-//     server.post("/", (req, res) => {
-
-//         //получим нового пользователя из тела POST запроса,
-//         let newUser = req.body;
-
-//         console.log(req.body);
-
-//         let query = `INSERT INTO user(userLogin, userPassword)
-    
-//         VALUES(\'${newUser.userLogin}\', \'${newUser.userPassword}\')`;
-
-//         let objJSON = { "result": "User addad!" };
-
-//         requestToDbCUD(query, dbConnection, res, objJSON);
-
-//     });
-// }
-
-const requestToDbGET = (query,dbConnection,res) => {
+const requestToDbGET = (query, dbConnection, res) => {
 
     dbConnection.query(query, (err, result) => {
 
-        if(err)console.log(err.message);
-        res.json( result);
+        if (err) console.log(err.message);
+       // res.json(result);
         arrUsers = result;
         console.log(arrUsers);
-        res.end();     
+        res.end();
 
-    });    
+    });
 }
 const requestToDbCUD = (query, dbConnection, res, objJSON) => {
 
     dbConnection.query(query, (err, result) => {
 
         if (err) console.log(err.message);
-        res.json(objJSON);
+        //res.json(objJSON);       
         res.end();
 
     });
@@ -135,9 +70,9 @@ server.get("/", (req, res) => {
 
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
 
-    let query = "SELECT * FROM user";  
+    let query = "SELECT * FROM user";
 
-    requestToDbGET(query,dbConnection,res);
+    requestToDbGET(query, dbConnection, res);
 
 });
 
@@ -146,44 +81,57 @@ server.get("/login", function (request, res) {
 
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
 
-    let query = "SELECT * FROM user";    
+    let query = "SELECT * FROM user";
 
-    requestToDbGET(query,dbConnection,res);
+    requestToDbGET(query, dbConnection, res);
 
 });
 server.get("/register", function (request, res) {
 
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
 
-    let query = "SELECT * FROM user";    
+    let query = "SELECT * FROM user";
 
-    requestToDbGET(query,dbConnection,res);
+    requestToDbGET(query, dbConnection, res);
 
 });
 
+server.get("/userdata", function (request, res) {
+
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+
+    let query = "SELECT * FROM user";
+
+   requestToDbGET(query, dbConnection, res);
+
+});
 
 ////----------------SERVER.POST--------------------------------------
 
 server.post("/login", function (request, response) {
 
     response.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    var foundFlag = false;    
+    var foundFlag = false;
 
     arrUsers.forEach(element => {
         if (element.userLogin === request.body.UserLogin && element.userPassword === request.body.Password) {
             console.log(`User login : ${element.userLogin} password : ${element.userPassword} have ID :${element.userID}`);
             foundFlag = true;
-            //ПЕРЕХОД ПО ССЫЛКЕ НА ЗАПОЛНЕННУЮ КОЛБАСУ!!!!!!!!!      
+            userIDFromDB = element.userID;
+           return  response.redirect("http://localhost:3000/userdata");    
         }
     });
     if (foundFlag === false) {
-        console.log(`User login : ${request.body.UserLogin} password : ${request.body.Password} NOT FOUND , Go to regestration!!!`);        
+        console.log(`User login : ${request.body.UserLogin} password : ${request.body.Password} NOT FOUND , Go to regestration!!!`);
         ////переход на регистрацию сделать правильно!!!!!!!
-        response.redirect('/registration');
+        return response.redirect("http://localhost:3000/registration");
     }
     response.end();
 
 });
+
+
+
 
 server.post("/registration", function (request, response) {
 
@@ -191,44 +139,98 @@ server.post("/registration", function (request, response) {
 
     if (request.body.Password === request.body.RepeatPassword) {
 
-        console.log("OK");      
+        console.log("OK");
         ////создаем нового user в БД post
         //// потом переход в форму регистрации заполнение
         let newUser = request.body;
-        console.log(newUser);
+       
 
         arrUsers.forEach(element => {
-            
-       if(element.userLogin === newUser.userLogin)
-       {
-        let objJSON = { "result": "Пользователь с данным логином уже зарегистрирован, придумайте новый логин !" };
-       return res.redirect("http://localhost:55555/registration");
-       }
+
+            if (element.userLogin === newUser.UserLogin) {
+
+                duplicateFlag = true;
+                let objJSON1 = { "result": "Пользователь с данным логином уже зарегистрирован, придумайте новый логин !" };
+                console.log(objJSON1);
+
+                return response.redirect("http://localhost:3000/registration");            
+                             
+            }
         });
 
+        if (duplicateFlag === false) {
 
-        let query = `INSERT INTO user(userLogin, userPassword)
+            let query = `INSERT INTO user(userLogin, userPassword)
 
-  VALUES(\'${newUser.UserLogin}\', \'${newUser.Password}\')`;
+    VALUES(\'${newUser.UserLogin}\', \'${newUser.Password}\')`;
 
-        let objJSON = { "result": "User added!" };      
+            let objJSON = { "result": "User added!" };           
 
-       return requestToDbCUD(query, dbConnection, response, objJSON);
+            response.redirect("http://localhost:3000/userdata");
 
-       ////ПЕРЕЙТИ НА НОВУЮ ПУСТУЮ КОЛБАСУ!!!
-       //И надо получить ID вставленного нового пользователя!!!
+            return  requestToDbCUD(query, dbConnection, response, objJSON);   
 
+             
+             
+            ////ПЕРЕЙТИ НА НОВУЮ ПУСТУЮ КОЛБАСУ!!!
+            //И надо получить ID вставленного нового пользователя!!!
+        }
     }
 
     else {
-       // alert("Password does not match repeat !!!");
+       
         console.log("Password does not match repeat ");
-        response.redirect('/registration');
+        return response.redirect('http://localhost:3000/registration');
     }
 
     response.end();
 
 });
+
+
+server.post("/userdata", function (request, response) {
+
+    response.header("Access-Control-Allow-Origin", "http://localhost:3000");
+
+    // if (request.body.Password === request.body.RepeatPassword) {
+
+    //     console.log("OK");
+    //    //Получае все данные с формы!!!!!!!!!!!!
+        let newUserData = request.body;
+
+       console.log(newUserData);
+        
+    //     if (duplicateFlag === false) {
+
+            let query = `INSERT INTO lang_info(userID, langName, level)
+
+            VALUES('5', 'Испанский', 'А1 - Начальный')`;
+
+    // VALUES(\'${newUserData.userID}\', \'${newUserData.langName}\', \'${newUserData.level}\')`;
+
+            let objJSON = { "result": "User lang data added!" };
+
+            requestToDbCUD(query, dbConnection, response, objJSON);
+
+            //response.redirect('"http://localhost:3000/registration"');
+            ////ПЕРЕЙТИ НА НОВУЮ ПУСТУЮ КОЛБАСУ!!!
+            //И надо получить ID вставленного нового пользователя!!!
+        //}
+
+   // }
+
+    // else {
+    //     // alert("Password does not match repeat !!!");
+    //     console.log("Password does not match repeat ");
+    //     response.redirect('/registration');
+    // }
+    response.end();
+
+});
+
+
+
+
 
 
 const startupCallback = function () {
