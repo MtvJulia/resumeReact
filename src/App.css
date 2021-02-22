@@ -6,8 +6,8 @@
 .mainApp{
   /* position: relative; */
   
-    background-color: brown;
-    background-image: url("./images/dance2.jpg");
+    background-color: rgb(169, 210, 248);
+   /* // background-image: url("./images/dance2.jpg"); */
     background-size: cover;
     background-repeat: no-repeat;
   margin: 0 auto;
