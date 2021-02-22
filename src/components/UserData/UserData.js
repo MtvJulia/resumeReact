@@ -10,9 +10,8 @@ class UserData extends React.Component {
         }
         this.API_ADDRESS = "http://localhost:55555/userdata";
 
-        this.handleCheckboxChange=this.handleCheckboxChange.bind(this);
-
-    }
+      
+     }
     componentDidMount() {
         //Встроенный метод для GET (и только) запросов
         fetch(this.API_ADDRESS)
@@ -24,9 +23,8 @@ class UserData extends React.Component {
                 });
             });
     }
-    handleCheckboxChange(event){
-        this.setState({ checked: !this.state.checked });
-    }
+
+    
 
     render() {
         if (this.state.items == null) {
@@ -123,7 +121,7 @@ class UserData extends React.Component {
                                         <tr>
                                             <td> <label className="control-label" for="id_relocate">Готовность на переезд:</label></td>
                                             <td >
-                                                <input type="checkbox" id="id_relocate" name ="id_relocate" checked={this.state.checked} onChange={this.handleCheckboxChange} />
+                                                <input type="checkbox" id="id_relocate" name ="id_relocate"   />
                                             </td>
                                         </tr>
                                         <tr>
@@ -159,7 +157,7 @@ class UserData extends React.Component {
                                         <tr>
                                             <td> <label className="control-label" for="id_businessTrip">Командировки:</label></td>
                                             <td >
-                                                <input type="checkbox" id="id_businessTrip" name="id_businessTrip"checked={this.state.checked} onChange={this.handleCheckboxChange} />
+                                                <input type="checkbox" id="id_businessTrip" name="id_businessTrip" />
                                             </td>
                                         </tr>
                                         <tr>
@@ -171,7 +169,7 @@ class UserData extends React.Component {
                                         <tr>
                                             <td> <label className="control-label" for="id_children">Дети:</label></td>
                                             <td >
-                                                <input className="control-input" type="checkbox" id="id_children" name ="id_children" checked={this.state.checked} onChange={this.handleCheckboxChange} />
+                                                <input className="control-input" type="checkbox" id="id_children" name ="id_children"   />
                                             </td>
                                         </tr>
                                         <tr>
@@ -296,7 +294,7 @@ class UserData extends React.Component {
                                         <tr>
                                             <td> <label className="control-label" for="id_stillWorking">Еще работаю:</label></td>
                                             <td >
-                                                <input className="control-input" type="checkbox" id="id_stillWorking"name="id_stillWorking" checked={this.state.checked} onChange={this.handleCheckboxChange} />
+                                                <input className="control-input" type="checkbox" id="id_stillWorking"name="id_stillWorking"   />
                                             </td>
                                         </tr>
                                         <tr>
@@ -355,28 +353,28 @@ class UserData extends React.Component {
                                         <tr>
                                             <td> <label className="control-label" for="id_driverLicense">Права категории:</label></td>
                                             <td className="col-sm-8">
-                                                <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseA1" name="id_driverLicenseA1" checked={this.state.checked} onChange={this.handleCheckboxChange}  />A1</label>
-                                                <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseA" name="id_driverLicenseA"checked={this.state.checked} onChange={this.handleCheckboxChange} />A</label>
-                                                <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseB1" name="id_driverLicenseB1"checked={this.state.checked} onChange={this.handleCheckboxChange} />B1</label>
-                                                <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseB" name="id_driverLicenseB"checked={this.state.checked} onChange={this.handleCheckboxChange} />B</label>
-                                                <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseC1" name="id_driverLicenseC1"checked={this.state.checked} onChange={this.handleCheckboxChange} />C1</label>
-                                                <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseC" name="id_driverLicenseC"checked={this.state.checked} onChange={this.handleCheckboxChange} />C</label>
-                                                <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseD1" name="id_driverLicenseD1"checked={this.state.checked} onChange={this.handleCheckboxChange} />D1</label>
-                                                <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseD" name="id_driverLicenseD"checked={this.state.checked} onChange={this.handleCheckboxChange} />D</label>
-                                                <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseT" name="id_driverLicenseT"checked={this.state.checked} onChange={this.handleCheckboxChange} />T</label>
+                                                <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseA1" name="id_driverLicenseA1"/>A1</label>
+                                                <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseA" name="id_driverLicenseA"/>A</label>
+                                                <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseB1" name="id_driverLicenseB1"/>B1</label>
+                                                <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseB" name="id_driverLicenseB"/>B</label>
+                                                <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseC1" name="id_driverLicenseC1"/>C1</label>
+                                                <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseC" name="id_driverLicenseC"/>C</label>
+                                                <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseD1" name="id_driverLicenseD1"/>D1</label>
+                                                <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseD" name="id_driverLicenseD"/>D</label>
+                                                <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseT" name="id_driverLicenseT"/>T</label>
                                                 {/* <!-- <input type="text" className="form-control" id="id_company" placeholder="Компания, должность" /> --> */}
                                             </td>
                                         </tr>
                                         <tr>
                                             <td> <label className="control-label" for="id_privatCar">Есть личный автомобиль:</label></td>
                                             <td >
-                                                <input className="control-input" type="checkbox" id="id_privatCar"name="id_privatCar" checked={this.state.checked} onChange={this.handleCheckboxChange} />
+                                                <input className="control-input" type="checkbox" id="id_privatCar"name="id_privatCar" />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td> <label className="control-label" for="id_army">Служба в армии:</label></td>
                                             <td >
-                                                <input className="control-input" type="checkbox" id="id_army"name="id_army" checked={this.state.checked} onChange={this.handleCheckboxChange} />
+                                                <input className="control-input" type="checkbox" id="id_army"name="id_army"/>
                                             </td>
                                         </tr>
                                         <tr>

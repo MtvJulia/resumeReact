@@ -204,26 +204,49 @@ server.post("/userdata", function (request, response) {
 
 //добавляем базовую информацию
 if(newUserData){
-
-    let drivLicense = getInfoTodrivLicense(newUserData);
+    
 
     let queryBasicInfo = `INSERT INTO basic_information (userID, firstName, lastName,middleName,birthOfDate,сityOfResidence,position)            
     VALUES(\'${userIDFromDB}\', \'${newUserData.id_firstName}\', \'${newUserData.id_lastName}\', \'${newUserData.id_middleName}\', \'${newUserData.id_birthOfDate}\', \'${newUserData.id_cityOfResidence}\', \'${newUserData.id_userPosition}\')`;
 
-    let queryPersonalInfo = `INSERT INTO personal_information (userID, nationality, relocate,desiredSalary,employment,schedule,businessTrip,maritalStatus,children,education)            
-    VALUES(\'${userIDFromDB}\', \'${newUserData.id_nationality}\', \'${newUserData.id_relocate}\', \'${newUserData.id_desiredSalary}\', \'${newUserData.id_employment}\', \'${newUserData.id_schedule}\', \'${newUserData.id_businessTrip}\', \'${newUserData.id_maritalStatus}\', \'${newUserData.id_children}\', \'${newUserData.id_education}\')`;
 
+
+    let infoPers = getPersonalInfo(newUserData);
+
+    let queryPersonalInfo = `INSERT INTO personal_information (userID, nationality, relocate,desiredSalary,employment,schedule,businessTrip,maritalStatus,children,education)            
+    VALUES(\'${userIDFromDB}\', \'${newUserData.id_nationality}\', ${infoPers.relocation}, \'${newUserData.id_desiredSalary}\', \'${newUserData.id_employment}\', \'${newUserData.id_schedule}\', ${infoPers.businessTrip}, \'${newUserData.id_maritalStatus}\', ${infoPers.children}, \'${newUserData.id_education}\')`;
+
+    
+
+    let additionalInfo = getAdditionalInfo(newUserData);
+
+    console.log(additionalInfo);
+    console.log(additionalInfo.drivLicense);
 
     let queryAdditionalInfo = `INSERT INTO additional_information (userID, driverLicense, privateСar,army,hobby,personalQualities,professionalSkills)            
-    VALUES(\'${userIDFromDB}\', \'${newUserData.id_nationality}\', \'${newUserData.id_relocate}\', \'${newUserData.id_desiredSalary}\', \'${newUserData.id_employment}\', \'${newUserData.id_schedule}\', \'${newUserData.id_businessTrip}\', \'${newUserData.id_maritalStatus}\', \'${newUserData.id_children}\', \'${newUserData.id_education}\')`;
+    VALUES(\'${userIDFromDB}\', \'${additionalInfo.drivLicense}\', ${additionalInfo.privateCar}, ${additionalInfo.army}, \'${newUserData.id_hobby}\', \'${newUserData.id_personalQualities}\', \'${newUserData.id_professionalSkills}\')`;
 
+ 
+    let queryContactInfo = `INSERT INTO contact_information (userID, phone, email)            
+    VALUES(\'${userIDFromDB}\', \'${newUserData.id_phone}\', \'${newUserData.id_email}\')`;
+    
 
+   let queryEducationInfo = `INSERT INTO education (userID, institutName, levelEducation, faculty, specialty,ending )            
+    VALUES(\'${userIDFromDB}\', \'${newUserData.id_institutName}\', \'${newUserData.id_levelEducation}\', \'${newUserData.id_faculty}\', \'${newUserData.id_specialty}\', \'${newUserData.id_ending}\')`;
 
+//////end data
+   let statusWorke = stillWorking(newUserData);
+     
+   let queryExperienceInfo = `INSERT INTO experience (userID, startWork, endWork, stillWorking, positionWork,companyName, jobDuties )            
+   VALUES(\'${userIDFromDB}\', \'${newUserData.id_startWork}\', \'${newUserData.id_endWork}\', ${statusWorke}, \'${newUserData.id_positionWork}\', \'${newUserData.id_companyName}\', \'${newUserData.id_jobDuties}\')`;
 
 
     requestToDbCUDUserData(queryPersonalInfo,dbConnection,response);
     requestToDbCUDUserData(queryBasicInfo,dbConnection,response); 
     requestToDbCUDUserData(queryAdditionalInfo,dbConnection,response);
+    requestToDbCUDUserData(queryContactInfo,dbConnection,response);
+    requestToDbCUDUserData(queryEducationInfo,dbConnection,response);
+    requestToDbCUDUserData(queryExperienceInfo,dbConnection,response);
 }
 
 
@@ -241,12 +264,26 @@ if(newUserData){
     if(newUserData.id_langName){
 
         let query = `INSERT INTO lang_info(userID, langName, level)            
-     VALUES(\'${userIDFromDB}\', \'${newUserData.id_langName}\', \'${newUserData. id_level}\')`;
+     VALUES(\'${userIDFromDB}\', \'${newUserData.id_langName}\', \'${newUserData.id_level}\')`;
 
      requestToDbCUDUserData(query,dbConnection,response);
     }
-    
-      
+    //если есть данные по прохождению курсов
+    if(newUserData.id_courseName){
+
+        let query = `INSERT INTO сourses(userID, courseName, organization, endingCourse)            
+     VALUES(\'${userIDFromDB}\', \'${newUserData.id_courseName}\', \'${newUserData.id_organization}\', \'${newUserData.id_endingCourse}\')`;
+
+     requestToDbCUDUserData(query,dbConnection,response);
+    }
+      //если есть фото
+    if(newUserData.fupload){
+
+        let query = `INSERT INTO userphoto(userID, image)            
+     VALUES(\'${userIDFromDB}\', \'${newUserData.fupload}\')`;
+
+     requestToDbCUDUserData(query,dbConnection,response);
+    }
     
     response.end();
 });
@@ -282,13 +319,124 @@ const insertImgToDB = (temp_path, userID) => {
 
 const getInfoTodrivLicense = (newUserData) =>{
 
-let drivarLiscense="";
-    if(newUserData.id_driverLicenseA1)
+let drivarLiscense ="";
+    if(newUserData.id_driverLicenseA1 =='on')
+    {
+        drivarLiscense += "A1";
+    }
+    if(newUserData.id_driverLicenseA =='on')
+    {
+        drivarLiscense += "A";
+    }
+    if(newUserData.id_driverLicenseB1 =='on')
+    {
+        drivarLiscense += "B1";
+    }
+    if(newUserData.id_driverLicenseB =='on')
+    {
+        drivarLiscense += "B";
+    }
+    if(newUserData.id_driverLicenseC1 =='on')
+    {
+        drivarLiscense += "C1";
+    }
+    if(newUserData.id_driverLicenseC =='on')
+    {
+        drivarLiscense += "C";
+    }
+    if(newUserData.id_driverLicenseD1 =='on')
+    {
+        drivarLiscense += "D1";
+    }
+    if(newUserData.id_driverLicenseD =='on')
+    {
+        drivarLiscense += "D";
+    }
+    if(newUserData.id_driverLicenseT =='on')
+    {
+        drivarLiscense += "T";
+    }
+    return  drivarLiscense;
 
 }
 
 
+////get additional info
 
+const getAdditionalInfo =(newUserData)=>{
+
+    let drivLicense = getInfoTodrivLicense(newUserData);
+  
+
+    let availabilityCar = (newUserData)=>{
+        if(newUserData.id_privatCar =='on')
+        {
+            return 1;
+        }
+        else return 0;
+    }
+    let army = (newUserData)=>{
+        if(newUserData.id_army =='on')
+        {
+            return 1;
+        }
+        else return 0;
+    }
+
+let addData = {
+    drivLicense : drivLicense,
+    privateCar : availabilityCar(newUserData),
+    army : army(newUserData)
+};
+
+return addData;
+}
+
+
+
+/////get Personal info
+const getPersonalInfo = (newUserData)=>{
+
+let relocate = (newUserData)=>{
+        if(newUserData.id_relocate =='on')
+        {
+            return 1;
+        }
+        else return 0;
+    }
+let businessTrip = (newUserData)=>
+{
+    if(newUserData.id_businessTrip =='on')
+    {
+        return 1;
+    }
+    else return 0;
+    }
+
+    let haveChildren=(newUserData)=>{
+        if(newUserData.id_children =='on')
+        {
+            return 1;
+        }
+        else return 0;
+        }
+  
+        let infoPersonal={
+         relocation : relocate (newUserData),
+         businessTrip : businessTrip(newUserData),
+         children : haveChildren(newUserData)
+        };
+        return infoPersonal;
+}
+
+//// 
+let stillWorking = (newUserData)=>{
+    if(newUserData.id_stillWorking =='on')
+    {
+        return 1;
+    }
+    else return 0;
+}
 
 const startupCallback = function () {
     console.log(`Server started at: http://localhost:${service.address().port}`)
