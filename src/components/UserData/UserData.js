@@ -8,10 +8,10 @@ class UserData extends React.Component {
         this.state = {
             users: null
         }
-        this.API_ADDRESS = "http://localhost:55555/userdata";
-
-      
+        this.API_ADDRESS = "http://localhost:55555/userdata";      
      }
+
+
     componentDidMount() {
         //Встроенный метод для GET (и только) запросов
         fetch(this.API_ADDRESS)
@@ -274,6 +274,29 @@ class UserData extends React.Component {
                                                 <input type="date" className="form-control" id="id_endingCourse" name="id_endingCourse"/>
                                             </td>
                                         </tr>
+
+
+                                        <tr>
+                                            <td> <label className="control-label" for="id_courseName">Название курса:</label></td>
+                                            <td className="col-sm-8">
+                                                <input type="text" className="form-control" id="id_courseName" name="id_courseName" placeholder="Название курса" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td> <label className="control-label" for="id_organization">Проводившая организация:</label></td>
+                                            <td className="col-sm-8">
+                                                <input type="text" className="form-control" id="id_organization"name="id_organization" placeholder="Проводившая организация" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td> <label className="control-label" for="id_endingCourse">Год окончания:</label></td>
+                                            <td className="col-sm-8">
+                                                <input type="date" className="form-control" id="id_endingCourse" name="id_endingCourse"/>
+                                            </td>
+                                        </tr>
+
+
+
                                         <tr>
                                             <td>
                                                 <h2>Опыт работы</h2>

@@ -236,7 +236,7 @@ if(newUserData){
 
 //////end data
    let statusWorke = stillWorking(newUserData);
-     
+
    let queryExperienceInfo = `INSERT INTO experience (userID, startWork, endWork, stillWorking, positionWork,companyName, jobDuties )            
    VALUES(\'${userIDFromDB}\', \'${newUserData.id_startWork}\', \'${newUserData.id_endWork}\', ${statusWorke}, \'${newUserData.id_positionWork}\', \'${newUserData.id_companyName}\', \'${newUserData.id_jobDuties}\')`;
 
@@ -322,39 +322,39 @@ const getInfoTodrivLicense = (newUserData) =>{
 let drivarLiscense ="";
     if(newUserData.id_driverLicenseA1 =='on')
     {
-        drivarLiscense += "A1";
+        drivarLiscense += "A1-";
     }
     if(newUserData.id_driverLicenseA =='on')
     {
-        drivarLiscense += "A";
+        drivarLiscense += "A-";
     }
     if(newUserData.id_driverLicenseB1 =='on')
     {
-        drivarLiscense += "B1";
+        drivarLiscense += "B1-";
     }
     if(newUserData.id_driverLicenseB =='on')
     {
-        drivarLiscense += "B";
+        drivarLiscense += "B-";
     }
     if(newUserData.id_driverLicenseC1 =='on')
     {
-        drivarLiscense += "C1";
+        drivarLiscense += "C1-";
     }
     if(newUserData.id_driverLicenseC =='on')
     {
-        drivarLiscense += "C";
+        drivarLiscense += "C-";
     }
     if(newUserData.id_driverLicenseD1 =='on')
     {
-        drivarLiscense += "D1";
+        drivarLiscense += "D1-";
     }
     if(newUserData.id_driverLicenseD =='on')
     {
-        drivarLiscense += "D";
+        drivarLiscense += "D-";
     }
     if(newUserData.id_driverLicenseT =='on')
     {
-        drivarLiscense += "T";
+        drivarLiscense += "T-";
     }
     return  drivarLiscense;
 
@@ -365,7 +365,7 @@ let drivarLiscense ="";
 
 const getAdditionalInfo =(newUserData)=>{
 
-    let drivLicense = getInfoTodrivLicense(newUserData);
+    let drivLicense1 = getInfoTodrivLicense(newUserData);
   
 
     let availabilityCar = (newUserData)=>{
@@ -384,7 +384,7 @@ const getAdditionalInfo =(newUserData)=>{
     }
 
 let addData = {
-    drivLicense : drivLicense,
+    drivLicense : drivLicense1,
     privateCar : availabilityCar(newUserData),
     army : army(newUserData)
 };
