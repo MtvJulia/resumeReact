@@ -231,37 +231,50 @@ if(newUserData){
     VALUES(\'${userIDFromDB}\', \'${newUserData.id_phone}\', \'${newUserData.id_email}\')`;
     
 
-   let queryEducationInfo = `INSERT INTO education (userID, institutName, levelEducation, faculty, specialty,ending )            
+
+if(newUserData.id_institutName!='')
+{    
+    let queryEducationInfo = `INSERT INTO education (userID, institutName, levelEducation, faculty, specialty,ending )            
     VALUES(\'${userIDFromDB}\', \'${newUserData.id_institutName}\', \'${newUserData.id_levelEducation}\', \'${newUserData.id_faculty}\', \'${newUserData.id_specialty}\', \'${newUserData.id_ending}\')`;
+    requestToDbCUDUserData(queryEducationInfo,dbConnection,response);
+}
+  
 
-//////end data
-   let statusWorke = stillWorking(newUserData);
+if(newUserData.id_startWork!='')
+{
+    let statusWorke = stillWorking(newUserData);
+    let endWork = getEndData(newUserData);
 
-   let queryExperienceInfo = `INSERT INTO experience (userID, startWork, endWork, stillWorking, positionWork,companyName, jobDuties )            
-   VALUES(\'${userIDFromDB}\', \'${newUserData.id_startWork}\', \'${newUserData.id_endWork}\', ${statusWorke}, \'${newUserData.id_positionWork}\', \'${newUserData.id_companyName}\', \'${newUserData.id_jobDuties}\')`;
-
-
+ if(endWork==null){
+    let queryExperienceInfo = `INSERT INTO experience (userID, startWork, endWork, stillWorking, positionWork,companyName, jobDuties )            
+    VALUES(\'${userIDFromDB}\', \'${newUserData.id_startWork}\', ${endWork}, ${statusWorke}, \'${newUserData.id_positionWork}\', \'${newUserData.id_companyName}\', \'${newUserData.id_jobDuties}\')`;
+    requestToDbCUDUserData(queryExperienceInfo,dbConnection,response);
+ }
+ else{
+    let queryExperienceInfo = `INSERT INTO experience (userID, startWork, endWork, stillWorking, positionWork,companyName, jobDuties )            
+    VALUES(\'${userIDFromDB}\', \'${newUserData.id_startWork}\', \'${endWork}\', ${statusWorke}, \'${newUserData.id_positionWork}\', \'${newUserData.id_companyName}\', \'${newUserData.id_jobDuties}\')`;
+    requestToDbCUDUserData(queryExperienceInfo,dbConnection,response);
+ }    
+    
+}  
     requestToDbCUDUserData(queryPersonalInfo,dbConnection,response);
     requestToDbCUDUserData(queryBasicInfo,dbConnection,response); 
     requestToDbCUDUserData(queryAdditionalInfo,dbConnection,response);
-    requestToDbCUDUserData(queryContactInfo,dbConnection,response);
-    requestToDbCUDUserData(queryEducationInfo,dbConnection,response);
-    requestToDbCUDUserData(queryExperienceInfo,dbConnection,response);
+    requestToDbCUDUserData(queryContactInfo,dbConnection,response);    
+    
 }
-
-
     //если есть данные по РЕКОМЕНДАЦИЯМ
-    if(newUserData.id_personRecommending && newUserData.id_company){
+    if(newUserData.id_personRecommending !=''&& newUserData.id_company!=''){
 
         let query = `INSERT INTO recommendation(userID, personRecommending, company,emailCompany,phoneCompany)            
         VALUES(\'${userIDFromDB}\', \'${newUserData.id_personRecommending}\', \'${newUserData.id_company}\', \'${newUserData.id_emailCompany}\', \'${newUserData.id_phoneCompany}\')`;
    
-        requestToDbCUDUserData(query,dbConnection,response);    
+        requestToDbCUDUserData(query,dbConnection,response);  
     
     }
 
     //если есть данные по знаниям языка
-    if(newUserData.id_langName){
+    if(newUserData.id_langName!=''){
 
         let query = `INSERT INTO lang_info(userID, langName, level)            
      VALUES(\'${userIDFromDB}\', \'${newUserData.id_langName}\', \'${newUserData.id_level}\')`;
@@ -269,7 +282,7 @@ if(newUserData){
      requestToDbCUDUserData(query,dbConnection,response);
     }
     //если есть данные по прохождению курсов
-    if(newUserData.id_courseName){
+    if(newUserData.id_courseName!=''){
 
         let query = `INSERT INTO сourses(userID, courseName, organization, endingCourse)            
      VALUES(\'${userIDFromDB}\', \'${newUserData.id_courseName}\', \'${newUserData.id_organization}\', \'${newUserData.id_endingCourse}\')`;
@@ -277,7 +290,7 @@ if(newUserData){
      requestToDbCUDUserData(query,dbConnection,response);
     }
       //если есть фото
-    if(newUserData.fupload){
+    if(newUserData.fupload!=''){
 
         let query = `INSERT INTO userphoto(userID, image)            
      VALUES(\'${userIDFromDB}\', \'${newUserData.fupload}\')`;
@@ -316,6 +329,26 @@ const insertImgToDB = (temp_path, userID) => {
 }
 // `INSERT INTO userphoto ('userID','image') VALUES (\'${userID}\',{image: })`;
 
+
+const getEndData=(newUserData) => {
+
+    let endWork='';
+
+    if(newUserData.id_endWork =='')
+{
+    if( newUserData.id_stillWorking == 'on')
+    {
+        endWork = null;
+    }
+   else{
+    endWork = new Date().toISOString().substr(0,10);
+   } 
+}
+else{
+    endWork = newUserData.id_endWork; 
+}
+return endWork;
+}
 
 const getInfoTodrivLicense = (newUserData) =>{
 

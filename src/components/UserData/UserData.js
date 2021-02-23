@@ -276,7 +276,7 @@ class UserData extends React.Component {
                                         </tr>
 
 
-                                        <tr>
+                                        {/* <tr>
                                             <td> <label className="control-label" for="id_courseName">Название курса:</label></td>
                                             <td className="col-sm-8">
                                                 <input type="text" className="form-control" id="id_courseName" name="id_courseName" placeholder="Название курса" />
@@ -293,7 +293,7 @@ class UserData extends React.Component {
                                             <td className="col-sm-8">
                                                 <input type="date" className="form-control" id="id_endingCourse" name="id_endingCourse"/>
                                             </td>
-                                        </tr>
+                                        </tr> */}
 
 
 
