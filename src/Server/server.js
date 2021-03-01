@@ -9,6 +9,8 @@ var arrUsers = [];
 const server = express();
 var duplicateFlag = false;
 var userIDFromDB = 0;
+var userData = {};
+var foundUserID = 0; //найденный пользователь при входе уже зарегистрированного пользователя
 var getToRegistrationFlag = false;
 var multyLangFlag = false;
 var multyCoursesFlag = false;
@@ -68,9 +70,118 @@ const requestToDbGET = (query, dbConnection, res, newUser) => {
         res.json(result);
         arrUsers = result;
         console.log(arrUsers);
-
         res.end();
     });
+}
+const requestToDbGETExisting = (query, dbConnection, res) => {
+
+    // console.log(query.includes('basic_information'));
+    if (query.includes('basic_information')) {
+        dbConnection.query(query, (err, result) => {
+            if (err) console.log(err.message);
+            //res.json(result);
+          // console.log(result);
+            userData.basic = result;
+            //console.log(userData.basic);
+            res.end();
+        });
+    }
+    else if (query.includes('personal_information')) {
+        dbConnection.query(query, (err, result) => {
+            if (err) console.log(err.message);
+            //res.json(result);
+            //console.log(result);
+            userData.personal = result;
+           // console.log(userData.personal);
+           res.end();
+        });
+    }
+    else if (query.includes('additional_information')) {
+        dbConnection.query(query, (err, result) => {
+            if (err) console.log(err.message);
+            //res.json(result);
+            //console.log(result);
+            userData.additional = result;
+          //  console.log(userData.additional);
+            res.end();
+        });
+    }
+    else if (query.includes('contact_information')) {
+        dbConnection.query(query, (err, result) => {
+            if (err) console.log(err.message);
+            //res.json(result);
+           // console.log(result);
+            userData.contact = result;
+           // console.log(userData.contact);
+           res.end();
+        });
+    }
+
+    else if (query.includes('education')) {
+        dbConnection.query(query, (err, result) => {
+            if (err) console.log(err.message);
+            //res.json(result);
+          // console.log(result);
+            userData.education = result;
+           // console.log(userData.education);
+            res.end();
+        });
+    }
+
+    else if (query.includes('experience')) {
+        dbConnection.query(query, (err, result) => {
+            if (err) console.log(err.message);
+            //res.json(result);
+           // console.log(result);
+            userData.experience = result;
+           // console.log(userData.experience);
+            res.end();
+        });
+    }
+
+    else if (query.includes('recommendation')) {
+        dbConnection.query(query, (err, result) => {
+            if (err) console.log(err.message);
+            //res.json(result);
+           // console.log(result);
+            userData.recommendation = result;
+           // console.log(userData.recommendation);
+            res.end();
+        });
+    }
+    else if (query.includes('lang_info')) {
+        dbConnection.query(query, (err, result) => {
+            if (err) console.log(err.message);
+            //res.json(result);
+           // console.log(result);
+            userData.lang_info = result;
+            //console.log(userData.lang_info);
+           res.end();
+        });
+    }
+    else if (query.includes('сourses')) {
+        dbConnection.query(query, (err, result) => {
+            if (err) console.log(err.message);
+            //res.json(result);
+            //console.log(result);
+            userData.сourses = result;
+           // console.log(userData.сourses);
+            res.end();
+        });
+    }
+    else if (query.includes('userphoto')) {
+        dbConnection.query(query, (err, result) => {
+            if (err) console.log(err.message);
+           // res.json(result);
+           //console.log(result);
+            userData.userphoto = result;
+            //console.log(userData.userphoto);
+            res.end();
+        });
+    } 
+    // res.json(userData);
+    // res.end();
+    
 }
 const requestToDbCUDUserData = (query, dbConnection, res) => {
 
@@ -95,10 +206,10 @@ const requestToDbCUD = (query, dbConnection, res, objJSON, newUser) => {
 
             return requestToDbGETAferPost("SELECT * FROM user", dbConnection, res, newUser);
 
-        }        // res.json(objJSON);
+        }
         res.end();
     });
-    // console.log(userIDFromDB);
+
 }
 
 ////---------------------SERVER.GET------------------------
@@ -126,6 +237,55 @@ server.get("/userdata", function (request, res) {
     requestToDbGET(query, dbConnection, res);
 });
 
+server.get("/existinguserdata", function (request, res) {
+    
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+// console.log(foundUserID);
+
+    let queryBasic = `SELECT * FROM basic_information WHERE userID = ${foundUserID} `;
+    requestToDbGETExisting(queryBasic, dbConnection, res);
+
+    let queryPersonal = `SELECT * FROM personal_information WHERE userID = ${foundUserID} `;
+    requestToDbGETExisting(queryPersonal, dbConnection, res);
+
+    let queryAdditional = `SELECT * FROM additional_information WHERE userID = ${foundUserID} `;
+    requestToDbGETExisting(queryAdditional, dbConnection, res);
+
+    let queryContact = `SELECT * FROM contact_information WHERE userID = ${foundUserID} `;
+    requestToDbGETExisting(queryContact, dbConnection, res);
+
+    let queryEducation = `SELECT * FROM education WHERE userID = ${foundUserID} `;
+    requestToDbGETExisting(queryEducation, dbConnection, res);
+
+    let queryExperience = `SELECT * FROM experience WHERE userID = ${foundUserID} `;
+    requestToDbGETExisting(queryExperience, dbConnection, res);
+
+    let queryRecommendation = `SELECT * FROM recommendation WHERE userID = ${foundUserID} `;
+    requestToDbGETExisting(queryRecommendation, dbConnection, res);
+
+    let queryLang_info = `SELECT * FROM lang_info WHERE userID = ${foundUserID} `;
+    requestToDbGETExisting(queryLang_info, dbConnection, res);
+
+    let queryCourses = `SELECT * FROM сourses WHERE userID = ${foundUserID} `;
+    requestToDbGETExisting(queryCourses, dbConnection, res);
+
+    let queryUserphoto = `SELECT * FROM userphoto WHERE userID = ${foundUserID} `;
+    requestToDbGETExisting(queryUserphoto, dbConnection, res);     
+  
+    res.json(userData);
+    res.end();     
+   
+}
+// ,function(userData){
+
+//     console.log(userData);
+
+//     res.json(userData);
+//     res.end();
+// }
+
+);
+
 ////----------------SERVER.POST--------------------------------------
 server.post("/login", function (request, response) {
     response.header("Access-Control-Allow-Origin", "http://localhost:3000");
@@ -134,8 +294,9 @@ server.post("/login", function (request, response) {
         if (element.userLogin === request.body.UserLogin && element.userPassword === request.body.Password) {
             console.log(`User login : ${element.userLogin} password : ${element.userPassword} have ID :${element.userID}`);
             foundFlag = true;
+            foundUserID = element.userID;
             //ПЕРЕХОД ПО ССЫЛКЕ НА ЗАПОЛНЕННУЮ КОЛБАСУ!!!!!!!!!     
-            return response.redirect("http://localhost:3000/userdata");
+            return response.redirect("http://localhost:3000/existinguserdata");
         }
     });
     if (foundFlag === false) {
@@ -239,61 +400,57 @@ server.post("/userdata", function (request, response) {
         requestToDbCUDUserData(queryContactInfo, dbConnection, response);
 
 
-//////-------EDUCATION------------------
-////------------более 1 образования---------------
+        //////-------EDUCATION------------------
+        ////------------более 1 образования---------------
         multyEducationFlag = false;
 
-        if(multyEducationFlag === true && newUserData.id_institutName != ''){
+        if (multyEducationFlag === true && newUserData.id_institutName != '') {
 
-            for (let i = 0; i < newUserData.id_institutName.length; i++)
-            {
+            for (let i = 0; i < newUserData.id_institutName.length; i++) {
                 let queryEducationInfo = `INSERT INTO education (userID, institutName, levelEducation, faculty, specialty,ending )            
                 VALUES(\'${userIDFromDB}\', \'${newUserData.id_institutName[i]}\', \'${newUserData.id_levelEducation[i]}\', \'${newUserData.id_faculty[i]}\', \'${newUserData.id_specialty[i]}\', \'${newUserData.id_ending[i]}\')`;
-                      
+
                 requestToDbCUDUserData(queryEducationInfo, dbConnection, response);
             }
         }
-////-------------1 образование-------------------------
-        else if(multyEducationFlag === false && newUserData.id_institutName != '')
-        {
+        ////-------------1 образование-------------------------
+        else if (multyEducationFlag === false && newUserData.id_institutName != '') {
             let queryEducationInfo = `INSERT INTO education (userID, institutName, levelEducation, faculty, specialty,ending )            
             VALUES(\'${userIDFromDB}\', \'${newUserData.id_institutName}\', \'${newUserData.id_levelEducation}\', \'${newUserData.id_faculty}\', \'${newUserData.id_specialty}\', \'${newUserData.id_ending}\')`;
-                    requestToDbCUDUserData(queryEducationInfo, dbConnection, response);
+            requestToDbCUDUserData(queryEducationInfo, dbConnection, response);
         }
-         
-           
-      
 
 
-/////---------------EXPERIENCE------------------------------
-////более 1 места работы-------------------------------
+
+
+
+        /////---------------EXPERIENCE------------------------------
+        ////более 1 места работы-------------------------------
 
         multyExperienceFlag = true;
 
-        if (newUserData.id_startWork != ''&& multyExperienceFlag === true) {            
+        if (newUserData.id_startWork != '' && multyExperienceFlag === true) {
 
-            for (let i = 0; i < newUserData.id_companyName.length; i++)
-            {      
+            for (let i = 0; i < newUserData.id_companyName.length; i++) {
                 let statusWorke = stillWorking(newUserData);
-                console.log(statusWorke);         
-                let endWork = '';             
+                console.log(statusWorke);
+                let endWork = '';
 
-                if (newUserData.id_endWork[i] == ''&& statusWorke == 1) {
-                              
-                        endWork = null;
-                }     
-                else if(newUserData.id_endWork[i] == ''&& statusWorke == 0)
-                    {
-                        endWork = new Date().toISOString().substr(0, 10);
-                    }
-               
-                else {                    
-                    endWork = newUserData.id_endWork[i]; 
+                if (newUserData.id_endWork[i] == '' && statusWorke == 1) {
+
+                    endWork = null;
+                }
+                else if (newUserData.id_endWork[i] == '' && statusWorke == 0) {
+                    endWork = new Date().toISOString().substr(0, 10);
+                }
+
+                else {
+                    endWork = newUserData.id_endWork[i];
                     statusWorke = 0;
                 }
 
-    console.log(statusWorke);
-    console.log(endWork);
+                console.log(statusWorke);
+                console.log(endWork);
 
                 if (endWork == null) {
                     let queryExperienceInfo = `INSERT INTO experience (userID, startWork, endWork, stillWorking, positionWork,companyName, jobDuties )            
@@ -305,10 +462,10 @@ server.post("/userdata", function (request, response) {
         VALUES(\'${userIDFromDB}\', \'${newUserData.id_startWork[i]}\', \'${endWork}\', ${statusWorke}, \'${newUserData.id_positionWork[i]}\', \'${newUserData.id_companyName[i]}\', \'${newUserData.id_jobDuties[i]}\')`;
                     requestToDbCUDUserData(queryExperienceInfo, dbConnection, response);
                 }
-            }            
+            }
         }
-////если есть 1 
-       else if (newUserData.id_startWork != ''&& multyExperienceFlag === false) {
+        ////если есть 1 
+        else if (newUserData.id_startWork != '' && multyExperienceFlag === false) {
             let statusWorke = stillWorking(newUserData);
             let endWork = getEndData(newUserData);
 
@@ -325,85 +482,85 @@ server.post("/userdata", function (request, response) {
         }
 
 
-    //------------если есть данные по РЕКОМЕНДАЦИЯМ
-    ////если более 1 рекомендации
-    if (newUserData.id_personRecommending != '' && newUserData.id_company != '' && multyRecommendingFlag === true) {
+        //------------если есть данные по РЕКОМЕНДАЦИЯМ
+        ////если более 1 рекомендации
+        if (newUserData.id_personRecommending != '' && newUserData.id_company != '' && multyRecommendingFlag === true) {
 
-        for (let i = 0; i < newUserData.id_company.length; i++) {
-            let query = `INSERT INTO recommendation(userID, personRecommending, company,emailCompany,phoneCompany)            
+            for (let i = 0; i < newUserData.id_company.length; i++) {
+                let query = `INSERT INTO recommendation(userID, personRecommending, company,emailCompany,phoneCompany)            
         VALUES(\'${userIDFromDB}\', \'${newUserData.id_personRecommending[i]}\', \'${newUserData.id_company[i]}\', \'${newUserData.id_emailCompany[i]}\', \'${newUserData.id_phoneCompany[i]}\')`;
 
-            requestToDbCUDUserData(query, dbConnection, response);
+                requestToDbCUDUserData(query, dbConnection, response);
+            }
         }
-    }
-    ////если 1 рекомендация
-    else if (newUserData.id_personRecommending != '' && newUserData.id_company != '' && multyRecommendingFlag === false) {
+        ////если 1 рекомендация
+        else if (newUserData.id_personRecommending != '' && newUserData.id_company != '' && multyRecommendingFlag === false) {
 
-        let query = `INSERT INTO recommendation(userID, personRecommending, company,emailCompany,phoneCompany)            
+            let query = `INSERT INTO recommendation(userID, personRecommending, company,emailCompany,phoneCompany)            
         VALUES(\'${userIDFromDB}\', \'${newUserData.id_personRecommending}\', \'${newUserData.id_company}\', \'${newUserData.id_emailCompany}\', \'${newUserData.id_phoneCompany}\')`;
 
-        requestToDbCUDUserData(query, dbConnection, response);
-    }
+            requestToDbCUDUserData(query, dbConnection, response);
+        }
 
-    /////////LANG-----------------------------------------------
-    multyLangFlag = false;
+        /////////LANG-----------------------------------------------
+        multyLangFlag = false;
 
-    //если есть данные по знаниям языка (более 1)
-    if (newUserData.id_langName.length > 1 && multyLangFlag === true) {
-        console.log(newUserData.id_langName.length);
-        for (let i = 0; i < newUserData.id_langName.length; i++) {
-            let query = `INSERT INTO lang_info(userID, langName, level)            
+        //если есть данные по знаниям языка (более 1)
+        if (newUserData.id_langName.length > 1 && multyLangFlag === true) {
+            console.log(newUserData.id_langName.length);
+            for (let i = 0; i < newUserData.id_langName.length; i++) {
+                let query = `INSERT INTO lang_info(userID, langName, level)            
     VALUES(\'${userIDFromDB}\', \'${newUserData.id_langName[i]}\', \'${newUserData.id_level[i]}\')`;
 
-            requestToDbCUDUserData(query, dbConnection, response);
+                requestToDbCUDUserData(query, dbConnection, response);
+            }
+
         }
+        ////--------1 язык---------------------
+        else if (multyLangFlag === false) {
+            if (newUserData.id_langName != '') {
 
-    }
-    ////--------1 язык---------------------
-    else if (multyLangFlag === false) {
-        if (newUserData.id_langName != '') {
-
-            let query = `INSERT INTO lang_info(userID, langName, level)            
+                let query = `INSERT INTO lang_info(userID, langName, level)            
      VALUES(\'${userIDFromDB}\', \'${newUserData.id_langName}\', \'${newUserData.id_level}\')`;
 
-            requestToDbCUDUserData(query, dbConnection, response);
+                requestToDbCUDUserData(query, dbConnection, response);
+            }
         }
-    }
 
 
-    ////// COURSES--------------------------------------------------
-    //если есть данные по прохождению курсов (более 1)
-    if (multyCoursesFlag === true && newUserData.id_courseName != '') {
-        for (let i = 0; i < newUserData.id_courseName.length; i++) {
-            let query = `INSERT INTO сourses(userID, courseName, organization, endingCourse)            
+        ////// COURSES--------------------------------------------------
+        //если есть данные по прохождению курсов (более 1)
+        if (multyCoursesFlag === true && newUserData.id_courseName != '') {
+            for (let i = 0; i < newUserData.id_courseName.length; i++) {
+                let query = `INSERT INTO сourses(userID, courseName, organization, endingCourse)            
  VALUES(\'${userIDFromDB}\', \'${newUserData.id_courseName[i]}\', \'${newUserData.id_organization[i]}\', \'${newUserData.id_endingCourse[i]}\')`;
 
-            requestToDbCUDUserData(query, dbConnection, response);
+                requestToDbCUDUserData(query, dbConnection, response);
+            }
         }
-    }
-    ////--------1 курсы---------------------
-    else if (multyCoursesFlag === false) {
+        ////--------1 курсы---------------------
+        else if (multyCoursesFlag === false) {
 
-        if (newUserData.id_courseName != '') {
+            if (newUserData.id_courseName != '') {
 
-            let query = `INSERT INTO сourses(userID, courseName, organization, endingCourse)            
+                let query = `INSERT INTO сourses(userID, courseName, organization, endingCourse)            
  VALUES(\'${userIDFromDB}\', \'${newUserData.id_courseName}\', \'${newUserData.id_organization}\', \'${newUserData.id_endingCourse}\')`;
 
+                requestToDbCUDUserData(query, dbConnection, response);
+            }
+        }
+
+        //////// ----------PHOTO---------------------------------
+        //если есть фото
+        if (newUserData.fupload != '') {
+
+            let query = `INSERT INTO userphoto(userID, image)            
+     VALUES(\'${userIDFromDB}\', \'${newUserData.fupload}\')`;
+
             requestToDbCUDUserData(query, dbConnection, response);
         }
     }
-
-    //////// ----------PHOTO---------------------------------
-    //если есть фото
-    if (newUserData.fupload != '') {
-
-        let query = `INSERT INTO userphoto(userID, image)            
-     VALUES(\'${userIDFromDB}\', \'${newUserData.fupload}\')`;
-
-        requestToDbCUDUserData(query, dbConnection, response);
-    }   
-}
-response.end();
+    response.end();
 });
 
 

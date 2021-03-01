@@ -405,10 +405,6 @@ class UserData extends React.Component {
                                         </tr>
                                         {/* //////// */}
 
-
-
-
-
                                         <tr>
                                             <td>
                                                 <h2>Рекомендации</h2>
