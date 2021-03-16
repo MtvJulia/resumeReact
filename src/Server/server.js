@@ -8,14 +8,13 @@ const { Switch } = require('react-router');
 const { connString } = require("./ConnectionModule");
 const {CheckedToNull,getCheckedInfo} = require("./CheckedModule");
 const{getFkValue,getEndData,getUserData} = require("./GetToPostModule");
-const{requestToDbGETAferPost,requestToDbGET,requestToDbCUDUserData} = require("./RequestModule");
+//const{requestToDbGETAferPost,requestToDbGET,requestToDbCUDUserData} = require("./RequestModule");
 
 
-
-var arrUsers = [];
 const server = express();
 var duplicateFlag = false;
 var userIDFromDB = 0;
+var arrUsers = [];
 var foundUserID = 0; //найденный пользователь при входе уже зарегистрированного пользователя
 var getToRegistrationFlag = false;
 var multyLangFlag = false;
@@ -63,6 +62,48 @@ const requestToDbCUD = (query, dbConnection, res, objJSON, newUser) => {
         res.end();
     });
 }
+const requestToDbGETAferPost = (query, dbConnection, res, newUser) => {
+
+    dbConnection.query(query, (err, result) => {
+
+        if (err) console.log(err.message);
+
+        arrUsers = result;
+
+        if (getToRegistrationFlag === true) {
+            console.log(newUser);
+            arrUsers.forEach(element => {
+                if (element.userLogin === newUser.UserLogin && element.userPassword === newUser.Password)
+
+                    userIDFromDB = element.userID;
+            });
+        }        
+        console.log(userIDFromDB);
+        res.end();
+    });
+}
+
+const requestToDbCUDUserData = (query, dbConnection, res) => {
+
+    dbConnection.query(query, (err, result) => {
+
+        if (err) console.log(err.message);
+
+        res.end();
+    });
+}
+
+const requestToDbGET = (query, dbConnection, res) => {
+   
+    dbConnection.query(query, (err, result) => {
+        if (err) console.log(err.message);
+        res.json(result);
+        arrUsers = result;
+       // console.log(arrUsers);
+        res.end();
+    });
+}
+
 
 ////---------------------SERVER.GET------------------------
 
@@ -76,6 +117,7 @@ server.get("/login", function (request, res) {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     let query = "SELECT * FROM user_info";
     requestToDbGET(query, dbConnection, res);
+    
 });
 
 server.get("/register", function (request, res) {
@@ -91,12 +133,12 @@ server.get("/userdata", function (request, res) {
 });   
 
 server.get("/existinguserdata",(req,res)=>{
+
     userData = {};  
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    getUserData(res,userData ,dbConnection);
+    getUserData(res,userData ,dbConnection,foundUserID);
 });
     
-
      
 ////----------------SERVER.POST--------------------------------------
 server.post("/login", function (request, response) {
@@ -113,6 +155,7 @@ server.post("/login", function (request, response) {
             return response.redirect("http://localhost:3000/existinguserdata");
         }
     });
+    console.log(arrUsers);
     if (foundFlag === false) {
         console.log(`User login : ${request.body.UserLogin} password : ${request.body.Password} NOT FOUND , Go to regestration!!!`);
         ////переход на регистрацию сделать правильно!!!!!!!
