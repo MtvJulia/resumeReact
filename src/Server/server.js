@@ -78,7 +78,7 @@ const requestToDbGETAferPost = (query, dbConnection, res, newUser) => {
                     userIDFromDB = element.userID;
             });
         }        
-        console.log(userIDFromDB);
+       // console.log(userIDFromDB);
         res.end();
     });
 }
@@ -150,12 +150,12 @@ server.post("/login", function (request, response) {
             console.log(`User login : ${element.userLogin} password : ${element.userPassword} have ID :${element.userID}`);
             foundFlag = true;          
             foundUserID = element.userID;
-            console.log(foundUserID);
+           // console.log(foundUserID);
             //ПЕРЕХОД ПО ССЫЛКЕ НА ЗАПОЛНЕННУЮ КОЛБАСУ!!!!!!!!!     
             return response.redirect("http://localhost:3000/existinguserdata");
         }
     });
-    console.log(arrUsers);
+    //console.log(arrUsers);
     if (foundFlag === false) {
         console.log(`User login : ${request.body.UserLogin} password : ${request.body.Password} NOT FOUND , Go to regestration!!!`);
         ////переход на регистрацию сделать правильно!!!!!!!
