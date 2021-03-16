@@ -129,6 +129,21 @@ class UserData extends React.Component {
                                             <td className="col-sm-8">
                                                 <input type="number" className="form-control" id="id_desiredSalary" name ="id_desiredSalary" step="1" />
                                             </td>
+                                           
+                                        </tr>
+                                        <tr>
+                                        <td> <label className="control-label" for="id_currency">Валюта:</label></td>
+                                            <td className="col-sm-8">
+                                                <select className="form-control" id="id_currency" name="id_currency">
+                                                    <option>Гривна</option>
+                                                    <option>Доллар США</option>
+                                                    <option>Евро</option>
+                                                    <option>Рубли</option>
+                                                    <option>Фунт</option>
+                                                    <option>Юань</option>
+                                                    <option>Другая</option>
+                                                </select>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td> <label className="control-label" for="id_employment">Занятось:</label></td>
@@ -163,7 +178,12 @@ class UserData extends React.Component {
                                         <tr>
                                             <td> <label className="control-label" for="id_maritalStatus">Семейное положение:</label></td>
                                             <td className="col-sm-8">
-                                                <input type="text" className="form-control" id="id_maritalStatus" name ="id_maritalStatus" placeholder="Введите семейное положение" />
+                                            <select className="form-control" id="id_maritalStatus"name="id_maritalStatus">
+                                                    <option>Замужем</option>
+                                                    <option>Не замужем</option>
+                                                    <option>Женат</option>
+                                                    <option>Не женат</option>                                                 
+                                                </select>                                               
                                             </td>
                                         </tr>
                                         <tr>
@@ -199,6 +219,7 @@ class UserData extends React.Component {
                                             <td> <label className="control-label" for="id_level">Уровень владения:</label></td>
                                             <td className="col-sm-8">
                                                 <select className="form-control" id="id_level" name="id_level">
+                                                    <option></option>
                                                     <option>A1 - начальный</option>
                                                     <option>A2 - базовый</option>
                                                     <option>B1 - средний</option>
@@ -209,7 +230,7 @@ class UserData extends React.Component {
                                             </td>
                                         </tr>
                                         
-                                        {/* <tr>
+                                        <tr>
                                             <td> <label className="control-label" for="id_langName">Язык:</label></td>
                                             <td className="col-sm-8">
                                                 <input type="text" className="form-control" id="id_langName"name="id_langName" placeholder="Введите язык" />
@@ -227,7 +248,7 @@ class UserData extends React.Component {
                                                     <option>C2 - профессиональный</option>
                                                 </select>
                                             </td>
-                                        </tr> */}
+                                        </tr>
                                         <tr>
                                             <td>
                                                 <h2>Образование</h2>

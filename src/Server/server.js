@@ -4,6 +4,7 @@ const path = require('path');// модуль для парсинга пути
 const mysql = require('mysql');
 const fs = require("fs");
 const { Blob, Buffer } = require('buffer');
+const { Switch } = require('react-router');
 
 var arrUsers = [];
 const server = express();
@@ -102,6 +103,22 @@ const requestToDbCUD = (query, dbConnection, res, objJSON, newUser) => {
     });
 }
 
+const userDataChecking=(userData)=>{
+  
+    if(userData[0].endWork == null)
+    {
+       userData[0].endWork = new Date().toJSON().substr(0,10);          
+    }  
+    if(userData[0].endingCourse==null)
+    {
+        userData.endingCourse="дд.мм.гггг" ; 
+    }
+    //все что с датами, если nullб то...
+
+}
+
+
+
 function  getUserData(res,userData ,dbConnection, callback = (res,userData)=>{ 
     console.log("I'm here!!!"); 
    // console.log(userData); 
@@ -112,20 +129,19 @@ function  getUserData(res,userData ,dbConnection, callback = (res,userData)=>{
     let queryToView = `SELECT * FROM v_getUserData WHERE userID = ${foundUserID} `; 
 
     dbConnection.query(queryToView, (err, result) => {
-        if (err) console.log(err.message);           
-        userData = result;
-         if(userData[0].endWork == null)
-         {
-            userData[0].endWork = new Date().toJSON().substr(0,10);          
-         }
-        // console.log("--------------------------START------------------------------------------");
-        // console.log(userData);
-        // console.log("--------------------------END------------------------------------------");
-        // console.log(userData[0].endWork);
+        if (err) console.log(err.message);  
+        if(result) 
+        {
+            userData = result;
+            userDataChecking(userData);
+        }                      
+
         callback(res,userData);
     });
     };  
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////---------------------SERVER.GET------------------------
 
 server.get("/", (req, res) => {
@@ -187,9 +203,9 @@ server.post("/login", function (request, response) {
 server.post("/registration", function (request, response) {
     response.header("Access-Control-Allow-Origin", "http://localhost:3000");
     if (request.body.Password === request.body.RepeatPassword) {
-        console.log("OK");
-        ////создаем нового user в БД post
+        console.log("OK");       
         //// потом переход в форму регистрации заполнение
+        //логин-пароль у будущего пользователя
          newUser = request.body;
 
         arrUsers.forEach(element => {
@@ -197,38 +213,26 @@ server.post("/registration", function (request, response) {
             if (element.userLogin === newUser.UserLogin) {
 
                 duplicateFlag = true;
-                let objJSON1 = { "result": "Пользователь с данным логином уже зарегистрирован, придумайте новый логин !" };
-                // console.log(objJSON1);
+                let objJSON1 = { "result": "Пользователь с данным логином уже зарегистрирован, придумайте новый логин !" };              
                 return response.redirect("http://localhost:3000/registration");
             }
         });
 
-        if (duplicateFlag === false) {
-
-    //         let query = `INSERT INTO user(userLogin, userPassword)
-
-    // VALUES(\'${newUser.UserLogin}\', \'${newUser.Password}\')`;
-
-    //         let objJSON = { "result": "User added!" };
+        //если нет пользователя с данным логином в базе
+        if (duplicateFlag === false) {    
 
     return response.redirect("http://localhost:3000/userdata");
-
-            //return requestToDbCUD(query, dbConnection, response, objJSON, newUser);
+           
         }
     }
 
     else {
-
-        console.log("Password does not match repeat ");
-
+        //console.log("Password does not match repeat ");
+        newUser = {};
         return response.redirect('http://localhost:3000/registration');
     }
     response.end();
 });
-
-
-
-
 
 
 ////////////////////////////USER DATA POST///////////////////////////////////////////
@@ -253,34 +257,34 @@ server.post("/userdata", function (request, response) {
 
     if (newUserData) {
       
-        let endWork = getEndData(newUserData);        
+        let endWork = getEndData(newUserData);              
 
-       let userDataChecked = getCheckedInfo(newUserData);
+        let userDataChecked = getCheckedInfo(newUserData);      
 
-        let checkToNull =  CheckedToNull(newUserData);    
-
-
-
+        let checkToNull =  CheckedToNull(newUserData); 
+      
+        let fk_value = getFkValue(newUserData);
+      
     let query = `INSERT INTO user_info (userLogin,userPassword,firstName,lastName,middleName,birthOfDate,сityOfResidence,position,
-        driverLicense,privateСar,army,hobby,personalQualities,professionalSkills,phone,email,nationality,relocate,desiredSalary,employment,schedule,
-        businessTrip,maritalStatus,education,image,courseName,organization,endingCourse,institutName,levelEducation,faculty,specialty,ending,startWork,
-        endWork,stillWorking,positionWork,companyName, jobDuties, langName, level, personRecommending, company, emailCompany, phoneCompany, children, currency) 
+        driverLicense,privateСar,army,hobby,personalQualities,professionalSkills,phone,email,nationality,relocate,desiredSalary,fk_employmentID,fk_scheduleID,
+        businessTrip,fk_marital_statusID,fk_level_of_educationID,image,courseName,organization,endingCourse,institutName,levelEducation,faculty,specialty,ending,startWork,
+        endWork,stillWorking,positionWork,companyName, jobDuties, langName, languag_proficiency_levelID, personRecommending, company, 
+        emailCompany, phoneCompany, children, fk_currencyID) 
 
-        VALUES ( \'${newUser.UserLogin}\', \'${newUser.Password}\', \'${newUserData.id_firstName}\', \'${newUserData.id_lastName}\', \'${newUserData.id_middleName}\', 
-\'${newUserData.id_birthOfDate}\', \'${newUserData.id_cityOfResidence}\', \'${newUserData.id_userPosition}\', 
-\'${userDataChecked.drivLicense}\', ${userDataChecked.privateCar}, ${userDataChecked.army}, \'${newUserData.id_hobby}\', ${checkToNull.id_personalQualities},${checkToNull.id_professionalSkills},
-\'${newUserData.id_phone}\', \'${newUserData.id_email}\',\'${newUserData.id_nationality}\', ${userDataChecked.relocation}, \'${newUserData.id_desiredSalary}\', \'${newUserData.id_employment}\', 
-\'${newUserData.id_schedule}\', ${userDataChecked.businessTrip},\'${newUserData.id_maritalStatus}\',  \'${newUserData.id_education}\',\'${newUserData.fupload}\',
-\'${newUserData.id_courseName}\', \'${newUserData.id_organization}\', \'${newUserData.id_endingCourse}\',
-${checkToNull.id_institutName}, \'${newUserData.id_levelEducation}\', ${checkToNull.id_faculty}, ${checkToNull.id_specialty}, ${checkToNull.id_ending},
-\'${newUserData.id_startWork}\', \'${endWork}\', ${userDataChecked.stillWorking}, \'${newUserData.id_positionWork}\', \'${newUserData.id_companyName}\', \'${newUserData.id_jobDuties}\',
-\'${newUserData.id_langName}\', \'${newUserData.id_level}\',${checkToNull.id_personRecommending}, ${checkToNull.id_company}, ${checkToNull.id_emailCompany},
-${checkToNull.id_phoneCompany},${userDataChecked.children},${userDataChecked.currency} )`;
+        VALUES ( \'${newUser.UserLogin}\', \'${newUser.Password}\', \'${newUserData.id_firstName}\', \'${newUserData.id_lastName}\', ${checkToNull.id_middleName}, 
+\'${newUserData.id_birthOfDate}\', \'${newUserData.id_cityOfResidence}\', \'${newUserData.id_userPosition}\', \'${userDataChecked.drivLicense}\',
+ ${userDataChecked.privateCar}, ${userDataChecked.army}, ${checkToNull.id_hobby}, ${checkToNull.id_personalQualities},${checkToNull.id_professionalSkills},
+\'${newUserData.id_phone}\', \'${newUserData.id_email}\',${checkToNull.id_nationality}, ${userDataChecked.relocation}, ${checkToNull.id_desiredSalary}, \'${fk_value.id_employment}\', 
+\'${fk_value.id_schedule}\', ${userDataChecked.businessTrip},\'${fk_value.id_maritalStatus}\',  \'${fk_value.id_education}\',${checkToNull.fupload},
+${checkToNull.id_courseName}, ${checkToNull.id_organization}, ${checkToNull.id_endingCourse},${checkToNull.id_institutName}, ${checkToNull.id_levelEducation},
+${checkToNull.id_faculty}, ${checkToNull.id_specialty}, ${checkToNull.id_ending},
+${checkToNull.id_startWork}, \'${endWork}\', ${userDataChecked.stillWorking}, ${checkToNull.id_positionWork}, ${checkToNull.id_companyName}, ${checkToNull.id_jobDuties},
+${checkToNull.id_langName}, ${checkToNull.id_level},${checkToNull.id_personRecommending}, ${checkToNull.id_company}, ${checkToNull.id_emailCompany},
+${checkToNull.id_phoneCompany},${userDataChecked.children},${fk_value.id_currency} )`;
 
- requestToDbCUDUserData(query, dbConnection, response);      
+ requestToDbCUDUserData(query, dbConnection, response);     
         
     }
-
     response.end();
 });
 
@@ -310,26 +314,178 @@ const insertImgToDB = (temp_path, userID) => {
         });
     });
 }
-// `INSERT INTO userphoto ('userID','image') VALUES (\'${userID}\',{image: })`;
 
+
+const getFkValue = (newUserData) =>{
+
+    let fkValue={};
+
+    if(newUserData.id_employment!="")
+    {
+        switch(newUserData.id_employment)
+        {
+          case "Полная занятость":{
+            fkValue.id_employment = 1;
+              break;
+          }
+          case "Частичная занятость":{
+            fkValue.id_employment = 2;
+              break;
+          }
+          case "Проектная работа":{
+            fkValue.id_employment = 3;
+              break;
+          }
+          case "Волонтерство":{
+            fkValue.id_employment = 4;
+              break;
+          }
+          case "Стажировка":{
+            fkValue.id_employment = 5;
+              break;
+          }
+        } 
+    }
+    
+    if(newUserData.id_schedule!="")
+    {
+        switch(newUserData.id_schedule)
+        {
+          case "Полный день":{
+            fkValue.id_schedule = 1;
+              break;
+          }
+          case "Сменный график":{
+            fkValue.id_schedule = 2;
+              break;
+          }
+          case "Гибкий график":{
+            fkValue.id_schedule = 3;
+              break;
+          }
+          case "Удаленная работа":{
+            fkValue.id_schedule = 4;
+              break;
+          }
+          case "Вахтовый метод":{
+            fkValue.id_schedule = 5;
+              break;
+          }
+        } 
+    }
+    if(newUserData.id_maritalStatus!="")
+    {
+        switch(newUserData.id_maritalStatus)
+        {
+          case "Замужем":{
+            fkValue.id_maritalStatus = 1;
+              break;
+          }
+          case "Не замужем":{
+            fkValue.id_maritalStatus = 2;
+              break;
+          }
+          case "Женат":{
+            fkValue.id_maritalStatus = 3;
+              break;
+          }
+          case "Не женат":{
+            fkValue.id_maritalStatus = 4;
+              break;
+          }          
+        } 
+    }
+    if(newUserData.id_education!="")
+    {
+        switch(newUserData.id_education)
+        {
+          case "Общее среднее образование":{
+            fkValue.id_education = 1;
+              break;
+          }
+          case "Профессионально-техническое образование":{
+            fkValue.id_education = 2;
+              break;
+          }
+          case "Высшее образования":{
+            fkValue.id_education = 3;
+              break;
+          }
+          case "Аспирантура":{
+            fkValue.id_education= 4;
+              break;
+          }
+          case "Докторантура":{
+            fkValue.id_education = 5;
+              break;
+          }
+        } 
+    }
+    if(newUserData.id_currency!="")
+    {
+        switch(newUserData.id_currency)
+        {
+          case "Гривна":{
+            fkValue.id_currency = 1;
+              break;
+          } 
+          case "Доллар США":{
+            fkValue.id_currency = 2;
+              break;
+          }
+          case "Евро":{
+            fkValue.id_currency = 3;
+              break;
+          }
+          case "Рубли":{
+            fkValue.id_currency = 4;
+              break;
+          }
+          case "Фунт":{
+            fkValue.id_currency= 5;
+              break;
+          }
+          case "Юань":{
+            fkValue.id_currency = 6;
+              break;
+          }
+          case "Другая":{
+            fkValue.id_currency = 7;
+              break;
+          }
+        } 
+    }   
+return fkValue;
+
+}
 
 const getEndData = (newUserData) => {
 
     let endWork = '';
+    
+     if(newUserData.id_endWork == ''&& newUserData.id_stillWorking == 'on'){
 
-    if (newUserData.id_endWork == '') {
-        if (statusWorke == 1) {
-
-            endWork = null;
-        }
-
-        else {
-            endWork = new Date().toISOString().substr(0, 10).toString()+"~";
+        endWork = null;
+        return endWork;
+    }
+    else if(newUserData.id_endWork == ''&& newUserData.id_stillWorking == '')
+    {
+        endWork = new Date().toISOString().substr(0, 10).toString()+"~";
+    }
+    else if(newUserData.id_endWork.length > 1 && (newUserData.id_endWork[0].length > 1||newUserData.id_endWork[1].length > 1))
+    {
+        for(let i=0;i<newUserData.id_endWork.length;i++)
+        {
+            if(newUserData.id_endWork[i]!="")
+            {
+                endWork += newUserData.id_endWork[i]+"~"; 
+            }
+            else{
+                endWork += "NULL~";  
+            }
         }
     }
-    else {
-        endWork = newUserData.id_endWork;
-    }
+
     return endWork;
 }
 
@@ -337,64 +493,34 @@ const getInfoTodrivLicense = (newUserData) => {
 
     let drivarLiscense = "";
     if (newUserData.id_driverLicenseA1 == 'on') {
-        drivarLiscense += "A1-";
+        drivarLiscense += "A1~";
     }
     if (newUserData.id_driverLicenseA == 'on') {
-        drivarLiscense += "A-";
+        drivarLiscense += "A~";
     }
     if (newUserData.id_driverLicenseB1 == 'on') {
-        drivarLiscense += "B1-";
+        drivarLiscense += "B1~";
     }
     if (newUserData.id_driverLicenseB == 'on') {
-        drivarLiscense += "B-";
+        drivarLiscense += "B~";
     }
     if (newUserData.id_driverLicenseC1 == 'on') {
-        drivarLiscense += "C1-";
+        drivarLiscense += "C1~";
     }
     if (newUserData.id_driverLicenseC == 'on') {
-        drivarLiscense += "C-";
+        drivarLiscense += "C~";
     }
     if (newUserData.id_driverLicenseD1 == 'on') {
-        drivarLiscense += "D1-";
+        drivarLiscense += "D1~";
     }
     if (newUserData.id_driverLicenseD == 'on') {
-        drivarLiscense += "D-";
+        drivarLiscense += "D~";
     }
     if (newUserData.id_driverLicenseT == 'on') {
-        drivarLiscense += "T-";
+        drivarLiscense += "T~";
     }
     return drivarLiscense;
 }
-
-
-// ////get additional info
-
-// const getAdditionalInfo = (newUserData) => {
-
-//     let drivLicense1 = getInfoTodrivLicense(newUserData);
-
-
-//     let availabilityCar = (newUserData) => {
-//         if (newUserData.id_privatCar == 'on') {
-//             return 1;
-//         }
-//         else return 0;
-//     }
-//     let army = (newUserData) => {
-//         if (newUserData.id_army == 'on') {
-//             return 1;
-//         }
-//         else return 0;
-//     }
-
-//     let addData = {
-//         drivLicense: drivLicense1,
-//         privateCar: availabilityCar(newUserData),
-//         army: army(newUserData)
-//     };
-
-//     return addData;
-// }
 
 const CheckedToNull = (newUserData) => {
 
@@ -432,21 +558,7 @@ else{
     objChecked.id_desiredSalary = `\'${newUserData.id_desiredSalary}\'`;
 }
 
-if(newUserData.id_currency ==''){
-    objChecked.id_desiredSalary = null;
-   }
 
-else{
-    objChecked.id_desiredSalary = `\'${newUserData.id_desiredSalary}\'`;
-}
-
-if(newUserData.id_maritalStatus==''){
-    objChecked.id_maritalStatus = null;
-   }
-
-else{
-    objChecked.id_maritalStatus = `\'${newUserData.id_maritalStatus}\'`;
-}
 
 if(newUserData.fupload==''){
     objChecked.fupload = null;
@@ -456,180 +568,531 @@ else{
     objChecked.fupload = `\'${newUserData.fupload}\'`;
 }
 
+
 if(newUserData.id_courseName==''){
     objChecked.id_courseName = null;
    }
 
 else{
-    ////Проверить 1 или более записей,если более, разделить ~
-    objChecked.id_courseName = `\'${newUserData.id_courseName}\'`;
+    //если пришел массив и размер 0 элемента >1 , т.е.это не массив char
+    if( newUserData.id_courseName[0].length > 1 )
+    {   
+         let  courses="";
+
+        for(let i =0; i<newUserData.id_courseName.length;i++)
+        {
+            courses += newUserData.id_courseName[i] + "~";
+        }
+
+        objChecked.id_courseName = `\'${courses}\'`;
+
+    }
+    else{
+
+        objChecked.id_courseName = `\'${newUserData.id_courseName}\'`;
+    }   
 }
 
 if(newUserData.id_organization==''){
     objChecked.id_organization = null;
    }
 
-else{
-    ////Проверить 1 или более записей,если более, разделить ~
-    objChecked.id_organization = `\'${newUserData.id_organization}\'`;
+   else{
+    //если пришел массив и размер 0 элемента >1 , т.е.это не массив char
+    if( newUserData.id_organization[0].length >1 )
+    {   
+         let  organization="";
+
+        for(let i =0; i<newUserData.id_organization.length;i++)
+        {
+            organization += newUserData.id_organization[i] + "~";
+        }
+
+        objChecked.id_organization = `\'${organization}\'`;
+
+    }
+    else{
+        
+        objChecked.id_organization = `\'${newUserData.id_organization}\'`;
+    }
 }
 
 if(newUserData.id_endingCourse==''){
     objChecked.id_endingCourse = null;
    }
+   else{
+    //если пришел массив и размер 0 элемента >1 , т.е.это не массив char
+    if(  newUserData.id_endingCourse[0].length >1 )
+    {   
+         let  endingCourse="";
 
-else{
-    ////Проверить 1 или более записей,если более, разделить ~
-    objChecked.id_endingCourse = `\'${newUserData.id_endingCourse}\'`;
+        for(let i =0; i< newUserData.id_endingCourse.length;i++)
+        {
+            endingCourse +=  newUserData.id_endingCourse[i] + "~";
+        }
+
+        objChecked.id_endingCourse = `\'${endingCourse}\'`;
+
+    }
+    else{
+   
+        objChecked.id_endingCourse = `\'${newUserData.id_endingCourse}\'`;
+    }
 }
+
 
 if(newUserData.id_institutName==''){
 
     objChecked.id_institutName = null;
    }
 
-else{
-    ////Проверить 1 или более записей,если более, разделить ~
-    objChecked.id_institutName = `\'${newUserData.id_institutName}\'`;
+   else{
+   
+    if(   newUserData.id_institutName[0].length >1 )
+    {   
+         let  institutName="";
+
+        for(let i =0; i< newUserData.id_institutName.length;i++)
+        {
+            institutName +=  newUserData.id_institutName[i] + "~";
+        }
+
+        objChecked.id_institutName = `\'${institutName}\'`;
+
+    }
+    else{
+      
+        objChecked.id_institutName = `\'${newUserData.id_institutName}\'`;
+    }
 }
+
 
 if(newUserData.id_levelEducation==''){
     
     objChecked.id_levelEducation = null;
    }
+   else{
+ 
+    if(   newUserData.id_levelEducation[0].length >1 )
+    {   
+         let  levelEducation="";
 
-else{
-    ////Проверить 1 или более записей,если более, разделить ~
-    objChecked.id_levelEducation = `\'${newUserData.id_levelEducation}\'`;
+        for(let i =0; i<newUserData.id_levelEducation.length;i++)
+        {
+            levelEducation +=  newUserData.id_levelEducation[i] + "~";
+        }
+
+        objChecked.id_levelEducation = `\'${levelEducation}\'`;
+
+    }
+    else{
+      
+        objChecked.id_levelEducation = `\'${newUserData.id_levelEducation}\'`;
+    }
 }
+
 
    if(newUserData.id_faculty==''){
     objChecked.id_faculty = null;
    }
-
    else{
-        ////Проверить 1 или более записей,если более, разделить ~
-    objChecked.id_faculty = `\'${newUserData.id_faculty}\'`;
-   }
+ 
+    if( newUserData.id_faculty[0].length >1 )
+    {   
+         let  faculty="";
+
+        for(let i =0; i< newUserData.id_faculty.length;i++)
+        {
+            faculty +=   newUserData.id_faculty[i] + "~";
+        }
+
+        objChecked.id_faculty = `\'${faculty}\'`;
+
+    }
+    else{
+      
+        objChecked.id_faculty = `\'${newUserData.id_faculty}\'`;
+       }
+}
+  
 
 
    if(newUserData.id_specialty==''){
     objChecked.id_specialty = null;
    }
-   else{  
-        ////Проверить 1 или более записей,если более, разделить ~   
+   else{
+ 
+    if( newUserData.id_specialty[0].length >1 )
+    {   
+         let  specialty="";
+
+        for(let i =0; i< newUserData.id_specialty.length;i++)
+        {
+            specialty +=   newUserData.id_specialty[i] + "~";
+        }
+
+        objChecked.id_specialty = `\'${specialty}\'`;
+
+    }
+    else{  
+         
     objChecked.id_specialty = `\'${newUserData.id_specialty}\'`;
 }
+}
+   
 
    if(newUserData.id_ending==''){
     objChecked.id_ending = null;
    }
    else{
-        ////Проверить 1 или более записей,если более, разделить ~
+ 
+    if( newUserData.id_ending[0].length >1 )
+    {   
+         let  ending="";
+
+        for(let i =0; i< newUserData.id_ending.length;i++)
+        {
+            ending += newUserData.id_ending[i] + "~";
+        }
+
+        objChecked.id_ending = `\'${ending}\'`;
+
+    }
+    else{
+       
     objChecked.id_ending = `\'${newUserData.id_ending}\'`;
+         }
 }
+  
 
 
 if(newUserData.id_startWork==''){
     objChecked.id_startWork = null;
    }
    else{
-        ////Проверить 1 или более записей,если более, разделить ~
+ 
+    if( newUserData.id_startWork[0].length >1 )
+    {   
+         let  startWork="";
+
+        for(let i =0; i< newUserData.id_startWork.length;i++)
+        {
+            startWork += newUserData.id_startWork[i] + "~";
+            console.log(startWork);
+        }
+        console.log(startWork);
+
+        objChecked.id_startWork = `\'${startWork}\'`;
+
+    }
+    else{
+      
     objChecked.id_startWork = `\'${newUserData.id_startWork}\'`;
+     }
 }
+  
+   
 
 if(newUserData.id_endWork==''){
     objChecked.id_endWork = null;
    }
    else{
-        ////Проверить 1 или более записей,если более, разделить ~
+ 
+    if( newUserData.id_endWork[0].length >1 )
+    {   
+         let  endWork="";
+
+        for(let i =0; i< newUserData.id_endWork.length;i++)
+        {
+            endWork +=  newUserData.id_endWork[i] + "~";
+        }
+
+        objChecked.id_endWork = `\'${endWork}\'`;
+    }
+    else{       
     objChecked.id_endWork = `\'${newUserData.id_endWork}\'`;
+       }
 }
+  
 
 
 if(newUserData.id_positionWork==''){
     objChecked.id_positionWork = null;
    }
    else{
-        ////Проверить 1 или более записей,если более, разделить ~
+ 
+    if( newUserData.id_positionWork[0].length >1 )
+    {   
+         let  positionWork="";
+
+        for(let i =0; i< newUserData.id_positionWork.length;i++)
+        {
+            positionWork += newUserData.id_positionWork[i] + "~";
+        }
+
+        objChecked.id_positionWork = `\'${positionWork}\'`;
+    }
+    else{
+        
     objChecked.id_positionWork = `\'${newUserData.id_positionWork}\'`;
+  }
 }
+  
 
 if(newUserData.id_companyName==''){
     objChecked.id_companyName = null;
    }
    else{
-        ////Проверить 1 или более записей,если более, разделить ~
+ 
+    if(newUserData.id_companyName[0].length >1 )
+    {   
+         let  companyName="";
+
+        for(let i =0; i<newUserData.id_companyName.length;i++)
+        {
+            companyName += newUserData.id_companyName[i] + "~";
+        }
+
+        objChecked.id_companyName = `\'${companyName}\'`;
+    }
+    else{
+      
     objChecked.id_companyName = `\'${newUserData.id_companyName}\'`;
+    }
 }
+  
+ 
 
 if(newUserData.id_jobDuties==''){
     objChecked.id_jobDuties = null;
    }
    else{
-        ////Проверить 1 или более записей,если более, разделить ~
+ 
+    if( newUserData.id_jobDuties[0].length >1 )
+    {   
+         let  jobDuties="";
+
+        for(let i =0; i<newUserData.id_jobDuties.length;i++)
+        {
+            jobDuties += newUserData.id_jobDuties[i] + "~";
+        }
+
+        objChecked.id_jobDuties = `\'${jobDuties}\'`;
+    }
+    else{
+       
     objChecked.id_jobDuties = `\'${newUserData.id_jobDuties}\'`;
+     }
 }
+   
 
 if(newUserData.id_langName==''){
     objChecked.id_langName = null;
    }
    else{
-        ////Проверить 1 или более записей,если более, разделить ~
+ 
+    if(  newUserData.id_langName[0].length >1 )
+    {   
+         let  langName="";
+
+        for(let i =0; i< newUserData.id_langName.length;i++)
+        {
+            langName +=  newUserData.id_langName[i] + "~";
+        }
+
+        objChecked.id_langName = `\'${langName}\'`;
+    }
+    else{
+        
     objChecked.id_langName = `\'${newUserData.id_langName}\'`;
-}
+     }
+} 
 
 if(newUserData.id_level==''){
     objChecked.id_level = null;
    }
    else{
-        ////Проверить 1 или более записей,если более, разделить ~
-    objChecked.id_level = `\'${newUserData.id_level}\'`;
-}
+ 
+    if( newUserData.id_level.length >1 &&  newUserData.id_level[0].length >1 )
+    {   
+         let  level="";         
 
-   if(newUserData.id_personRecommending==''){
+        for(let i =0; i< newUserData.id_level.length;i++)
+        {
+            let changeValueToID = "";
+
+            switch(newUserData.id_level[i])
+            {
+              case "A1 - начальный":{
+                changeValueToID = 1;
+                  break;
+              } 
+              case "A2 - базовый":{
+                changeValueToID = 2;
+                  break;
+              }
+              case "B1 - средний":{
+                changeValueToID = 3;
+                  break;
+              }
+              case "B2 - выше среднего":{
+                changeValueToID = 4;
+                  break;
+              }
+              case "C1 - продвинутый":{
+                changeValueToID = 5;
+                  break;
+              }
+              case "C2 - профессиональный":{
+                changeValueToID = 6;
+                  break;
+              }          
+            } 
+
+            level +=changeValueToID + "~";
+        }
+
+        objChecked.id_level = `\'${level}\'`;
+    }
+    else{ 
+        
+        switch(newUserData.id_level)
+        {
+          case "A1 - начальный":{
+            objChecked.id_level = `\'1~\'`; 
+              break;
+          } 
+          case "A2 - базовый":{
+            objChecked.id_level = `\'2~\'`;
+           
+              break;
+          }
+          case "B1 - средний":{
+            objChecked.id_level = `\'3~\'`;
+              break;
+          }
+          case "B2 - выше среднего":{
+            objChecked.id_level = `\'4~\'`;
+              break;
+          }
+          case "C1 - продвинутый":{
+            objChecked.id_level = `\'5~\'`;
+              break;
+          }
+          case "C2 - профессиональный":{
+            objChecked.id_level = `\'6~\'`;
+              break;
+          }          
+        }  
+    }
+}
+  
+
+   if(newUserData.id_personRecommending ==''){
     objChecked.id_personRecommending = null;
    }
    else{
-        ////Проверить 1 или более записей,если более, разделить ~
+ 
+    if(   newUserData.id_personRecommending[0].length >1 )
+    {   
+         let  personRecommending="";
+
+        for(let i =0; i< newUserData.id_personRecommending.length;i++)
+        {
+            personRecommending += newUserData.id_personRecommending[i] + "~";
+        }
+
+        objChecked.id_personRecommending = `\'${personRecommending}\'`;
+    }
+    else{
+        
     objChecked.id_personRecommending = `\'${newUserData.id_personRecommending}\'`;
+      }
 }
+   
 
    if(newUserData.id_company==''){
     objChecked.id_company = null;
    }
    else{
-        ////Проверить 1 или более записей,если более, разделить ~
+ 
+    if(  newUserData.id_company[0].length >1 )
+    {   
+         let  company="";
+
+        for(let i =0; i< newUserData.id_company.length;i++)
+        {
+            company +=   newUserData.id_company[i] + "~";
+        }
+
+        objChecked.id_company = `\'${company}\'`;
+    }
+    else{
+       
     objChecked.id_company = `\'${newUserData.id_company}\'`;
+     }
 }
+   
 
    if(newUserData.id_emailCompany==''){
     objChecked.id_emailCompany = null;
    }
    else{
-        ////Проверить 1 или более записей,если более, разделить ~
+ 
+    if(newUserData.id_emailCompany[0].length >1 )
+    {   
+         let  emailCompany="";
+
+        for(let i =0; i<newUserData.id_emailCompany.length;i++)
+        {
+            emailCompany +=  newUserData.id_emailCompany[i] + "~";
+        }
+
+        objChecked.id_emailCompany= `\'${emailCompany}\'`;
+    }
+    else{
+      
     objChecked.id_emailCompany = `\'${newUserData.id_emailCompany}\'`;
 }
+}  
 
    if(newUserData.id_phoneCompany==''){
     objChecked.id_phoneCompany = null;
    }
    else{
-        ////Проверить 1 или более записей,если более, разделить ~
+ 
+    if(   newUserData.id_phoneCompany[0].length >1 )
+    {   
+         let  phoneCompany="";
+
+        for(let i =0; i< newUserData.id_phoneCompany.length;i++)
+        {
+            phoneCompany +=  newUserData.id_phoneCompany[i] + "~";
+        }
+
+        objChecked.id_phoneCompany= `\'${phoneCompany}\'`;
+    }
+    else{
+      
     objChecked.id_phoneCompany = `\'${newUserData.id_phoneCompany}\'`;
-}
+        }
+}   
 
    if(newUserData.id_personalQualities==''){
+
     objChecked.id_personalQualities = null;
    }
    else{
+
     objChecked.id_personalQualities = `\'${newUserData.id_personalQualities}\'`;
 }
 
-   if(newUserData.id_professionalSkills==''){        
+   if(newUserData.id_professionalSkills==''){  
+
     objChecked.id_professionalSkills =  null;   
    }
    else{
+
     objChecked.id_professionalSkills = `\'${newUserData.id_professionalSkills}\'`;
 }  
     return objChecked;
@@ -689,45 +1152,6 @@ const getCheckedInfo = (newUserData) => {
 
     return infoUserChecked;
 }
-
-// /////get Personal info
-// const getPersonalInfo = (newUserData) => {
-
-//     let relocate = (newUserData) => {
-//         if (newUserData.id_relocate == 'on') {
-//             return 1;
-//         }
-//         else return 0;
-//     }
-//     let businessTrip = (newUserData) => {
-//         if (newUserData.id_businessTrip == 'on') {
-//             return 1;
-//         }
-//         else return 0;
-//     }
-
-//     let haveChildren = (newUserData) => {
-//         if (newUserData.id_children == 'on') {
-//             return 1;
-//         }
-//         else return 0;
-//     }
-
-//     let infoPersonal = {
-//         relocation: relocate(newUserData),
-//         businessTrip: businessTrip(newUserData),
-//         children: haveChildren(newUserData)
-//     };
-//     return infoPersonal;
-// }
-
-//// 
-// let stillWorking = (newUserData) => {
-//     if (newUserData.id_stillWorking == 'on') {
-//         return 1;
-//     }
-//     else return 0;
-// }
 
 const startupCallback = function () {
     console.log(`Server started at: http://localhost:${service.address().port}`)
