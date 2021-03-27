@@ -98,9 +98,9 @@ const CheckedToNull = (newUserData) => {
        }
        else{
         //если пришел массив и размер 0 элемента >1 , т.е.это не массив char
-        if(  newUserData.id_endingCourse[0].length >1 )
+        if(  newUserData.id_endingCourse[0].length > 1 )
         {   
-             let  endingCourse="";
+             let  endingCourse = "";
     
             for(let i =0; i< newUserData.id_endingCourse.length;i++)
             {

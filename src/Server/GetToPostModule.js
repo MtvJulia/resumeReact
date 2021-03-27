@@ -173,34 +173,183 @@ const getEndData = (newUserData) => {
 
 const userDataChecking=(userData)=>{
   
-  userData= userData[0];
+  userData = userData[0];
+  console.log("************************");
   console.log(userData);
 
-  if(userData.endingCourse==null){
-    userData.endingCourse="";
-}
-userData.positionWork = userData.positionWork.split("~");
-userData.startWork= userData.startWork.split("~");
-userData.endWork= userData.endWork.split("~");
-userData.companyName= userData.companyName.split("~");
-userData.jobDuties= userData.jobDuties.split("~");               
+ 
+  userData.positionWork = changingMultiValuesToArray(userData.positionWork);
+  userData.startWork =  changingMultiValuesToArray(userData.startWork);
+  userData.endWork = changingMultiValuesToArray(userData.endWork);
+  userData.companyName = changingMultiValuesToArray(userData.companyName);
+  userData.jobDuties = changingMultiValuesToArray(userData.jobDuties);
+  userData.driverLicense = changingMultiValuesToArray(userData.driverLicense);
+  userData.courseName = changingMultiValuesToArray(userData.courseName);
+  userData.organization = changingMultiValuesToArray(userData.organization);
+  userData.endingCourse = changingMultiValuesToArray(userData.endingCourse);
+  userData.institutName = changingMultiValuesToArray(userData.institutName);
+  userData.levelEducation = changingMultiValuesToArray(userData.levelEducation);
+  userData.faculty = changingMultiValuesToArray(userData.faculty);
+  userData.specialty = changingMultiValuesToArray(userData.specialty);
+  userData.ending =  changingMultiValuesToArray(userData.ending);
+  userData.langName = changingMultiValuesToArray(userData.langName);
+  userData.level = changingMultiValuesToArray(userData.level);
+  userData.personRecommending = changingMultiValuesToArray(userData.personRecommending);
+  userData.company = changingMultiValuesToArray(userData.company);
+  userData.emailCompany = changingMultiValuesToArray(userData.emailCompany);
+  userData.phoneCompany = changingMultiValuesToArray(userData.phoneCompany);
 
 
-userData.positionWork.pop();
-userData.startWork.pop();
-userData.endWork.pop();
-userData.companyName.pop();
-userData.jobDuties.pop();
-userData.driverLicense = userData.driverLicense.split("~");
-userData.driverLicense.pop();  
 
+// if(userData.positionWork!=null){
+//   userData.positionWork = userData.positionWork.split("~");
+//   if(userData.positionWork.length > 1){
+//     userData.positionWork.pop();
+//   }  
+// }
+  
+// if(userData.startWork!=null){
+//   userData.startWork = userData.startWork.split("~");
+//   if(userData.startWork.length > 1){
+//     userData.startWork.pop();
+//   }
+// } 
+// if(userData.endWork!= null){  
+//   userData.endWork = userData.endWork.split("~");
+//   userData.endWork.forEach(element => {
+//     if(element=="NULL")
+//     {
+//       element = "";
+//     }
+//   });
+ 
+//   if(userData.endWork.length > 1){
+//     userData.endWork.pop();
+//   } 
+// } 
+
+// if(userData.companyName!=null){
+//   userData.companyName = userData.companyName.split("~");
+//   if(userData.companyName.length > 1){
+//     userData.companyName.pop();
+//   }
+// } 
+// if(userData.jobDuties!=null){
+//   userData.jobDuties = userData.jobDuties.split("~"); 
+//   if(userData.jobDuties.length > 1){
+//     userData.jobDuties.pop();
+//   }
+// } 
+// if(userData.driverLicense!=null){
+//   userData.driverLicense = userData.driverLicense.split("~");
+//   if(userData.driverLicense.length > 1){
+//     userData.driverLicense.pop();
+//   }
+// } 
+// if(userData.courseName!=null){
+//   userData.courseName = userData.courseName.split("~");
+//   if(userData.courseName.length > 1){
+//     userData.courseName.pop();
+//   }
+// } 
+// if(userData.organization!=null){
+//   userData.organization = userData.organization.split("~");
+//   if(userData.organization.length > 1){
+//     userData.organization.pop();
+//   }
+  
+// } 
+
+// if(userData.endingCourse!=null){
+//   userData.endingCourse = userData.endingCourse.split("~");
+//   if(userData.endingCourse.length > 1){
+//     userData.endingCourse.pop();
+//   }
+// }
+// else{
+//   userData.endingCourse ="";
+// }
+// if(userData.institutName!=null){
+//   userData.institutName = userData.institutName.split("~");
+//   if(userData.institutName.length > 1){
+//     userData.institutName.pop();
+//   }
+// }
+// if(userData.levelEducation!=null){
+//   userData.levelEducation = userData.levelEducation.split("~");
+//   if(userData.levelEducation.length > 1){
+//     userData.levelEducation.pop();
+//   }
+// }
+// if(userData.faculty!=null){
+//   userData.faculty = userData.faculty.split("~");
+//   if(userData.faculty.length > 1){
+//     userData.faculty.pop();
+//   }
+// }
+// if(userData.specialty!=null){
+//   userData.specialty = userData.specialty.split("~");
+//   if(userData.specialty.length > 1){
+//     userData.specialty.pop();
+//   }
+// }
+// if(userData.ending!=null){
+//   userData.ending = userData.ending.split("~");
+//   if(userData.ending.length > 1){
+//     userData.ending.pop();
+//   }
+// }
+// if(userData.langName!= null){
+//   userData.langName = userData.langName.split("~");
+//   if(userData.langName.length > 1){
+//     userData.langName.pop();
+//   }
+// }
+
+// if(userData.level!=null){
+//   userData.level = userData.level.split("~");
+//   if(userData.level.length > 1){
+//     userData.level.pop();
+//   }  
+// }
+// if(userData.personRecommending!=null){
+//   userData.personRecommending = userData.personRecommending.split("~");
+//   if(userData.personRecommending.length > 1){
+//     userData.personRecommending.pop();
+//   }
+// }
+// if(userData.company!=null){
+//   userData.company = userData.company.split("~");
+//   if(userData.company.length > 1){
+//     userData.company.pop();
+//   }  
+// }
+// if(userData.emailCompany!=null){
+//   userData.emailCompany = userData.emailCompany.split("~");
+//   if(userData.emailCompany.length > 1){
+//     userData.emailCompany.pop();
+//   }
+// }
+// if(userData.phoneCompany!=null){
+//   userData.phoneCompany = userData.phoneCompany.split("~");
+//   if(userData.phoneCompany.length > 1){
+//     userData.phoneCompany.pop();
+//   }
+// }
+console.log("------------NEW-------------");
 console.log(userData);
     
 }
 
-//courseName,organization,endingCourse,institutName,levelEducation,faculty,specialty,ending langName,
- //languag_proficiency_levelID, personRecommending, company, emailCompany, phoneCompany,
- 
+function changingMultiValuesToArray(userDataValue){
+  if(userDataValue!=null){
+    userDataValue = userDataValue.split("~");
+    if(userDataValue.length > 1){
+      userDataValue.pop();
+    }
+  }
+  return userDataValue;
+}
 
 function  getUserData(res,userData ,dbConnection,foundUserID, callback = (res,userData)=>{ 
     console.log("I'm here!!!");     
