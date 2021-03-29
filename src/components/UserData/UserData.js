@@ -15,14 +15,14 @@ class UserData extends React.Component {
         fetch(this.API_ADDRESS)
             .then((response) => response.json())
             .then((data) => {
-                // console.log(data);
+                 console.log(data);
                 this.setState({
                     items: data
                 });
             });
-    }
+    }  
 
-    
+
 
     render() {
         if (this.state.items == null) {
