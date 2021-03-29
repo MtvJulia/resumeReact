@@ -12,7 +12,7 @@ return(
             console.log(item.endWork);
             if(item.endWork != "NULL"){
                 return(
-                    //откорректировать тазметку div
+                    //откорректировать разметку div
                     <div>
                         <tr>
                         <td>
@@ -62,7 +62,7 @@ return(
             }  
             else{
                 return(
-                    //откорректировать тазметку div
+                    //откорректировать разметку div
                     <div>
                         <tr>
                         <td>

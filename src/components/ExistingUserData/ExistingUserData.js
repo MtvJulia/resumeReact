@@ -178,18 +178,21 @@ class ExistingUserData extends React.Component {
     }
 
     fillEducArr(data, educArr) {
-        for (let i = 0; i < data.institutName.length; i++) {
+        if(data.institutName!=null)
+        {
+            for (let i = 0; i < data.institutName.length; i++) {
 
-            var objEducation = {};
-
-            objEducation.institutName = data.institutName[i];
-            objEducation.levelEducation = data.levelEducation[i];
-            objEducation.faculty = data.faculty[i];
-            objEducation.specialty = data.specialty[i];
-            objEducation.ending = data.ending[i];
-
-            educArr.push(objEducation);
-        }
+                var objEducation = {};
+    
+                objEducation.institutName = data.institutName[i];
+                objEducation.levelEducation = data.levelEducation[i];
+                objEducation.faculty = data.faculty[i];
+                objEducation.specialty = data.specialty[i];
+                objEducation.ending = data.ending[i];
+    
+                educArr.push(objEducation);
+            }
+        }        
     }
 
     fillExpArr(data, expArr) {
@@ -310,8 +313,7 @@ class ExistingUserData extends React.Component {
                                             <td className="col-sm-8">
                                                 <input type="date" className="form-control" id="id_birthOfDate" value={this.state.items.birthOfDate.substr(0, 10)} name="id_birthOfDate" />
                                             </td>
-                                        </tr>
-                                        {/* -----------------------------------!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
+                                        </tr>                                      
                                         <tr className="form-group">
                                             <td>
                                                 <label for="imgup">Изображение:</label>
@@ -419,250 +421,17 @@ class ExistingUserData extends React.Component {
                                                     <option>Докторантура</option>
                                                 </select>
                                             </td>
-                                        </tr>
-
-                                        {/* <tr>
-                                            <td>
-                                                <h2>Владение языками</h2>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_langName">Язык:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="text" className="form-control" value={this.state.items.langName} id="id_langName"name="id_langName" placeholder="Введите язык" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_level">Уровень владения:</label></td>
-                                            <td className="col-sm-8">
-                                                <select className="form-control" id="id_level" value={this.state.items.level} name="id_level">
-                                                    <option>A1 - начальный</option>
-                                                    <option>A2 - базовый</option>
-                                                    <option>B1 - средний</option>
-                                                    <option>B2 - выше среднего</option>
-                                                    <option>C1 - продвинутый</option>
-                                                    <option>C2 - профессиональный</option>
-                                                </select>
-                                            </td>
-                                        </tr> */}
-
-
+                                        </tr>                                  
 
                                         <ShowLanguage arrayToDisplay={this.langArray} />
 
-                                        <ShowEducation arrayToDisplay={this.educArray} />
-                                        {/* <tr>
-                                            <td>
-                                                <h2>Образование</h2>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_institutName">Наименование учебного заведения:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="text" className="form-control" id="id_institutName" value={this.state.items.institutName}  name="id_institutName" placeholder="Введите наименование учебного заведения" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_levelEducation">Уровень образование:</label></td>
-                                            <td className="col-sm-8">
-                                                <select className="form-control" id="id_levelEducation" value={this.state.items.levelEducation} name="id_levelEducation">
-                                                    <option>Высшее</option>
-                                                    <option>Бакалавр</option>
-                                                    <option>Магистр</option>
-                                                    <option>Специалист</option>
-                                                    <option>Кандидат наук</option>
-                                                    <option>Доктор наук</option>
-                                                    <option>Неполное высшее</option>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_faculty">Факультет:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="text" className="form-control" id="id_faculty" value={this.state.items.faculty}  name="id_faculty"placeholder="Введите факультет" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_specialty">Специальность:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="text" className="form-control" id="id_specialty" name="id_specialty" value={this.state.items.specialty} placeholder="Введите специальность" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_ending">Год окончания:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="date" className="form-control" id="id_ending" value={this.state.items.ending.substr(0,10)} name="id_ending" />
-                                            </td>
-                                        </tr> */}
-                                        {/* <tr>
-                                            <td>
-                                                <h2>Курсы повышения квалификации</h2>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_courseName">Название курса:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="text" className="form-control" id="id_courseName" value={this.state.items.courseName} name="id_courseName" placeholder="Название курса" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_organization">Проводившая организация:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="text" className="form-control" id="id_organization"name="id_organization" value={this.state.items.organization} placeholder="Проводившая организация" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_endingCourse">Год окончания:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="date" className="form-control" id="id_endingCourse" value={this.state.items.endingCourse.substr(0,10)} name="id_endingCourse"/>
-                                            </td>
-                                        </tr> */}
-
-
+                                        <ShowEducation arrayToDisplay={this.educArray} />                                       
+                                      
                                         <ShowCourses arrayToDisplay={this.coursArray} />
-
-
-
-
-                                        {/* <tr>
-                                            <td> <label className="control-label" for="id_courseName">Название курса:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="text" className="form-control" id="id_courseName" name="id_courseName" placeholder="Название курса" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_organization">Проводившая организация:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="text" className="form-control" id="id_organization"name="id_organization" placeholder="Проводившая организация" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_endingCourse">Год окончания:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="date" className="form-control" id="id_endingCourse" name="id_endingCourse"/>
-                                            </td>
-                                        </tr> */}
-
+                                      
                                         < ShowExperience arrayToDisplay={this.expArray} />
-
-                                        {/* <tr>
-                                            <td>
-                                                <h2>Опыт работы</h2>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_startWork">Начало работы:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="date" className="form-control" value={this.state.items[0].startWork[0].substr(0,10)}  id="id_startWork" name="id_startWork" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_endWork">Конец работы:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="date" className="form-control" value={this.state.items[0].endWork[0].substr(0,10)}  id="id_endWork" name="id_endWork" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_stillWorking">Еще работаю:</label></td>
-                                            <td >
-                                                <input className="control-input" type="checkbox" checked={this.state.items[0].stillWorking} id="id_stillWorking"name="id_stillWorking"   />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_positionWork">Должность:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="text" className="form-control" id="id_positionWork"value={this.state.items[0].positionWork[0]} name="id_positionWork"placeholder="Должность" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_companyName">Название компании:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="text" className="form-control" id="id_companyName" value={this.state.items[0].companyName[0]} name="id_companyName"placeholder="Название компании" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_jobDuties">Обязанности:</label></td>
-                                            <td className="col-sm-8">
-                                                <textarea className="form-control" id="id_jobDuties" value={this.state.items[0].jobDuties[0]} name="id_jobDuties"></textarea>                                               
-                                            </td>
-                                        </tr> */}
-
-
-                                        {/* <tr>
-                                            <td>
-                                                <h2>Опыт работы</h2>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_startWork">Начало работы:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="date" className="form-control" id="id_startWork" value={this.state.items[0].startWork[1].substr(0,10)} name="id_startWork" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_endWork">Конец работы:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="date" className="form-control" id="id_endWork"value={this.state.items[0].endWork[1].substr(0,10)} name="id_endWork" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_stillWorking">Еще работаю:</label></td>
-                                            <td >
-                                                <input className="control-input" type="checkbox"  checked={this.state.items[0].stillWorking} id="id_stillWorking"name="id_stillWorking"   />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_positionWork">Должность:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="text" className="form-control" id="id_positionWork"value={this.state.items[0].positionWork[1]} name="id_positionWork"placeholder="Должность" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_companyName">Название компании:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="text" className="form-control" id="id_companyName" value={this.state.items[0].companyName[1]} name="id_companyName"placeholder="Название компании" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_jobDuties">Обязанности:</label></td>
-                                            <td className="col-sm-8">
-                                                <textarea className="form-control" id="id_jobDuties" value={this.state.items[0].jobDuties[1]}  name="id_jobDuties"></textarea>                                               
-                                            </td>
-                                        </tr> */}
-
-
-                                        {/* <tr>
-                                            <td>
-                                                <h2>Рекомендации</h2>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_personRecommending">ФИО рекомендующего:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="text" className="form-control" id="id_personRecommending" value={this.state.items.personRecommending} name="id_personRecommending" placeholder="ФИО рекомендующего" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_company">Компания, должность:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="text" className="form-control" id="id_company" value={this.state.items.company} name="id_company" placeholder="Компания, должность" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_emailCompany">Электронная почта:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="email" className="form-control" id="id_emailCompany" value={this.state.items.emailCompany} name="id_emailCompany" placeholder="address@site.com" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_phoneCompany">Телефон:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="" className="form-control" id="id_phoneCompany" value={this.state.items.phoneCompany} name="id_phoneCompany" placeholder="+380661234567" />
-                                            </td>
-                                        </tr> */}
-
+                                                                          
                                         <ShowRecommending arrayToDisplay={this.recomendationArray} />
-
 
                                         <tr>
                                             <td>
@@ -681,7 +450,7 @@ class ExistingUserData extends React.Component {
                                                 <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseD1" checked={this.driveLicense.D1} name="id_driverLicenseD1" />D1</label>
                                                 <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseD" checked={this.driveLicense.D} name="id_driverLicenseD" />D</label>
                                                 <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseT" checked={this.driveLicense.T} name="id_driverLicenseT" />T</label>
-                                                {/* <!-- <input type="text" className="form-control" id="id_company" placeholder="Компания, должность" /> --> */}
+                                               
                                             </td>
                                         </tr>
                                         <tr>
@@ -699,22 +468,19 @@ class ExistingUserData extends React.Component {
                                         <tr>
                                             <td> <label className="control-label" for="id_hobby">Хобби:</label></td>
                                             <td className="col-sm-8">
-                                                <textarea className="form-control" id="id_hobby" value={this.state.items.hobby} name="id_hobby"></textarea>
-                                                {/* <!-- <input type="text" className="form-control" id="id_jobDuties" placeholder="Проводившая организация" /> --> */}
+                                                <textarea className="form-control" id="id_hobby" value={this.state.items.hobby} name="id_hobby"></textarea>                                              
                                             </td>
                                         </tr>
                                         <tr>
                                             <td> <label className="control-label" for="id_personalQualities">Личные качества:</label></td>
                                             <td className="col-sm-8">
-                                                <textarea className="form-control" id="id_personalQualities" value={this.state.items.personalQualities} name="id_personalQualities" ></textarea>
-                                                {/* <!-- <input type="text" className="form-control" id="id_jobDuties" placeholder="Проводившая организация" /> --> */}
+                                                <textarea className="form-control" id="id_personalQualities" value={this.state.items.personalQualities} name="id_personalQualities" ></textarea>                                             
                                             </td>
                                         </tr>
                                         <tr>
                                             <td> <label className="control-label" for="id_professionalSkills">Профессиональные навыки:</label></td>
                                             <td className="col-sm-8">
-                                                <textarea className="form-control" id="id_professionalSkills" value={this.state.items.professionalSkills} name="id_professionalSkills" ></textarea>
-                                                {/* <!-- <input type="text" className="form-control" id="id_jobDuties" placeholder="Проводившая организация" /> --> */}
+                                                <textarea className="form-control" id="id_professionalSkills" value={this.state.items.professionalSkills} name="id_professionalSkills" ></textarea>                                            
                                             </td>
                                         </tr>
                                         <tr>
