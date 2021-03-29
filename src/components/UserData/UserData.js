@@ -486,6 +486,10 @@ class UserData extends React.Component {
                                                 <textarea className="form-control" id="id_hobby"></textarea>
                                             </div>
                                             <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <label for="id_hobby">Хобби:</label>
+                                                <textarea className="form-control" id="id_hobby"></textarea>
+                                            </div>
+                                            <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <label for="id_personalQualities">Личные качества:</label>
                                                 <textarea className="form-control" id="id_personalQualities"></textarea>
                                             </div>
