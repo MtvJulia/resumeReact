@@ -14,15 +14,10 @@ class App extends React.Component {
           {/* <!-- Second navbar for sign in --> */}
           <nav className="navbar navbar-expand-sm navbar-default sticky-top">
             <div className="container ">
-<<<<<<< HEAD
 
               {/* <!-- Collect the nav links, forms, and other content for toggling --> */}
               <div className="collapse navbar-collapse" id="navbar-collapse">
 
-=======
-              {/* <!-- Collect the nav links, forms, and other content for toggling --> */}
-              <div className="collapse navbar-collapse" id="navbar-collapse">
->>>>>>> 5f541cbd690d8c1ab09bb8fdf7925733e3c8c1f1
                 <ul className="nav ">
                   {/* navbar-nav */}
                   <li className="nav-item"><a href="/">Home</a></li>
@@ -40,23 +35,15 @@ class App extends React.Component {
               </div>
             </div>
           </nav>
-<<<<<<< HEAD
 
           <div className="container-fluid">
-=======
-          <div className="container">
->>>>>>> 5f541cbd690d8c1ab09bb8fdf7925733e3c8c1f1
             <Route path="/login" component={Login} />
             <Route path="/registration" component={Registration} />
             <Route path="/userdata" component={UserData} />
           </div>
-<<<<<<< HEAD
 
         </BrowserRouter>
 
-=======
-        </BrowserRouter>
->>>>>>> 5f541cbd690d8c1ab09bb8fdf7925733e3c8c1f1
         <div className="container">
           <div className="photo">
             {/* <img src={mainPhoto} alt="mainPhoto" /> */}

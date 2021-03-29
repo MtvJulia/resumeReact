@@ -22,8 +22,6 @@ class UserData extends React.Component {
             });
     }  
 
-
-
     render() {
         if (this.state.items == null) {
             return (
