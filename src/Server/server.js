@@ -46,6 +46,8 @@ const requestToDbGETAferPost = (query, dbConnection, res, newUser) => {
     dbConnection.query(query, (err, result) => {
 
         if (err) console.log(err.message);
+<<<<<<< HEAD
+=======
 
         arrUsers = result;
 
@@ -65,6 +67,7 @@ const requestToDbGETAferPost = (query, dbConnection, res, newUser) => {
 const requestToDbGET = (query, dbConnection, res, newUser) => {
     dbConnection.query(query, (err, result) => {
         if (err) console.log(err.message);
+>>>>>>> 5f541cbd690d8c1ab09bb8fdf7925733e3c8c1f1
         res.json(result);
         arrUsers = result;
         console.log(arrUsers);
@@ -88,6 +91,9 @@ const requestToDbCUD = (query, dbConnection, res, objJSON, newUser) => {
     dbConnection.query(query, (err, result) => {
 
         if (err) console.log(err.message);
+<<<<<<< HEAD
+        res.json(objJSON);
+=======
 
         else {
 
@@ -96,6 +102,7 @@ const requestToDbCUD = (query, dbConnection, res, objJSON, newUser) => {
             return requestToDbGETAferPost("SELECT * FROM user", dbConnection, res, newUser);
 
         }        // res.json(objJSON);
+>>>>>>> 5f541cbd690d8c1ab09bb8fdf7925733e3c8c1f1
         res.end();
     });
     // console.log(userIDFromDB);

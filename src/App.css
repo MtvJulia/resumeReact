@@ -6,8 +6,13 @@
 .mainApp{
   /* position: relative; */
   
+<<<<<<< HEAD
+    background-color: bisque;
+    /* background-image: url("./images/dance2.jpg"); */
+=======
     background-color: rgb(169, 210, 248);
    /* // background-image: url("./images/dance2.jpg"); */
+>>>>>>> 5f541cbd690d8c1ab09bb8fdf7925733e3c8c1f1
     background-size: cover;
     background-repeat: no-repeat;
   margin: 0 auto;
