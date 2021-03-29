@@ -16,21 +16,21 @@ class App extends React.Component {
 
     return (
       <div className="container-fluid mainApp" >
+        <BrowserRouter>
+          {/* <!-- Second navbar for sign in --> */}
+          <nav className="navbar navbar-expand-sm navbar-default sticky-top">
+            <div className="container ">
 
-        {/* <!-- Second navbar for sign in --> */}
-        <nav className="navbar navbar-expand-sm navbar-default sticky-top">
-          <div className="container">
+              {/* <!-- Collect the nav links, forms, and other content for toggling --> */}
+              <div className="collapse navbar-collapse" id="navbar-collapse">
 
-            {/* <!-- Collect the nav links, forms, and other content for toggling --> */}
-            <div className="collapse navbar-collapse" id="navbar-collapse">
-              <BrowserRouter>
                 <ul className="nav ">
                   {/* navbar-nav */}
                   <li className="nav-item"><a href="/">Home</a></li>
                   <li className="nav-item"><a href="#">About</a></li>
                   <li className="nav-item"><a href="#">Services</a></li>
                   <li className="nav-item"><a href="#">Works</a></li>
-                  <li className="nav-item"><a href="#">News</a></li>
+                  <li className="nav-item"><a href="http://localhost:3000/userdata">News</a></li>
                   <li></li>
                   <li></li>
                   <li></li>
@@ -38,18 +38,17 @@ class App extends React.Component {
                   <li><Link to="/login" className="btn btn-primary">Вход</Link></li>
                   <li><Link to="/registration" className="btn btn-primary">Регистрация</Link></li>
                 </ul>
-
-                <div className="container">
-                  <Route path="/login" component={Login} />
-                  <Route path="/registration" component={Registration} />
-                  <Route path="/userdata" component={UserData} />
-                </div>
-
-              </BrowserRouter>
-
+              </div>
             </div>
+          </nav>
+
+          <div className="container-fluid">
+            <Route path="/login" component={Login} />
+            <Route path="/registration" component={Registration} />
+            <Route path="/userdata" component={UserData} />
           </div>
-        </nav>
+
+        </BrowserRouter>
 
         <div className="container">
           <div className="photo">

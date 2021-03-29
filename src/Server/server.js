@@ -35,8 +35,9 @@ dbConnection.connect((err) => {
 
 const requestToDbGET = (query, dbConnection, res) => {
     dbConnection.query(query, (err, result) => {
+
         if (err) console.log(err.message);
-        // res.json(result);
+        res.json(result);
         arrUsers = result;
         console.log(arrUsers);
         res.end();
@@ -46,7 +47,7 @@ const requestToDbGET = (query, dbConnection, res) => {
 const requestToDbCUD = (query, dbConnection, res, objJSON) => {
     dbConnection.query(query, (err, result) => {
         if (err) console.log(err.message);
-        // res.json(objJSON);
+        res.json(objJSON);
         res.end();
     });
 }
