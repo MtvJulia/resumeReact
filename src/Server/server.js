@@ -208,17 +208,17 @@ server.post("/userdata", function (request, response) {
 
     let newUserData = request.body;
 
-    // console.log("---------newUser----------------------------------------");
+    console.log("---------newUser----------------------------------------");
 
-    // console.log(newUser);
+    console.log(newUser);
 
-    // console.log("---------newUser-end--------------------------------------");
+    console.log("---------newUser-end--------------------------------------");
 
-    // console.log("---------newUserData----------------------------------------");
+    console.log("---------newUserData----------------------------------------");
 
-    // console.log(newUserData);
+    console.log(newUserData);
 
-    // console.log("---------newUserData--end--------------------------------------");
+    console.log("---------newUserData--end--------------------------------------");
 
     if (newUserData) {
       
@@ -230,12 +230,9 @@ server.post("/userdata", function (request, response) {
       
         let fk_value = getFkValue(newUserData);
 
-        console.log("+++++++++++++++++++++++++"+checkToNull.fupload);
+        // console.log("+++++++++++++++++++++++++"+checkToNull.fupload);
 
-        let profilePhotoName = newUser.UserID +checkToNull.fupload ;
-
-
-
+        // let profilePhotoName = newUser.UserID +checkToNull.fupload ;
 
 
       

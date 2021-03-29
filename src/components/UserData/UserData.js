@@ -9,8 +9,42 @@ class UserData extends React.Component {
             users: null
         }
         this.API_ADDRESS = "http://localhost:55555/userdata";
+        this.AddLang = this.AddLang.bind(this);
+        this.AddScheduler = this.AddScheduler.bind(this);
+        this.AddCourse = this.AddCourse.bind(this);
+        this.AddExperience = this.AddExperience.bind(this);
+       
+
+
     }
-    componentDidMount() {
+
+
+    AddLang() {
+        var langList = document.getElementById("langList");
+        var langDetails = document.getElementById('langDetails').outerHTML;
+        console.log(langDetails);
+        langList.insertAdjacentHTML("beforeend", langDetails);
+    }
+     AddScheduler() {
+        var educationList = document.getElementById("educationList");
+        var educationDatails = document.getElementById('educationDatails').outerHTML;
+        console.log(educationDatails);
+        educationList.insertAdjacentHTML("beforeend", educationDatails);
+    }
+     AddCourse() {
+        var courseList = document.getElementById("courseList");
+        var courseDetails = document.getElementById('courseDetails').outerHTML;
+        console.log(courseDetails);
+        courseList.insertAdjacentHTML("beforeend", courseDetails);
+    }
+     AddExperience() {
+        var experienceList = document.getElementById("experienceList");
+        var experienceDetails = document.getElementById('experienceDetails').outerHTML;
+        console.log(experienceDetails);
+        experienceList.insertAdjacentHTML("beforeend", experienceDetails);
+    }
+
+  componentDidMount() {
         //Встроенный метод для GET (и только) запросов
         fetch(this.API_ADDRESS)
             .then((response) => response.json())
@@ -27,7 +61,7 @@ class UserData extends React.Component {
     render() {
         if (this.state.items == null) {
             return (
-                <div className="spinner-border text-muted"></div>
+                <div className="spinner-border text-muted">Loading...</div>
             );
         }
         else {
@@ -49,12 +83,12 @@ class UserData extends React.Component {
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_userPosition">Желаемая должность:</label>
-                                                <input id="id_userPosition" type="text" className="form-control"
+                                                <input id="id_userPosition" type="text" className="form-control" name="id_userPosition"
                                                     placeholder="Введите должность" />
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_lastName">Фамилия:</label>
-                                                <input id="id_lastName" type="text" className="form-control" placeholder="Введите фамилию" />
+                                                <input id="id_lastName" type="text" className="form-control"name ="id_lastName" placeholder="Введите фамилию" />
                                             </div>
                                         </div>
 
@@ -71,9 +105,9 @@ class UserData extends React.Component {
 
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_firstName">Имя:</label>
-                                                <input type="text" className="form-control" id="id_firstName" placeholder="Введите имя" />
+                                                <input type="text" className="form-control" id="id_firstName"name = "id_firstName" placeholder="Введите имя" />
                                                 <label for="id_middleName">Отчество:</label>
-                                                <input type="text" className="form-control" id="id_middleName"
+                                                <input type="text" className="form-control" id="id_middleName"name = "id_middleName"
                                                     placeholder="Введите отчество" />
                                             </div>
                                         </div>
@@ -81,11 +115,11 @@ class UserData extends React.Component {
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_birthOfDate">Дата рождения:</label>
-                                                <input type="date" className="form-control" id="id_birthOfDate" />
+                                                <input type="date" className="form-control" id="id_birthOfDate" name = "id_birthOfDate"/>
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_cityOfResidence">Город проживания:</label>
-                                                <input type="text" className="form-control" id="id_cityOfResidence"
+                                                <input type="text" className="form-control" id="id_cityOfResidence" name="id_cityOfResidence"
                                                     placeholder="Введите город" />
                                             </div>
                                         </div>
@@ -100,11 +134,11 @@ class UserData extends React.Component {
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_phone">Телефон:</label>
-                                                <input type="text" className="form-control" id="id_phone" placeholder="+380661234567" />
+                                                <input type="text" className="form-control" id="id_phone"name ="id_phone" placeholder="+380661234567" />
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_lastName">Электронная почта:</label>
-                                                <input type="email" className="form-control" id="id_lastName"
+                                                <input type="email" className="form-control" id="id_lastName" name="id_email" 
                                                     placeholder="address@site.com" />
                                             </div>
                                         </div>
@@ -118,17 +152,17 @@ class UserData extends React.Component {
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_nationality">Национальность:</label>
-                                                <input type="text" className="form-control" id="id_nationality"
+                                                <input type="text" className="form-control" id="id_nationality"name ="id_nationality"
                                                     placeholder="Введите национальность" />
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_desiredSalary">Желаемая зарплата:</label>
 
                                                 <div className="input-group mb-2">
-                                                    <input type="number" className="form-control" id="id_desiredSalary" placeholder="0"
+                                                    <input type="number" className="form-control" id="id_desiredSalary"name ="id_desiredSalary" placeholder="0"
                                                         step="1" min="0" />
                                                     <div className="input-group-append">
-                                                        <select className="form-control" id="id_currency">
+                                                        <select className="form-control" id="id_currency" name="id_currency">
                                                             <option>₴ - гривна</option>
                                                             <option>$ - доллар</option>
                                                             <option>€ - евро</option>
@@ -145,7 +179,7 @@ class UserData extends React.Component {
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_employment">Занятось:</label>
-                                                <select className="form-control" id="id_employment" placeholder="выбрать">
+                                                <select className="form-control" id="id_employment"name="id_employment" placeholder="выбрать">
                                                     <option>Полная занятость</option>
                                                     <option>Частичная занятость</option>
                                                     <option>Проектная работа</option>
@@ -155,7 +189,7 @@ class UserData extends React.Component {
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_schedule">График работы:</label>
-                                                <select className="form-control" id="id_schedule">
+                                                <select className="form-control" id="id_schedule"name="id_schedule">
                                                     <option>Полный день</option>
                                                     <option>Сменный график</option>
                                                     <option>Гибкий график</option>
@@ -167,13 +201,13 @@ class UserData extends React.Component {
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_businessTrip" className="custom-control-input" />
+                                                    <input type="checkbox" id="id_businessTrip" className="custom-control-input" name="id_businessTrip" />
                                                     <label className="custom-control-label" for="id_businessTrip">Командировки</label>
                                                 </div>
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_relocate" className="custom-control-input" />
+                                                    <input type="checkbox" id="id_relocate" className="custom-control-input"name ="id_relocate" />
                                                     <label className="custom-control-label" for="id_relocate">Готовность на переезд</label>
                                                 </div>
                                             </div>
@@ -181,7 +215,7 @@ class UserData extends React.Component {
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_maritalStatus">Семейное положение:</label>
-                                                <select className="form-control" id="id_maritalStatus">
+                                                <select className="form-control" id="id_maritalStatus" name="id_maritalStatus">
                                                     <option>Замужем</option>
                                                     <option>Не замужем</option>
                                                     <option>Женат</option>
@@ -189,13 +223,13 @@ class UserData extends React.Component {
                                                 </select>
                                                 <div
                                                     className="custom-control custom-checkbox custom-control-inline ccb-right childrenCheckBox">
-                                                    <input type="checkbox" id="id_children" className="custom-control-input" />
+                                                    <input type="checkbox" id="id_children" className="custom-control-input"name ="id_children" />
                                                     <label className="custom-control-label" for="id_children">Дети</label>
                                                 </div>
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_education">Основное образование:</label>
-                                                <select className="form-control" id="id_education">
+                                                <select className="form-control" id="id_education" name ="id_education">
                                                     <option>Общее среднее образование</option>
                                                     <option>Профессионально-техническое образование</option>
                                                     <option>Высшее образования</option>
@@ -217,12 +251,12 @@ class UserData extends React.Component {
                                             <div className="row">
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <label for="id_langName">Язык:</label>
-                                                    <input type="text" className="form-control" id="id_langName"
+                                                    <input type="text" className="form-control" id="id_langName"name="id_langName"
                                                         placeholder="Введите язык" />
                                                 </div>
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <label for="id_level">Уровень владения:</label>
-                                                    <select className="form-control" id="id_level">
+                                                    <select className="form-control" id="id_level"name="id_level">
                                                         <option disabled>Выберите уровень</option>
                                                         <option selected></option>
                                                         <option>A1 - начальный</option>
@@ -253,12 +287,12 @@ class UserData extends React.Component {
                                             <div className="row">
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <label for="id_institutName">Наименование учебного заведения:</label>
-                                                    <input type="text" className="form-control" id="id_institutName"
+                                                    <input type="text" className="form-control" id="id_institutName" name="id_institutName"
                                                         placeholder="Введите наименование учебного заведения" />
                                                 </div>
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <label for="id_levelEducation">Уровень образование:</label>
-                                                    <select className="form-control" id="id_levelEducation">
+                                                    <select className="form-control" id="id_levelEducation"name="id_levelEducation">
                                                         <option disabled>Выберите уровень</option>
                                                         <option selected></option>
                                                         <option>Высшее</option>
@@ -274,26 +308,26 @@ class UserData extends React.Component {
                                             <div className="row">
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <label for="id_faculty">Факультет:</label>
-                                                    <input type="text" className="form-control" id="id_faculty"
+                                                    <input type="text" className="form-control" id="id_faculty"name="id_faculty"
                                                         placeholder="Введите факультет" />
                                                 </div>
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <label for="id_specialty">Специальность:</label>
-                                                    <input type="text" className="form-control" id="id_specialty"
+                                                    <input type="text" className="form-control" id="id_specialty"name="id_specialty"
                                                         placeholder="Введите специальность" />
                                                 </div>
                                             </div>
                                             <div className="row">
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <label for="id_ending">Год окончания:</label>
-                                                    <input type="date" className="form-control" id="id_ending" />
+                                                    <input type="date" className="form-control" id="id_ending"name="id_ending" />
                                                 </div>
                                             </div>
                                         </details>
 
                                         <div id="educationList">
                                         </div>
-                                        <a href="javascript:AddScheduler()">Добавить</a>
+                                        <a href="javascript:this.AddScheduler()" onClick={this.AddScheduler}>Добавить</a>
                                     </fieldset>
 
                                     {/* <!-- -------КУРСЫ ПОВЫШЕНИЯ КВАЛИФИКАЦИИ----------- --> */}
@@ -308,19 +342,19 @@ class UserData extends React.Component {
                                             <div className="row">
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <label for="id_courseName">Название курса:</label>
-                                                    <input type="text" className="form-control" id="id_courseName"
+                                                    <input type="text" className="form-control" id="id_courseName"name="id_courseName"
                                                         placeholder="Название курса" />
                                                 </div>
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <label for="id_organization">Проводившая организация:</label>
-                                                    <input type="text" className="form-control" id="id_organization"
+                                                    <input type="text" className="form-control" id="id_organization"name="id_organization"
                                                         placeholder="Проводившая организация" />
                                                 </div>
                                             </div>
                                             <div className="row">
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <label for="id_endingCourse">Год окончания:</label>
-                                                    <input type="date" className="form-control" id="id_endingCourse" />
+                                                    <input type="date" className="form-control" id="id_endingCourse" name="id_endingCourse"/>
                                                 </div>
                                             </div>
                                         </details>
@@ -342,15 +376,15 @@ class UserData extends React.Component {
                                             <div className="row">
                                                 <div className="form-group col-12 col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                                     <label for="id_startWork_1">Начало работы:</label>
-                                                    <input type="date" className="form-control" id="id_startWork_1" />
+                                                    <input type="date" className="form-control" id="id_startWork_1"name="id_startWork" />
                                                 </div>
                                                 <div className="form-group col-12 col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                                     <label for="id_endWork_1">Конец работы:</label>
-                                                    <input type="date" className="form-control" id="id_endWork_1" />
+                                                    <input type="date" className="form-control" id="id_endWork_1"name="id_endWork" />
                                                 </div>
                                                 <div className="form-group col-12 col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                                     <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                        <input type="checkbox" id="id_stillWorking_1" className="custom-control-input" />
+                                                        <input type="checkbox" id="id_stillWorking_1" className="custom-control-input"name="id_stillWorking" />
                                                         <label className="custom-control-label" for="id_stillWorking_1">Еще работаю</label>
                                                     </div>
                                                 </div>
@@ -359,12 +393,12 @@ class UserData extends React.Component {
                                             <div className="row">
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <label for="id_positionWork_1">Должность:</label>
-                                                    <input type="text" className="form-control" id="id_positionWork_1"
+                                                    <input type="text" className="form-control" id="id_positionWork_1"name="id_positionWork"
                                                         placeholder="Должность" />
                                                 </div>
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <label for="id_companyName_1">Название компании:</label>
-                                                    <input type="text" className="form-control" id="id_companyName_1"
+                                                    <input type="text" className="form-control" id="id_companyName_1"name="id_companyName"
                                                         placeholder="Название компании" />
                                                 </div>
                                             </div>
@@ -372,7 +406,7 @@ class UserData extends React.Component {
                                             <div className="row">
                                                 <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                     <label for="id_jobDuties_1">Обязанности:</label>
-                                                    <textarea className="form-control" id="id_jobDuties_1"></textarea>
+                                                    <textarea className="form-control" id="id_jobDuties_1" name="id_jobDuties"></textarea>
                                                 </div>
                                             </div>
 
@@ -393,24 +427,24 @@ class UserData extends React.Component {
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_personRecommending">ФИО рекомендующего:</label>
-                                                <input type="text" className="form-control" id="id_personRecommending"
+                                                <input type="text" className="form-control" id="id_personRecommending"name="id_personRecommending"
                                                     placeholder="ФИО рекомендующего" />
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_company">Компания, должность:</label>
-                                                <input type="text" className="form-control" id="id_company"
+                                                <input type="text" className="form-control" id="id_company"name="id_company"
                                                     placeholder="Компания, должность" />
                                             </div>
                                         </div>
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_emailCompany">Электронная почта:</label>
-                                                <input type="email" className="form-control" id="id_emailCompany"
+                                                <input type="email" className="form-control" id="id_emailCompany"name="id_emailCompany"
                                                     placeholder="address@site.com" />
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_phoneCompany">Телефон:</label>
-                                                <input type="text" className="form-control" id="id_phoneCompany"
+                                                <input type="text" className="form-control" id="id_phoneCompany"name="id_phoneCompany"
                                                     placeholder="+380661234567" />
                                             </div>
                                         </div>
@@ -426,68 +460,68 @@ class UserData extends React.Component {
                                             <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <label for="id_driverLicense">Права категории:</label>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicense" className="custom-control-input" />
-                                                    <label className="custom-control-label" for="id_driverLicense">A1</label>
+                                                    <input type="checkbox" id="id_driverLicenseA1" className="custom-control-input"name="id_driverLicenseA1" />
+                                                    <label className="custom-control-label" for="id_driverLicenseA1">A1</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicense" className="custom-control-input" />
-                                                    <label className="custom-control-label" for="id_driverLicense">A</label>
+                                                    <input type="checkbox" id="id_driverLicenseA" className="custom-control-input"name="id_driverLicenseA" />
+                                                    <label className="custom-control-label" for="id_driverLicenseA">A</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicense" className="custom-control-input" />
-                                                    <label className="custom-control-label" for="id_driverLicense">B1</label>
+                                                    <input type="checkbox" id="id_driverLicenseB1" className="custom-control-input"name="id_driverLicenseB1" />
+                                                    <label className="custom-control-label" for="id_driverLicenseB1">B1</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicense" className="custom-control-input" />
-                                                    <label className="custom-control-label" for="id_driverLicense">B</label>
+                                                    <input type="checkbox" id="id_driverLicenseB" className="custom-control-input"name="id_driverLicenseB" />
+                                                    <label className="custom-control-label" for="id_driverLicenseB">B</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicense" className="custom-control-input" />
-                                                    <label className="custom-control-label" for="id_driverLicense">C1</label>
+                                                    <input type="checkbox" id="id_driverLicenseC1" className="custom-control-input"name="id_driverLicenseC1" />
+                                                    <label className="custom-control-label" for="id_driverLicenseC1">C1</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicense" className="custom-control-input" />
-                                                    <label className="custom-control-label" for="id_driverLicense">C</label>
+                                                    <input type="checkbox" id="id_driverLicenseC" className="custom-control-input"name="id_driverLicenseC" />
+                                                    <label className="custom-control-label" for="id_driverLicenseC">C</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicense" className="custom-control-input" />
-                                                    <label className="custom-control-label" for="id_driverLicense">D1</label>
+                                                    <input type="checkbox" id="id_driverLicenseD1" className="custom-control-input"name="id_driverLicenseD1" />
+                                                    <label className="custom-control-label" for="id_driverLicenseD1">D1</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicense" className="custom-control-input" />
-                                                    <label className="custom-control-label" for="id_driverLicense">D</label>
+                                                    <input type="checkbox" id="id_driverLicenseD" className="custom-control-input"name="id_driverLicenseD" />
+                                                    <label className="custom-control-label" for="id_driverLicenseD">D</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicense" className="custom-control-input" />
-                                                    <label className="custom-control-label" for="id_driverLicense">T</label>
+                                                    <input type="checkbox" id="id_driverLicenseT" className="custom-control-input"name="id_driverLicenseT" />
+                                                    <label className="custom-control-label" for="id_driverLicenseT">T</label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_privatCar" className="custom-control-input" />
+                                                    <input type="checkbox" id="id_privatCar" className="custom-control-input"name="id_privatCar" />
                                                     <label className="custom-control-label" for="id_privatCar">Есть личный
                                         автомобиль</label>
                                                 </div>
                                             </div>
                                             <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_army" className="custom-control-input" />
+                                                    <input type="checkbox" id="id_army" className="custom-control-input"name="id_army" />
                                                     <label className="custom-control-label" for="id_army">Служба в армии</label>
                                                 </div>
                                             </div>
                                             <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <label for="id_hobby">Хобби:</label>
-                                                <textarea className="form-control" id="id_hobby"></textarea>
+                                                <textarea className="form-control" id="id_hobby" name="id_hobby"></textarea>
                                             </div>                                           
                                             <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <label for="id_personalQualities">Личные качества:</label>
-                                                <textarea className="form-control" id="id_personalQualities"></textarea>
+                                                <textarea className="form-control" id="id_personalQualities" name="id_personalQualities"></textarea>
                                             </div>
                                             <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <label for="id_professionalSkills">Профессиональные навыки:</label>
-                                                <textarea className="form-control" id="id_professionalSkills"></textarea>
+                                                <textarea className="form-control" id="id_professionalSkills" name="id_professionalSkills"></textarea>
                                             </div>
                                         </div>
                                     </fieldset>
