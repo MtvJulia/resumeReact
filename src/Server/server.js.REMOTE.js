@@ -208,17 +208,17 @@ server.post("/userdata", function (request, response) {
 
     let newUserData = request.body;
 
-    console.log("---------newUser----------------------------------------");
+    // console.log("---------newUser----------------------------------------");
 
-    console.log(newUser);
+    // console.log(newUser);
 
-    console.log("---------newUser-end--------------------------------------");
+    // console.log("---------newUser-end--------------------------------------");
 
-    console.log("---------newUserData----------------------------------------");
+    // console.log("---------newUserData----------------------------------------");
 
-    console.log(newUserData);
+    // console.log(newUserData);
 
-    console.log("---------newUserData--end--------------------------------------");
+    // console.log("---------newUserData--end--------------------------------------");
 
     if (newUserData) {
       
@@ -230,30 +230,26 @@ server.post("/userdata", function (request, response) {
       
         let fk_value = getFkValue(newUserData);
 
-        // console.log("+++++++++++++++++++++++++"+checkToNull.fupload);
-
-        // let profilePhotoName = newUser.UserID +checkToNull.fupload ;
-
-
+        console.log("+++++++++++++++++++++++++"+checkToNull.fupload);
       
-    let query = `INSERT INTO user_info (userLogin,userPassword,firstName,lastName,middleName,birthOfDate,сityOfResidence,position,
-        driverLicense,privateСar,army,hobby,personalQualities,professionalSkills,phone,email,nationality,relocate,desiredSalary,fk_employmentID,fk_scheduleID,
-        businessTrip,fk_marital_statusID,fk_level_of_educationID,image,courseName,organization,endingCourse,institutName,levelEducation,faculty,specialty,ending,startWork,
-        endWork,stillWorking,positionWork,companyName, jobDuties, langName, languag_proficiency_levelID, personRecommending, company, 
-        emailCompany, phoneCompany, children, fk_currencyID) 
+//     let query = `INSERT INTO user_info (userLogin,userPassword,firstName,lastName,middleName,birthOfDate,сityOfResidence,position,
+//         driverLicense,privateСar,army,hobby,personalQualities,professionalSkills,phone,email,nationality,relocate,desiredSalary,fk_employmentID,fk_scheduleID,
+//         businessTrip,fk_marital_statusID,fk_level_of_educationID,image,courseName,organization,endingCourse,institutName,levelEducation,faculty,specialty,ending,startWork,
+//         endWork,stillWorking,positionWork,companyName, jobDuties, langName, languag_proficiency_levelID, personRecommending, company, 
+//         emailCompany, phoneCompany, children, fk_currencyID) 
 
-        VALUES ( \'${newUser.UserLogin}\', \'${newUser.Password}\', \'${newUserData.id_firstName}\', \'${newUserData.id_lastName}\', ${checkToNull.id_middleName}, 
-\'${newUserData.id_birthOfDate}\', \'${newUserData.id_cityOfResidence}\', \'${newUserData.id_userPosition}\', \'${userDataChecked.drivLicense}\',
- ${userDataChecked.privateCar}, ${userDataChecked.army}, ${checkToNull.id_hobby}, ${checkToNull.id_personalQualities},${checkToNull.id_professionalSkills},
-\'${newUserData.id_phone}\', \'${newUserData.id_email}\',${checkToNull.id_nationality}, ${userDataChecked.relocation}, ${checkToNull.id_desiredSalary}, \'${fk_value.id_employment}\', 
-\'${fk_value.id_schedule}\', ${userDataChecked.businessTrip},\'${fk_value.id_maritalStatus}\',  \'${fk_value.id_education}\',${checkToNull.fupload},
-${checkToNull.id_courseName}, ${checkToNull.id_organization}, ${checkToNull.id_endingCourse},${checkToNull.id_institutName}, ${checkToNull.id_levelEducation},
-${checkToNull.id_faculty}, ${checkToNull.id_specialty}, ${checkToNull.id_ending},
-${checkToNull.id_startWork}, \'${endWork}\', ${userDataChecked.stillWorking}, ${checkToNull.id_positionWork}, ${checkToNull.id_companyName}, ${checkToNull.id_jobDuties},
-${checkToNull.id_langName}, ${checkToNull.id_level},${checkToNull.id_personRecommending}, ${checkToNull.id_company}, ${checkToNull.id_emailCompany},
-${checkToNull.id_phoneCompany},${userDataChecked.children},${fk_value.id_currency} )`;
+//         VALUES ( \'${newUser.UserLogin}\', \'${newUser.Password}\', \'${newUserData.id_firstName}\', \'${newUserData.id_lastName}\', ${checkToNull.id_middleName}, 
+// \'${newUserData.id_birthOfDate}\', \'${newUserData.id_cityOfResidence}\', \'${newUserData.id_userPosition}\', \'${userDataChecked.drivLicense}\',
+//  ${userDataChecked.privateCar}, ${userDataChecked.army}, ${checkToNull.id_hobby}, ${checkToNull.id_personalQualities},${checkToNull.id_professionalSkills},
+// \'${newUserData.id_phone}\', \'${newUserData.id_email}\',${checkToNull.id_nationality}, ${userDataChecked.relocation}, ${checkToNull.id_desiredSalary}, \'${fk_value.id_employment}\', 
+// \'${fk_value.id_schedule}\', ${userDataChecked.businessTrip},\'${fk_value.id_maritalStatus}\',  \'${fk_value.id_education}\',${checkToNull.fupload},
+// ${checkToNull.id_courseName}, ${checkToNull.id_organization}, ${checkToNull.id_endingCourse},${checkToNull.id_institutName}, ${checkToNull.id_levelEducation},
+// ${checkToNull.id_faculty}, ${checkToNull.id_specialty}, ${checkToNull.id_ending},
+// ${checkToNull.id_startWork}, \'${endWork}\', ${userDataChecked.stillWorking}, ${checkToNull.id_positionWork}, ${checkToNull.id_companyName}, ${checkToNull.id_jobDuties},
+// ${checkToNull.id_langName}, ${checkToNull.id_level},${checkToNull.id_personRecommending}, ${checkToNull.id_company}, ${checkToNull.id_emailCompany},
+// ${checkToNull.id_phoneCompany},${userDataChecked.children},${fk_value.id_currency} )`;
 
- requestToDbCUDUserData(query, dbConnection, response);     
+//  requestToDbCUDUserData(query, dbConnection, response);     
         
     }
     response.end();
