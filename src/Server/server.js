@@ -251,7 +251,7 @@ ${checkToNull.id_courseName}, ${checkToNull.id_organization}, ${checkToNull.id_e
 ${checkToNull.id_faculty}, ${checkToNull.id_specialty}, ${checkToNull.id_ending},
 ${checkToNull.id_startWork}, \'${endWork}\', ${userDataChecked.stillWorking}, ${checkToNull.id_positionWork}, ${checkToNull.id_companyName}, ${checkToNull.id_jobDuties},
 ${checkToNull.id_langName}, ${checkToNull.id_level},${checkToNull.id_personRecommending}, ${checkToNull.id_company}, ${checkToNull.id_emailCompany},
-${checkToNull.id_phoneCompany},${userDataChecked.children},${fk_value.id_currency} )`;
+${checkToNull.id_phoneCompany},${userDataChecked.children},\'${fk_value.id_currency}\' )`;
 
  requestToDbCUDUserData(query, dbConnection, response);     
         

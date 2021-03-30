@@ -33,6 +33,7 @@ class ExistingUserData extends React.Component {
             D: 0,
             T: 0
         };
+        this.currencyName = "";
 
         this.fillExpArr = this.fillExpArr.bind(this);
         this.fillEducArr = this.fillEducArr.bind(this);
@@ -40,6 +41,49 @@ class ExistingUserData extends React.Component {
         this.fillCoursArr = this.fillCoursArr.bind(this);
         this.fillRecomendArr = this.fillRecomendArr.bind(this);
         this.fillDriveLicenseObj = this.fillDriveLicenseObj.bind(this);
+        this.getCurrency = this.getCurrency.bind(this);
+    }
+
+    getCurrency(data,currency){
+
+        switch (data.currency) {
+            case "Гривна":
+                {
+                    currency = "₴ - гривна";
+                    break;
+                }
+            case "Доллар США":
+                {
+                    currency = "$ - доллар";
+                    break;
+                }
+            case "Евро":
+                {
+                    currency = "€ - евро";
+                    break;
+                }
+            case "Рубли":
+                {
+                    currency= "₽ - рубль";
+                    break;
+                }
+            case "Фунт стерлингов":
+                {
+                    currency = "£ - фунты";
+                    break;
+                }
+            case "Юань":
+                {
+                    currency = "¥ - юань";
+                    break;
+                }
+            case "Другая":
+                {
+                    currency = "другая валюта";
+                    break;
+                }         
+        }
+        return currency;
     }
 
     fillDriveLicenseObj(data,drLicense) 
@@ -236,6 +280,7 @@ class ExistingUserData extends React.Component {
                 let coursArr = [];
                 let recomendArr = [];
                 let drLicense ={};
+                let currency = "";
 
                 this.fillExpArr(data, expArr);
                 this.fillEducArr(data, educArr);
@@ -249,12 +294,16 @@ class ExistingUserData extends React.Component {
                 if (data.driverLicense != null) {
                     this.fillDriveLicenseObj(data, drLicense);
                 }
+                
+
                 this.expArray = expArr;
                 this.educArray = educArr;
                 this.langArray = langArr;
                 this.coursArray = coursArr;
                 this.recomendationArray = recomendArr;
                 this.driveLicense = drLicense;
+                this.currencyName = this.getCurrency(data,currency);
+
 
                 this.setState({
                     items: data
@@ -366,6 +415,21 @@ class ExistingUserData extends React.Component {
                                             <td> <label className="control-label" for="id_desiredSalary">Желаемая зарплата:</label></td>
                                             <td className="col-sm-8">
                                                 <input type="number" className="form-control" id="id_desiredSalary" value={this.state.items.desiredSalary} name="id_desiredSalary" step="1" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td> <label className="control-label" for="id_currency">Валюта:</label></td>
+                                            <td className="col-sm-8">
+                                                {/* <input type="text" className="form-control" id="id_currency" value={this.currencyName} name="id_currency"  /> */}
+                                                <select className="form-control" id="id_currency" value={this.currencyName} name="id_currency">
+                                                            <option>₴ - гривна</option>
+                                                            <option>$ - доллар</option>
+                                                            <option>€ - евро</option>
+                                                            <option>₽ - рубль</option>
+                                                            <option>£ - фунты</option>
+                                                            <option>¥ - юань</option>
+                                                            <option>другая валюта</option>
+                                                        </select>
                                             </td>
                                         </tr>
                                         <tr>

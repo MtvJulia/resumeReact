@@ -107,31 +107,31 @@ const getFkValue = (newUserData) =>{
     {
         switch(newUserData.id_currency)
         {
-          case "Гривна":{
+          case "₴ - гривна":{
             fkValue.id_currency = 1;
               break;
           } 
-          case "Доллар США":{
+          case "$ - доллар":{
             fkValue.id_currency = 2;
               break;
           }
-          case "Евро":{
+          case "€ - евро":{
             fkValue.id_currency = 3;
               break;
           }
-          case "Рубли":{
+          case "₽ - рубль":{
             fkValue.id_currency = 4;
               break;
           }
-          case "Фунт":{
+          case "£ - фунты":{
             fkValue.id_currency= 5;
               break;
           }
-          case "Юань":{
+          case "¥ - юань":{
             fkValue.id_currency = 6;
               break;
           }
-          case "Другая":{
+          case "другая валюта":{
             fkValue.id_currency = 7;
               break;
           }
