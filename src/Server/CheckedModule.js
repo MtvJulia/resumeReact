@@ -254,9 +254,9 @@ const CheckedToNull = (newUserData) => {
             for(let i =0; i< newUserData.id_startWork.length;i++)
             {
                 startWork += newUserData.id_startWork[i] + "~";
-                console.log(startWork);
+                //console.log(startWork);
             }
-            console.log(startWork);
+           // console.log(startWork);
     
             objChecked.id_startWork = `\'${startWork}\'`;
     

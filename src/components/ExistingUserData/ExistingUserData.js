@@ -42,6 +42,7 @@ class ExistingUserData extends React.Component {
         this.fillRecomendArr = this.fillRecomendArr.bind(this);
         this.fillDriveLicenseObj = this.fillDriveLicenseObj.bind(this);
         this.getCurrency = this.getCurrency.bind(this);
+        this.AddCourse = this.AddCourse.bind(this);
     }
 
     getCurrency(data,currency){
@@ -240,19 +241,22 @@ class ExistingUserData extends React.Component {
     }
 
     fillExpArr(data, expArr) {
-        for (let i = 0; i < data.companyName.length; i++) {
+        if(data.companyName!=null)
+        {
+            for (let i = 0; i < data.companyName.length; i++) {
 
-            var objExperience = {};
-
-            objExperience.startWork = data.startWork[i];
-            objExperience.endWork = data.endWork[i];
-            objExperience.stillWorking = data.stillWorking;
-            objExperience.positionWork = data.positionWork[i];
-            objExperience.companyName = data.companyName[i];
-            objExperience.jobDuties = data.jobDuties[i];
-
-            expArr.push(objExperience);
-        }
+                var objExperience = {};
+    
+                objExperience.startWork = data.startWork[i];
+                objExperience.endWork = data.endWork[i];
+                objExperience.stillWorking = data.stillWorking;
+                objExperience.positionWork = data.positionWork[i];
+                objExperience.companyName = data.companyName[i];
+                objExperience.jobDuties = data.jobDuties[i];
+    
+                expArr.push(objExperience);
+            }
+        }       
     }
 
     changeData(data) {
@@ -262,6 +266,12 @@ class ExistingUserData extends React.Component {
         }
         data[0].positionWork = data[0].positionWork.split("~");
 
+    }
+    AddCourse() {
+        var courseList = document.getElementById("courseList");
+        var courseDetails = document.getElementById('courseDetails').outerHTML;
+        console.log(courseDetails);
+        courseList.insertAdjacentHTML("beforeend", courseDetails);
     }
 
     componentDidMount() {
@@ -488,12 +498,24 @@ class ExistingUserData extends React.Component {
                                         </tr>                                  
 
                                         <ShowLanguage arrayToDisplay={this.langArray} />
+                                        <div id="langList">
+                                        </div>
+                                        <a href="javascript:AddLang()" onClick={this.AddLang}>Добавить</a>
 
-                                        <ShowEducation arrayToDisplay={this.educArray} />                                       
+                                        <ShowEducation arrayToDisplay={this.educArray} />   
+                                        <div id="educationList">
+                                        </div>
+                                        <a href="javascript:this.AddScheduler()" onClick={this.AddScheduler}>Добавить</a>                              
                                       
                                         <ShowCourses arrayToDisplay={this.coursArray} />
+                                        <div id="courseList">
+                                       </div>
+                                       <a href="javascript:AddCourse()" onClick={this.AddCourse}>Добавить</a>
                                       
                                         < ShowExperience arrayToDisplay={this.expArray} />
+                                        <div id="experienceList">
+                                        </div>
+                                        <a href="javascript:AddExperience()" onClick={this.AddExperience}>Добавить</a>
                                                                           
                                         <ShowRecommending arrayToDisplay={this.recomendationArray} />
 

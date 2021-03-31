@@ -11,68 +11,41 @@ function ShowCourses(props) {
                 arrayToDisplay.map((item) => {
                     if (item.courseName != null) {
                         return (
-                            //откорректировать разметку div
                             <div>
-                                <tr>
-                                    <td>
-                                        <h2>Курсы повышения квалификации</h2>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td> <label className="control-label" for="id_courseName">Название курса:</label></td>
-                                    <td className="col-sm-8">
-                                        <input type="text" className="form-control" id="id_courseName" value={item.courseName} name="id_courseName" placeholder="Название курса" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td> <label className="control-label" for="id_organization">Проводившая организация:</label></td>
-                                    <td className="col-sm-8">
-                                        <input type="text" className="form-control" id="id_organization" name="id_organization" value={item.organization} placeholder="Проводившая организация" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td> <label className="control-label" for="id_endingCourse">Год окончания:</label></td>
-                                    <td className="col-sm-8">
-                                        <input type="date" className="form-control" id="id_endingCourse" value={item.endingCourse} name="id_endingCourse" />
-                                    </td>
-                                </tr>
-                            </div>
+                                <fieldset className="scheduler-border">
+                                    <legend className="scheduler-border">
+                                        <h3>Курсы повышения квалификации</h3>
+                                    </legend>
 
+                                    <details id="courseDetails">
+                                        <summary>Курс</summary>
+
+                                        <div className="row">
+                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <label for="id_courseName">Название курса:</label>
+                                                <input type="text" className="form-control" id="id_courseName" name="id_courseName" value={item.courseName}
+                                                    placeholder="Название курса" />
+                                            </div>
+                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <label for="id_organization">Проводившая организация:</label>
+                                                <input type="text" className="form-control" id="id_organization" name="id_organization" value={item.organization}
+                                                    placeholder="Проводившая организация" />
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <label for="id_endingCourse">Год окончания:</label>
+                                                <input type="date" className="form-control" id="id_endingCourse" name="id_endingCourse" value={item.endingCourse} />
+                                            </div>
+                                        </div>
+                                    </details>
+                                </fieldset>
+                            </div>
                         )
                     }
                 })
-
             }
-            {/* Пустой сложенный див с + */}
-            <div>
-                <tr>
-                    <td>
-                        <h2>Курсы повышения квалификации</h2>
-                    </td>
-                </tr>
-                <tr>
-                    <td> <label className="control-label" for="id_courseName">Название курса:</label></td>
-                    <td className="col-sm-8">
-                        <input type="text" className="form-control" id="id_courseName" name="id_courseName" placeholder="Название курса" />
-                    </td>
-                </tr>
-                <tr>
-                    <td> <label className="control-label" for="id_organization">Проводившая организация:</label></td>
-                    <td className="col-sm-8">
-                        <input type="text" className="form-control" id="id_organization" name="id_organization" placeholder="Проводившая организация" />
-                    </td>
-                </tr>
-                <tr>
-                    <td> <label className="control-label" for="id_endingCourse">Год окончания:</label></td>
-                    <td className="col-sm-8">
-                        <input type="date" className="form-control" id="id_endingCourse" name="id_endingCourse" />
-                    </td>
-                </tr>
-
-            </div>
-
         </div>
-
     );
 
 }

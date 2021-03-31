@@ -71,7 +71,7 @@ const requestToDbGETAferPost = (query, dbConnection, res, newUser) => {
         arrUsers = result;
 
         if (getToRegistrationFlag === true) {
-            console.log(newUser);
+           // console.log(newUser);
             arrUsers.forEach(element => {
                 if (element.userLogin === newUser.UserLogin && element.userPassword === newUser.Password)
 
@@ -85,6 +85,7 @@ const requestToDbGETAferPost = (query, dbConnection, res, newUser) => {
 
 const requestToDbCUDUserData = (query, dbConnection, res) => {
 
+    console.log(query);
     dbConnection.query(query, (err, result) => {
 
         if (err) console.log(err.message);
