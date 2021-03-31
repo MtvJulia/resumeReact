@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import '../../../src/App.css';
+import '../UserData/UserData.css';
+import UploadPhoto from '../../images/uploadPhoto.jpg'
+
 class UserData extends React.Component {
     constructor(props) {
         super(props);
@@ -14,11 +16,7 @@ class UserData extends React.Component {
         this.AddCourse = this.AddCourse.bind(this);
         this.AddExperience = this.AddExperience.bind(this);
 
-
-
     }
-
-
     AddLang() {
         var langList = document.getElementById("langList");
         var langDetails = document.getElementById('langDetails').outerHTML;
@@ -94,8 +92,7 @@ class UserData extends React.Component {
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <div className="userPhoto">
                                                     <label>
-                                                        <img className="avatar" src="../../images/dance2.jpg"
-                                                            alt="Нажмите для выбора файла" />
+                                                        <img className="avatar" src={UploadPhoto} alt="Нажмите для выбора файла" />
                                                         <input type="file" id="id_imgUpl" name="fupload" hidden />
                                                     </label>
                                                 </div>

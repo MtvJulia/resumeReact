@@ -1,12 +1,13 @@
 import React from 'react';
 import axios from 'axios';
-import '../../../src/App.css';
+import '../ExistingUserData/ExistingUserData.css';
 import ShowExperience from '../../Server/ShowExperience';
 import ShowEducation from '../../Server/ShowEducation';
 import ShowLanguage from '../../Server/ShowLanguage';
 import ShowCourses from '../../Server/ShowCourses';
 import ShowRecommending from '../../Server/ShowRecommending';
 import { Switch } from 'react-router';
+import UploadPhoto from '../../images/uploadPhoto.jpg'
 
 class ExistingUserData extends React.Component {
     constructor(props) {
@@ -269,9 +270,9 @@ class ExistingUserData extends React.Component {
     }
     AddLang() {
         var langList = document.getElementById("langList");
-        var langDetails = document.getElementById('langDetails').outerHTML;      
+        var langDetails = document.getElementById('langDetails').outerHTML;
         langList.insertAdjacentHTML("beforeend", langDetails);
-      
+
     }
     AddScheduler() {
         var educationList = document.getElementById("educationList");
@@ -290,6 +291,12 @@ class ExistingUserData extends React.Component {
         var experienceDetails = document.getElementById('experienceDetails').outerHTML;
         console.log(experienceDetails);
         experienceList.insertAdjacentHTML("beforeend", experienceDetails);
+    }
+    AddRecommendation() {
+        var recommendationList = document.getElementById("recommendationList");
+        var recommendationDetails = document.getElementById('recommendationDetails').outerHTML;
+        // console.log(experienceDetails);
+        recommendationList.insertAdjacentHTML("beforeend", recommendationDetails);
     }
 
 
@@ -345,7 +352,7 @@ class ExistingUserData extends React.Component {
     render() {
         if (this.state.items == null) {
             return (
-                <div className="spinner-border text-muted">Loading...</div>
+                <div className="spinner-border text-muted"></div>
             );
         }
         else {
@@ -354,7 +361,7 @@ class ExistingUserData extends React.Component {
 
                     <div className="container-fluid ">
                         {/* <!-- First container --> */}
-                        <div className="divData ">
+                        <div className="divData col-md-6 ">
                             <div>
                                 <form action="http://localhost:55555/userdata" method="POST">
 
@@ -380,7 +387,7 @@ class ExistingUserData extends React.Component {
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <div className="userPhoto">
                                                     <label>
-                                                        <img className="avatar" src="../../images/dance2.jpg"
+                                                        <img className="avatar" src={UploadPhoto}
                                                             alt="Нажмите для выбора файла" />
                                                         <input type="file" id="id_imgUpl" name="fupload" hidden />
                                                     </label>
@@ -521,61 +528,64 @@ class ExistingUserData extends React.Component {
                                             </div>
                                         </div>
                                     </fieldset>
-                                    {/* 
+
+                                    {/* <!-- -------ВЛАДЕНИЕ ЯЗЫКАМИ----------- --> */}
+                                    <fieldset className="scheduler-border">
                                         <legend className="scheduler-border">
-                                        <h3>Владение языками</h3>
-                                        </legend> */}
-                                    <ShowLanguage arrayToDisplay={this.langArray} />
+                                            <h3>Владение языками</h3>
+                                        </legend>
+                                        <ShowLanguage arrayToDisplay={this.langArray} />
 
-                                    <div id="langList">
-                                    </div>
-                                    <a href="javascript:AddLang()" onClick={this.AddLang}>Добавить</a>
-
-                                    <ShowEducation arrayToDisplay={this.educArray} />
-                                    <div id="educationList">
-                                    </div>
-                                    <a href="javascript:this.AddScheduler()" onClick={this.AddScheduler}>Добавить</a>
-
-                                    <legend className="scheduler-border">
-                                        <h3>Курсы повышения квалификации</h3>
-                                    </legend>
-                                    <ShowCourses arrayToDisplay={this.coursArray} />                                 
-                                    <div id="courseList">
-                                    </div>
-                                    <div>
-                                <fieldset className="scheduler-border">                                 
-                                    <details id="courseDetails">
-                                        <summary>Курс</summary>
-
-                                        <div className="row">
-                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <label for="id_courseName">Название курса:</label>
-                                                <input type="text" className="form-control" id="id_courseName" name="id_courseName" 
-                                                    placeholder="Название курса" />
-                                            </div>
-                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <label for="id_organization">Проводившая организация:</label>
-                                                <input type="text" className="form-control" id="id_organization" name="id_organization" 
-                                                    placeholder="Проводившая организация" />
-                                            </div>
+                                        <div id="langList">
                                         </div>
-                                        <div className="row">
-                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <label for="id_endingCourse">Год окончания:</label>
-                                                <input type="date" className="form-control" id="id_endingCourse" name="id_endingCourse"  />
-                                            </div>
+                                        <a href="javascript:AddLang()" onClick={this.AddLang}>Добавить</a>
+                                    </fieldset>
+
+                                    {/* <!-- -------ОБРАЗОВАНИЕ----------- --> */}
+                                    <fieldset className="scheduler-border">
+                                        <legend className="scheduler-border">
+                                            <h3>Образование</h3>
+                                        </legend>
+                                        <ShowEducation arrayToDisplay={this.educArray} />
+                                        <div id="educationList">
                                         </div>
-                                    </details>
-                                </fieldset>
-                            </div>
-                                    <a href="javascript:AddCourse()" onClick={this.AddCourse}>Добавить</a>
+                                        <a href="javascript:this.AddScheduler()" onClick={this.AddScheduler}>Добавить</a>
+                                    </fieldset>
 
-                                    < ShowExperience arrayToDisplay={this.expArray} />
-                                    <div id="experienceList">
-                                    </div>
-                                    <a href="javascript:AddExperience()" onClick={this.AddExperience}>Добавить</a>
+                                    {/* <!-- -------КУРСЫ ПОВЫШЕНИЯ КВАЛИФИКАЦИИ----------- --> */}
+                                    <fieldset className="scheduler-border">
+                                        <legend className="scheduler-border">
+                                            <h3>Курсы повышения квалификации</h3>
+                                        </legend>
+                                        <ShowCourses arrayToDisplay={this.coursArray} />
+                                        <div id="courseList">
+                                        </div>
+                                        <a href="javascript:AddCourse()" onClick={this.AddCourse}>Добавить</a>
+                                    </fieldset>
 
-                                    <ShowRecommending arrayToDisplay={this.recomendationArray} />
+                                    {/* <!-- -------ОПЫТ РАБОТЫ----------- --> */}
+                                    <fieldset className="scheduler-border">
+                                        <legend className="scheduler-border">
+                                            <h3>Опыт работы</h3>
+                                        </legend>
+                                        < ShowExperience arrayToDisplay={this.expArray} />
+                                        <div id="experienceList">
+                                        </div>
+                                        <a href="javascript:AddExperience()" onClick={this.AddExperience}>Добавить</a>
+                                    </fieldset>
+
+                                    {/* <!-- -------РЕКОМЕНДАЦИИ----------- --> */}
+                                    <fieldset className="scheduler-border">
+                                        <legend className="scheduler-border">
+                                            <h3>Рекомендации</h3>
+                                        </legend>
+                                        <ShowRecommending arrayToDisplay={this.recomendationArray} />
+                                        <div id="recommendationList">
+                                        </div>
+                                        <a href="javascript:AddRecommendation()" onClick={this.AddRecommendation}>Добавить</a>
+                                    </fieldset>
+
+
 
                                     {/* <!-- -------ДОПОЛНИТЕЛЬНАЯ ИНФО----------- --> */}
                                     <fieldset className="scheduler-border">

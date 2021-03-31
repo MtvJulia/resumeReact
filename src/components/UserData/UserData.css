@@ -4,7 +4,7 @@ background-color: rgb(246, 252, 255);
 }
 
 .mainUserData{
-    background-color: bisque;
+    /* background-color: bisque; */
     /* background-image: url("./images/dance2.jpg"); */
     background-size: cover;
     background-repeat: no-repeat;

@@ -71,7 +71,7 @@ class Registration extends React.Component {
             </div>
             <div className="form-group">
                 <div className="col-sm-offset-2 col-sm-10">
-                    <button type="submit" className="btn btn-default" >Регистрация</button>
+                    <button type="submit" className="btn btn-primary" >Регистрация</button>
                 </div>
             </div>
         </form>
