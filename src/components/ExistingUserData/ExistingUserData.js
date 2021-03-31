@@ -42,10 +42,13 @@ class ExistingUserData extends React.Component {
         this.fillRecomendArr = this.fillRecomendArr.bind(this);
         this.fillDriveLicenseObj = this.fillDriveLicenseObj.bind(this);
         this.getCurrency = this.getCurrency.bind(this);
+        this.AddLang = this.AddLang.bind(this);
+        this.AddScheduler = this.AddScheduler.bind(this);
         this.AddCourse = this.AddCourse.bind(this);
+        this.AddExperience = this.AddExperience.bind(this);
     }
 
-    getCurrency(data,currency){
+    getCurrency(data, currency) {
 
         switch (data.currency) {
             case "Гривна":
@@ -65,7 +68,7 @@ class ExistingUserData extends React.Component {
                 }
             case "Рубли":
                 {
-                    currency= "₽ - рубль";
+                    currency = "₽ - рубль";
                     break;
                 }
             case "Фунт стерлингов":
@@ -82,13 +85,12 @@ class ExistingUserData extends React.Component {
                 {
                     currency = "другая валюта";
                     break;
-                }         
+                }
         }
         return currency;
     }
 
-    fillDriveLicenseObj(data,drLicense) 
-    {
+    fillDriveLicenseObj(data, drLicense) {
         for (let i = 0; i < data.driverLicense.length; i++) {
             switch (data.driverLicense[i]) {
                 case "A1":
@@ -98,12 +100,12 @@ class ExistingUserData extends React.Component {
                     }
                 case "A":
                     {
-                       drLicense.A = 1;
+                        drLicense.A = 1;
                         break;
                     }
                 case "B1":
                     {
-                       drLicense.B1 = 1;
+                        drLicense.B1 = 1;
                         break;
                     }
                 case "B":
@@ -128,12 +130,12 @@ class ExistingUserData extends React.Component {
                     }
                 case "D":
                     {
-                      drLicense.D = 1;
+                        drLicense.D = 1;
                         break;
                     }
                 case "T":
                     {
-                       drLicense.T = 1;
+                        drLicense.T = 1;
                         break;
                     }
             }
@@ -223,40 +225,38 @@ class ExistingUserData extends React.Component {
     }
 
     fillEducArr(data, educArr) {
-        if(data.institutName!=null)
-        {
+        if (data.institutName != null) {
             for (let i = 0; i < data.institutName.length; i++) {
 
                 var objEducation = {};
-    
+
                 objEducation.institutName = data.institutName[i];
                 objEducation.levelEducation = data.levelEducation[i];
                 objEducation.faculty = data.faculty[i];
                 objEducation.specialty = data.specialty[i];
                 objEducation.ending = data.ending[i];
-    
+
                 educArr.push(objEducation);
             }
-        }        
+        }
     }
 
     fillExpArr(data, expArr) {
-        if(data.companyName!=null)
-        {
+        if (data.companyName != null) {
             for (let i = 0; i < data.companyName.length; i++) {
 
                 var objExperience = {};
-    
+
                 objExperience.startWork = data.startWork[i];
                 objExperience.endWork = data.endWork[i];
                 objExperience.stillWorking = data.stillWorking;
                 objExperience.positionWork = data.positionWork[i];
                 objExperience.companyName = data.companyName[i];
                 objExperience.jobDuties = data.jobDuties[i];
-    
+
                 expArr.push(objExperience);
             }
-        }       
+        }
     }
 
     changeData(data) {
@@ -267,12 +267,31 @@ class ExistingUserData extends React.Component {
         data[0].positionWork = data[0].positionWork.split("~");
 
     }
+    AddLang() {
+        var langList = document.getElementById("langList");
+        var langDetails = document.getElementById('langDetails').outerHTML;      
+        langList.insertAdjacentHTML("beforeend", langDetails);
+      
+    }
+    AddScheduler() {
+        var educationList = document.getElementById("educationList");
+        var educationDatails = document.getElementById('educationDatails').outerHTML;
+        console.log(educationDatails);
+        educationList.insertAdjacentHTML("beforeend", educationDatails);
+    }
     AddCourse() {
         var courseList = document.getElementById("courseList");
         var courseDetails = document.getElementById('courseDetails').outerHTML;
         console.log(courseDetails);
         courseList.insertAdjacentHTML("beforeend", courseDetails);
     }
+    AddExperience() {
+        var experienceList = document.getElementById("experienceList");
+        var experienceDetails = document.getElementById('experienceDetails').outerHTML;
+        console.log(experienceDetails);
+        experienceList.insertAdjacentHTML("beforeend", experienceDetails);
+    }
+
 
     componentDidMount() {
 
@@ -289,22 +308,22 @@ class ExistingUserData extends React.Component {
                 let langArr = [];
                 let coursArr = [];
                 let recomendArr = [];
-                let drLicense ={};
+                let drLicense = {};
                 let currency = "";
 
                 this.fillExpArr(data, expArr);
                 this.fillEducArr(data, educArr);
-                this.fillLangArr(data,langArr);
+                this.fillLangArr(data, langArr);
                 if (data.courseName != null) {
                     this.fillCoursArr(data, coursArr);
                 }
                 if (data.phoneCompany != null) {
-                    this.fillRecomendArr(data,recomendArr);
+                    this.fillRecomendArr(data, recomendArr);
                 }
                 if (data.driverLicense != null) {
                     this.fillDriveLicenseObj(data, drLicense);
                 }
-                
+
 
                 this.expArray = expArr;
                 this.educArray = educArr;
@@ -312,7 +331,7 @@ class ExistingUserData extends React.Component {
                 this.coursArray = coursArr;
                 this.recomendationArray = recomendArr;
                 this.driveLicense = drLicense;
-                this.currencyName = this.getCurrency(data,currency);
+                this.currencyName = this.getCurrency(data, currency);
 
 
                 this.setState({
@@ -326,112 +345,106 @@ class ExistingUserData extends React.Component {
     render() {
         if (this.state.items == null) {
             return (
-                <div> Loading...</div>
+                <div className="spinner-border text-muted">Loading...</div>
             );
         }
         else {
             return (
-                <div className="container">
+                <div className="container-fluid mainUserData">
+
                     <div className="container-fluid ">
                         {/* <!-- First container --> */}
                         <div className="divData ">
                             <div>
                                 <form action="http://localhost:55555/userdata" method="POST">
-                                    <table>
-                                        <tr>
-                                            <td> <label className="control-label " for="id_userPosition">Желаемая должность:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="text" className="form-control" id="id_userPosition" value={this.state.items.position} name="id_userPosition" placeholder="Введите название должности" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td className="col-md-6">
-                                                <h2>Основная информация</h2>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td className="col-md-3"> <label className="control-label" for="id_lastName">Фамилия:</label></td>
-                                            <td className="col-sm-3">
-                                                <input type="text" className="form-control" id="id_lastName" name="id_lastName" value={this.state.items.lastName} placeholder="Введите фамилию" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_firstName">Имя:</label></td>
-                                            <td className="col-sm-8">
+
+                                    {/* <!-- -------ОСНОВНАЯ ИНФО----------- --> */}
+                                    <fieldset className="form-group p-3">
+                                        <legend className="w-auto px-2">
+                                            <h3>Основная информация</h3>
+                                        </legend>
+
+                                        <div className="row">
+                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <label for="id_userPosition">Желаемая должность:</label>
+                                                <input id="id_userPosition" type="text" className="form-control" value={this.state.items.position} name="id_userPosition"
+                                                    placeholder="Введите должность" />
+                                            </div>
+                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <label for="id_lastName">Фамилия:</label>
+                                                <input id="id_lastName" type="text" className="form-control" name="id_lastName" value={this.state.items.lastName} placeholder="Введите фамилию" />
+                                            </div>
+                                        </div>
+
+                                        <div className="row">
+                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <div className="userPhoto">
+                                                    <label>
+                                                        <img className="avatar" src="../../images/dance2.jpg"
+                                                            alt="Нажмите для выбора файла" />
+                                                        <input type="file" id="id_imgUpl" name="fupload" hidden />
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <label for="id_firstName">Имя:</label>
                                                 <input type="text" className="form-control" id="id_firstName" name="id_firstName" value={this.state.items.firstName} placeholder="Введите имя" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_middleName">Отчество:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="text" className="form-control" id="id_middleName" name="id_middleName" value={this.state.items.middleName} placeholder="Введите отчество" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_birthOfDate">Дата рождения:</label></td>
-                                            <td className="col-sm-8">
+                                                <label for="id_middleName">Отчество:</label>
+                                                <input type="text" className="form-control" id="id_middleName" name="id_middleName" value={this.state.items.middleName}
+                                                    placeholder="Введите отчество" />
+                                            </div>
+                                        </div>
+
+                                        <div className="row">
+                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <label for="id_birthOfDate">Дата рождения:</label>
                                                 <input type="date" className="form-control" id="id_birthOfDate" value={this.state.items.birthOfDate.substr(0, 10)} name="id_birthOfDate" />
-                                            </td>
-                                        </tr>                                      
-                                        <tr className="form-group">
-                                            <td>
-                                                <label for="imgup">Изображение:</label>
-                                            </td>
-                                            <td className="col-sm-8">
-                                                <input type="file" id="imgup" className="form-control" name="fupload" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_cityOfResidence">Город проживания:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="text" className="form-control" id="id_cityOfResidence" value={this.state.items.сityOfResidence} name="id_cityOfResidence" placeholder="Введите название города" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <h2>Контакты</h2>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_phone">Телефон:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="" className="form-control" id="id_phone" value={this.state.items.phone} name="id_phone" placeholder="+380661234567" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_email">Электронная почта:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="email" className="form-control" id="id_email" name="id_email" value={this.state.items.email} placeholder="address@site.com" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <h2>Личная информация</h2>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_nationality">Национальность:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="text" className="form-control" id="id_nationality" value={this.state.items.nationality} name="id_nationality" placeholder="Введите национальность" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_relocate">Готовность на переезд:</label></td>
-                                            <td >
-                                                <input type="checkbox" id="id_relocate" name="id_relocate" checked={this.state.items.relocate} />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_desiredSalary">Желаемая зарплата:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="number" className="form-control" id="id_desiredSalary" value={this.state.items.desiredSalary} name="id_desiredSalary" step="1" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_currency">Валюта:</label></td>
-                                            <td className="col-sm-8">
-                                                {/* <input type="text" className="form-control" id="id_currency" value={this.currencyName} name="id_currency"  /> */}
-                                                <select className="form-control" id="id_currency" value={this.currencyName} name="id_currency">
+                                            </div>
+                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <label for="id_cityOfResidence">Город проживания:</label>
+                                                <input type="text" className="form-control" id="id_cityOfResidence" name="id_cityOfResidence" value={this.state.items.сityOfResidence}
+                                                    placeholder="Введите город" />
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    {/* <!-- -------КОНТАКТЫ----------- --> */}
+                                    <fieldset className="scheduler-border">
+                                        <legend className="scheduler-border">
+                                            <h3>Контакты</h3>
+                                        </legend>
+
+                                        <div className="row">
+                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <label for="id_phone">Телефон:</label>
+                                                <input type="text" className="form-control" id="id_phone" name="id_phone" value={this.state.items.phone} placeholder="+380661234567" />
+                                            </div>
+                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <label for="id_email">Электронная почта:</label>
+                                                <input type="email" className="form-control" id="id_email" name="id_email" value={this.state.items.email}
+                                                    placeholder="address@site.com" />
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    {/* <!-- -------ЛИЧНАЯ ИНФО----------- --> */}
+                                    <fieldset className="scheduler-border">
+                                        <legend className="scheduler-border">
+                                            <h3>Личная информация</h3>
+                                        </legend>
+                                        <div className="row">
+                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <label for="id_nationality">Национальность:</label>
+                                                <input type="text" className="form-control" id="id_nationality" name="id_nationality" value={this.state.items.nationality}
+                                                    placeholder="Введите национальность" />
+                                            </div>
+                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <label for="id_desiredSalary">Желаемая зарплата:</label>
+
+                                                <div className="input-group mb-2">
+                                                    <input type="number" className="form-control" id="id_desiredSalary" name="id_desiredSalary" value={this.state.items.desiredSalary} placeholder="0"
+                                                        step="1" min="0" />
+                                                    <div className="input-group-append">
+                                                        <select className="form-control" id="id_currency" name="id_currency" value={this.currencyName}>
                                                             <option>₴ - гривна</option>
                                                             <option>$ - доллар</option>
                                                             <option>€ - евро</option>
@@ -440,142 +453,208 @@ class ExistingUserData extends React.Component {
                                                             <option>¥ - юань</option>
                                                             <option>другая валюта</option>
                                                         </select>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_employment">Занятось:</label></td>
-                                            <td className="col-sm-8">
-                                                <select className="form-control" id="id_employment" value={this.state.items.employment} name="id_employment">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="row">
+                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <label for="id_employment">Занятось:</label>
+                                                <select className="form-control" id="id_employment" name="id_employment" placeholder="выбрать" value={this.state.items.employment}>
                                                     <option>Полная занятость</option>
                                                     <option>Частичная занятость</option>
                                                     <option>Проектная работа</option>
                                                     <option>Волонтерство</option>
                                                     <option>Стажировка</option>
                                                 </select>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_schedule">График работы:</label></td>
-                                            <td className="col-sm-8">
-                                                <select className="form-control" value={this.state.items.schedule} id="id_schedule" name="id_schedule">
+                                            </div>
+                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <label for="id_schedule">График работы:</label>
+                                                <select className="form-control" id="id_schedule" name="id_schedule" value={this.state.items.schedule}>
                                                     <option>Полный день</option>
                                                     <option>Сменный график</option>
                                                     <option>Гибкий график</option>
                                                     <option>Удаленная работа</option>
                                                     <option>Вахтовый метод</option>
                                                 </select>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_businessTrip">Командировки:</label></td>
-                                            <td >
-                                                <input type="checkbox" id="id_businessTrip" checked={this.state.items.schedule} name="id_businessTrip" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_maritalStatus">Семейное положение:</label></td>
-                                            <td className="col-sm-8">
-                                                <input type="text" className="form-control" id="id_maritalStatus" value={this.state.items.maritalStatus} name="id_maritalStatus" placeholder="Введите семейное положение" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_children">Дети:</label></td>
-                                            <td >
-                                                <input className="control-input" type="checkbox" id="id_children" checked={this.state.items.children} name="id_children" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_education">Основное образование:</label></td>
-                                            <td className="col-sm-8">
-                                                <select className="form-control" id="id_education" value={this.state.items.education} name="id_education">
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <div className="custom-control custom-checkbox custom-control-inline ccb-right">
+                                                    <input type="checkbox" id="id_businessTrip" className="custom-control-input" name="id_businessTrip" checked={this.state.items.businessTrip} />
+                                                    <label className="custom-control-label" for="id_businessTrip">Командировки</label>
+                                                </div>
+                                            </div>
+                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <div className="custom-control custom-checkbox custom-control-inline ccb-right">
+                                                    <input type="checkbox" id="id_relocate" className="custom-control-input" name="id_relocate" checked={this.state.items.relocate} />
+                                                    <label className="custom-control-label" for="id_relocate">Готовность на переезд</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <label for="id_maritalStatus">Семейное положение:</label>
+                                                <select className="form-control" id="id_maritalStatus" name="id_maritalStatus" value={this.state.items.maritalStatus} >
+                                                    <option>Замужем</option>
+                                                    <option>Не замужем</option>
+                                                    <option>Женат</option>
+                                                    <option>Не женат</option>
+                                                </select>
+                                                <div
+                                                    className="custom-control custom-checkbox custom-control-inline ccb-right childrenCheckBox">
+                                                    <input type="checkbox" id="id_children" className="custom-control-input" name="id_children" checked={this.state.items.children} />
+                                                    <label className="custom-control-label" for="id_children">Дети</label>
+                                                </div>
+                                            </div>
+                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <label for="id_education">Основное образование:</label>
+                                                <select className="form-control" id="id_education" name="id_education" value={this.state.items.education}>
                                                     <option>Общее среднее образование</option>
                                                     <option>Профессионально-техническое образование</option>
                                                     <option>Высшее образования</option>
                                                     <option>Аспирантура</option>
                                                     <option>Докторантура</option>
                                                 </select>
-                                            </td>
-                                        </tr>                                  
-
-                                        <ShowLanguage arrayToDisplay={this.langArray} />
-                                        <div id="langList">
+                                            </div>
                                         </div>
-                                        <a href="javascript:AddLang()" onClick={this.AddLang}>Добавить</a>
+                                    </fieldset>
+                                    {/* 
+                                        <legend className="scheduler-border">
+                                        <h3>Владение языками</h3>
+                                        </legend> */}
+                                    <ShowLanguage arrayToDisplay={this.langArray} />
 
-                                        <ShowEducation arrayToDisplay={this.educArray} />   
-                                        <div id="educationList">
-                                        </div>
-                                        <a href="javascript:this.AddScheduler()" onClick={this.AddScheduler}>Добавить</a>                              
-                                      
-                                        <ShowCourses arrayToDisplay={this.coursArray} />
-                                        <div id="courseList">
-                                       </div>
-                                       <a href="javascript:AddCourse()" onClick={this.AddCourse}>Добавить</a>
-                                      
-                                        < ShowExperience arrayToDisplay={this.expArray} />
-                                        <div id="experienceList">
-                                        </div>
-                                        <a href="javascript:AddExperience()" onClick={this.AddExperience}>Добавить</a>
-                                                                          
-                                        <ShowRecommending arrayToDisplay={this.recomendationArray} />
+                                    <div id="langList">
+                                    </div>
+                                    <a href="javascript:AddLang()" onClick={this.AddLang}>Добавить</a>
 
-                                        <tr>
-                                            <td>
-                                                <h2>Дополнительная информация</h2>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_driverLicense">Права категории:</label></td>
-                                            <td className="col-sm-8">
-                                                <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseA1" checked={this.driveLicense.A1} name="id_driverLicenseA1" />A1</label>
-                                                <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseA" checked={this.driveLicense.A} name="id_driverLicenseA" />A</label>
-                                                <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseB1" checked={this.driveLicense.B1} name="id_driverLicenseB1" />B1</label>
-                                                <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseB" checked={this.driveLicense.B} name="id_driverLicenseB" />B</label>
-                                                <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseC1" checked={this.driveLicense.C1} name="id_driverLicenseC1" />C1</label>
-                                                <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseC" checked={this.driveLicense.C} name="id_driverLicenseC" />C</label>
-                                                <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseD1" checked={this.driveLicense.D1} name="id_driverLicenseD1" />D1</label>
-                                                <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseD" checked={this.driveLicense.D} name="id_driverLicenseD" />D</label>
-                                                <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseT" checked={this.driveLicense.T} name="id_driverLicenseT" />T</label>
-                                               
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_privatCar">Есть личный автомобиль:</label></td>
-                                            <td >
-                                                <input className="control-input" type="checkbox" checked={this.state.items.privateСar} id="id_privatCar" name="id_privatCar" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_army">Служба в армии:</label></td>
-                                            <td >
-                                                <input className="control-input" type="checkbox" checked={this.state.items.army} id="id_army" name="id_army" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_hobby">Хобби:</label></td>
-                                            <td className="col-sm-8">
-                                                <textarea className="form-control" id="id_hobby" value={this.state.items.hobby} name="id_hobby"></textarea>                                              
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_personalQualities">Личные качества:</label></td>
-                                            <td className="col-sm-8">
-                                                <textarea className="form-control" id="id_personalQualities" value={this.state.items.personalQualities} name="id_personalQualities" ></textarea>                                             
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> <label className="control-label" for="id_professionalSkills">Профессиональные навыки:</label></td>
-                                            <td className="col-sm-8">
-                                                <textarea className="form-control" id="id_professionalSkills" value={this.state.items.professionalSkills} name="id_professionalSkills" ></textarea>                                            
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td>
-                                                <button type="submit" className="btn btn-primary" id="sbmResume" >Отправить</button>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                    <ShowEducation arrayToDisplay={this.educArray} />
+                                    <div id="educationList">
+                                    </div>
+                                    <a href="javascript:this.AddScheduler()" onClick={this.AddScheduler}>Добавить</a>
+
+                                    <legend className="scheduler-border">
+                                        <h3>Курсы повышения квалификации</h3>
+                                    </legend>
+                                    <ShowCourses arrayToDisplay={this.coursArray} />                                 
+                                    <div id="courseList">
+                                    </div>
+                                    <div>
+                                <fieldset className="scheduler-border">                                 
+                                    <details id="courseDetails">
+                                        <summary>Курс</summary>
+
+                                        <div className="row">
+                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <label for="id_courseName">Название курса:</label>
+                                                <input type="text" className="form-control" id="id_courseName" name="id_courseName" 
+                                                    placeholder="Название курса" />
+                                            </div>
+                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <label for="id_organization">Проводившая организация:</label>
+                                                <input type="text" className="form-control" id="id_organization" name="id_organization" 
+                                                    placeholder="Проводившая организация" />
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <label for="id_endingCourse">Год окончания:</label>
+                                                <input type="date" className="form-control" id="id_endingCourse" name="id_endingCourse"  />
+                                            </div>
+                                        </div>
+                                    </details>
+                                </fieldset>
+                            </div>
+                                    <a href="javascript:AddCourse()" onClick={this.AddCourse}>Добавить</a>
+
+                                    < ShowExperience arrayToDisplay={this.expArray} />
+                                    <div id="experienceList">
+                                    </div>
+                                    <a href="javascript:AddExperience()" onClick={this.AddExperience}>Добавить</a>
+
+                                    <ShowRecommending arrayToDisplay={this.recomendationArray} />
+
+                                    {/* <!-- -------ДОПОЛНИТЕЛЬНАЯ ИНФО----------- --> */}
+                                    <fieldset className="scheduler-border">
+                                        <legend className="scheduler-border">
+                                            <h3>Дополнительная информация</h3>
+                                        </legend>
+
+                                        <div className="row">
+                                            <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <label for="id_driverLicense">Права категории:</label>
+                                                <div className="custom-control custom-checkbox custom-control-inline ccb-right">
+                                                    <input type="checkbox" id="id_driverLicenseA1" className="custom-control-input" name="id_driverLicenseA1" checked={this.driveLicense.A1} />
+                                                    <label className="custom-control-label" for="id_driverLicenseA1">A1</label>
+                                                </div>
+                                                <div className="custom-control custom-checkbox custom-control-inline ccb-right">
+                                                    <input type="checkbox" id="id_driverLicenseA" className="custom-control-input" name="id_driverLicenseA" checked={this.driveLicense.A} />
+                                                    <label className="custom-control-label" for="id_driverLicenseA">A</label>
+                                                </div>
+                                                <div className="custom-control custom-checkbox custom-control-inline ccb-right">
+                                                    <input type="checkbox" id="id_driverLicenseB1" className="custom-control-input" name="id_driverLicenseB1" checked={this.driveLicense.B1} />
+                                                    <label className="custom-control-label" for="id_driverLicenseB1">B1</label>
+                                                </div>
+                                                <div className="custom-control custom-checkbox custom-control-inline ccb-right">
+                                                    <input type="checkbox" id="id_driverLicenseB" className="custom-control-input" name="id_driverLicenseB" checked={this.driveLicense.B} />
+                                                    <label className="custom-control-label" for="id_driverLicenseB">B</label>
+                                                </div>
+                                                <div className="custom-control custom-checkbox custom-control-inline ccb-right">
+                                                    <input type="checkbox" id="id_driverLicenseC1" className="custom-control-input" name="id_driverLicenseC1" checked={this.driveLicense.C1} />
+                                                    <label className="custom-control-label" for="id_driverLicenseC1">C1</label>
+                                                </div>
+                                                <div className="custom-control custom-checkbox custom-control-inline ccb-right">
+                                                    <input type="checkbox" id="id_driverLicenseC" className="custom-control-input" name="id_driverLicenseC" checked={this.driveLicense.C} />
+                                                    <label className="custom-control-label" for="id_driverLicenseC">C</label>
+                                                </div>
+                                                <div className="custom-control custom-checkbox custom-control-inline ccb-right">
+                                                    <input type="checkbox" id="id_driverLicenseD1" className="custom-control-input" name="id_driverLicenseD1" checked={this.driveLicense.D1} />
+                                                    <label className="custom-control-label" for="id_driverLicenseD1">D1</label>
+                                                </div>
+                                                <div className="custom-control custom-checkbox custom-control-inline ccb-right">
+                                                    <input type="checkbox" id="id_driverLicenseD" className="custom-control-input" name="id_driverLicenseD" checked={this.driveLicense.D} />
+                                                    <label className="custom-control-label" for="id_driverLicenseD">D</label>
+                                                </div>
+                                                <div className="custom-control custom-checkbox custom-control-inline ccb-right">
+                                                    <input type="checkbox" id="id_driverLicenseT" className="custom-control-input" name="id_driverLicenseT" checked={this.driveLicense.T} />
+                                                    <label className="custom-control-label" for="id_driverLicenseT">T</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div className="custom-control custom-checkbox custom-control-inline ccb-right">
+                                                    <input type="checkbox" id="id_privatCar" className="custom-control-input" name="id_privatCar" checked={this.state.items.privateСar} />
+                                                    <label className="custom-control-label" for="id_privatCar">Есть личный
+                                        автомобиль</label>
+                                                </div>
+                                            </div>
+                                            <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div className="custom-control custom-checkbox custom-control-inline ccb-right">
+                                                    <input type="checkbox" id="id_army" className="custom-control-input" name="id_army" checked={this.state.items.army} />
+                                                    <label className="custom-control-label" for="id_army">Служба в армии</label>
+                                                </div>
+                                            </div>
+                                            <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <label for="id_hobby">Хобби:</label>
+                                                <textarea className="form-control" id="id_hobby" name="id_hobby" value={this.state.items.hobby}></textarea>
+                                            </div>
+                                            <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <label for="id_personalQualities">Личные качества:</label>
+                                                <textarea className="form-control" id="id_personalQualities" name="id_personalQualities" value={this.state.items.personalQualities}></textarea>
+                                            </div>
+                                            <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <label for="id_professionalSkills">Профессиональные навыки:</label>
+                                                <textarea className="form-control" id="id_professionalSkills" name="id_professionalSkills" value={this.state.items.professionalSkills}></textarea>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <button type="submit" className="btn btn-primary" id="sbmResume" >Отправить</button>
+
+
                                 </form>
                             </div>
                         </div>

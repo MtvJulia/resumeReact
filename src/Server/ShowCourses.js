@@ -12,10 +12,7 @@ function ShowCourses(props) {
                     if (item.courseName != null) {
                         return (
                             <div>
-                                <fieldset className="scheduler-border">
-                                    <legend className="scheduler-border">
-                                        <h3>Курсы повышения квалификации</h3>
-                                    </legend>
+                                <fieldset className="scheduler-border">                                   
 
                                     <details id="courseDetails">
                                         <summary>Курс</summary>
@@ -42,7 +39,8 @@ function ShowCourses(props) {
                                 </fieldset>
                             </div>
                         )
-                    }
+                    }             
+                                                
                 })
             }
         </div>

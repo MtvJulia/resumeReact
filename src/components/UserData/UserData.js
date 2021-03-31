@@ -13,7 +13,7 @@ class UserData extends React.Component {
         this.AddScheduler = this.AddScheduler.bind(this);
         this.AddCourse = this.AddCourse.bind(this);
         this.AddExperience = this.AddExperience.bind(this);
-       
+
 
 
     }
@@ -25,26 +25,26 @@ class UserData extends React.Component {
         console.log(langDetails);
         langList.insertAdjacentHTML("beforeend", langDetails);
     }
-     AddScheduler() {
+    AddScheduler() {
         var educationList = document.getElementById("educationList");
         var educationDatails = document.getElementById('educationDatails').outerHTML;
         console.log(educationDatails);
         educationList.insertAdjacentHTML("beforeend", educationDatails);
     }
-     AddCourse() {
+    AddCourse() {
         var courseList = document.getElementById("courseList");
         var courseDetails = document.getElementById('courseDetails').outerHTML;
         console.log(courseDetails);
         courseList.insertAdjacentHTML("beforeend", courseDetails);
     }
-     AddExperience() {
+    AddExperience() {
         var experienceList = document.getElementById("experienceList");
         var experienceDetails = document.getElementById('experienceDetails').outerHTML;
         console.log(experienceDetails);
         experienceList.insertAdjacentHTML("beforeend", experienceDetails);
     }
 
-  componentDidMount() {
+    componentDidMount() {
         //Встроенный метод для GET (и только) запросов
         fetch(this.API_ADDRESS)
             .then((response) => response.json())
@@ -56,7 +56,7 @@ class UserData extends React.Component {
             });
     }
 
-    
+
 
     render() {
         if (this.state.items == null) {
@@ -88,7 +88,7 @@ class UserData extends React.Component {
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_lastName">Фамилия:</label>
-                                                <input id="id_lastName" type="text" className="form-control"name ="id_lastName" placeholder="Введите фамилию" />
+                                                <input id="id_lastName" type="text" className="form-control" name="id_lastName" placeholder="Введите фамилию" />
                                             </div>
                                         </div>
 
@@ -105,9 +105,9 @@ class UserData extends React.Component {
 
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_firstName">Имя:</label>
-                                                <input type="text" className="form-control" id="id_firstName"name = "id_firstName" placeholder="Введите имя" />
+                                                <input type="text" className="form-control" id="id_firstName" name="id_firstName" placeholder="Введите имя" />
                                                 <label for="id_middleName">Отчество:</label>
-                                                <input type="text" className="form-control" id="id_middleName"name = "id_middleName"
+                                                <input type="text" className="form-control" id="id_middleName" name="id_middleName"
                                                     placeholder="Введите отчество" />
                                             </div>
                                         </div>
@@ -115,7 +115,7 @@ class UserData extends React.Component {
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_birthOfDate">Дата рождения:</label>
-                                                <input type="date" className="form-control" id="id_birthOfDate" name = "id_birthOfDate"/>
+                                                <input type="date" className="form-control" id="id_birthOfDate" name="id_birthOfDate" />
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_cityOfResidence">Город проживания:</label>
@@ -134,11 +134,11 @@ class UserData extends React.Component {
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_phone">Телефон:</label>
-                                                <input type="text" className="form-control" id="id_phone"name ="id_phone" placeholder="+380661234567" />
+                                                <input type="text" className="form-control" id="id_phone" name="id_phone" placeholder="+380661234567" />
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_email">Электронная почта:</label>
-                                                <input type="email" className="form-control" id="id_email" name="id_email" 
+                                                <input type="email" className="form-control" id="id_email" name="id_email"
                                                     placeholder="address@site.com" />
                                             </div>
                                         </div>
@@ -152,14 +152,14 @@ class UserData extends React.Component {
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_nationality">Национальность:</label>
-                                                <input type="text" className="form-control" id="id_nationality"name ="id_nationality"
+                                                <input type="text" className="form-control" id="id_nationality" name="id_nationality"
                                                     placeholder="Введите национальность" />
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_desiredSalary">Желаемая зарплата:</label>
 
                                                 <div className="input-group mb-2">
-                                                    <input type="number" className="form-control" id="id_desiredSalary"name ="id_desiredSalary" placeholder="0"
+                                                    <input type="number" className="form-control" id="id_desiredSalary" name="id_desiredSalary" placeholder="0"
                                                         step="1" min="0" />
                                                     <div className="input-group-append">
                                                         <select className="form-control" id="id_currency" name="id_currency">
@@ -179,7 +179,7 @@ class UserData extends React.Component {
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_employment">Занятось:</label>
-                                                <select className="form-control" id="id_employment"name="id_employment" placeholder="выбрать">
+                                                <select className="form-control" id="id_employment" name="id_employment" placeholder="выбрать">
                                                     <option>Полная занятость</option>
                                                     <option>Частичная занятость</option>
                                                     <option>Проектная работа</option>
@@ -189,7 +189,7 @@ class UserData extends React.Component {
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_schedule">График работы:</label>
-                                                <select className="form-control" id="id_schedule"name="id_schedule">
+                                                <select className="form-control" id="id_schedule" name="id_schedule">
                                                     <option>Полный день</option>
                                                     <option>Сменный график</option>
                                                     <option>Гибкий график</option>
@@ -207,7 +207,7 @@ class UserData extends React.Component {
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_relocate" className="custom-control-input"name ="id_relocate" />
+                                                    <input type="checkbox" id="id_relocate" className="custom-control-input" name="id_relocate" />
                                                     <label className="custom-control-label" for="id_relocate">Готовность на переезд</label>
                                                 </div>
                                             </div>
@@ -223,13 +223,13 @@ class UserData extends React.Component {
                                                 </select>
                                                 <div
                                                     className="custom-control custom-checkbox custom-control-inline ccb-right childrenCheckBox">
-                                                    <input type="checkbox" id="id_children" className="custom-control-input"name ="id_children" />
+                                                    <input type="checkbox" id="id_children" className="custom-control-input" name="id_children" />
                                                     <label className="custom-control-label" for="id_children">Дети</label>
                                                 </div>
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_education">Основное образование:</label>
-                                                <select className="form-control" id="id_education" name ="id_education">
+                                                <select className="form-control" id="id_education" name="id_education">
                                                     <option>Общее среднее образование</option>
                                                     <option>Профессионально-техническое образование</option>
                                                     <option>Высшее образования</option>
@@ -251,12 +251,12 @@ class UserData extends React.Component {
                                             <div className="row">
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <label for="id_langName">Язык:</label>
-                                                    <input type="text" className="form-control" id="id_langName"name="id_langName"
+                                                    <input type="text" className="form-control" id="id_langName" name="id_langName"
                                                         placeholder="Введите язык" />
                                                 </div>
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <label for="id_level">Уровень владения:</label>
-                                                    <select className="form-control" id="id_level"name="id_level">
+                                                    <select className="form-control" id="id_level" name="id_level">
                                                         <option disabled>Выберите уровень</option>
                                                         <option selected></option>
                                                         <option>A1 - начальный</option>
@@ -292,7 +292,7 @@ class UserData extends React.Component {
                                                 </div>
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <label for="id_levelEducation">Уровень образование:</label>
-                                                    <select className="form-control" id="id_levelEducation"name="id_levelEducation">
+                                                    <select className="form-control" id="id_levelEducation" name="id_levelEducation">
                                                         <option disabled>Выберите уровень</option>
                                                         <option selected></option>
                                                         <option>Высшее</option>
@@ -308,19 +308,19 @@ class UserData extends React.Component {
                                             <div className="row">
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <label for="id_faculty">Факультет:</label>
-                                                    <input type="text" className="form-control" id="id_faculty"name="id_faculty"
+                                                    <input type="text" className="form-control" id="id_faculty" name="id_faculty"
                                                         placeholder="Введите факультет" />
                                                 </div>
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <label for="id_specialty">Специальность:</label>
-                                                    <input type="text" className="form-control" id="id_specialty"name="id_specialty"
+                                                    <input type="text" className="form-control" id="id_specialty" name="id_specialty"
                                                         placeholder="Введите специальность" />
                                                 </div>
                                             </div>
                                             <div className="row">
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <label for="id_ending">Год окончания:</label>
-                                                    <input type="date" className="form-control" id="id_ending"name="id_ending" />
+                                                    <input type="date" className="form-control" id="id_ending" name="id_ending" />
                                                 </div>
                                             </div>
                                         </details>
@@ -342,19 +342,19 @@ class UserData extends React.Component {
                                             <div className="row">
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <label for="id_courseName">Название курса:</label>
-                                                    <input type="text" className="form-control" id="id_courseName"name="id_courseName"
+                                                    <input type="text" className="form-control" id="id_courseName" name="id_courseName"
                                                         placeholder="Название курса" />
                                                 </div>
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <label for="id_organization">Проводившая организация:</label>
-                                                    <input type="text" className="form-control" id="id_organization"name="id_organization"
+                                                    <input type="text" className="form-control" id="id_organization" name="id_organization"
                                                         placeholder="Проводившая организация" />
                                                 </div>
                                             </div>
                                             <div className="row">
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <label for="id_endingCourse">Год окончания:</label>
-                                                    <input type="date" className="form-control" id="id_endingCourse" name="id_endingCourse"/>
+                                                    <input type="date" className="form-control" id="id_endingCourse" name="id_endingCourse" />
                                                 </div>
                                             </div>
                                         </details>
@@ -376,15 +376,15 @@ class UserData extends React.Component {
                                             <div className="row">
                                                 <div className="form-group col-12 col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                                     <label for="id_startWork">Начало работы:</label>
-                                                    <input type="date" className="form-control" id="id_startWork"name="id_startWork" />
+                                                    <input type="date" className="form-control" id="id_startWork" name="id_startWork" />
                                                 </div>
                                                 <div className="form-group col-12 col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                                     <label for="id_endWork">Конец работы:</label>
-                                                    <input type="date" className="form-control" id="id_endWork"name="id_endWork" />
+                                                    <input type="date" className="form-control" id="id_endWork" name="id_endWork" />
                                                 </div>
                                                 <div className="form-group col-12 col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                                     <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                        <input type="checkbox" id="id_stillWorking" className="custom-control-input"name="id_stillWorking" />
+                                                        <input type="checkbox" id="id_stillWorking" className="custom-control-input" name="id_stillWorking" />
                                                         <label className="custom-control-label" for="id_stillWorking">Еще работаю</label>
                                                     </div>
                                                 </div>
@@ -393,12 +393,12 @@ class UserData extends React.Component {
                                             <div className="row">
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <label for="id_positionWork">Должность:</label>
-                                                    <input type="text" className="form-control" id="id_positionWork"name="id_positionWork"
+                                                    <input type="text" className="form-control" id="id_positionWork" name="id_positionWork"
                                                         placeholder="Должность" />
                                                 </div>
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <label for="id_companyName">Название компании:</label>
-                                                    <input type="text" className="form-control" id="id_companyName"name="id_companyName"
+                                                    <input type="text" className="form-control" id="id_companyName" name="id_companyName"
                                                         placeholder="Название компании" />
                                                 </div>
                                             </div>
@@ -427,24 +427,24 @@ class UserData extends React.Component {
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_personRecommending">ФИО рекомендующего:</label>
-                                                <input type="text" className="form-control" id="id_personRecommending"name="id_personRecommending"
+                                                <input type="text" className="form-control" id="id_personRecommending" name="id_personRecommending"
                                                     placeholder="ФИО рекомендующего" />
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_company">Компания, должность:</label>
-                                                <input type="text" className="form-control" id="id_company"name="id_company"
+                                                <input type="text" className="form-control" id="id_company" name="id_company"
                                                     placeholder="Компания, должность" />
                                             </div>
                                         </div>
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_emailCompany">Электронная почта:</label>
-                                                <input type="email" className="form-control" id="id_emailCompany"name="id_emailCompany"
+                                                <input type="email" className="form-control" id="id_emailCompany" name="id_emailCompany"
                                                     placeholder="address@site.com" />
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_phoneCompany">Телефон:</label>
-                                                <input type="text" className="form-control" id="id_phoneCompany"name="id_phoneCompany"
+                                                <input type="text" className="form-control" id="id_phoneCompany" name="id_phoneCompany"
                                                     placeholder="+380661234567" />
                                             </div>
                                         </div>
@@ -460,39 +460,39 @@ class UserData extends React.Component {
                                             <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <label for="id_driverLicense">Права категории:</label>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseA1" className="custom-control-input"name="id_driverLicenseA1" />
+                                                    <input type="checkbox" id="id_driverLicenseA1" className="custom-control-input" name="id_driverLicenseA1" />
                                                     <label className="custom-control-label" for="id_driverLicenseA1">A1</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseA" className="custom-control-input"name="id_driverLicenseA" />
+                                                    <input type="checkbox" id="id_driverLicenseA" className="custom-control-input" name="id_driverLicenseA" />
                                                     <label className="custom-control-label" for="id_driverLicenseA">A</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseB1" className="custom-control-input"name="id_driverLicenseB1" />
+                                                    <input type="checkbox" id="id_driverLicenseB1" className="custom-control-input" name="id_driverLicenseB1" />
                                                     <label className="custom-control-label" for="id_driverLicenseB1">B1</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseB" className="custom-control-input"name="id_driverLicenseB" />
+                                                    <input type="checkbox" id="id_driverLicenseB" className="custom-control-input" name="id_driverLicenseB" />
                                                     <label className="custom-control-label" for="id_driverLicenseB">B</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseC1" className="custom-control-input"name="id_driverLicenseC1" />
+                                                    <input type="checkbox" id="id_driverLicenseC1" className="custom-control-input" name="id_driverLicenseC1" />
                                                     <label className="custom-control-label" for="id_driverLicenseC1">C1</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseC" className="custom-control-input"name="id_driverLicenseC" />
+                                                    <input type="checkbox" id="id_driverLicenseC" className="custom-control-input" name="id_driverLicenseC" />
                                                     <label className="custom-control-label" for="id_driverLicenseC">C</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseD1" className="custom-control-input"name="id_driverLicenseD1" />
+                                                    <input type="checkbox" id="id_driverLicenseD1" className="custom-control-input" name="id_driverLicenseD1" />
                                                     <label className="custom-control-label" for="id_driverLicenseD1">D1</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseD" className="custom-control-input"name="id_driverLicenseD" />
+                                                    <input type="checkbox" id="id_driverLicenseD" className="custom-control-input" name="id_driverLicenseD" />
                                                     <label className="custom-control-label" for="id_driverLicenseD">D</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseT" className="custom-control-input"name="id_driverLicenseT" />
+                                                    <input type="checkbox" id="id_driverLicenseT" className="custom-control-input" name="id_driverLicenseT" />
                                                     <label className="custom-control-label" for="id_driverLicenseT">T</label>
                                                 </div>
                                             </div>
@@ -500,21 +500,21 @@ class UserData extends React.Component {
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_privatCar" className="custom-control-input"name="id_privatCar" />
+                                                    <input type="checkbox" id="id_privatCar" className="custom-control-input" name="id_privatCar" />
                                                     <label className="custom-control-label" for="id_privatCar">Есть личный
                                         автомобиль</label>
                                                 </div>
                                             </div>
                                             <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_army" className="custom-control-input"name="id_army" />
+                                                    <input type="checkbox" id="id_army" className="custom-control-input" name="id_army" />
                                                     <label className="custom-control-label" for="id_army">Служба в армии</label>
                                                 </div>
                                             </div>
                                             <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <label for="id_hobby">Хобби:</label>
                                                 <textarea className="form-control" id="id_hobby" name="id_hobby"></textarea>
-                                            </div>                                           
+                                            </div>
                                             <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <label for="id_personalQualities">Личные качества:</label>
                                                 <textarea className="form-control" id="id_personalQualities" name="id_personalQualities"></textarea>
@@ -541,539 +541,3 @@ class UserData extends React.Component {
 }
 export default UserData;
 
-//////////////////////////////////////////////////
-
-
-
-
-
-
-// import React from 'react';
-// import axios from 'axios';
-// import '../../../src/App.css';
-// class UserData extends React.Component {
-//     constructor(props) {
-//         super(props);
-//         //Начальное состояние состояния (state)
-//         this.state = {
-//             users: null
-//         }
-//         this.API_ADDRESS = "http://localhost:55555/userdata";      
-//      }
-
-
-//     componentDidMount() {
-//         //Встроенный метод для GET (и только) запросов
-//         fetch(this.API_ADDRESS)
-//             .then((response) => response.json())
-//             .then((data) => {
-//                 // console.log(data);
-//                 this.setState({
-//                     items: data
-//                 });
-//             });
-//     }
-
-    
-
-//     render() {
-//         if (this.state.items == null) {
-//             return (
-//                 <div>Loading...</div>
-//             );
-//         }
-//         else {
-//             return (
-//                 <div className="container">
-//                     <div className="container-fluid ">
-//                         {/* <!-- First container --> */}
-//                         <div className="divData ">
-//                             <div>
-//                                 <form action="http://localhost:55555/userdata" method="POST">
-//                                     <table>
-//                                         <tr>
-//                                             <td> <label className="control-label " for="id_userPosition">Желаемая должность:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="text" className="form-control" id="id_userPosition"name = "id_userPosition" placeholder="Введите название должности" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td className="col-md-6">
-//                                                 <h2>Основная информация</h2>
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td className="col-md-3"> <label className="control-label" for="id_lastName">Фамилия:</label></td>
-//                                             <td className="col-sm-3">
-//                                                 <input type="text" className="form-control" id="id_lastName" name ="id_lastName" placeholder="Введите фамилию" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_firstName">Имя:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="text" className="form-control" id="id_firstName" name = "id_firstName" placeholder="Введите имя" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_middleName">Отчество:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="text" className="form-control" id="id_middleName" name = "id_middleName" placeholder="Введите отчество" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_birthOfDate">Дата рождения:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="date" className="form-control" id="id_birthOfDate" name = "id_birthOfDate" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr className="form-group">
-//                                             <td>
-//                                                 <label for="imgup">Изображение:</label>
-//                                             </td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="file" id="imgup" className="form-control" name ="fupload" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_cityOfResidence">Город проживания:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="text" className="form-control" id="id_cityOfResidence" name="id_cityOfResidence" placeholder="Введите название города" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td>
-//                                                 <h2>Контакты</h2>
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_phone">Телефон:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="" className="form-control" id="id_phone" name ="id_phone" placeholder="+380661234567" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_email">Электронная почта:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="email" className="form-control" id="id_email" name="id_email" placeholder="address@site.com" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td>
-//                                                 <h2>Личная информация</h2>
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_nationality">Национальность:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="text" className="form-control" id="id_nationality" name ="id_nationality" placeholder="Введите национальность" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_relocate">Готовность на переезд:</label></td>
-//                                             <td >
-//                                                 <input type="checkbox" id="id_relocate" name ="id_relocate"   />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_desiredSalary">Желаемая зарплата:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="number" className="form-control" id="id_desiredSalary" name ="id_desiredSalary" step="1" />
-//                                             </td>
-                                           
-//                                         </tr>
-//                                         <tr>
-//                                         <td> <label className="control-label" for="id_currency">Валюта:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <select className="form-control" id="id_currency" name="id_currency">
-//                                                     <option>Гривна</option>
-//                                                     <option>Доллар США</option>
-//                                                     <option>Евро</option>
-//                                                     <option>Рубли</option>
-//                                                     <option>Фунт</option>
-//                                                     <option>Юань</option>
-//                                                     <option>Другая</option>
-//                                                 </select>
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_employment">Занятось:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <select className="form-control" id="id_employment" name="id_employment">
-//                                                     <option>Полная занятость</option>
-//                                                     <option>Частичная занятость</option>
-//                                                     <option>Проектная работа</option>
-//                                                     <option>Волонтерство</option>
-//                                                     <option>Стажировка</option>
-//                                                 </select>
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_schedule">График работы:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <select className="form-control" id="id_schedule"name="id_schedule">
-//                                                     <option>Полный день</option>
-//                                                     <option>Сменный график</option>
-//                                                     <option>Гибкий график</option>
-//                                                     <option>Удаленная работа</option>
-//                                                     <option>Вахтовый метод</option>
-//                                                 </select>
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_businessTrip">Командировки:</label></td>
-//                                             <td >
-//                                                 <input type="checkbox" id="id_businessTrip" name="id_businessTrip" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_maritalStatus">Семейное положение:</label></td>
-//                                             <td className="col-sm-8">
-//                                             <select className="form-control" id="id_maritalStatus"name="id_maritalStatus">
-//                                                     <option>Замужем</option>
-//                                                     <option>Не замужем</option>
-//                                                     <option>Женат</option>
-//                                                     <option>Не женат</option>                                                 
-//                                                 </select>                                               
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_children">Дети:</label></td>
-//                                             <td >
-//                                                 <input className="control-input" type="checkbox" id="id_children" name ="id_children"   />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_education">Основное образование:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <select className="form-control" id="id_education" name ="id_education">
-//                                                     <option>Общее среднее образование</option>
-//                                                     <option>Профессионально-техническое образование</option>
-//                                                     <option>Высшее образования</option>
-//                                                     <option>Аспирантура</option>
-//                                                     <option>Докторантура</option>
-//                                                 </select>
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td>
-//                                                 <h2>Владение языками</h2>
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_langName">Язык:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="text" className="form-control" id="id_langName"name="id_langName" placeholder="Введите язык" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_level">Уровень владения:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <select className="form-control" id="id_level" name="id_level">
-//                                                     <option></option>
-//                                                     <option>A1 - начальный</option>
-//                                                     <option>A2 - базовый</option>
-//                                                     <option>B1 - средний</option>
-//                                                     <option>B2 - выше среднего</option>
-//                                                     <option>C1 - продвинутый</option>
-//                                                     <option>C2 - профессиональный</option>
-//                                                 </select>
-//                                             </td>
-//                                         </tr>
-                                        
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_langName">Язык:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="text" className="form-control" id="id_langName"name="id_langName" placeholder="Введите язык" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_level">Уровень владения:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <select className="form-control" id="id_level" name="id_level">
-//                                                     <option>A1 - начальный</option>
-//                                                     <option>A2 - базовый</option>
-//                                                     <option>B1 - средний</option>
-//                                                     <option>B2 - выше среднего</option>
-//                                                     <option>C1 - продвинутый</option>
-//                                                     <option>C2 - профессиональный</option>
-//                                                 </select>
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td>
-//                                                 <h2>Образование</h2>
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_institutName">Наименование учебного заведения:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="text" className="form-control" id="id_institutName" name="id_institutName" placeholder="Введите наименование учебного заведения" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_levelEducation">Уровень образование:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <select className="form-control" id="id_levelEducation" name="id_levelEducation">
-//                                                     <option>Высшее</option>
-//                                                     <option>Бакалавр</option>
-//                                                     <option>Магистр</option>
-//                                                     <option>Специалист</option>
-//                                                     <option>Кандидат наук</option>
-//                                                     <option>Доктор наук</option>
-//                                                     <option>Неполное высшее</option>
-//                                                 </select>
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_faculty">Факультет:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="text" className="form-control" id="id_faculty" name="id_faculty"placeholder="Введите факультет" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_specialty">Специальность:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="text" className="form-control" id="id_specialty" name="id_specialty" placeholder="Введите специальность" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_ending">Год окончания:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="date" className="form-control" id="id_ending" name="id_ending" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td>
-//                                                 <h2>Курсы повышения квалификации</h2>
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_courseName">Название курса:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="text" className="form-control" id="id_courseName" name="id_courseName" placeholder="Название курса" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_organization">Проводившая организация:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="text" className="form-control" id="id_organization"name="id_organization" placeholder="Проводившая организация" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_endingCourse">Год окончания:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="date" className="form-control" id="id_endingCourse" name="id_endingCourse"/>
-//                                             </td>
-//                                         </tr>
-
-
-//                                         {/* <tr>
-//                                             <td> <label className="control-label" for="id_courseName">Название курса:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="text" className="form-control" id="id_courseName" name="id_courseName" placeholder="Название курса" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_organization">Проводившая организация:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="text" className="form-control" id="id_organization"name="id_organization" placeholder="Проводившая организация" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_endingCourse">Год окончания:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="date" className="form-control" id="id_endingCourse" name="id_endingCourse"/>
-//                                             </td>
-//                                         </tr> */}
-
-
-
-//                                         <tr>
-//                                             <td>
-//                                                 <h2>Опыт работы</h2>
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_startWork">Начало работы:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="date" className="form-control" id="id_startWork" name="id_startWork" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_endWork">Конец работы:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="date" className="form-control" id="id_endWork" name="id_endWork" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_stillWorking">Еще работаю:</label></td>
-//                                             <td >
-//                                                 <input className="control-input" type="checkbox" id="id_stillWorking"name="id_stillWorking"   />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_positionWork">Должность:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="text" className="form-control" id="id_positionWork" name="id_positionWork"placeholder="Должность" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_companyName">Название компании:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="text" className="form-control" id="id_companyName" name="id_companyName"placeholder="Название компании" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_jobDuties">Обязанности:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <textarea className="form-control" id="id_jobDuties" name="id_jobDuties"></textarea>
-//                                                 {/* <!-- <input type="text" className="form-control" id="id_jobDuties" placeholder="Проводившая организация" /> --> */}
-//                                             </td>
-//                                         </tr>
-
-//                                      {/* ///////////////////////// */}
-//                                         <tr>
-//                                             <td>
-//                                                 <h2>Опыт работы</h2>
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_startWork">Начало работы:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="date" className="form-control" id="id_startWork" name="id_startWork" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_endWork">Конец работы:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="date" className="form-control" id="id_endWork" name="id_endWork" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_stillWorking">Еще работаю:</label></td>
-//                                             <td >
-//                                                 <input className="control-input" type="checkbox" id="id_stillWorking"name="id_stillWorking"   />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_positionWork">Должность:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="text" className="form-control" id="id_positionWork" name="id_positionWork"placeholder="Должность" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_companyName">Название компании:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="text" className="form-control" id="id_companyName" name="id_companyName"placeholder="Название компании" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_jobDuties">Обязанности:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <textarea className="form-control" id="id_jobDuties" name="id_jobDuties"></textarea>
-//                                                 {/* <!-- <input type="text" className="form-control" id="id_jobDuties" placeholder="Проводившая организация" /> --> */}
-//                                             </td>
-//                                         </tr>
-//                                         {/* //////// */}
-
-//                                         <tr>
-//                                             <td>
-//                                                 <h2>Рекомендации</h2>
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_personRecommending">ФИО рекомендующего:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="text" className="form-control" id="id_personRecommending" name="id_personRecommending" placeholder="ФИО рекомендующего" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_company">Компания, должность:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="text" className="form-control" id="id_company" name="id_company" placeholder="Компания, должность" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_emailCompany">Электронная почта:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="email" className="form-control" id="id_emailCompany"name="id_emailCompany" placeholder="address@site.com" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_phoneCompany">Телефон:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <input type="" className="form-control" id="id_phoneCompany"name="id_phoneCompany" placeholder="+380661234567" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td>
-//                                                 <h2>Дополнительная информация</h2>
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_driverLicense">Права категории:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseA1" name="id_driverLicenseA1"/>A1</label>
-//                                                 <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseA" name="id_driverLicenseA"/>A</label>
-//                                                 <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseB1" name="id_driverLicenseB1"/>B1</label>
-//                                                 <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseB" name="id_driverLicenseB"/>B</label>
-//                                                 <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseC1" name="id_driverLicenseC1"/>C1</label>
-//                                                 <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseC" name="id_driverLicenseC"/>C</label>
-//                                                 <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseD1" name="id_driverLicenseD1"/>D1</label>
-//                                                 <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseD" name="id_driverLicenseD"/>D</label>
-//                                                 <label className="checkbox-inline"><input type="checkbox" id="id_driverLicenseT" name="id_driverLicenseT"/>T</label>
-//                                                 {/* <!-- <input type="text" className="form-control" id="id_company" placeholder="Компания, должность" /> --> */}
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_privatCar">Есть личный автомобиль:</label></td>
-//                                             <td >
-//                                                 <input className="control-input" type="checkbox" id="id_privatCar"name="id_privatCar" />
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_army">Служба в армии:</label></td>
-//                                             <td >
-//                                                 <input className="control-input" type="checkbox" id="id_army"name="id_army"/>
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_hobby">Хобби:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <textarea className="form-control" id="id_hobby" name="id_hobby"></textarea>
-//                                                 {/* <!-- <input type="text" className="form-control" id="id_jobDuties" placeholder="Проводившая организация" /> --> */}
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_personalQualities">Личные качества:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <textarea className="form-control" id="id_personalQualities"name="id_personalQualities" ></textarea>
-//                                                 {/* <!-- <input type="text" className="form-control" id="id_jobDuties" placeholder="Проводившая организация" /> --> */}
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td> <label className="control-label" for="id_professionalSkills">Профессиональные навыки:</label></td>
-//                                             <td className="col-sm-8">
-//                                                 <textarea className="form-control" id="id_professionalSkills"name="id_professionalSkills" ></textarea>
-//                                                 {/* <!-- <input type="text" className="form-control" id="id_jobDuties" placeholder="Проводившая организация" /> --> */}
-//                                             </td>
-//                                         </tr>
-//                                         <tr>
-//                                             <td></td>
-//                                             <td>
-//                                                 <button type="submit" className="btn btn-primary" id="sbmResume" >Отправить</button>
-//                                             </td>
-//                                         </tr>
-//                                     </table>
-//                                 </form>
-//                             </div>
-//                         </div>
-//                         <div>
-//                         </div>
-//                     </div>
-//                 </div>
-//             );
-//         }
-//     };
-// }
-// export default UserData;
