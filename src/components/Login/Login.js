@@ -23,7 +23,7 @@ class Login extends React.Component {
         fetch(this.API_BASE_ADDRESS)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
+               // console.log(data);
                 this.setState({
                     items: data
                 });

@@ -4,6 +4,9 @@ import { Route, Link, BrowserRouter } from 'react-router-dom';
 import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
 import UserData from './components/UserData/UserData';
+import ExistingUserData from './components/ExistingUserData/ExistingUserData';
+
+
 import './App.css';
 // import mainPhoto from './images/dance2.jpg';
 class App extends React.Component {
@@ -40,6 +43,7 @@ class App extends React.Component {
             <Route path="/login" component={Login} />
             <Route path="/registration" component={Registration} />
             <Route path="/userdata" component={UserData} />
+            <Route path="/existinguserdata" component={ExistingUserData} />
           </div>
 
         </BrowserRouter>
