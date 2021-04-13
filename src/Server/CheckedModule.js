@@ -498,8 +498,7 @@ const CheckedToNull = (newUserData) => {
            
         objChecked.id_jobDuties = `\'${newUserData.id_jobDuties + "~"}\'`;
          }
-    }
-       
+    }       
     
     if(newUserData.id_langName==''){
         objChecked.id_langName = null;

@@ -16,6 +16,8 @@ class UserData extends React.Component {
         this.AddCourse = this.AddCourse.bind(this);
         this.AddExperience = this.AddExperience.bind(this);
         this.AddRecommendation = this.AddRecommendation.bind(this);
+        this.onFileSelected = this.onFileSelected.bind(this);
+        
     }
     AddLang() {
         var langList = document.getElementById("langList");
@@ -47,6 +49,24 @@ class UserData extends React.Component {
         console.log(recommendationDetails);
         recommendationList.insertAdjacentHTML("beforeend", recommendationDetails);
     }
+
+    onFileSelected(event) {
+        var selectedFile = event.target.files[0];
+        var reader = new FileReader();
+      
+        var imgtag = document.getElementById("myimage");
+        imgtag.title = selectedFile.name;
+
+        console.log(imgtag.title);
+      
+        reader.onload = function(event) {
+          imgtag.src = event.target.result;
+        };
+      console.log(event.target.result);
+        reader.readAsDataURL(selectedFile);
+      }
+
+
 
     componentDidMount() {
         //Встроенный метод для GET (и только) запросов
@@ -98,8 +118,8 @@ class UserData extends React.Component {
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <div className="userPhoto">
                                                     <label>
-                                                        <img className="avatar" src={UploadPhoto} alt="Нажмите для выбора файла" />
-                                                        <input type="file" id="id_imgUpl" name="fupload" hidden />
+                                                        <img className="avatar" id="myimage"  alt="Нажмите для выбора файла" />
+                                                        <input type="file" id="id_imgUpl" onChange = {this.onFileSelected} name="fupload" hidden />
                                                     </label>
                                                 </div>
                                             </div>
