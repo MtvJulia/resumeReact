@@ -154,7 +154,7 @@ const getEndData = (newUserData) => {
     {
         endWork = new Date().toISOString().substr(0, 10).toString()+"~";
     }
-    else if(newUserData.id_endWork.length > 1 && (newUserData.id_endWork[0].length > 1||newUserData.id_endWork[1].length > 1))
+    else if(newUserData.id_endWork.length > 1 && (newUserData.id_endWork[0].length > 1||newUserData.id_endWork[1].length > 1))////////////////////////////////////////!!!!!!!!!!!!!!
     {
         for(let i=0;i<newUserData.id_endWork.length;i++)
         {

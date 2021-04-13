@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import '../UserData/UserData.css';
-import UploadPhoto from '../../images/uploadPhoto.jpg'
+import UploadPhoto from '../../images/UploadPhoto.jpg'
 
 class UserData extends React.Component {
     constructor(props) {
@@ -15,7 +15,7 @@ class UserData extends React.Component {
         this.AddScheduler = this.AddScheduler.bind(this);
         this.AddCourse = this.AddCourse.bind(this);
         this.AddExperience = this.AddExperience.bind(this);
-
+        this.AddRecommendation = this.AddRecommendation.bind(this);
     }
     AddLang() {
         var langList = document.getElementById("langList");
@@ -40,6 +40,12 @@ class UserData extends React.Component {
         var experienceDetails = document.getElementById('experienceDetails').outerHTML;
         console.log(experienceDetails);
         experienceList.insertAdjacentHTML("beforeend", experienceDetails);
+    }
+    AddRecommendation() {
+        var recommendationList = document.getElementById("recommendationList");
+        var recommendationDetails = document.getElementById('recommendationDetails').outerHTML;
+        console.log(recommendationDetails);
+        recommendationList.insertAdjacentHTML("beforeend", recommendationDetails);
     }
 
     componentDidMount() {
@@ -241,7 +247,7 @@ class UserData extends React.Component {
                                             <h3>Владение языками</h3>
                                         </legend>
 
-                                        <details id="langDetails">
+                                        <details id="langDetails" open>
                                             <summary>Язык</summary>
                                             <div className="row">
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -277,7 +283,7 @@ class UserData extends React.Component {
                                             <h3>Образование</h3>
                                         </legend>
 
-                                        <details id="educationDatails">
+                                        <details id="educationDatails" open>
                                             <summary>Mесто учебы</summary>
                                             <div className="row">
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -331,7 +337,7 @@ class UserData extends React.Component {
                                             <h3>Курсы повышения квалификации</h3>
                                         </legend>
 
-                                        <details id="courseDetails">
+                                        <details id="courseDetails" open>
                                             <summary>Курс</summary>
 
                                             <div className="row">
@@ -365,7 +371,7 @@ class UserData extends React.Component {
                                             <h3>Опыт работы</h3>
                                         </legend>
 
-                                        <details id="experienceDetails">
+                                        <details id="experienceDetails" open>
                                             <summary>Mесто работы</summary>
 
                                             <div className="row">
@@ -413,13 +419,16 @@ class UserData extends React.Component {
 
                                     </fieldset>
 
-                                    {/* <!-- -------РЕКОМЕНДАЦИИ----------- --> */}
+                                    {/* <!-- -------РЕКОМЕНДАЦИИ----------- --> */}                                 
+
+
                                     <fieldset className="scheduler-border">
                                         <legend className="scheduler-border">
                                             <h3>Рекомендации</h3>
                                         </legend>
-
-                                        <div className="row">
+                                        <details id="recommendationDetails" open>
+                                            <summary>Рекомендация</summary>
+                                            <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_personRecommending">ФИО рекомендующего:</label>
                                                 <input type="text" className="form-control" id="id_personRecommending" name="id_personRecommending"
@@ -443,7 +452,12 @@ class UserData extends React.Component {
                                                     placeholder="+380661234567" />
                                             </div>
                                         </div>
+                                        </details>
+                                        <div id="recommendationList">
+                                        </div>
+                                        <a href="javascript:AddRecommendation()" onClick={this.AddRecommendation}>Добавить</a>
                                     </fieldset>
+
 
                                     {/* <!-- -------ДОПОЛНИТЕЛЬНАЯ ИНФО----------- --> */}
                                     <fieldset className="scheduler-border">

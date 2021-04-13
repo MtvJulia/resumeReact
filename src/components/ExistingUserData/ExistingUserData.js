@@ -7,7 +7,7 @@ import ShowLanguage from '../../Server/ShowLanguage';
 import ShowCourses from '../../Server/ShowCourses';
 import ShowRecommending from '../../Server/ShowRecommending';
 import { Switch } from 'react-router';
-import UploadPhoto from '../../images/uploadPhoto.jpg'
+import UploadPhoto from '../../images/UploadPhoto.jpg'
 
 class ExistingUserData extends React.Component {
     constructor(props) {
@@ -47,6 +47,7 @@ class ExistingUserData extends React.Component {
         this.AddScheduler = this.AddScheduler.bind(this);
         this.AddCourse = this.AddCourse.bind(this);
         this.AddExperience = this.AddExperience.bind(this);
+        this.AddRecommendation = this.AddRecommendation.bind(this);
     }
 
     getCurrency(data, currency) {
@@ -144,92 +145,94 @@ class ExistingUserData extends React.Component {
     }
 
 
-
-
     fillCoursArr(data, coursArr) {
 
         for (let i = 0; i < data.courseName.length; i++) {
+            if (data.courseName[i] != "NULL"&&data.organization[i]!="NULL") 
+            {
+                var objCourses = {};
 
-            var objCourses = {};
+                objCourses.courseName = data.courseName[i];
+                objCourses.organization = data.organization[i];
+                objCourses.endingCourse = data.endingCourse[i];
 
-            objCourses.courseName = data.courseName[i];
-            objCourses.organization = data.organization[i];
-            objCourses.endingCourse = data.endingCourse[i];
-
-            coursArr.push(objCourses);
+                coursArr.push(objCourses);
+            }
         }
     }
     fillRecomendArr(data, recomendArr) {
 
         for (let i = 0; i < data.phoneCompany.length; i++) {
+            if ( data.company[i] != "NULL" && data.phoneCompany[i]!="NULL") 
+            {
+                var objRecomendation = {};
 
-            var objRecomendation = {};
-
-            objRecomendation.personRecommending = data.personRecommending[i];
-            objRecomendation.company = data.company[i];
-            objRecomendation.emailCompany = data.emailCompany[i];
-            objRecomendation.phoneCompany = data.phoneCompany[i];
-
-            recomendArr.push(objRecomendation);
+                objRecomendation.personRecommending = data.personRecommending[i];
+                objRecomendation.company = data.company[i];
+                objRecomendation.emailCompany = data.emailCompany[i];
+                objRecomendation.phoneCompany = data.phoneCompany[i];
+    
+                recomendArr.push(objRecomendation);
+            }           
         }
-
     }
-
-
 
     fillLangArr(data, langArr) {
         for (let i = 0; i < data.langName.length; i++) {
 
-            var objLanguage = {};
+            if (data.langName[i] != "NULL" && data.level[i]!="NULL") 
+            {
+                var objLanguage = {};
 
-            objLanguage.langName = data.langName[i];
-            switch (data.level[i]) {
-                case "1":
-                    {
-                        objLanguage.level = "A1 - начальный";
-                        break;
-                    }
-                case "2":
-                    {
-                        objLanguage.level = "A2 - базовый";
-                        break;
-                    }
-                case "3":
-                    {
-                        objLanguage.level = "B1 - средний";
-                        break;
-                    }
-                case "4":
-                    {
-                        objLanguage.level = "B2 - выше среднего";
-                        break;
-                    }
-                case "5":
-                    {
-                        objLanguage.level = "C1 - продвинутый";
-                        break;
-                    }
-                case "6":
-                    {
-                        objLanguage.level = "C2 - профессиональный";
-                        break;
-                    }
-                case "7":
-                    {
-                        objLanguage.level = "A1 - начальный";
-                        break;
-                    }
-
-            }
-            langArr.push(objLanguage);
+                objLanguage.langName = data.langName[i];
+                switch (data.level[i]) {
+                    case "1":
+                        {
+                            objLanguage.level = "A1 - начальный";
+                            break;
+                        }
+                    case "2":
+                        {
+                            objLanguage.level = "A2 - базовый";
+                            break;
+                        }
+                    case "3":
+                        {
+                            objLanguage.level = "B1 - средний";
+                            break;
+                        }
+                    case "4":
+                        {
+                            objLanguage.level = "B2 - выше среднего";
+                            break;
+                        }
+                    case "5":
+                        {
+                            objLanguage.level = "C1 - продвинутый";
+                            break;
+                        }
+                    case "6":
+                        {
+                            objLanguage.level = "C2 - профессиональный";
+                            break;
+                        }
+                    case "7":
+                        {
+                            objLanguage.level = "A1 - начальный";
+                            break;
+                        }
+    
+                }
+                langArr.push(objLanguage);
+            }           
         }
     }
 
     fillEducArr(data, educArr) {
         if (data.institutName != null) {
             for (let i = 0; i < data.institutName.length; i++) {
-
-                var objEducation = {};
+                if (data.institutName[i] != "NULL" && data.specialty[i]!="NULL"){
+                    var objEducation = {};
 
                 objEducation.institutName = data.institutName[i];
                 objEducation.levelEducation = data.levelEducation[i];
@@ -238,6 +241,8 @@ class ExistingUserData extends React.Component {
                 objEducation.ending = data.ending[i];
 
                 educArr.push(objEducation);
+
+                }                
             }
         }
     }
@@ -245,17 +250,20 @@ class ExistingUserData extends React.Component {
     fillExpArr(data, expArr) {
         if (data.companyName != null) {
             for (let i = 0; i < data.companyName.length; i++) {
+                if (data.companyName[i] != "NULL" && data.positionWork[i]!="NULL")
+                {
+                    var objExperience = {};
 
-                var objExperience = {};
+                    objExperience.startWork = data.startWork[i];
+                    objExperience.endWork = data.endWork[i];
+                    objExperience.stillWorking = data.stillWorking;
+                    objExperience.positionWork = data.positionWork[i];
+                    objExperience.companyName = data.companyName[i];
+                    objExperience.jobDuties = data.jobDuties[i];
+    
+                    expArr.push(objExperience);
 
-                objExperience.startWork = data.startWork[i];
-                objExperience.endWork = data.endWork[i];
-                objExperience.stillWorking = data.stillWorking;
-                objExperience.positionWork = data.positionWork[i];
-                objExperience.companyName = data.companyName[i];
-                objExperience.jobDuties = data.jobDuties[i];
-
-                expArr.push(objExperience);
+                }               
             }
         }
     }
@@ -277,19 +285,19 @@ class ExistingUserData extends React.Component {
     AddScheduler() {
         var educationList = document.getElementById("educationList");
         var educationDatails = document.getElementById('educationDatails').outerHTML;
-        console.log(educationDatails);
+       // console.log(educationDatails);
         educationList.insertAdjacentHTML("beforeend", educationDatails);
     }
     AddCourse() {
         var courseList = document.getElementById("courseList");
         var courseDetails = document.getElementById('courseDetails').outerHTML;
-        console.log(courseDetails);
+        //console.log(courseDetails);
         courseList.insertAdjacentHTML("beforeend", courseDetails);
     }
     AddExperience() {
         var experienceList = document.getElementById("experienceList");
         var experienceDetails = document.getElementById('experienceDetails').outerHTML;
-        console.log(experienceDetails);
+       // console.log(experienceDetails);
         experienceList.insertAdjacentHTML("beforeend", experienceDetails);
     }
     AddRecommendation() {
@@ -363,7 +371,7 @@ class ExistingUserData extends React.Component {
                         {/* <!-- First container --> */}
                         <div className="divData col-md-6 ">
                             <div>
-                                <form action="http://localhost:55555/userdata" method="POST">
+                                <form action="http://localhost:55555/existinguserdata" method="POST">
 
                                     {/* <!-- -------ОСНОВНАЯ ИНФО----------- --> */}
                                     <fieldset className="form-group p-3">

@@ -60,8 +60,7 @@ function ShowExperience(props) {
                         )
                     }
                     else {
-                        return (
-                            //откорректировать разметку div
+                        return (                           
                             <div>
 
                                 <details id="experienceDetails" open>

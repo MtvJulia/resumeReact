@@ -51,13 +51,24 @@ const CheckedToNull = (newUserData) => {
     
     else{
         //если пришел массив и размер 0 элемента >1 , т.е.это не массив char
-        if( newUserData.id_courseName[0].length > 1 )
+        let count=0;
+        newUserData.id_courseName.forEach(element => {
+           if(element.length>1) count++;
+           });     
+
+        if( count > 0 )
         {   
              let  courses="";
     
-            for(let i =0; i<newUserData.id_courseName.length;i++)
+            for(let i =0; i< newUserData.id_courseName.length;i++)
             {
-                courses += newUserData.id_courseName[i] + "~";
+                if(newUserData.id_courseName[i]!="")
+                {
+                    courses += newUserData.id_courseName[i] + "~";
+                } 
+                else{
+                    courses += "NULL~";
+                }                            
             }
     
             objChecked.id_courseName = `\'${courses}\'`;
@@ -75,13 +86,24 @@ const CheckedToNull = (newUserData) => {
     
        else{
         //если пришел массив и размер 0 элемента >1 , т.е.это не массив char
-        if( newUserData.id_organization[0].length >1 )
+        let count=0;
+        newUserData.id_organization.forEach(element => {
+           if(element.length>1) count++;
+           });     
+
+        if( count > 0 )
         {   
              let  organization="";
     
             for(let i =0; i<newUserData.id_organization.length;i++)
             {
-                organization += newUserData.id_organization[i] + "~";
+                if(newUserData.id_organization[i]!="")
+                {
+                    organization += newUserData.id_organization[i] + "~";
+                }     
+                else{
+                    organization += "NULL~";
+                }                       
             }
     
             objChecked.id_organization = `\'${organization}\'`;
@@ -98,13 +120,24 @@ const CheckedToNull = (newUserData) => {
        }
        else{
         //если пришел массив и размер 0 элемента >1 , т.е.это не массив char
-        if(  newUserData.id_endingCourse[0].length > 1 )
+        let count=0;
+        newUserData.id_endingCourse.forEach(element => {
+           if(element.length>1) count++;
+           });     
+
+        if( count > 0 )
         {   
              let  endingCourse = "";
     
             for(let i =0; i< newUserData.id_endingCourse.length;i++)
             {
-                endingCourse +=  newUserData.id_endingCourse[i] + "~";
+                if( newUserData.id_endingCourse[i]!="")
+                {
+                    endingCourse +=  newUserData.id_endingCourse[i] + "~";
+                } 
+                else{
+                    endingCourse += "NULL~";
+                }                            
             }
     
             objChecked.id_endingCourse = `\'${endingCourse}\'`;
@@ -123,14 +156,24 @@ const CheckedToNull = (newUserData) => {
        }
     
        else{
-       
-        if(   newUserData.id_institutName[0].length >1 )
+        let count=0;
+        newUserData.id_institutName.forEach(element => {
+           if(element.length>1) count++;
+           });     
+
+        if( count > 0 )
         {   
              let  institutName="";
     
             for(let i =0; i< newUserData.id_institutName.length;i++)
             {
-                institutName +=  newUserData.id_institutName[i] + "~";
+                if( newUserData.id_institutName[i]!="")
+                {
+                    institutName +=  newUserData.id_institutName[i] + "~";
+                } 
+                else{
+                    institutName += "NULL~";
+                }              
             }
     
             objChecked.id_institutName = `\'${institutName}\'`;
@@ -149,13 +192,24 @@ const CheckedToNull = (newUserData) => {
        }
        else{
      
-        if(   newUserData.id_levelEducation[0].length >1 )
+        let count=0;
+        newUserData.id_levelEducation.forEach(element => {
+           if(element.length>1) count++;
+           });     
+
+        if( count > 0 )
         {   
              let  levelEducation="";
     
             for(let i =0; i<newUserData.id_levelEducation.length;i++)
             {
-                levelEducation +=  newUserData.id_levelEducation[i] + "~";
+                if(newUserData.id_levelEducation[i]!="")
+                {
+                    levelEducation +=  newUserData.id_levelEducation[i] + "~";
+                }  
+                else{
+                    levelEducation += "NULL~";
+                }               
             }
     
             objChecked.id_levelEducation = `\'${levelEducation}\'`;
@@ -173,13 +227,24 @@ const CheckedToNull = (newUserData) => {
        }
        else{
      
-        if( newUserData.id_faculty[0].length >1 )
+        let count=0;
+        newUserData.id_faculty.forEach(element => {
+           if(element.length>1) count++;
+           });     
+
+        if( count > 0 )
         {   
              let  faculty="";
     
             for(let i =0; i< newUserData.id_faculty.length;i++)
             {
-                faculty +=   newUserData.id_faculty[i] + "~";
+                if( newUserData.id_faculty[i]!="")
+                {
+                    faculty +=   newUserData.id_faculty[i] + "~";
+                } 
+                else{
+                    faculty += "NULL~";
+                }                
             }
     
             objChecked.id_faculty = `\'${faculty}\'`;
@@ -198,13 +263,29 @@ const CheckedToNull = (newUserData) => {
        }
        else{
      
-        if( newUserData.id_specialty[0].length >1 )
+        let count=0;
+        newUserData.id_specialty.forEach(element => {
+           if(element.length>1) count++;
+           });     
+
+        if( count > 0 )
         {   
              let  specialty="";
     
             for(let i =0; i< newUserData.id_specialty.length;i++)
             {
-                specialty +=   newUserData.id_specialty[i] + "~";
+
+                if( newUserData.id_specialty[i]!=""){
+                    specialty +=   newUserData.id_specialty[i] + "~";
+                }
+                else if(newUserData.id_specialty[0]=="")
+                {
+                    specialty += "NULL~";
+                }
+                else{
+                    specialty += "NULL~";
+                } 
+               
             }
     
             objChecked.id_specialty = `\'${specialty}\'`;
@@ -222,13 +303,24 @@ const CheckedToNull = (newUserData) => {
        }
        else{
      
-        if( newUserData.id_ending[0].length >1 )
+        let count=0;
+        newUserData.id_ending.forEach(element => {
+           if(element.length>1) count++;
+           });     
+
+        if( count > 0 )
         {   
              let  ending="";
     
             for(let i =0; i< newUserData.id_ending.length;i++)
             {
-                ending += newUserData.id_ending[i] + "~";
+                if( newUserData.id_ending[i]!=""){
+                    ending += newUserData.id_ending[i] + "~";
+                }
+                else{
+                    ending += "NULL~";
+                } 
+               
             }
     
             objChecked.id_ending = `\'${ending}\'`;
@@ -247,26 +339,33 @@ const CheckedToNull = (newUserData) => {
        }
        else{
      
-        if( newUserData.id_startWork[0].length >1 )
+        let count=0;
+        newUserData.id_startWork.forEach(element => {
+           if(element.length>1) count++;
+           });     
+
+        if( count > 0 )
         {   
              let  startWork="";
     
             for(let i =0; i< newUserData.id_startWork.length;i++)
             {
-                startWork += newUserData.id_startWork[i] + "~";
-                //console.log(startWork);
-            }
-           // console.log(startWork);
+                if(  newUserData.id_startWork[i]!="")
+                {
+                    startWork += newUserData.id_startWork[i] + "~";
+                }   
+                else{
+                    startWork += "NULL~";
+                }                         
+            }           
     
-            objChecked.id_startWork = `\'${startWork}\'`;
-    
+            objChecked.id_startWork = `\'${startWork}\'`;    
         }
         else{
           
         objChecked.id_startWork = `\'${newUserData.id_startWork + "~"}\'`;
          }
-    }
-      
+    }     
        
     
     if(newUserData.id_endWork==''){
@@ -274,15 +373,25 @@ const CheckedToNull = (newUserData) => {
        }
        else{
      
-        if( newUserData.id_endWork[0].length >1 )
+        let count=0;
+        newUserData.id_endWork.forEach(element => {
+           if(element.length>1) count++;
+           });     
+
+        if( count > 0 )
         {   
              let  endWork="";
     
-            for(let i =0; i< newUserData.id_endWork.length;i++)
+            for(let i = 0; i < newUserData.id_endWork.length; i++)
             {
-                endWork +=  newUserData.id_endWork[i] + "~";
-            }
-    
+                if(newUserData.id_endWork[i]!="")
+                {
+                    endWork +=  newUserData.id_endWork[i] + "~";
+                } 
+                else{
+                    endWork += "NULL~";
+                }               
+            }    
             objChecked.id_endWork = `\'${endWork}\'`;
         }
         else{       
@@ -297,13 +406,23 @@ const CheckedToNull = (newUserData) => {
        }
        else{
      
-        if( newUserData.id_positionWork[0].length >1 )
+        let count=0;
+        newUserData.id_positionWork.forEach(element => {
+           if(element.length>1) count++;
+           });     
+
+        if( count > 0 )
         {   
              let  positionWork="";
     
             for(let i =0; i< newUserData.id_positionWork.length;i++)
             {
-                positionWork += newUserData.id_positionWork[i] + "~";
+                if(newUserData.id_positionWork[i]!=""){
+                    positionWork += newUserData.id_positionWork[i] + "~";
+                }
+                else{
+                    positionWork += "NULL~";
+                }                
             }
     
             objChecked.id_positionWork = `\'${positionWork}\'`;
@@ -319,14 +438,23 @@ const CheckedToNull = (newUserData) => {
         objChecked.id_companyName = null;
        }
        else{
-     
-        if(newUserData.id_companyName[0].length >1 )
+        let count=0;
+        newUserData.id_companyName.forEach(element => {
+           if(element.length>1) count++;
+           });     
+
+        if( count > 0 )
         {   
              let  companyName="";
     
             for(let i =0; i<newUserData.id_companyName.length;i++)
             {
-                companyName += newUserData.id_companyName[i] + "~";
+                if(newUserData.id_companyName[i]!=""){
+                    companyName += newUserData.id_companyName[i] + "~";
+                } 
+                else{
+                    companyName += "NULL~";
+                }                
             }
     
             objChecked.id_companyName = `\'${companyName}\'`;
@@ -344,13 +472,24 @@ const CheckedToNull = (newUserData) => {
        }
        else{
      
-        if( newUserData.id_jobDuties[0].length >1 )
+        let count=0;
+        newUserData.id_jobDuties.forEach(element => {
+           if(element.length>1) count++;
+           });     
+
+        if( count > 0 )
         {   
              let  jobDuties="";
     
             for(let i =0; i<newUserData.id_jobDuties.length;i++)
             {
-                jobDuties += newUserData.id_jobDuties[i] + "~";
+                if(newUserData.id_jobDuties[i]!="")
+                {
+                    jobDuties += newUserData.id_jobDuties[i] + "~";
+                }   
+                else{
+                    jobDuties += "NULL~";
+                }              
             }
     
             objChecked.id_jobDuties = `\'${jobDuties}\'`;
@@ -366,14 +505,24 @@ const CheckedToNull = (newUserData) => {
         objChecked.id_langName = null;
        }
        else{
-     
-        if(  newUserData.id_langName[0].length >1 )
+        let count=0;
+        newUserData.id_langName.forEach(element => {
+           if(element.length>1) count++;
+           });     
+
+        if( count > 0 )
         {   
              let  langName="";
     
             for(let i =0; i< newUserData.id_langName.length;i++)
             {
-                langName +=  newUserData.id_langName[i] + "~";
+                if(newUserData.id_langName[i]!="")
+                {
+                    langName +=  newUserData.id_langName[i] + "~";
+                } 
+                else{
+                    langName += "NULL~";
+                }                
             }
     
             objChecked.id_langName = `\'${langName}\'`;
@@ -388,44 +537,55 @@ const CheckedToNull = (newUserData) => {
         objChecked.id_level = null;
        }
        else{
-     
-        if( newUserData.id_level.length >1 &&  newUserData.id_level[0].length >1 )
+           let count=0;
+           newUserData.id_level.forEach(element => {
+           if(element.length>1) count++;
+           });     
+
+        if( count > 0 )
         {   
              let  level="";         
     
             for(let i =0; i< newUserData.id_level.length;i++)
             {
-                let changeValueToID = "";
-    
-                switch(newUserData.id_level[i])
+                if(newUserData.id_level[i]!="")
                 {
-                  case "A1 - начальный":{
-                    changeValueToID = 1;
-                      break;
-                  } 
-                  case "A2 - базовый":{
-                    changeValueToID = 2;
-                      break;
-                  }
-                  case "B1 - средний":{
-                    changeValueToID = 3;
-                      break;
-                  }
-                  case "B2 - выше среднего":{
-                    changeValueToID = 4;
-                      break;
-                  }
-                  case "C1 - продвинутый":{
-                    changeValueToID = 5;
-                      break;
-                  }
-                  case "C2 - профессиональный":{
-                    changeValueToID = 6;
-                      break;
-                  }          
-                } 
+                    let changeValueToID = "";
     
-                level +=changeValueToID + "~";
+                    switch(newUserData.id_level[i])
+                    {
+                      case "A1 - начальный":{
+                        changeValueToID = 1;
+                          break;
+                      } 
+                      case "A2 - базовый":{
+                        changeValueToID = 2;
+                          break;
+                      }
+                      case "B1 - средний":{
+                        changeValueToID = 3;
+                          break;
+                      }
+                      case "B2 - выше среднего":{
+                        changeValueToID = 4;
+                          break;
+                      }
+                      case "C1 - продвинутый":{
+                        changeValueToID = 5;
+                          break;
+                      }
+                      case "C2 - профессиональный":{
+                        changeValueToID = 6;
+                          break;
+                      }          
+                    } 
+        
+                    level +=changeValueToID + "~";
+                }
+                else{
+                    level += "NULL~";
+                } 
+                
             }
     
             objChecked.id_level = `\'${level}\'`;
@@ -465,15 +625,25 @@ const CheckedToNull = (newUserData) => {
        if(newUserData.id_personRecommending ==''){
         objChecked.id_personRecommending = null;
        }
-       else{
-     
-        if(   newUserData.id_personRecommending[0].length >1 )
+       else{ 
+           let count=0;
+        newUserData.id_personRecommending.forEach(element => {
+        if(element.length>1) count++;
+        });     
+
+     if( count > 0 )
         {   
              let  personRecommending="";
     
             for(let i =0; i< newUserData.id_personRecommending.length;i++)
             {
-                personRecommending += newUserData.id_personRecommending[i] + "~";
+                if(newUserData.id_personRecommending[i]!="")
+                {
+                    personRecommending += newUserData.id_personRecommending[i] + "~";
+                }
+                else{
+                    personRecommending += "NULL~";
+                }               
             }
     
             objChecked.id_personRecommending = `\'${personRecommending}\'`;
@@ -490,13 +660,24 @@ const CheckedToNull = (newUserData) => {
        }
        else{
      
-        if(  newUserData.id_company[0].length >1 )
+        let count=0;
+        newUserData.id_company.forEach(element => {
+           if(element.length>1) count++;
+           });     
+
+        if( count > 0 )
         {   
              let  company="";
     
             for(let i =0; i< newUserData.id_company.length;i++)
             {
-                company +=   newUserData.id_company[i] + "~";
+                if(newUserData.id_company[i]!="")
+                {
+                    company += newUserData.id_company[i] + "~";
+                }
+                else{
+                    company += "NULL~";
+                }               
             }
     
             objChecked.id_company = `\'${company}\'`;
@@ -513,13 +694,24 @@ const CheckedToNull = (newUserData) => {
        }
        else{
      
-        if(newUserData.id_emailCompany[0].length >1 )
+        let count=0;
+        newUserData.id_emailCompany.forEach(element => {
+           if(element.length>1) count++;
+           });     
+
+        if( count > 0 )
         {   
              let  emailCompany="";
     
             for(let i =0; i<newUserData.id_emailCompany.length;i++)
             {
-                emailCompany +=  newUserData.id_emailCompany[i] + "~";
+                if(newUserData.id_emailCompany[i]!="")
+                {
+                    emailCompany += newUserData.id_emailCompany[i] + "~";
+                }
+                else{
+                    emailCompany += "NULL~";
+                } 
             }
     
             objChecked.id_emailCompany= `\'${emailCompany}\'`;
@@ -535,13 +727,24 @@ const CheckedToNull = (newUserData) => {
        }
        else{
      
-        if(   newUserData.id_phoneCompany[0].length >1 )
+        let count=0;
+        newUserData.id_phoneCompany.forEach(element => {
+           if(element.length>1) count++;
+           });     
+
+        if( count > 0 )
         {   
              let  phoneCompany="";
     
             for(let i =0; i< newUserData.id_phoneCompany.length;i++)
             {
-                phoneCompany +=  newUserData.id_phoneCompany[i] + "~";
+                if(newUserData.id_phoneCompany[i]!="")
+                {
+                    phoneCompany +=  newUserData.id_phoneCompany[i] + "~";
+                }  
+                else{
+                    phoneCompany += "NULL~";
+                }              
             }
     
             objChecked.id_phoneCompany= `\'${phoneCompany}\'`;
