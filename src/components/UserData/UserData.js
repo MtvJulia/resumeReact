@@ -3,13 +3,14 @@ import axios from 'axios';
 import '../UserData/UserData.css';
 import UploadPhoto from '../../images/UploadPhoto.jpg'
 
+
 class UserData extends React.Component {
     constructor(props) {
         super(props);
         //Начальное состояние состояния (state)
         this.state = {
             users: null
-        }
+        }        
         this.API_ADDRESS = "http://localhost:55555/userdata";
         this.AddLang = this.AddLang.bind(this);
         this.AddScheduler = this.AddScheduler.bind(this);
@@ -17,8 +18,33 @@ class UserData extends React.Component {
         this.AddExperience = this.AddExperience.bind(this);
         this.AddRecommendation = this.AddRecommendation.bind(this);
         this.onFileSelected = this.onFileSelected.bind(this);
-        
+        this.DeleteLang= this.DeleteLang.bind(this);
+       
+    }   
+
+
+    DeleteLang(e) {
+        var langList = document.getElementById("langList");
+        console.log(langList);
+        var langDetails = document.getElementById(e.target.id).outerHTML;
+        console.log(langDetails);
+        langList.removeChild(langDetails);
+      
+        // this.setState({
+        //     users: this.state.users.filter((_, i) => i !== index)
+        // });
+        /////////////////////////////////////////////////////////////////////////////
+        // var newTodoArray = this.state;
+        // newTodoArray.remove(index);
+        // this.setState({
+        //     users: newTodoArray,
+        // });
+        // const { users } = this.state;
+        // this.setState({
+        //     users: [...users.slice(0, id), ...users.slice(id + 1)]
+        // });
     }
+   
     AddLang() {
         var langList = document.getElementById("langList");
         var langDetails = document.getElementById('langDetails').outerHTML;
@@ -55,18 +81,23 @@ class UserData extends React.Component {
         var reader = new FileReader();
       
         var imgtag = document.getElementById("myimage");
-        imgtag.title = selectedFile.name;
-
-        console.log(imgtag.title);
+        imgtag.title = selectedFile.name;       
       
         reader.onload = function(event) {
           imgtag.src = event.target.result;
-        };
-      console.log(event.target.result);
-        reader.readAsDataURL(selectedFile);
+        };  
+        if(imgtag) {  
+        reader.readAsDataURL(selectedFile);}
+
+        this.setState(Object.assign(this.state.users,{image:event.target.files[0],
+            loaded: 0}));          
+       
+        console.log(selectedFile);
+
+        console.log(this.state.users);    
       }
 
-
+        
 
     componentDidMount() {
         //Встроенный метод для GET (и только) запросов
@@ -75,13 +106,13 @@ class UserData extends React.Component {
             .then((data) => {
                  console.log(data);
                 this.setState({
-                    items: data
+                    users: data
                 });
             });
     }  
 
     render() {
-        if (this.state.items == null) {
+        if (this.state.users == null) {
             return (
                 <div className="spinner-border text-muted">Loading...</div>
             );
@@ -119,7 +150,13 @@ class UserData extends React.Component {
                                                 <div className="userPhoto">
                                                     <label>
                                                         <img className="avatar" id="myimage"  alt="Нажмите для выбора файла" />
-                                                        <input type="file" id="id_imgUpl" onChange = {this.onFileSelected} name="fupload" hidden />
+                                                        <input                                                        
+                                                         accept="image/*"
+                                                         type="file"
+                                                         id="id_imgUpl"                                                      
+                                                         name="fupload"   hidden    
+                                                         onChange = {this.onFileSelected}
+                                                          />
                                                     </label>
                                                 </div>
                                             </div>
@@ -268,7 +305,9 @@ class UserData extends React.Component {
                                         </legend>
 
                                         <details id="langDetails" open>
-                                            <summary>Язык</summary>
+                                            <summary>Язык
+                                            <a id="idDelete" href="javascript:DeleteLang(e)" onClick={this.DeleteLang}>Удалить</a>
+                                            </summary>
                                             <div className="row">
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <label for="id_langName">Язык:</label>

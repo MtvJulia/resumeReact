@@ -11,6 +11,7 @@ const{getFkValue,getEndData,getUserData} = require("./GetToPostModule");
 
 
 
+
 const server = express();
 var duplicateFlag = false;
 var userIDFromDB = 0;
@@ -217,8 +218,23 @@ server.post("/userdata", function (request, response) {
     console.log("---------newUserData----------------------------------------");
 
     console.log(newUserData);
-
+    console.log(newUserData.fupload);    
     console.log("---------newUserData--end--------------------------------------");
+
+    
+
+    // const randomString = crypto.randomBytes(5).toString('hex');
+    // const stream = fs.createWriteStream(`./public/images/${randomString}.png`);
+  
+    // stream.on('finish', function () {
+    //   console.log('file has been written');
+    //   res.end('file has been written');
+    // });
+  
+    // stream.write(Buffer.from(req.body), 'utf-8');
+    // stream.end();
+
+
 
     if (newUserData) {
       
@@ -289,7 +305,7 @@ server.post("/existinguserdata", (req, res) => {
         let fk_value = getFkValue(updateUserData);     
        
       
-    let query = `UPDATE user_info SET   userLogin=\'${foundUser.UserLogin}\',userPassword=\'${foundUser.Password}\',firstName=\'${updateUserData.id_firstName}\',lastName=\'${updateUserData.id_lastName}\',middleName= ${checkToNull.id_middleName},
+    let query = `UPDATE user_info SET   userLogin=\'${foundUser.UserLogin}\',userPassword=\'${foundUser.UserPassword}\',firstName=\'${updateUserData.id_firstName}\',lastName=\'${updateUserData.id_lastName}\',middleName= ${checkToNull.id_middleName},
     birthOfDate=\'${updateUserData.id_birthOfDate}\',сityOfResidence=\'${updateUserData.id_cityOfResidence}\',position=\'${updateUserData.id_userPosition}\',driverLicense=\'${userDataChecked.drivLicense}\',privateСar=${userDataChecked.privateCar},army= ${userDataChecked.army},
     hobby= ${checkToNull.id_hobby},personalQualities=${checkToNull.id_personalQualities},professionalSkills=${checkToNull.id_professionalSkills},phone=\'${updateUserData.id_phone}\',email=\'${updateUserData.id_email}\',nationality=${checkToNull.id_nationality},
     relocate= ${userDataChecked.relocation},desiredSalary= ${checkToNull.id_desiredSalary},fk_employmentID=\'${fk_value.id_employment}\',fk_scheduleID=\'${fk_value.id_schedule}\',businessTrip=${userDataChecked.businessTrip},fk_marital_statusID=\'${fk_value.id_maritalStatus}\',
