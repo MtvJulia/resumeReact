@@ -39,6 +39,12 @@ class ExistingUserData extends React.Component {
         this.imageBase64="";    
 
 
+        //------------------------------------------
+        this.id_langName="id_langName";    
+        this.id_level="id_level";   
+        this.count=0;        
+         //--------------------------------------------------------
+
         this.fillExpArr = this.fillExpArr.bind(this);
         this.fillEducArr = this.fillEducArr.bind(this);
         this.fillLangArr = this.fillLangArr.bind(this);
@@ -73,13 +79,10 @@ class ExistingUserData extends React.Component {
         this.setArmy = this.setArmy.bind(this);
         this.setHobby = this.setHobby.bind(this);
         this.setPersonalQualities = this.setPersonalQualities.bind(this);
-        this.setProfessionalSkills = this.setProfessionalSkills.bind(this);
-        this.setLangName = this.setLangName.bind(this);
-        this.setLangName = this.setLangName.bind(this);
-        this.setLevel = this.setLevel.bind(this); 
+        this.setProfessionalSkills = this.setProfessionalSkills.bind(this);        
         this.onFileSelected = this.onFileSelected.bind(this); 
-      
-
+        this.DeleteLang = this.DeleteLang.bind(this); 
+        
         
     }
     
@@ -342,6 +345,13 @@ class ExistingUserData extends React.Component {
         var recommendationDetails = document.getElementById('recommendationDetailsClear').outerHTML;
         recommendationList.insertAdjacentHTML("beforeend", recommendationDetails);
     }
+    DeleteLang(e)
+    {
+      var langList = document.getElementById("langList");        
+      var langDetails =document.getElementById(e.target.parentNode.id);
+      console.log(langDetails);       
+      langList.remove("beforeend", langDetails);
+    }
 
     onFileSelected(event) {
         var selectedFile = event.target.files[0];
@@ -387,8 +397,9 @@ class ExistingUserData extends React.Component {
     setHobby(event){ this.setState(Object.assign(this.state.items,{ hobby:event.target.value})); }
     setPersonalQualities(event){ this.setState(Object.assign(this.state.items,{ personalQualities:event.target.value})); }
     setProfessionalSkills(event){ this.setState(Object.assign(this.state.items,{ professionalSkills:event.target.value})); }
-    setLangName (event){ this.setState(Object.assign(this.state.items,{ langName:event.target.value})); }    
-    setLevel(event){ this.setState(Object.assign(this.state.items,{ level:event.target.value})); }
+    
+    
+   
 
 
 
@@ -429,6 +440,7 @@ class ExistingUserData extends React.Component {
                 this.expArray = expArr;
                 this.educArray = educArr;
                 this.langArray = langArr;
+                console.log(this.langArray);
                 this.coursArray = coursArr;
                 this.recomendationArray = recomendArr;
                 this.driveLicense = drLicense;
@@ -446,7 +458,6 @@ class ExistingUserData extends React.Component {
                 }
 
                 console.dir(this.state.items);
-
 
             });
     }
@@ -636,10 +647,9 @@ class ExistingUserData extends React.Component {
                                         <legend className="scheduler-border">
                                             <h3>Владение языками</h3>
                                         </legend>
-                                        <ShowLanguage arrayToDisplay={this.langArray} />                                     
-                                      
-                                        <div id="langList">
-                                        </div>
+                                        <ShowLanguage arrayToDisplay={this.langArray} />                                        
+                                        <div id="langList">                                                                                     
+                                         </div>                                                   
                                         <a href="javascript:AddLang()" onClick={this.AddLang}>Добавить</a>
                                     </fieldset>
 
