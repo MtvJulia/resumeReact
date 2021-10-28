@@ -42,6 +42,8 @@ const CheckedToNull = (newUserData) => {
     
     else{
         objChecked.fupload = `\'${newUserData.fupload}\'`;
+        //////////////////////////////////////////////////////////////////////////////////////????????????????????????????
+        console.log(objChecked.fupload);
     }
     
     

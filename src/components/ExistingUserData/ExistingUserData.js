@@ -195,7 +195,7 @@ class ExistingUserData extends React.Component {
 
                 coursArr.push(objCourses);
             }
-        }
+        }      
     }
     fillRecomendArr(data, recomendArr) {
 
@@ -409,8 +409,7 @@ class ExistingUserData extends React.Component {
             .then((response) => response.json())
             .then((data) => {
 
-                data = data[0]; //переводим в объект
-
+                data = data[0]; //переводим в объект                
                 console.log(data);
 
                 let expArr = [];
@@ -420,7 +419,12 @@ class ExistingUserData extends React.Component {
                 let recomendArr = [];
                 let drLicense = {};
                 let currency = "";
-               
+
+                const dataImg = data.image;
+                 console.log( dataImg );
+
+            //    const img = new Buffer.from(dataImg).toString("ascii");
+            //    console.dir(img);
 
 
                 this.fillExpArr(data, expArr);
@@ -442,6 +446,7 @@ class ExistingUserData extends React.Component {
                 this.langArray = langArr;
                 console.log(this.langArray);
                 this.coursArray = coursArr;
+                console.log(this.coursArray);
                 this.recomendationArray = recomendArr;
                 this.driveLicense = drLicense;
                 this.currencyName = this.getCurrency(data, currency);
@@ -451,18 +456,25 @@ class ExistingUserData extends React.Component {
                     items: data                    
                 });
 
-                var reader = new FileReader();
-                reader.readAsDataURL(new Blob([new Uint8Array(this.state.image)]));
-                reader.onloadend = function() {
-                this.base64data = reader.result;                
-                }
 
+                //this.base64data = btoa(String.fromCharCode(...new Uint8Array(this.state.items.image.data)));
+                // var reader = new FileReader();
+                // reader.readAsDataURL(new Blob([new Uint8Array(this.state.image)]));
+                // reader.onloadend = function() {
+                // this.base64data = reader.result; 
+              
+                // console.dir("/////////////////////++++++++++++++++:::::::::::  "+this.base64data);               
+               // }
+              
+
+                console.dir(this.base64data);
+  //              console.dir(this.state.items.image.data);
                 console.dir(this.state.items);
 
             });
     }
 
-    render() {
+    render() {      
         if (this.state.items == null) {
             return (
                 <div className="spinner-border text-muted"></div>
@@ -501,7 +513,7 @@ class ExistingUserData extends React.Component {
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
                                                 <div className="userPhoto">
                                                     <label>
-                                                        <img className="avatar"  src={"data:image/png;" + this.imageBase64} alt="Нажмите для выбора файла" id="myimage" />
+                                                        <img className="avatar"  src={`data:image/png;base64,${this.base64data}`} alt="Нажмите для выбора файла" id="myimage" />
                                                         <input type="file" id="id_imgUpl" name="fupload" onChange={this.onFileSelected } hidden />
                                                     </label>
                                                 </div>

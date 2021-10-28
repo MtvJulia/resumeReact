@@ -77,7 +77,10 @@ class UserData extends React.Component {
     }
 
     onFileSelected(event) {
+
+        ////загрузка картинки на форму
         var selectedFile = event.target.files[0];
+     
         var reader = new FileReader();
       
         var imgtag = document.getElementById("myimage");
@@ -88,13 +91,11 @@ class UserData extends React.Component {
         };  
         if(imgtag) {  
         reader.readAsDataURL(selectedFile);}
-
-        this.setState(Object.assign(this.state.users,{image:event.target.files[0],
-            loaded: 0}));          
        
-        console.log(selectedFile);
+        this.setState(Object.assign(this.state.users,{image:event.target.files[0],loaded: 0}));        
+       
+        console.log(selectedFile);        
 
-        console.log(this.state.users);    
       }
 
         

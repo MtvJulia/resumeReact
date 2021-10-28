@@ -174,7 +174,6 @@ class ShowLanguage extends React.Component {
     var count=0;
 
     let { arrayToDisplay} = this.props;
-
        
     if(arrayToDisplay.length != 0)
     {
@@ -188,7 +187,7 @@ class ShowLanguage extends React.Component {
                                 //откорректировать разметку div
                                 <div>                                   
                                     <details id="langDetails" open>
-                                    
+                                    {/* <a id={"idDelete"+count} href="javascript:DeleteLang(e)" name = "delete" > Удалить  onClick={DeleteLang()}</a> */}
                                         <summary>Язык</summary>
                                         
                                         <div className="row">

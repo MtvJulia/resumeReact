@@ -264,7 +264,7 @@ ${checkToNull.id_startWork}, \'${endWork}\', ${userDataChecked.stillWorking}, ${
 ${checkToNull.id_langName}, ${checkToNull.id_level},${checkToNull.id_personRecommending}, ${checkToNull.id_company}, ${checkToNull.id_emailCompany},
 ${checkToNull.id_phoneCompany},${userDataChecked.children},\'${fk_value.id_currency}\' )`;
 
- requestToDbCUDUserData(query, dbConnection, response);     
+requestToDbCUDUserData(query, dbConnection, response);     
         
     }
     response.end();
