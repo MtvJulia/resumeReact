@@ -152,8 +152,6 @@ class ShowLanguage extends React.Component {
     constructor(props) {
         super(props)
         this.input = React.createRef()
-
-
         this.DeleteLang = this.DeleteLang.bind(this);
        
       }

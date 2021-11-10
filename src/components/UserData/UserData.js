@@ -18,8 +18,7 @@ class UserData extends React.Component {
         this.AddExperience = this.AddExperience.bind(this);
         this.AddRecommendation = this.AddRecommendation.bind(this);
         this.onFileSelected = this.onFileSelected.bind(this);
-        this.DeleteLang= this.DeleteLang.bind(this);
-       
+        this.DeleteLang= this.DeleteLang.bind(this);       
     }   
 
 

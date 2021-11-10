@@ -200,13 +200,13 @@ class ExistingUserData extends React.Component {
     fillRecomendArr(data, recomendArr) {
 
         for (let i = 0; i < data.phoneCompany.length; i++) {
-            if ( data.company[i] != "NULL" && data.phoneCompany[i]!="NULL") 
+            if (data.phoneCompany[i]!="NULL") // data.company[i]!="NULL" && 
             {
                 var objRecomendation = {};
 
                 objRecomendation.personRecommending = data.personRecommending[i];
-                objRecomendation.company = data.company[i];
-                objRecomendation.emailCompany = data.emailCompany[i];
+                if(data.company!=null) {objRecomendation.company = data.company[i];}                
+                if(data.emailCompany!=null)  objRecomendation.emailCompany = data.emailCompany[i];
                 objRecomendation.phoneCompany = data.phoneCompany[i];
     
                 recomendArr.push(objRecomendation);
