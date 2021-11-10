@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import '../UserData/UserData.css';
-import UploadPhoto from '../../images/UploadPhoto.jpg'
+import UploadPhoto from '../../images/uploadPhoto.jpg'
 
 
 class UserData extends React.Component {
@@ -150,14 +150,14 @@ class UserData extends React.Component {
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <div className="userPhoto">
                                                     <label>
-                                                        <img className="avatar" id="myimage" alt="Нажмите для выбора файла" />
-                                                        <input
-                                                            accept="image/*"
-                                                            type="file"
-                                                            id="id_imgUpl"
-                                                            name="fupload" hidden
-                                                            onChange={this.onFileSelected}
-                                                        />
+                                                        <img className="avatar" id="myimage"  alt="Нажмите для выбора файла" src={UploadPhoto}/>
+                                                        <input                                                        
+                                                         accept="image/*"
+                                                         type="file"
+                                                         id="id_imgUpl"                                                      
+                                                         name="fupload"   hidden    
+                                                         onChange = {this.onFileSelected}
+                                                          />
                                                     </label>
                                                 </div>
                                             </div>
