@@ -7,7 +7,7 @@ import ShowLanguage from '../../Server/ShowLanguage';
 import ShowCourses from '../../Server/ShowCourses';
 import ShowRecommending from '../../Server/ShowRecommending';
 import { Switch } from 'react-router';
-import UploadPhoto from '../../images/UploadPhoto.jpg'
+import UploadPhoto from '../../images/uploadPhoto.jpg'
 
 
 class ExistingUserData extends React.Component {
@@ -513,7 +513,7 @@ class ExistingUserData extends React.Component {
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
                                                 <div className="userPhoto">
                                                     <label>
-                                                        <img className="avatar"  src={`data:image/png;base64,${this.base64data}`} alt="Нажмите для выбора файла" id="myimage" />
+                                                        <img className="avatar"  src={UploadPhoto} alt="Нажмите для выбора файла" id="myimage" />
                                                         <input type="file" id="id_imgUpl" name="fupload" onChange={this.onFileSelected } hidden />
                                                     </label>
                                                 </div>
