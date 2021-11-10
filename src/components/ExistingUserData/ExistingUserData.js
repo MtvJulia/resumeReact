@@ -47,6 +47,7 @@ class ExistingUserData extends React.Component {
         this.AddScheduler = this.AddScheduler.bind(this);
         this.AddCourse = this.AddCourse.bind(this);
         this.AddExperience = this.AddExperience.bind(this);
+        this.AddRecommendation = this.AddRecommendation.bind(this);
     }
 
     getCurrency(data, currency) {
@@ -557,7 +558,7 @@ class ExistingUserData extends React.Component {
                                         <legend className="scheduler-border">
                                             <h3>Курсы повышения квалификации</h3>
                                         </legend>
-                                        <ShowCourses arrayToDisplay={this.coursArray} />
+                                        <ShowCourses arrayToDisplay={this.coursArray} />                                       
                                         <div id="courseList">
                                         </div>
                                         <a href="javascript:AddCourse()" onClick={this.AddCourse}>Добавить</a>
@@ -638,8 +639,7 @@ class ExistingUserData extends React.Component {
                                             <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
                                                     <input type="checkbox" id="id_privatCar" className="custom-control-input" name="id_privatCar" checked={this.state.items.privateСar} />
-                                                    <label className="custom-control-label" for="id_privatCar">Есть личный
-                                        автомобиль</label>
+                                                    <label className="custom-control-label" for="id_privatCar">Есть личный автомобиль</label>
                                                 </div>
                                             </div>
                                             <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">

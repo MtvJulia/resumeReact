@@ -15,8 +15,31 @@ class UserData extends React.Component {
         this.AddScheduler = this.AddScheduler.bind(this);
         this.AddCourse = this.AddCourse.bind(this);
         this.AddExperience = this.AddExperience.bind(this);
+        this.AddRecommendation = this.AddRecommendation.bind(this);
+        this.DeleteLang = this.DeleteLang.bind(this);
 
     }
+
+    DeleteLang(id) {
+        // var langList = document.getElementById("langList");
+        // var langDetails = document.getElementById('langDetails').outerHTML;
+         //langList. re.removeChild("langDetails");
+        // this.setState({
+        //     users: this.state.users.filter((_, i) => i !== index)
+        // });
+
+        // var newTodoArray = this.state;
+        // newTodoArray.remove(index);
+        // this.setState({
+        //     users: newTodoArray,
+        // });
+
+        const { users } = this.state;
+        this.setState({
+            users: [...users.slice(0, id), ...users.slice(id + 1)]
+        });
+    }
+
     AddLang() {
         var langList = document.getElementById("langList");
         var langDetails = document.getElementById('langDetails').outerHTML;
@@ -41,18 +64,24 @@ class UserData extends React.Component {
         console.log(experienceDetails);
         experienceList.insertAdjacentHTML("beforeend", experienceDetails);
     }
+    AddRecommendation() {
+        var recommendationList = document.getElementById("recommendationList");
+        var recommendationDetails = document.getElementById('recommendationDetails').outerHTML;
+        console.log(recommendationDetails);
+        recommendationList.insertAdjacentHTML("beforeend", recommendationDetails);
+    }
 
     componentDidMount() {
         //Встроенный метод для GET (и только) запросов
         fetch(this.API_ADDRESS)
             .then((response) => response.json())
             .then((data) => {
-                 console.log(data);
+                console.log(data);
                 this.setState({
                     items: data
                 });
             });
-    }  
+    }
 
     render() {
         if (this.state.items == null) {
@@ -241,17 +270,20 @@ class UserData extends React.Component {
                                             <h3>Владение языками</h3>
                                         </legend>
 
-                                        <details id="langDetails">
-                                            <summary>Язык</summary>
+                                        <details id="langDetails" open>
+
+                                            <summary>Язык <a id="idDelete" href="javascript:DeleteLang()" onClick={this.DeleteLang}>Удалить</a></summary>
+
                                             <div className="row">
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <label for="id_langName">Язык:</label>
                                                     <input type="text" className="form-control" id="id_langName" name="id_langName"
-                                                        placeholder="Введите язык" />
+                                                        placeholder="Введите язык" required />
                                                 </div>
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
                                                     <label for="id_level">Уровень владения:</label>
-                                                    <select className="form-control" id="id_level" name="id_level">
+                                                    <select className="form-control" id="id_level" name="id_level" required>
                                                         <option disabled>Выберите уровень</option>
                                                         <option selected></option>
                                                         <option>A1 - начальный</option>
@@ -269,6 +301,7 @@ class UserData extends React.Component {
                                         </div>
                                         <a href="javascript:AddLang()" onClick={this.AddLang}>Добавить</a>
 
+
                                     </fieldset>
 
                                     {/* <!-- -------ОБРАЗОВАНИЕ----------- --> */}
@@ -277,7 +310,7 @@ class UserData extends React.Component {
                                             <h3>Образование</h3>
                                         </legend>
 
-                                        <details id="educationDatails">
+                                        <details id="educationDatails" open>
                                             <summary>Mесто учебы</summary>
                                             <div className="row">
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -331,7 +364,7 @@ class UserData extends React.Component {
                                             <h3>Курсы повышения квалификации</h3>
                                         </legend>
 
-                                        <details id="courseDetails">
+                                        <details id="courseDetails" open>
                                             <summary>Курс</summary>
 
                                             <div className="row">
@@ -365,7 +398,7 @@ class UserData extends React.Component {
                                             <h3>Опыт работы</h3>
                                         </legend>
 
-                                        <details id="experienceDetails">
+                                        <details id="experienceDetails" open>
                                             <summary>Mесто работы</summary>
 
                                             <div className="row">
@@ -419,30 +452,40 @@ class UserData extends React.Component {
                                             <h3>Рекомендации</h3>
                                         </legend>
 
-                                        <div className="row">
-                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <label for="id_personRecommending">ФИО рекомендующего:</label>
-                                                <input type="text" className="form-control" id="id_personRecommending" name="id_personRecommending"
-                                                    placeholder="ФИО рекомендующего" />
+                                        <details id="recommendationDetails" open>
+                                            <summary>Рекомендация</summary>
+
+                                            <div className="row">
+                                                <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                    <label for="id_personRecommending">ФИО рекомендующего:</label>
+                                                    <input type="text" className="form-control" id="id_personRecommending" name="id_personRecommending"
+                                                        placeholder="ФИО рекомендующего" />
+                                                </div>
+                                                <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                    <label for="id_company">Компания, должность:</label>
+                                                    <input type="text" className="form-control" id="id_company" name="id_company"
+                                                        placeholder="Компания, должность" />
+                                                </div>
                                             </div>
-                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <label for="id_company">Компания, должность:</label>
-                                                <input type="text" className="form-control" id="id_company" name="id_company"
-                                                    placeholder="Компания, должность" />
+                                            <div className="row">
+                                                <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                    <label for="id_emailCompany">Электронная почта:</label>
+                                                    <input type="email" className="form-control" id="id_emailCompany" name="id_emailCompany"
+                                                        placeholder="address@site.com" />
+                                                </div>
+                                                <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                    <label for="id_phoneCompany">Телефон:</label>
+                                                    <input type="text" className="form-control" id="id_phoneCompany" name="id_phoneCompany"
+                                                        placeholder="+380661234567" />
+                                                </div>
                                             </div>
+
+                                        </details>
+
+                                        <div id="recommendationList">
                                         </div>
-                                        <div className="row">
-                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <label for="id_emailCompany">Электронная почта:</label>
-                                                <input type="email" className="form-control" id="id_emailCompany" name="id_emailCompany"
-                                                    placeholder="address@site.com" />
-                                            </div>
-                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <label for="id_phoneCompany">Телефон:</label>
-                                                <input type="text" className="form-control" id="id_phoneCompany" name="id_phoneCompany"
-                                                    placeholder="+380661234567" />
-                                            </div>
-                                        </div>
+                                        <a href="javascript:AddRecommendation()" onClick={this.AddRecommendation}>Добавить</a>
+
                                     </fieldset>
 
                                     {/* <!-- -------ДОПОЛНИТЕЛЬНАЯ ИНФО----------- --> */}

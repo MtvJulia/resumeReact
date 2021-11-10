@@ -3,6 +3,12 @@ background-color: rgb(246, 252, 255);
 /* font-size: 14px; */
 }
 
+#idDelete
+{
+  margin-left: 20px;
+  font-weight: 400;
+}
+
 .mainUserData{
     /* background-color: bisque; */
     /* background-image: url("./images/dance2.jpg"); */
