@@ -8,7 +8,8 @@ const { Switch } = require('react-router');
 const { connString } = require("./ConnectionModule");
 const {CheckedToNull,getCheckedInfo} = require("./CheckedModule");
 const{getFkValue,getEndData,getUserData} = require("./GetToPostModule");
-//const{requestToDbGETAferPost,requestToDbGET,requestToDbCUDUserData} = require("./RequestModule");
+
+
 
 
 const server = express();
@@ -16,12 +17,8 @@ var duplicateFlag = false;
 var userIDFromDB = 0;
 var arrUsers = [];
 var foundUserID = 0; //найденный пользователь при входе уже зарегистрированного пользователя
+var foundUser={};
 var getToRegistrationFlag = false;
-var multyLangFlag = false;
-var multyCoursesFlag = false;
-var multyRecommendingFlag = false;
-var multyExperienceFlag = false;
-var multyEducationFlag = false;
 var userData = {};
 var newUser = {};
 
@@ -151,6 +148,9 @@ server.post("/login", function (request, response) {
             console.log(`User login : ${element.userLogin} password : ${element.userPassword} have ID :${element.userID}`);
             foundFlag = true;          
             foundUserID = element.userID;
+            foundUser.UserID=element.userID;
+            foundUser.UserLogin = element.userLogin;
+            foundUser.UserPassword = element.userPassword;
            // console.log(foundUserID);
             //ПЕРЕХОД ПО ССЫЛКЕ НА ЗАПОЛНЕННУЮ КОЛБАСУ!!!!!!!!!     
             return response.redirect("http://localhost:3000/existinguserdata");
@@ -218,8 +218,23 @@ server.post("/userdata", function (request, response) {
     console.log("---------newUserData----------------------------------------");
 
     console.log(newUserData);
-
+    console.log(newUserData.fupload);    
     console.log("---------newUserData--end--------------------------------------");
+
+    
+
+    // const randomString = crypto.randomBytes(5).toString('hex');
+    // const stream = fs.createWriteStream(`./public/images/${randomString}.png`);
+  
+    // stream.on('finish', function () {
+    //   console.log('file has been written');
+    //   res.end('file has been written');
+    // });
+  
+    // stream.write(Buffer.from(req.body), 'utf-8');
+    // stream.end();
+
+
 
     if (newUserData) {
       
@@ -229,13 +244,8 @@ server.post("/userdata", function (request, response) {
 
         let checkToNull =  CheckedToNull(newUserData); 
       
-        let fk_value = getFkValue(newUserData);
-
-        // console.log("+++++++++++++++++++++++++"+checkToNull.fupload);
-
-        // let profilePhotoName = newUser.UserID +checkToNull.fupload ;
-
-
+        let fk_value = getFkValue(newUserData);     
+       
       
     let query = `INSERT INTO user_info (userLogin,userPassword,firstName,lastName,middleName,birthOfDate,сityOfResidence,position,
         driverLicense,privateСar,army,hobby,personalQualities,professionalSkills,phone,email,nationality,relocate,desiredSalary,fk_employmentID,fk_scheduleID,
@@ -254,36 +264,95 @@ ${checkToNull.id_startWork}, \'${endWork}\', ${userDataChecked.stillWorking}, ${
 ${checkToNull.id_langName}, ${checkToNull.id_level},${checkToNull.id_personRecommending}, ${checkToNull.id_company}, ${checkToNull.id_emailCompany},
 ${checkToNull.id_phoneCompany},${userDataChecked.children},\'${fk_value.id_currency}\' )`;
 
- requestToDbCUDUserData(query, dbConnection, response);     
+requestToDbCUDUserData(query, dbConnection, response);     
         
     }
     response.end();
 });
 
-const insertImgToDB = (temp_path, userID) => {
-    fs.open(temp_path, 'r', function (status, fd) {
-        if (status) {
-            console.log(status.message);
-            return;
-        }
-        var fileSize = getFilesizeInBytes(temp_path);
-        var buffer = Buffer.alloc(fileSize);
-        fs.read(fd, buffer, 0, fileSize, 0, function (err, num) {
+//////////////////////////////////////////////ExistingUserData PUT/////////////////////////////////////////////////////////////////////
 
-            var query = "INSERT INTO userphoto SET ?",
-                values = {
-                    file_type: 'img',
-                    file_size: buffer.length,
-                    file: buffer
-                };
 
-            dbConnection.query(query, values, function (er, da) {
-                if (er) throw er;
-            });
+server.post("/existinguserdata", (req, res) => {
 
-        });
-    });
-}
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+
+    //получим нового пользователя из тела POST запроса,
+    let updateUserData = req.body;   
+
+    console.log("---------updateUser----------------------------------------");
+
+    console.log(foundUser);
+
+    console.log("---------updateUser-end--------------------------------------");
+
+    console.log("---------updateUserData----------------------------------------");
+
+    console.log(updateUserData);
+
+    console.log("---------updateUserData--end--------------------------------------");
+
+
+
+     if (updateUserData) {
+      
+        let endWork = getEndData(updateUserData);  //////////////////////////////////////////////////            
+
+        let userDataChecked = getCheckedInfo(updateUserData);      
+
+        let checkToNull =  CheckedToNull(updateUserData); 
+      
+        let fk_value = getFkValue(updateUserData);     
+       
+      
+    let query = `UPDATE user_info SET   userLogin=\'${foundUser.UserLogin}\',userPassword=\'${foundUser.UserPassword}\',firstName=\'${updateUserData.id_firstName}\',lastName=\'${updateUserData.id_lastName}\',middleName= ${checkToNull.id_middleName},
+    birthOfDate=\'${updateUserData.id_birthOfDate}\',сityOfResidence=\'${updateUserData.id_cityOfResidence}\',position=\'${updateUserData.id_userPosition}\',driverLicense=\'${userDataChecked.drivLicense}\',privateСar=${userDataChecked.privateCar},army= ${userDataChecked.army},
+    hobby= ${checkToNull.id_hobby},personalQualities=${checkToNull.id_personalQualities},professionalSkills=${checkToNull.id_professionalSkills},phone=\'${updateUserData.id_phone}\',email=\'${updateUserData.id_email}\',nationality=${checkToNull.id_nationality},
+    relocate= ${userDataChecked.relocation},desiredSalary= ${checkToNull.id_desiredSalary},fk_employmentID=\'${fk_value.id_employment}\',fk_scheduleID=\'${fk_value.id_schedule}\',businessTrip=${userDataChecked.businessTrip},fk_marital_statusID=\'${fk_value.id_maritalStatus}\',
+    fk_level_of_educationID=\'${fk_value.id_education}\', image=${checkToNull.fupload},courseName=${checkToNull.id_courseName},organization= ${checkToNull.id_organization},endingCourse=${checkToNull.id_endingCourse},institutName=${checkToNull.id_institutName},levelEducation=${checkToNull.id_levelEducation},
+    faculty=${checkToNull.id_faculty},specialty= ${checkToNull.id_specialty},ending= ${checkToNull.id_ending},startWork=${checkToNull.id_startWork}, endWork= \'${endWork}\',stillWorking=${userDataChecked.stillWorking},positionWork=${checkToNull.id_positionWork},companyName= ${checkToNull.id_companyName},
+    jobDuties=${checkToNull.id_jobDuties}, langName=${checkToNull.id_langName}, languag_proficiency_levelID=${checkToNull.id_level}, personRecommending=${checkToNull.id_personRecommending}, company=${checkToNull.id_company}, emailCompany=${checkToNull.id_emailCompany},
+    phoneCompany=${checkToNull.id_phoneCompany}, children=${userDataChecked.children}, fk_currencyID =\'${fk_value.id_currency}\' WHERE UserID=\'${foundUser.UserID}\'`;
+      
+
+ requestToDbCUDUserData(query, dbConnection, res);     
+        
+    }
+    res.end();
+
+});
+
+
+
+
+
+
+
+
+// const insertImgToDB = (temp_path, userID) => {
+//     fs.open(temp_path, 'r', function (status, fd) {
+//         if (status) {
+//             console.log(status.message);
+//             return;
+//         }
+//         var fileSize = getFilesizeInBytes(temp_path);
+//         var buffer = Buffer.alloc(fileSize);
+//         fs.read(fd, buffer, 0, fileSize, 0, function (err, num) {
+
+//             var query = "INSERT INTO userphoto SET ?",
+//                 values = {
+//                     file_type: 'img',
+//                     file_size: buffer.length,
+//                     file: buffer
+//                 };
+
+//             dbConnection.query(query, values, function (er, da) {
+//                 if (er) throw er;
+//             });
+
+//         });
+//     });
+// }
 
 
 const startupCallback = function () {

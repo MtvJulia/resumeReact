@@ -3,6 +3,7 @@ import axios from 'axios';
 import '../UserData/UserData.css';
 import UploadPhoto from '../../images/uploadPhoto.jpg'
 
+
 class UserData extends React.Component {
     constructor(props) {
         super(props);
@@ -16,28 +17,31 @@ class UserData extends React.Component {
         this.AddCourse = this.AddCourse.bind(this);
         this.AddExperience = this.AddExperience.bind(this);
         this.AddRecommendation = this.AddRecommendation.bind(this);
+        this.onFileSelected = this.onFileSelected.bind(this);
         this.DeleteLang = this.DeleteLang.bind(this);
-
     }
 
-    DeleteLang(id) {
-        // var langList = document.getElementById("langList");
-        // var langDetails = document.getElementById('langDetails').outerHTML;
-         //langList. re.removeChild("langDetails");
+
+    DeleteLang(e) {
+        var langList = document.getElementById("langList");
+        console.log(langList);
+        var langDetails = document.getElementById(e.target.id).outerHTML;
+        console.log(langDetails);
+        langList.removeChild(langDetails);
+
         // this.setState({
         //     users: this.state.users.filter((_, i) => i !== index)
         // });
-
+        /////////////////////////////////////////////////////////////////////////////
         // var newTodoArray = this.state;
         // newTodoArray.remove(index);
         // this.setState({
         //     users: newTodoArray,
         // });
-
-        const { users } = this.state;
-        this.setState({
-            users: [...users.slice(0, id), ...users.slice(id + 1)]
-        });
+        // const { users } = this.state;
+        // this.setState({
+        //     users: [...users.slice(0, id), ...users.slice(id + 1)]
+        // });
     }
 
     AddLang() {
@@ -71,6 +75,31 @@ class UserData extends React.Component {
         recommendationList.insertAdjacentHTML("beforeend", recommendationDetails);
     }
 
+    onFileSelected(event) {
+
+        ////загрузка картинки на форму
+        var selectedFile = event.target.files[0];
+
+        var reader = new FileReader();
+
+        var imgtag = document.getElementById("myimage");
+        imgtag.title = selectedFile.name;
+
+        reader.onload = function (event) {
+            imgtag.src = event.target.result;
+        };
+        if (imgtag) {
+            reader.readAsDataURL(selectedFile);
+        }
+
+        this.setState(Object.assign(this.state.users, { image: event.target.files[0], loaded: 0 }));
+
+        console.log(selectedFile);
+
+    }
+
+
+
     componentDidMount() {
         //Встроенный метод для GET (и только) запросов
         fetch(this.API_ADDRESS)
@@ -78,13 +107,13 @@ class UserData extends React.Component {
             .then((data) => {
                 console.log(data);
                 this.setState({
-                    items: data
+                    users: data
                 });
             });
     }
 
     render() {
-        if (this.state.items == null) {
+        if (this.state.users == null) {
             return (
                 <div className="spinner-border text-muted">Loading...</div>
             );
@@ -121,8 +150,14 @@ class UserData extends React.Component {
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <div className="userPhoto">
                                                     <label>
-                                                        <img className="avatar" src={UploadPhoto} alt="Нажмите для выбора файла" />
-                                                        <input type="file" id="id_imgUpl" name="fupload" hidden />
+                                                        <img className="avatar" id="myimage" src={UploadPhoto} alt="Нажмите для выбора файла" />
+                                                        <input
+                                                            accept="image/*"
+                                                            type="file"
+                                                            id="id_imgUpl"
+                                                            name="fupload" hidden
+                                                            onChange={this.onFileSelected}
+                                                        />
                                                     </label>
                                                 </div>
                                             </div>
@@ -271,9 +306,9 @@ class UserData extends React.Component {
                                         </legend>
 
                                         <details id="langDetails" open>
-
-                                            <summary>Язык <a id="idDelete" href="javascript:DeleteLang()" onClick={this.DeleteLang}>Удалить</a></summary>
-
+                                            <summary>Язык
+                                                <a id="idDelete" href="javascript:DeleteLang(e)" onClick={this.DeleteLang}>Удалить</a>
+                                            </summary>
                                             <div className="row">
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <label for="id_langName">Язык:</label>
@@ -447,14 +482,14 @@ class UserData extends React.Component {
                                     </fieldset>
 
                                     {/* <!-- -------РЕКОМЕНДАЦИИ----------- --> */}
+
+
                                     <fieldset className="scheduler-border">
                                         <legend className="scheduler-border">
                                             <h3>Рекомендации</h3>
                                         </legend>
-
                                         <details id="recommendationDetails" open>
                                             <summary>Рекомендация</summary>
-
                                             <div className="row">
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <label for="id_personRecommending">ФИО рекомендующего:</label>
@@ -465,6 +500,13 @@ class UserData extends React.Component {
                                                     <label for="id_company">Компания, должность:</label>
                                                     <input type="text" className="form-control" id="id_company" name="id_company"
                                                         placeholder="Компания, должность" />
+                                                </div>
+                                            </div>
+                                            <div className="row">
+                                                <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                    <label for="id_emailCompany">Электронная почта:</label>
+                                                    <input type="email" className="form-control" id="id_emailCompany" name="id_emailCompany"
+                                                        placeholder="address@site.com" />
                                                 </div>
                                             </div>
                                             <div className="row">
@@ -486,10 +528,11 @@ class UserData extends React.Component {
                                         </div>
                                         <a href="javascript:AddRecommendation()" onClick={this.AddRecommendation}>Добавить</a>
 
-                                    </fieldset>
+                                    </fieldset >
 
-                                    {/* <!-- -------ДОПОЛНИТЕЛЬНАЯ ИНФО----------- --> */}
-                                    <fieldset className="scheduler-border">
+
+                {/* <!-- -------ДОПОЛНИТЕЛЬНАЯ ИНФО----------- --> */ }
+                < fieldset className = "scheduler-border" >
                                         <legend className="scheduler-border">
                                             <h3>Дополнительная информация</h3>
                                         </legend>
@@ -562,17 +605,17 @@ class UserData extends React.Component {
                                                 <textarea className="form-control" id="id_professionalSkills" name="id_professionalSkills"></textarea>
                                             </div>
                                         </div>
-                                    </fieldset>
+                                    </fieldset >
 
-                                    <button type="submit" className="btn btn-primary " id="sbmResume">Отправить</button>
+                <button type="submit" className="btn btn-primary " id="sbmResume">Отправить</button>
 
-                                </form>
-                            </div>
-                        </div>
-                        <div>
-                        </div>
-                    </div>
+                                </form >
+                            </div >
+                        </div >
+                <div>
                 </div>
+                    </div >
+                </div >
             );
         }
     };

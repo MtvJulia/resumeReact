@@ -2,7 +2,7 @@ const CheckedToNull = (newUserData) => {
 
     let objChecked = {};
     
-    if(newUserData.id_middleName==''){
+    if(newUserData.id_middleName==''||newUserData.id_middleName==null){
         objChecked.id_middleName = null;
        }
     
@@ -10,7 +10,7 @@ const CheckedToNull = (newUserData) => {
         objChecked.id_middleName = `\'${newUserData.id_middleName}\'`;
     }
     
-    if(newUserData.id_hobby==''){
+    if(newUserData.id_hobby==''||newUserData.id_hobby==null){
         objChecked.id_hobby = null;
        }
     
@@ -18,7 +18,7 @@ const CheckedToNull = (newUserData) => {
         objChecked.id_hobby = `\'${newUserData.id_hobby}\'`;
     }
     
-    if(newUserData.id_nationality==''){
+    if(newUserData.id_nationality==''||newUserData.id_nationality==null){
         objChecked.id_nationality = null;
        }
     
@@ -26,7 +26,7 @@ const CheckedToNull = (newUserData) => {
         objChecked.id_nationality = `\'${newUserData.id_nationality}\'`;
     }
     
-    if(newUserData.id_desiredSalary==''){
+    if(newUserData.id_desiredSalary==''||newUserData.id_desiredSalary==null){
         objChecked.id_desiredSalary = null;
        }
     
@@ -36,28 +36,43 @@ const CheckedToNull = (newUserData) => {
     
     
     
-    if(newUserData.fupload==''){
+    if(newUserData.fupload==''||newUserData.fupload==null){
         objChecked.fupload = null;
        }
     
     else{
         objChecked.fupload = `\'${newUserData.fupload}\'`;
+        //////////////////////////////////////////////////////////////////////////////////////????????????????????????????
+        console.log(objChecked.fupload);
     }
     
     
-    if(newUserData.id_courseName==''){
+    if(newUserData.id_courseName==''||newUserData.id_courseName==null){
         objChecked.id_courseName = null;
        }
     
-    else{
+    else{       
         //если пришел массив и размер 0 элемента >1 , т.е.это не массив char
-        if( newUserData.id_courseName[0].length > 1 )
-        {   
+        // let count=0;
+        // newUserData.id_courseName.forEach(element => {
+        //    if(element.length>1) count++;
+        //    });     
+
+        //if( count > 0 )
+        if(Array.isArray(newUserData.id_courseName) )
+        {  
+           
              let  courses="";
     
-            for(let i =0; i<newUserData.id_courseName.length;i++)
+            for(let i =0; i< newUserData.id_courseName.length;i++)
             {
-                courses += newUserData.id_courseName[i] + "~";
+                if(newUserData.id_courseName[i]!="")
+                {
+                    courses += newUserData.id_courseName[i] + "~";
+                } 
+                else{
+                    courses += "NULL~";
+                }                            
             }
     
             objChecked.id_courseName = `\'${courses}\'`;
@@ -69,19 +84,31 @@ const CheckedToNull = (newUserData) => {
         }   
     }
     
-    if(newUserData.id_organization==''){
+    if(newUserData.id_organization==''||newUserData.id_organization==null){
         objChecked.id_organization = null;
        }
     
        else{
         //если пришел массив и размер 0 элемента >1 , т.е.это не массив char
-        if( newUserData.id_organization[0].length >1 )
+        // let count=0;
+        // newUserData.id_organization.forEach(element => {
+        //    if(element.length>1) count++;
+        //    });     
+
+        // if( count > 0 )
+        if(Array.isArray(newUserData.id_organization)  )
         {   
              let  organization="";
     
             for(let i =0; i<newUserData.id_organization.length;i++)
             {
-                organization += newUserData.id_organization[i] + "~";
+                if(newUserData.id_organization[i]!="")
+                {
+                    organization += newUserData.id_organization[i] + "~";
+                }     
+                else{
+                    organization += "NULL~";
+                }                       
             }
     
             objChecked.id_organization = `\'${organization}\'`;
@@ -93,18 +120,30 @@ const CheckedToNull = (newUserData) => {
         }
     }
     
-    if(newUserData.id_endingCourse==''){
+    if(newUserData.id_endingCourse==''||newUserData.id_endingCourse==null){
         objChecked.id_endingCourse = null;
        }
        else{
         //если пришел массив и размер 0 элемента >1 , т.е.это не массив char
-        if(  newUserData.id_endingCourse[0].length > 1 )
+        // let count=0;
+        // newUserData.id_endingCourse.forEach(element => {
+        //    if(element.length>1) count++;
+        //    });     
+
+        // if( count > 0 )
+        if(Array.isArray(newUserData.id_endingCourse)  )
         {   
              let  endingCourse = "";
     
             for(let i =0; i< newUserData.id_endingCourse.length;i++)
             {
-                endingCourse +=  newUserData.id_endingCourse[i] + "~";
+                if( newUserData.id_endingCourse[i]!="")
+                {
+                    endingCourse +=  newUserData.id_endingCourse[i] + "~";
+                } 
+                else{
+                    endingCourse += "NULL~";
+                }                            
             }
     
             objChecked.id_endingCourse = `\'${endingCourse}\'`;
@@ -117,20 +156,31 @@ const CheckedToNull = (newUserData) => {
     }
     
     
-    if(newUserData.id_institutName==''){
+    if(newUserData.id_institutName==''||newUserData.id_institutName==null){
     
         objChecked.id_institutName = null;
        }
     
        else{
-       
-        if(   newUserData.id_institutName[0].length >1 )
+        // let count=0;
+        // newUserData.id_institutName.forEach(element => {
+        //    if(element.length>1) count++;
+        //    });     
+
+        // if( count > 0 )
+        if(Array.isArray(newUserData.id_institutName)  )
         {   
              let  institutName="";
     
             for(let i =0; i< newUserData.id_institutName.length;i++)
             {
-                institutName +=  newUserData.id_institutName[i] + "~";
+                if( newUserData.id_institutName[i]!="")
+                {
+                    institutName +=  newUserData.id_institutName[i] + "~";
+                } 
+                else{
+                    institutName += "NULL~";
+                }              
             }
     
             objChecked.id_institutName = `\'${institutName}\'`;
@@ -143,19 +193,31 @@ const CheckedToNull = (newUserData) => {
     }
     
     
-    if(newUserData.id_levelEducation==''){
+    if(newUserData.id_levelEducation==''||newUserData.id_levelEducation==null){
         
         objChecked.id_levelEducation = null;
        }
        else{
      
-        if(   newUserData.id_levelEducation[0].length >1 )
+        // let count=0;
+        // newUserData.id_levelEducation.forEach(element => {
+        //    if(element.length>1) count++;
+        //    });     
+
+        // if( count > 0 )
+        if(Array.isArray(newUserData.id_levelEducation)  )
         {   
              let  levelEducation="";
     
             for(let i =0; i<newUserData.id_levelEducation.length;i++)
             {
-                levelEducation +=  newUserData.id_levelEducation[i] + "~";
+                if(newUserData.id_levelEducation[i]!="")
+                {
+                    levelEducation +=  newUserData.id_levelEducation[i] + "~";
+                }  
+                else{
+                    levelEducation += "NULL~";
+                }               
             }
     
             objChecked.id_levelEducation = `\'${levelEducation}\'`;
@@ -168,18 +230,31 @@ const CheckedToNull = (newUserData) => {
     }
     
     
-       if(newUserData.id_faculty==''){
+       if(newUserData.id_faculty==''||newUserData.id_faculty==null)
+       {
         objChecked.id_faculty = null;
        }
        else{
      
-        if( newUserData.id_faculty[0].length >1 )
+        // let count=0;
+        // newUserData.id_faculty.forEach(element => {
+        //    if(element.length>1) count++;
+        //    });     
+
+        // if( count > 0 )
+        if(Array.isArray(newUserData.id_faculty)  )
         {   
              let  faculty="";
     
             for(let i =0; i< newUserData.id_faculty.length;i++)
             {
-                faculty +=   newUserData.id_faculty[i] + "~";
+                if( newUserData.id_faculty[i]!="")
+                {
+                    faculty +=   newUserData.id_faculty[i] + "~";
+                } 
+                else{
+                    faculty += "NULL~";
+                }                
             }
     
             objChecked.id_faculty = `\'${faculty}\'`;
@@ -193,18 +268,35 @@ const CheckedToNull = (newUserData) => {
       
     
     
-       if(newUserData.id_specialty==''){
+       if(newUserData.id_specialty==''||newUserData.id_specialty==null){
         objChecked.id_specialty = null;
        }
        else{
      
-        if( newUserData.id_specialty[0].length >1 )
+        // let count=0;
+        // newUserData.id_specialty.forEach(element => {
+        //    if(element.length>1) count++;
+        //    });     
+
+        // if( count > 0 )
+        if(Array.isArray(newUserData.id_specialty)  )
         {   
              let  specialty="";
     
             for(let i =0; i< newUserData.id_specialty.length;i++)
             {
-                specialty +=   newUserData.id_specialty[i] + "~";
+
+                if( newUserData.id_specialty[i]!=""){
+                    specialty +=   newUserData.id_specialty[i] + "~";
+                }
+                else if(newUserData.id_specialty[0]=="")
+                {
+                    specialty += "NULL~";
+                }
+                else{
+                    specialty += "NULL~";
+                } 
+               
             }
     
             objChecked.id_specialty = `\'${specialty}\'`;
@@ -217,18 +309,30 @@ const CheckedToNull = (newUserData) => {
     }
        
     
-       if(newUserData.id_ending==''){
+       if(newUserData.id_ending==''||newUserData.id_ending==null){
         objChecked.id_ending = null;
        }
        else{
      
-        if( newUserData.id_ending[0].length >1 )
+        // let count=0;
+        // newUserData.id_ending.forEach(element => {
+        //    if(element.length>1) count++;
+        //    });     
+
+        // if( count > 0 )
+        if(Array.isArray(newUserData.id_ending)  )
         {   
              let  ending="";
     
             for(let i =0; i< newUserData.id_ending.length;i++)
             {
-                ending += newUserData.id_ending[i] + "~";
+                if( newUserData.id_ending[i]!=""){
+                    ending += newUserData.id_ending[i] + "~";
+                }
+                else{
+                    ending += "NULL~";
+                } 
+               
             }
     
             objChecked.id_ending = `\'${ending}\'`;
@@ -242,47 +346,66 @@ const CheckedToNull = (newUserData) => {
       
     
     
-    if(newUserData.id_startWork==''){
+    if(newUserData.id_startWork==''||newUserData.id_startWork==null){
         objChecked.id_startWork = null;
        }
        else{
      
-        if( newUserData.id_startWork[0].length >1 )
+        // let count=0;
+        // newUserData.id_startWork.forEach(element => {
+        //    if(element.length>1) count++;
+        //    });     
+
+        // if( count > 0 )
+        if(Array.isArray(newUserData.id_startWork)  )
         {   
              let  startWork="";
     
             for(let i =0; i< newUserData.id_startWork.length;i++)
             {
-                startWork += newUserData.id_startWork[i] + "~";
-                //console.log(startWork);
-            }
-           // console.log(startWork);
+                if(  newUserData.id_startWork[i]!="")
+                {
+                    startWork += newUserData.id_startWork[i] + "~";
+                }   
+                else{
+                    startWork += "NULL~";
+                }                         
+            }           
     
-            objChecked.id_startWork = `\'${startWork}\'`;
-    
+            objChecked.id_startWork = `\'${startWork}\'`;    
         }
         else{
           
         objChecked.id_startWork = `\'${newUserData.id_startWork + "~"}\'`;
          }
-    }
-      
+    }     
        
     
-    if(newUserData.id_endWork==''){
+    if(newUserData.id_endWork==''||newUserData.id_endWork==null){
         objChecked.id_endWork = null;
        }
        else{
      
-        if( newUserData.id_endWork[0].length >1 )
+        // let count=0;
+        // newUserData.id_endWork.forEach(element => {
+        //    if(element.length>1) count++;
+        //    });     
+
+        // if( count > 0 )
+        if(Array.isArray(newUserData.id_endWork)  )
         {   
              let  endWork="";
     
-            for(let i =0; i< newUserData.id_endWork.length;i++)
+            for(let i = 0; i < newUserData.id_endWork.length; i++)
             {
-                endWork +=  newUserData.id_endWork[i] + "~";
-            }
-    
+                if(newUserData.id_endWork[i]!="")
+                {
+                    endWork +=  newUserData.id_endWork[i] + "~";
+                } 
+                else{
+                    endWork += "NULL~";
+                }               
+            }    
             objChecked.id_endWork = `\'${endWork}\'`;
         }
         else{       
@@ -292,18 +415,29 @@ const CheckedToNull = (newUserData) => {
       
     
     
-    if(newUserData.id_positionWork==''){
+    if(newUserData.id_positionWork==''||newUserData.id_positionWork==null){
         objChecked.id_positionWork = null;
        }
        else{
      
-        if( newUserData.id_positionWork[0].length >1 )
+        // let count=0;
+        // newUserData.id_positionWork.forEach(element => {
+        //    if(element.length>1) count++;
+        //    });     
+
+        // if( count > 0 )
+        if(Array.isArray(newUserData.id_positionWork))
         {   
              let  positionWork="";
     
             for(let i =0; i< newUserData.id_positionWork.length;i++)
             {
-                positionWork += newUserData.id_positionWork[i] + "~";
+                if(newUserData.id_positionWork[i]!=""){
+                    positionWork += newUserData.id_positionWork[i] + "~";
+                }
+                else{
+                    positionWork += "NULL~";
+                }                
             }
     
             objChecked.id_positionWork = `\'${positionWork}\'`;
@@ -315,18 +449,28 @@ const CheckedToNull = (newUserData) => {
     }
       
     
-    if(newUserData.id_companyName==''){
+    if(newUserData.id_companyName==''||newUserData.id_companyName==null){
         objChecked.id_companyName = null;
        }
        else{
-     
-        if(newUserData.id_companyName[0].length >1 )
+        // let count=0;
+        // newUserData.id_companyName.forEach(element => {
+        //    if(element.length>1) count++;
+        //    });     
+
+        // if( count > 0 )
+        if(Array.isArray(newUserData.id_companyName)  )
         {   
              let  companyName="";
     
             for(let i =0; i<newUserData.id_companyName.length;i++)
             {
-                companyName += newUserData.id_companyName[i] + "~";
+                if(newUserData.id_companyName[i]!=""){
+                    companyName += newUserData.id_companyName[i] + "~";
+                } 
+                else{
+                    companyName += "NULL~";
+                }                
             }
     
             objChecked.id_companyName = `\'${companyName}\'`;
@@ -339,18 +483,30 @@ const CheckedToNull = (newUserData) => {
       
      
     
-    if(newUserData.id_jobDuties==''){
+    if(newUserData.id_jobDuties==''||newUserData.id_jobDuties==null){
         objChecked.id_jobDuties = null;
        }
        else{
      
-        if( newUserData.id_jobDuties[0].length >1 )
+        // let count=0;
+        // newUserData.id_jobDuties.forEach(element => {
+        //    if(element.length>1) count++;
+        //    });     
+
+        // if( count > 0 )
+        if(Array.isArray(newUserData.id_jobDuties)  )
         {   
              let  jobDuties="";
     
             for(let i =0; i<newUserData.id_jobDuties.length;i++)
             {
-                jobDuties += newUserData.id_jobDuties[i] + "~";
+                if(newUserData.id_jobDuties[i]!="")
+                {
+                    jobDuties += newUserData.id_jobDuties[i] + "~";
+                }   
+                else{
+                    jobDuties += "NULL~";
+                }              
             }
     
             objChecked.id_jobDuties = `\'${jobDuties}\'`;
@@ -359,21 +515,31 @@ const CheckedToNull = (newUserData) => {
            
         objChecked.id_jobDuties = `\'${newUserData.id_jobDuties + "~"}\'`;
          }
-    }
-       
+    }       
     
-    if(newUserData.id_langName==''){
+    if(newUserData.id_langName==''||newUserData.id_langName==null){
         objChecked.id_langName = null;
        }
        else{
-     
-        if(  newUserData.id_langName[0].length >1 )
+        // let count=0;
+        // newUserData.id_langName.forEach(element => {
+        //    if(element.length>1) count++;
+        //    });     
+
+        // if( count > 0 )
+        if(Array.isArray(newUserData.id_langName))
         {   
              let  langName="";
     
             for(let i =0; i< newUserData.id_langName.length;i++)
             {
-                langName +=  newUserData.id_langName[i] + "~";
+                if(newUserData.id_langName[i]!="")
+                {
+                    langName +=  newUserData.id_langName[i] + "~";
+                } 
+                else{
+                    langName += "NULL~";
+                }                
             }
     
             objChecked.id_langName = `\'${langName}\'`;
@@ -384,48 +550,60 @@ const CheckedToNull = (newUserData) => {
          }
     } 
     
-    if(newUserData.id_level==''){
+    if(newUserData.id_level==''||newUserData.id_level==null){
         objChecked.id_level = null;
        }
        else{
-     
-        if( newUserData.id_level.length >1 &&  newUserData.id_level[0].length >1 )
+        //    let count=0;
+        //    newUserData.id_level.forEach(element => {
+        //    if(element.length>1) count++;
+        //    });     
+
+        // if( count > 0 )
+        if(Array.isArray(newUserData.id_level)  )
         {   
              let  level="";         
     
             for(let i =0; i< newUserData.id_level.length;i++)
             {
-                let changeValueToID = "";
-    
-                switch(newUserData.id_level[i])
+                if(newUserData.id_level[i]!="")
                 {
-                  case "A1 - начальный":{
-                    changeValueToID = 1;
-                      break;
-                  } 
-                  case "A2 - базовый":{
-                    changeValueToID = 2;
-                      break;
-                  }
-                  case "B1 - средний":{
-                    changeValueToID = 3;
-                      break;
-                  }
-                  case "B2 - выше среднего":{
-                    changeValueToID = 4;
-                      break;
-                  }
-                  case "C1 - продвинутый":{
-                    changeValueToID = 5;
-                      break;
-                  }
-                  case "C2 - профессиональный":{
-                    changeValueToID = 6;
-                      break;
-                  }          
-                } 
+                    let changeValueToID = "";
     
-                level +=changeValueToID + "~";
+                    switch(newUserData.id_level[i])
+                    {
+                      case "A1 - начальный":{
+                        changeValueToID = 1;
+                          break;
+                      } 
+                      case "A2 - базовый":{
+                        changeValueToID = 2;
+                          break;
+                      }
+                      case "B1 - средний":{
+                        changeValueToID = 3;
+                          break;
+                      }
+                      case "B2 - выше среднего":{
+                        changeValueToID = 4;
+                          break;
+                      }
+                      case "C1 - продвинутый":{
+                        changeValueToID = 5;
+                          break;
+                      }
+                      case "C2 - профессиональный":{
+                        changeValueToID = 6;
+                          break;
+                      }          
+                    } 
+        
+                    level +=changeValueToID + "~";
+                }
+                else{
+                    level += "NULL~";
+                } 
+                
             }
     
             objChecked.id_level = `\'${level}\'`;
@@ -462,18 +640,29 @@ const CheckedToNull = (newUserData) => {
             }  
         }
     } 
-       if(newUserData.id_personRecommending ==''){
+       if(newUserData.id_personRecommending ==''||newUserData.id_personRecommending == null ){
         objChecked.id_personRecommending = null;
        }
-       else{
-     
-        if(   newUserData.id_personRecommending[0].length >1 )
+       else{ 
+    //        let count=0;
+    //     newUserData.id_personRecommending.forEach(element => {
+    //     if(element.length>1) count++;
+    //     });     
+
+    //  if( count > 0 )
+    if(Array.isArray( newUserData.id_personRecommending) )
         {   
              let  personRecommending="";
     
             for(let i =0; i< newUserData.id_personRecommending.length;i++)
             {
-                personRecommending += newUserData.id_personRecommending[i] + "~";
+                if(newUserData.id_personRecommending[i]!="")
+                {
+                    personRecommending += newUserData.id_personRecommending[i] + "~";
+                }
+                else{
+                    personRecommending += "NULL~";
+                }               
             }
     
             objChecked.id_personRecommending = `\'${personRecommending}\'`;
@@ -485,18 +674,30 @@ const CheckedToNull = (newUserData) => {
     }
        
     
-       if(newUserData.id_company==''){
+       if(newUserData.id_company==''||newUserData.id_company== null){
         objChecked.id_company = null;
        }
        else{
      
-        if(  newUserData.id_company[0].length >1 )
+        // let count=0;
+        // newUserData.id_company.forEach(element => {
+        //    if(element.length>1) count++;
+        //    });     
+
+        // if( count > 0 )
+        if(Array.isArray(newUserData.id_company))
         {   
              let  company="";
     
             for(let i =0; i< newUserData.id_company.length;i++)
             {
-                company +=   newUserData.id_company[i] + "~";
+                if(newUserData.id_company[i]!="")
+                {
+                    company += newUserData.id_company[i] + "~";
+                }
+                else{
+                    company += "NULL~";
+                }               
             }
     
             objChecked.id_company = `\'${company}\'`;
@@ -508,18 +709,30 @@ const CheckedToNull = (newUserData) => {
     }
        
     
-       if(newUserData.id_emailCompany==''){
+       if(newUserData.id_emailCompany==''||newUserData.id_emailCompany==null){
         objChecked.id_emailCompany = null;
        }
        else{
      
-        if(newUserData.id_emailCompany[0].length >1 )
+        // let count=0;
+        // newUserData.id_emailCompany.forEach(element => {
+        //    if(element.length>1) count++;
+        //    });     
+
+        // if( count > 0 )
+        if(Array.isArray( newUserData.id_emailCompany) )
         {   
              let  emailCompany="";
     
             for(let i =0; i<newUserData.id_emailCompany.length;i++)
             {
-                emailCompany +=  newUserData.id_emailCompany[i] + "~";
+                if(newUserData.id_emailCompany[i]!="")
+                {
+                    emailCompany += newUserData.id_emailCompany[i] + "~";
+                }
+                else{
+                    emailCompany += "NULL~";
+                } 
             }
     
             objChecked.id_emailCompany= `\'${emailCompany}\'`;
@@ -530,18 +743,30 @@ const CheckedToNull = (newUserData) => {
     }
     }  
     
-       if(newUserData.id_phoneCompany==''){
+       if(newUserData.id_phoneCompany==''||newUserData.id_phoneCompany==null){
         objChecked.id_phoneCompany = null;
        }
        else{
      
-        if(   newUserData.id_phoneCompany[0].length >1 )
+        // let count=0;
+        // newUserData.id_phoneCompany.forEach(element => {
+        //    if(element.length>1) count++;
+        //    });     
+
+        // if( count > 0 )
+        if(Array.isArray(newUserData.id_phoneCompany)  )
         {   
              let  phoneCompany="";
     
             for(let i =0; i< newUserData.id_phoneCompany.length;i++)
             {
-                phoneCompany +=  newUserData.id_phoneCompany[i] + "~";
+                if(newUserData.id_phoneCompany[i]!="")
+                {
+                    phoneCompany +=  newUserData.id_phoneCompany[i] + "~";
+                }  
+                else{
+                    phoneCompany += "NULL~";
+                }              
             }
     
             objChecked.id_phoneCompany= `\'${phoneCompany}\'`;
@@ -552,7 +777,7 @@ const CheckedToNull = (newUserData) => {
             }
     }   
     
-       if(newUserData.id_personalQualities==''){
+       if(newUserData.id_personalQualities==''||newUserData.id_personalQualities==null){
     
         objChecked.id_personalQualities = null;
        }
@@ -561,7 +786,7 @@ const CheckedToNull = (newUserData) => {
         objChecked.id_personalQualities = `\'${newUserData.id_personalQualities}\'`;
     }
     
-       if(newUserData.id_professionalSkills==''){  
+       if(newUserData.id_professionalSkills==''||newUserData.id_professionalSkills==null){  
     
         objChecked.id_professionalSkills =  null;   
        }
