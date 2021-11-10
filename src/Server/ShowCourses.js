@@ -130,7 +130,9 @@ class ShowCourses extends React.Component {
     
     }
 }
+
     
-    export default ShowCourses;
+export default ShowCourses;
+    
     
    
