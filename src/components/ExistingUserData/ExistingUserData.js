@@ -681,7 +681,7 @@ class ExistingUserData extends React.Component {
                                         <legend className="scheduler-border">
                                             <h3>Курсы повышения квалификации</h3>
                                         </legend>
-                                        <ShowCourses arrayToDisplay={this.coursArray} />
+                                        <ShowCourses arrayToDisplay={this.coursArray} />                                       
                                         <div id="courseList">
                                         </div>
                                         <a href="javascript:AddCourse()" onClick={this.AddCourse}>Добавить</a>
