@@ -81,20 +81,36 @@ class UserData extends React.Component {
         var selectedFile = event.target.files[0];
 
         var reader = new FileReader();
+        var reader2 = new FileReader();
+
+        var array;
+
+        var arr = reader.readAsArrayBuffer(selectedFile);
+
+        reader.onload = function(event) {
+            array = new Uint8Array(event.target.result);
+            const fileByteArray = [];
+            for (let i = 0; i < array.length; i++) {
+               fileByteArray.push(array[i]);
+            }
+            console.log(array); // here it is
+        }
 
         var imgtag = document.getElementById("myimage");
         imgtag.title = selectedFile.name;
 
-        reader.onload = function (event) {
+        reader2.onload = function (event) {
             imgtag.src = event.target.result;
         };
+
         if (imgtag) {
-            reader.readAsDataURL(selectedFile);
+            reader2.readAsDataURL(selectedFile);
         }
 
-        this.setState(Object.assign(this.state.users, { image: event.target.files[0], loaded: 0 }));
+        this.setState(Object.assign(this.state.users, { image: array, loaded: 0 }));
 
-        console.log(selectedFile);
+        // // console.log(arr);
+        // console.log(selectedFile);
 
     }
 

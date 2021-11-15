@@ -354,24 +354,55 @@ class ExistingUserData extends React.Component {
     }
 
     onFileSelected(event) {
-        var selectedFile = event.target.files[0];
-        var reader = new FileReader();
+        // var selectedFile = event.target.files[0];
+        // var reader = new FileReader();
       
-        var imgtag = document.getElementById("myimage");
-        imgtag.title = selectedFile.name;       
+        // var imgtag = document.getElementById("myimage");
+        // imgtag.title = selectedFile.name;       
       
-        reader.onload = function(event) {
-          imgtag.src = event.target.result;
-        };  
-        if(imgtag) {  
-        reader.readAsDataURL(selectedFile);}
+        // reader.onload = function(event) {
+        //   imgtag.src = event.target.result;
+        // };  
+        // if(imgtag) {  
+        // reader.readAsDataURL(selectedFile);}
 
-        this.setState(Object.assign(this.state.items,{image:event.target.files[0],
-            loaded: 0}));          
+        // this.setState(Object.assign(this.state.items,{image:event.target.files[0],
+        //     loaded: 0}));          
        
-        console.log(selectedFile);
+        // console.log(selectedFile);
 
-        console.log(this.state.users);    
+        // console.log(this.state.users);    
+
+        var selectedFile = event.target.files[0];
+
+        var reader = new FileReader();
+        var reader2 = new FileReader();
+
+        var array;
+
+        var arr = reader.readAsArrayBuffer(selectedFile);
+
+        reader.onload = function(event) {
+            array = new Uint8Array(event.target.result);
+            const fileByteArray = [];
+            for (let i = 0; i < array.length; i++) {
+               fileByteArray.push(array[i]);
+            }
+            console.log(array); // here it is
+        }
+
+        var imgtag = document.getElementById("myimage");
+        imgtag.title = selectedFile.name;
+
+        reader2.onload = function (event) {
+            imgtag.src = event.target.result;
+        };
+
+        if (imgtag) {
+            reader2.readAsDataURL(selectedFile);
+        }
+
+        this.setState(Object.assign(this.state.users, { image: array, loaded: 0 }));
       }
 
     setFirstName(event){ this.setState(Object.assign(this.state.items,{ firstName:event.target.value})); }
