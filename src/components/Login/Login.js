@@ -23,7 +23,7 @@ class Login extends React.Component {
         fetch(this.API_BASE_ADDRESS)
             .then((response) => response.json())
             .then((data) => {
-               // console.log(data);
+                // console.log(data);
                 this.setState({
                     items: data
                 });
@@ -34,43 +34,37 @@ class Login extends React.Component {
 
         if (this.state.items == null) {
             return (
-                <div>Loading...</div>
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
             );
         }
         else {
             return (
                 <div className="container">
-                    <nav className="nav nav-inverse">
-                        <div className="container-fluid">
-                            <div className="nav-header">
+
+                    <h1>Вход</h1>
+                    <form className="form-horizontal" action="http://localhost:55555/login" method="POST">
+                        <div className="form-group">
+                            <label className="control-label col-sm-2" for="userlogin">Логин:</label>
+                            <div className="col-sm-8">
+                                <input type="text" className="form-control" id="userlogin" placeholder="Введите логин" name="UserLogin" onChange={this.setLogin} />
                             </div>
-                           
                         </div>
-                    </nav>
-
-                    <div className="container">
-
-                        <h1>Вход</h1>
-                        <form className="form-horizontal" action="http://localhost:55555/login" method="POST">
-                            <div className="form-group">
-                                <label className="control-label col-sm-2" for="userlogin">Логин:</label>
-                                <div className="col-sm-8">
-                                    <input type="text" className="form-control" id="userlogin" placeholder="Введите логин" name="UserLogin" onChange={this.setLogin} />
-                                </div>
+                        <div className="form-group">
+                            <label className="control-label col-sm-2" for="pwd">Пароль:</label>
+                            <div className="col-sm-8">
+                                <input type="password" className="form-control" id="pwd" placeholder="Введите пароль" name="Password" onChange={this.setPassword} />
                             </div>
-                            <div className="form-group">
-                                <label className="control-label col-sm-2" for="pwd">Пароль:</label>
-                                <div className="col-sm-8">
-                                    <input type="password" className="form-control" id="pwd" placeholder="Введите пароль" name="Password" onChange={this.setPassword} />
-                                </div>
+                        </div>
+                        <div className="form-group">
+                            <div className="col-sm-offset-2 col-sm-10">
+                                <button type="submit" className="btn btn-primary" >Вход</button>
                             </div>
-                            <div className="form-group">
-                                <div className="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" className="btn btn-primary" >Вход</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             );
         }

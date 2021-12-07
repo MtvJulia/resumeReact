@@ -115,7 +115,7 @@ class UserData extends React.Component {
     render() {
         if (this.state.users == null) {
             return (
-                <div className="spinner-border text-muted">Loading...</div>
+                <div className="spinner-border text-muted"></div>
             );
         }
         else {

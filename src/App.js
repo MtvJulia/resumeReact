@@ -1,37 +1,46 @@
 import React from 'react';
 
 import { Route, Link, BrowserRouter } from 'react-router-dom';
+import Home from './components/Home/Home';
+import About from './components/About/About';
+import Services from './components/Services/Services';
 import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
 import UserData from './components/UserData/UserData';
 import ExistingUserData from './components/ExistingUserData/ExistingUserData';
 
-
 import './App.css';
-// import mainPhoto from './images/dance2.jpg';
+import logoPhoto from './images/logoResume.png';
+
+
 class App extends React.Component {
   render() {
     return (
       <div className="container-fluid mainApp" >
+
         <BrowserRouter>
-          {/* <!-- Second navbar for sign in --> */}
-          <nav className="navbar navbar-expand-sm navbar-default sticky-top">
+          {/* <!-- navbar --> */}
+          <nav className="navbar navbar-expand navbar-default sticky-top">
+
             <div className="container ">
 
               {/* <!-- Collect the nav links, forms, and other content for toggling --> */}
               <div className="collapse navbar-collapse" id="navbar-collapse">
 
-                <ul className="nav ">
+                <ul className="nav links-nav">
                   {/* navbar-nav */}
-                  <li className="nav-item"><a href="/">Home</a></li>
-                  <li className="nav-item"><a href="#">About</a></li>
-                  <li className="nav-item"><a href="#">Services</a></li>
-                  <li className="nav-item"><a href="#">Works</a></li>
-                  <li className="nav-item"><a href="http://localhost:3000/userdata">News</a></li>
-                  <li></li>
-                  <li></li>
-                  <li></li>
-                  <li></li>
+                  <li>
+                    <a className="navbar-brand nav-link" href="/">
+                      <img src={logoPhoto} height="40" alt="" />
+                    </a>
+                  </li>
+                  <li className="nav-item"><a className="nav-link" href="/home">Главная</a></li>
+                  <li className="nav-item"><a className="nav-link" href="/services">Как составить резюме</a></li>
+                  <li className="nav-item"><a className="nav-link" href="/about">О нас</a></li>
+                  {/* <li className="nav-item"><a className="nav-link" href="http://localhost:3000/userdata">News</a></li> */}
+                </ul>
+
+                <ul className="nav ">
                   <li><Link to="/login" className="btn btn-primary">Вход</Link></li>
                   <li><Link to="/registration" className="btn btn-primary">Регистрация</Link></li>
                 </ul>
@@ -39,20 +48,31 @@ class App extends React.Component {
             </div>
           </nav>
 
+          {/* <div>
+          <p>App.js</p>
+        </div> */}
+
           <div className="container-fluid">
+            <Route path="/home" component={Home} />
+            <Route path="/about" component={About} />
+            <Route path="/services" component={Services} />
             <Route path="/login" component={Login} />
             <Route path="/registration" component={Registration} />
             <Route path="/userdata" component={UserData} />
             <Route path="/existinguserdata" component={ExistingUserData} />
           </div>
 
+          
+
         </BrowserRouter>
 
-        <div className="container">
-          <div className="photo">
-            {/* <img src={mainPhoto} alt="mainPhoto" /> */}
-          </div>
-        </div>
+        
+
+        {/* <div className="container">
+          <div className="photo"> */}
+        {/* <img src={mainPhoto} alt="mainPhoto" /> */}
+        {/* </div>
+        </div> */}
         {/* <div class="container">
           <h3>Basic Navbar Example</h3>
           <p>A navigation bar is a navigation header that is placed at the top of the page.</p>
