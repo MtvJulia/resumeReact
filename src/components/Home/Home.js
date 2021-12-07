@@ -37,7 +37,7 @@ class Home extends React.Component {
                 <div className="d-flex justify-content-center spin">
                     <div className="spinner-border  text-primary" role="status">
                         <span className="sr-only">Loading...</span>
-                    </div>                    
+                    </div>
                 </div>
             );
         }
@@ -51,6 +51,16 @@ class Home extends React.Component {
                     <h1>Home</h1>
                     <h1>Home</h1>
                     <h1>Home</h1>
+
+                    {/* <div className="container">
+          <div className="photo"> */}
+                    {/* <img src={mainPhoto} alt="mainPhoto" /> */}
+                    {/* </div>
+        </div> */}
+                    {/* <div class="container">
+          <h3>Basic Navbar Example</h3>
+          <p>A navigation bar is a navigation header that is placed at the top of the page.</p>
+        </div> */}
 
 
                 </div>
