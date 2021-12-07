@@ -23,7 +23,7 @@ class About extends React.Component {
         fetch(this.API_BASE_ADDRESS)
             .then((response) => response.json())
             .then((data) => {
-               // console.log(data);
+                // console.log(data);
                 this.setState({
                     items: data
                 });
@@ -34,7 +34,11 @@ class About extends React.Component {
 
         if (this.state.items == null) {
             return (
-                <div>Loading...</div>
+                <div className="d-flex justify-content-center spin">
+                    <div className="spinner-border  text-primary" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>                    
+                </div>                
             );
         }
         else {
@@ -44,14 +48,14 @@ class About extends React.Component {
                         <div className="container-fluid">
                             <div className="nav-header">
                             </div>
-                           
+
                         </div>
                     </nav>
 
                     <div className="container">
 
                         <h1>About</h1>
-                        
+
                     </div>
                 </div>
             );

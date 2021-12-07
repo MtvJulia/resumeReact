@@ -34,7 +34,11 @@ class Services extends React.Component {
 
         if (this.state.items == null) {
             return (
-                <div>Loading...</div>
+                <div className="d-flex justify-content-center spin">
+                    <div className="spinner-border  text-primary" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>                    
+                </div>
             );
         }
         else {

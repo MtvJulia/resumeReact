@@ -477,7 +477,11 @@ class ExistingUserData extends React.Component {
     render() {      
         if (this.state.items == null) {
             return (
-                <div className="spinner-border text-muted"></div>
+                <div className="d-flex justify-content-center spin">
+                    <div className="spinner-border  text-primary" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>                    
+                </div>
             );
         }
         else {

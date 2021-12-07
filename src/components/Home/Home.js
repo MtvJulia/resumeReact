@@ -34,18 +34,10 @@ class Home extends React.Component {
 
         if (this.state.items == null) {
             return (
-                <div class="preloader-wrapper big active">
-                    <div class="spinner-layer spinner-blue-only">
-                        <div class="circle-clipper left">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="gap-patch">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="circle-clipper right">
-                            <div class="circle"></div>
-                        </div>
-                    </div>
+                <div className="d-flex justify-content-center spin">
+                    <div className="spinner-border  text-primary" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>                    
                 </div>
             );
         }
