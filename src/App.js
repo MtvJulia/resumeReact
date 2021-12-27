@@ -20,9 +20,9 @@ class App extends React.Component {
 
         <BrowserRouter>
           {/* <!-- navbar --> */}
-          <nav className="navbar navbar-expand navbar-default sticky-top ">
+          <nav className="navbar navbar-expand navbar-default sticky-top">
 
-            <div className="container-fluid" >
+            <div className="container-fluid">
 
               {/* <!-- Collect the nav links, forms, and other content for toggling --> */}
               <div className="collapse navbar-collapse" id="navbar-collapse">
@@ -31,7 +31,7 @@ class App extends React.Component {
                   {/* navbar-nav */}
                   <li>
                     <a className="navbar-brand nav-link" href="/">
-                      <img src={logoPhoto} height="40" alt="" />
+                      <img src={logoPhoto} id="logo-photo" alt="" />
                     </a>
                   </li>
                   <li className="nav-item"><a className="nav-link" href="/home">Главная</a></li>

@@ -4,13 +4,15 @@
 
 #mainApp{  
   padding: 0px;  
-  background-color: bisque;    
+  background-color: bisque; 
+     
 }
 
 #navbar-collapse{
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  
 }
 
 .links-nav{
@@ -22,7 +24,7 @@
 }
 
 .navbar{
-  background-color: #fff;
+  background-color: rgb(255, 255, 255);
   /* фиксирует меню */
   position: relative;   
   display: flex; 
@@ -32,6 +34,16 @@
 
 li{
   margin: 1px 15px;
+}
+
+a{
+  color: rgb(0, 0, 0);
+  height: 100%;
+  padding: 0 auto;
+}
+
+#logo-photo{
+  height: 40px; 
 }
 
 .btn-primary {

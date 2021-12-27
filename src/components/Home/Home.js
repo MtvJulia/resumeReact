@@ -3,6 +3,8 @@ import axios from 'axios';
 
 import './Home.css';
 
+import mainPhoto from '../../images/dance2.jpg';
+
 class Home extends React.Component {
 
     constructor(props) {
@@ -43,26 +45,8 @@ class Home extends React.Component {
         }
         else {
             return (
-                <div className="container">
-
-
-
+                <div className="container" id="container-main">  
                     <h1>Home</h1>
-                    <h1>Home</h1>
-                    <h1>Home</h1>
-                    <h1>Home</h1>
-
-                    {/* <div className="container">
-          <div className="photo"> */}
-                    {/* <img src={mainPhoto} alt="mainPhoto" /> */}
-                    {/* </div>
-        </div> */}
-                    {/* <div class="container">
-          <h3>Basic Navbar Example</h3>
-          <p>A navigation bar is a navigation header that is placed at the top of the page.</p>
-        </div> */}
-
-
                 </div>
             );
         }
