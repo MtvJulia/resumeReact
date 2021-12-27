@@ -115,7 +115,11 @@ class UserData extends React.Component {
     render() {
         if (this.state.users == null) {
             return (
-                <div className="spinner-border text-muted">Loading...</div>
+                <div className="d-flex justify-content-center spin">
+                    <div className="spinner-border  text-primary" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>                    
+                </div>
             );
         }
         else {
@@ -150,14 +154,14 @@ class UserData extends React.Component {
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <div className="userPhoto">
                                                     <label>
-                                                        <img className="avatar" id="myimage" src={UploadPhoto} alt="Нажмите для выбора файла" />
-                                                        <input
-                                                            accept="image/*"
-                                                            type="file"
-                                                            id="id_imgUpl"
-                                                            name="fupload" hidden
-                                                            onChange={this.onFileSelected}
-                                                        />
+                                                        <img className="avatar" id="myimage"  alt="Нажмите для выбора файла" src={UploadPhoto}/>
+                                                        <input                                                        
+                                                         accept="image/*"
+                                                         type="file"
+                                                         id="id_imgUpl"                                                      
+                                                         name="fupload"   hidden    
+                                                         onChange = {this.onFileSelected}
+                                                          />
                                                     </label>
                                                 </div>
                                             </div>
