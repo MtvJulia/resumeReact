@@ -158,10 +158,13 @@ class ShowLanguage extends React.Component {
 
       DeleteLang(e)
       {
-        var langList = document.getElementById("langList");        
-        var langDetails =document.getElementById(e.target.parentNode.id);
-        console.log(langDetails);       
-        langList.remove("beforeend", langDetails);
+        var langList = document.getElementById("langListUnit"); 
+       // console.log(langList);   
+        var langDetails = document.getElementById(e.target.parentNode.id);  
+        console.log(e.target.id);       
+       //console.log(langDetails);        
+        langDetails.parentNode.removeChild(langDetails);
+         
       }
      
 
@@ -169,23 +172,23 @@ class ShowLanguage extends React.Component {
         
     var id_langName="id_langName";    
     var id_level="id_level";   
-    var count=0;
+    var count=0;    
 
     let { arrayToDisplay} = this.props;
        
     if(arrayToDisplay.length != 0)
     {
         return (
-            <div>              
+            <div id="langListUnit">              
                 {                     
                     arrayToDisplay.map((item) => {
-                        count++;                        
+                        count ++;                        
                         if (item.langName != null) {
                             return (
                                 //откорректировать разметку div
                                 <div>                                   
-                                    <details id="langDetails" open>
-                                    {/* <a id={"idDelete"+count} href="javascript:DeleteLang(e)" name = "delete" > Удалить  onClick={DeleteLang()}</a> */}
+                                    <details id= {"langDetails"+count}  open>
+                                    <a id={"idDelete"+count} href="javascript:DeleteLang(e)" name = "delete" onClick={this.DeleteLang} > Удалить  </a>
                                         <summary>Язык</summary>
                                         
                                         <div className="row">
@@ -219,14 +222,13 @@ class ShowLanguage extends React.Component {
                                         </div>
                                     </details>                                    
                                 </div>
-                            )                            
-                        } 
-                                                                                     
-                    })
+                            )                           
+                        }                                                                                      
+                    })                   
                 }
-                 <div hidden>                 
-                <details id="langDetailsClear" open>
-                < a id="id_btnDelete" href="javascript:DeleteLang(e)" name = "delete"  >Удалить  </a>               
+                 <div hidden >                                  
+                <details id="langDetailsClear"  open>                                                    
+                <a id={"idDelete"} href="javascript:DeleteLang(e)" name = "delete" onClick={this.DeleteLang} > Удалить  </a>              
                     <summary>Язык</summary>
                     <div className="row">
                         <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -247,18 +249,18 @@ class ShowLanguage extends React.Component {
                                 <option>C2 - профессиональный</option>
                             </select>
                         </div>
-                    </div>
-                  
-                </details>
-              
+                    </div>                 
+                </details>              
             </div>
             </div>
         );
     }
     else {
-        return (            
-            <div>
-                <details id="langDetails" open>
+        
+        return (     
+            <div >
+                <details id= {"langDetails"+count}  open>
+                <a id={"idDelete"+count} href="javascript:DeleteLang(e)" name = "delete" onClick={this.DeleteLang} > Удалить  </a>
                     <summary>Язык</summary>
                     <div className="row">
                         <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">

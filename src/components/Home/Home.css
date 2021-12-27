@@ -1,0 +1,17 @@
+.spin{    
+    margin-top: 20vw;
+}
+.container-main{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+#container-right{
+    display: flex;
+    flex-direction: column;
+}
+#container-left{
+    display: flex;
+    flex-direction: column;
+}
