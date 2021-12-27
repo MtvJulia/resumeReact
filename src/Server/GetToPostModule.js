@@ -171,12 +171,20 @@ const getEndData = (newUserData) => {
     return endWork;
 }
 
-const userDataChecking=(userData)=>{
+const userDataChecking=(userData,fs,res,callback = (res,userData)=>{ 
+  console.log("I'm here!!!");  
+  console.log(userData);      
+  res.json(userData);   
+  res.end();  
+  console.log("I'm gooooo!!!");   
+})=>{
   
   userData = userData[0];
   console.log("************************");
   console.log(userData);
 
+  var imageData = userData.image.toString();
+  console.log("////////////////////////////////////////" + imageData) ; 
  
   userData.positionWork = changingMultiValuesToArray(userData.positionWork);
   userData.startWork =  changingMultiValuesToArray(userData.startWork);
@@ -200,8 +208,23 @@ const userDataChecking=(userData)=>{
   userData.phoneCompany = changingMultiValuesToArray(userData.phoneCompany);
 
 
-console.log("------------NEW-------------");
-console.log(userData);
+  fs.readFile('uploads/'+imageData, function(error, data){
+    
+    if(error){
+              
+        response.statusCode = 404;
+        response.end("Resourse not found!");
+    }   
+    else{
+        userData.file = data;
+        console.log("OOOOKKKKKK!!!!");
+        console.log( userData.file);
+        console.log("------------NEW--USER DATA-----------");
+        console.log(userData);
+
+        callback(res,userData);
+    }
+});
     
 }
 
@@ -215,25 +238,42 @@ function changingMultiValuesToArray(userDataValue){
   return userDataValue;
 }
 
-function  getUserData(res,userData ,dbConnection,foundUserID, callback = (res,userData)=>{ 
-    console.log("I'm here!!!");     
-    res.json(userData);
-    res.end();     
-})
-    {
-    let queryToView = `SELECT * FROM v_getUserData WHERE userID = ${foundUserID} `; 
+// function  getUserData(res,userData ,dbConnection,foundUserID,fs, callback = (res,userData)=>{ 
+//     console.log("I'm here!!!");          
+//     res.json(userData);   
+//     res.end();  
+//     console.log("I'm gooooo!!!");   
+// })
+//     {
+//     let queryToView = `SELECT * FROM v_getUserData WHERE userID = ${foundUserID} `; 
 
-    dbConnection.query(queryToView, (err, result) => {
-        if (err) console.log(err.message);  
-        if(result) 
-        {
-            userData = result;
-            userDataChecking(userData);
-        }                      
+//     dbConnection.query(queryToView, (err, result) => {
+//         if (err) console.log(err.message);  
+//         if(result) 
+//         {
+//             userData = result;           
+//             userDataChecking(userData,fs);                       
+//         }                         
 
-        callback(res,userData);
-    });
-    };  
+//         callback(res,userData);
+//     });
+// };  
+
+//******************************** 
+function  getUserData(res,userData ,dbConnection,foundUserID,fs)
+  {
+  let queryToView = `SELECT * FROM v_getUserData WHERE userID = ${foundUserID} `; 
+
+  dbConnection.query(queryToView, (err, result) => {
+      if (err) console.log(err.message);  
+      if(result) 
+      {
+          userData = result;  
+          console.log("In getUserData ::: "+userData);         
+          userDataChecking(userData,fs,res);                       
+      }                         
+  });
+};  
 
 module.exports.getFkValue = getFkValue;
 module.exports.getEndData = getEndData;

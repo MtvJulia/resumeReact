@@ -8,11 +8,27 @@ const { Switch } = require('react-router');
 const { connString } = require("./ConnectionModule");
 const {CheckedToNull,getCheckedInfo} = require("./CheckedModule");
 const{getFkValue,getEndData,getUserData} = require("./GetToPostModule");
-
+const multer  = require('multer');
 
 
 
 const server = express();
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        // the file is saved to here
+        cb(null, '/Nata/ItStep/React/git_resume/resumeReact/src/Server/uploads')
+    },
+    filename: function (req, file, cb) {
+        // the filename field is added or altered here once the file is uploaded
+        cb(null,file.originalname)
+    }
+})
+var upload = multer({ storage: storage })
+ 
+
+
+
 var duplicateFlag = false;
 var userIDFromDB = 0;
 var arrUsers = [];
@@ -21,6 +37,7 @@ var foundUser={};
 var getToRegistrationFlag = false;
 var userData = {};
 var newUser = {};
+
 
 
 server.use(express.static(__dirname + '/public'));
@@ -81,7 +98,7 @@ const requestToDbGETAferPost = (query, dbConnection, res, newUser) => {
 }
 
 const requestToDbCUDUserData = (query, dbConnection, res) => {
-
+    console.log("-----------query-------------");
     console.log(query);
     dbConnection.query(query, (err, result) => {
 
@@ -134,7 +151,8 @@ server.get("/existinguserdata",(req,res)=>{
 
     userData = {};  
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    getUserData(res,userData ,dbConnection,foundUserID);
+    getUserData(res,userData ,dbConnection,foundUserID,fs);
+    //getImageFile();
 });
     
      
@@ -150,13 +168,11 @@ server.post("/login", function (request, response) {
             foundUserID = element.userID;
             foundUser.UserID=element.userID;
             foundUser.UserLogin = element.userLogin;
-            foundUser.UserPassword = element.userPassword;
-           // console.log(foundUserID);
+            foundUser.UserPassword = element.userPassword;             
             //ПЕРЕХОД ПО ССЫЛКЕ НА ЗАПОЛНЕННУЮ КОЛБАСУ!!!!!!!!!     
             return response.redirect("http://localhost:3000/existinguserdata");
         }
-    });
-    //console.log(arrUsers);
+    });    
     if (foundFlag === false) {
         console.log(`User login : ${request.body.UserLogin} password : ${request.body.Password} NOT FOUND , Go to regestration!!!`);
         ////переход на регистрацию сделать правильно!!!!!!!
@@ -203,39 +219,30 @@ server.post("/registration", function (request, response) {
 
 ////////////////////////////USER DATA POST///////////////////////////////////////////
 
-server.post("/userdata", function (request, response) {
+server.post("/userdata", upload.single('fupload'), function (request, response) {
 
-    response.header("Access-Control-Allow-Origin", "http://localhost:3000");
-
-    let newUserData = request.body;
-
-    console.log("---------newUser----------------------------------------");
-
-    console.log(newUser);
-
-    console.log("---------newUser-end--------------------------------------");
-
-    console.log("---------newUserData----------------------------------------");
-
-    console.log(newUserData);
-    console.log(newUserData.fupload);    
-    console.log("---------newUserData--end--------------------------------------");
-
+    response.header("Access-Control-Allow-Origin", "http://localhost:3000");      
     
+    const fileName = request.file.originalname;
+    const newFileNameToDb = Date.now()+"_"+fileName;
 
-    // const randomString = crypto.randomBytes(5).toString('hex');
-    // const stream = fs.createWriteStream(`./public/images/${randomString}.png`);
-  
-    // stream.on('finish', function () {
-    //   console.log('file has been written');
-    //   res.end('file has been written');
-    // });
-  
-    // stream.write(Buffer.from(req.body), 'utf-8');
-    // stream.end();
-
-
-
+    fs.rename('uploads/'+fileName,'uploads/'+newFileNameToDb, err => {
+        if(err) throw err; // не удалось переименовать файл
+        console.log('Файл успешно переименован');
+        console.log("*** ::: "+newFileNameToDb+" ::: ***");
+     });   
+   
+    let newUserData = request.body;
+    console.log("---------request body start----------------------------------------");
+    console.log(request.body);
+    console.log("---------request body end----------------------------------------");    
+    console.log("---------newUser----------------------------------------");
+    console.log(newUser);
+    console.log("---------newUser-end--------------------------------------");
+    console.log("---------newUserData----------------------------------------");
+    console.log(request.body);
+    console.log("---------newUserData--end--------------------------------------");
+    
     if (newUserData) {
       
         let endWork = getEndData(newUserData);              
@@ -244,8 +251,9 @@ server.post("/userdata", function (request, response) {
 
         let checkToNull =  CheckedToNull(newUserData); 
       
-        let fk_value = getFkValue(newUserData);     
+        let fk_value = getFkValue(newUserData);       
        
+             
       
     let query = `INSERT INTO user_info (userLogin,userPassword,firstName,lastName,middleName,birthOfDate,сityOfResidence,position,
         driverLicense,privateСar,army,hobby,personalQualities,professionalSkills,phone,email,nationality,relocate,desiredSalary,fk_employmentID,fk_scheduleID,
@@ -257,7 +265,7 @@ server.post("/userdata", function (request, response) {
 \'${newUserData.id_birthOfDate}\', \'${newUserData.id_cityOfResidence}\', \'${newUserData.id_userPosition}\', \'${userDataChecked.drivLicense}\',
  ${userDataChecked.privateCar}, ${userDataChecked.army}, ${checkToNull.id_hobby}, ${checkToNull.id_personalQualities},${checkToNull.id_professionalSkills},
 \'${newUserData.id_phone}\', \'${newUserData.id_email}\',${checkToNull.id_nationality}, ${userDataChecked.relocation}, ${checkToNull.id_desiredSalary}, \'${fk_value.id_employment}\', 
-\'${fk_value.id_schedule}\', ${userDataChecked.businessTrip},\'${fk_value.id_maritalStatus}\',  \'${fk_value.id_education}\',${checkToNull.fupload},
+\'${fk_value.id_schedule}\', ${userDataChecked.businessTrip},\'${fk_value.id_maritalStatus}\',  \'${fk_value.id_education}\',\'${newFileNameToDb}\',
 ${checkToNull.id_courseName}, ${checkToNull.id_organization}, ${checkToNull.id_endingCourse},${checkToNull.id_institutName}, ${checkToNull.id_levelEducation},
 ${checkToNull.id_faculty}, ${checkToNull.id_specialty}, ${checkToNull.id_ending},
 ${checkToNull.id_startWork}, \'${endWork}\', ${userDataChecked.stillWorking}, ${checkToNull.id_positionWork}, ${checkToNull.id_companyName}, ${checkToNull.id_jobDuties},
@@ -266,7 +274,7 @@ ${checkToNull.id_phoneCompany},${userDataChecked.children},\'${fk_value.id_curre
 
 requestToDbCUDUserData(query, dbConnection, response);     
         
-    }
+     }
     response.end();
 });
 
@@ -321,39 +329,6 @@ server.post("/existinguserdata", (req, res) => {
     res.end();
 
 });
-
-
-
-
-
-
-
-
-// const insertImgToDB = (temp_path, userID) => {
-//     fs.open(temp_path, 'r', function (status, fd) {
-//         if (status) {
-//             console.log(status.message);
-//             return;
-//         }
-//         var fileSize = getFilesizeInBytes(temp_path);
-//         var buffer = Buffer.alloc(fileSize);
-//         fs.read(fd, buffer, 0, fileSize, 0, function (err, num) {
-
-//             var query = "INSERT INTO userphoto SET ?",
-//                 values = {
-//                     file_type: 'img',
-//                     file_size: buffer.length,
-//                     file: buffer
-//                 };
-
-//             dbConnection.query(query, values, function (er, da) {
-//                 if (er) throw er;
-//             });
-
-//         });
-//     });
-// }
-
 
 const startupCallback = function () {
     console.log(`Server started at: http://localhost:${service.address().port}`)
