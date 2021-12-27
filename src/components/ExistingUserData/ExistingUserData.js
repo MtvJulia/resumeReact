@@ -5,9 +5,11 @@ import ShowExperience from '../../Server/ShowExperience';
 import ShowEducation from '../../Server/ShowEducation';
 import ShowLanguage from '../../Server/ShowLanguage';
 import ShowCourses from '../../Server/ShowCourses';
+import AddLanguage from '../../Server/AddLanguage';
 import ShowRecommending from '../../Server/ShowRecommending';
 import { Switch } from 'react-router';
-import UploadPhoto from '../../images/uploadPhoto.jpg'
+import UploadPhoto from '../../images/uploadPhoto.jpg';
+//import photo from '../../Server/uploads/b7d665163bafa75592e3ee515be4a021';
 
 
 class ExistingUserData extends React.Component {
@@ -18,6 +20,7 @@ class ExistingUserData extends React.Component {
             items: null
         }
         this.API_ADDRESS = "http://localhost:55555/existinguserdata";
+        this.API_ADDRESS_FILE = "http://localhost:55555/file";
         this.changeData = this.changeData.bind(this);
         this.expArray = [];
         this.educArray = [];
@@ -42,7 +45,9 @@ class ExistingUserData extends React.Component {
         //------------------------------------------
         this.id_langName="id_langName";    
         this.id_level="id_level";   
-        this.count=0;        
+        this.count=0; 
+        this.countLang=100; 
+        this.imageFromDB="";       
          //--------------------------------------------------------
 
         this.fillExpArr = this.fillExpArr.bind(this);
@@ -80,10 +85,7 @@ class ExistingUserData extends React.Component {
         this.setHobby = this.setHobby.bind(this);
         this.setPersonalQualities = this.setPersonalQualities.bind(this);
         this.setProfessionalSkills = this.setProfessionalSkills.bind(this);        
-        this.onFileSelected = this.onFileSelected.bind(this); 
-        this.DeleteLang = this.DeleteLang.bind(this); 
-        
-        
+        this.onFileSelected = this.onFileSelected.bind(this);         
     }
     
        
@@ -304,13 +306,6 @@ class ExistingUserData extends React.Component {
             }
         }
     }
-
-    
-
-
-
-
-
     changeData(data) {
 
         if (data[0].endingCourse == null) {
@@ -320,9 +315,20 @@ class ExistingUserData extends React.Component {
 
     }
     AddLang() {
-        var langList = document.getElementById("langList");
-        var langDetails = document.getElementById('langDetailsClear').outerHTML;
-        langList.insertAdjacentHTML("beforeend", langDetails);
+        var langList = document.getElementById("langList");                 
+                 
+        console.log(langList);          
+      //  console.log(langDetails);   
+             
+      
+        document.getElementById('langAddDetails').childNodes.id = "idDelete" + this.countLang; 
+        console.log( document.getElementById('langAddDetails').childNodes.id);
+        var langDetails = document.getElementById('langAddDetails').outerHTML; 
+        langList.insertAdjacentHTML("beforeend", langDetails);  
+       
+        this.countLang++;
+       
+        console.log( this.countLang); 
 
     }
     AddScheduler() {
@@ -345,13 +351,7 @@ class ExistingUserData extends React.Component {
         var recommendationDetails = document.getElementById('recommendationDetailsClear').outerHTML;
         recommendationList.insertAdjacentHTML("beforeend", recommendationDetails);
     }
-    DeleteLang(e)
-    {
-      var langList = document.getElementById("langList");        
-      var langDetails =document.getElementById(e.target.parentNode.id);
-      console.log(langDetails);       
-      langList.remove("beforeend", langDetails);
-    }
+   
 
     onFileSelected(event) {
         var selectedFile = event.target.files[0];
@@ -408,9 +408,9 @@ class ExistingUserData extends React.Component {
         fetch(this.API_ADDRESS)
             .then((response) => response.json())
             .then((data) => {
-
-                data = data[0]; //переводим в объект                
                 console.log(data);
+               // data = data[0]; //переводим в объект                
+               
 
                 let expArr = [];
                 let educArr = [];
@@ -419,13 +419,12 @@ class ExistingUserData extends React.Component {
                 let recomendArr = [];
                 let drLicense = {};
                 let currency = "";
+             
 
-                const dataImg = data.image;
-                 console.log( dataImg );
-
-            //    const img = new Buffer.from(dataImg).toString("ascii");
-            //    console.dir(img);
-
+                this.imageFromDB = new Buffer.from(data.file).toString("base64");
+                  console.dir(data.file);
+                  console.dir( this.imageFromDB);
+                                 
 
                 this.fillExpArr(data, expArr);
                 this.fillEducArr(data, educArr);
@@ -456,19 +455,6 @@ class ExistingUserData extends React.Component {
                     items: data                    
                 });
 
-
-                //this.base64data = btoa(String.fromCharCode(...new Uint8Array(this.state.items.image.data)));
-                // var reader = new FileReader();
-                // reader.readAsDataURL(new Blob([new Uint8Array(this.state.image)]));
-                // reader.onloadend = function() {
-                // this.base64data = reader.result; 
-              
-                // console.dir("/////////////////////++++++++++++++++:::::::::::  "+this.base64data);               
-               // }
-              
-
-                console.dir(this.base64data);
-  //              console.dir(this.state.items.image.data);
                 console.dir(this.state.items);
 
             });
@@ -517,7 +503,7 @@ class ExistingUserData extends React.Component {
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
                                                 <div className="userPhoto">
                                                     <label>
-                                                        <img className="avatar"  src={UploadPhoto} alt="Нажмите для выбора файла" id="myimage" />
+                                                        <img className="avatar"  src={"data:image/png;base64," + this.imageFromDB} alt="Нажмите для выбора файла" id="myimage" />
                                                         <input type="file" id="id_imgUpl" name="fupload" onChange={this.onFileSelected } hidden />
                                                     </label>
                                                 </div>
@@ -663,10 +649,11 @@ class ExistingUserData extends React.Component {
                                         <legend className="scheduler-border">
                                             <h3>Владение языками</h3>
                                         </legend>
-                                        <ShowLanguage arrayToDisplay={this.langArray} />                                        
+                                        <ShowLanguage arrayToDisplay={this.langArray} />
+                                        <AddLanguage />
                                         <div id="langList">                                                                                     
                                          </div>                                                   
-                                        <a href="javascript:AddLang()" onClick={this.AddLang}>Добавить</a>
+                                        <a href="javascript:AddLang()" AddLanguage onClick={this.AddLang}>Добавить</a>
                                     </fieldset>
 
                                     {/* <!-- -------ОБРАЗОВАНИЕ----------- --> */}
