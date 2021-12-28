@@ -113,8 +113,7 @@ const requestToDbGET = (query, dbConnection, res) => {
     dbConnection.query(query, (err, result) => {
         if (err) console.log(err.message);
         res.json(result);
-        arrUsers = result;
-       // console.log(arrUsers);
+        arrUsers = result;      
         res.end();
     });
 }
@@ -151,8 +150,13 @@ server.get("/existinguserdata",(req,res)=>{
 
     userData = {};  
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    getUserData(res,userData ,dbConnection,foundUserID,fs);
+   let result = getUserData(res,userData ,dbConnection,foundUserID,fs);   
     //getImageFile();
+    if(result==false)
+    {
+        res.json(userData);   
+        res.end();  
+    }
 });
     
      
@@ -203,7 +207,7 @@ server.post("/registration", function (request, response) {
         //если нет пользователя с данным логином в базе
         if (duplicateFlag === false) {    
 
-    return response.redirect("http://localhost:3000/userdata");
+    return response.redirect("http://localhost:3000/existinguserdata");
            
         }
     }
@@ -223,8 +227,8 @@ server.post("/userdata", upload.single('fupload'), function (request, response) 
 
     response.header("Access-Control-Allow-Origin", "http://localhost:3000");      
     
-    const fileName = request.file.originalname;
-    const newFileNameToDb = Date.now()+"_"+fileName;
+   // const fileName = request.file.originalname;
+    //const newFileNameToDb = Date.now()+"_"+fileName;
 
     fs.rename('uploads/'+fileName,'uploads/'+newFileNameToDb, err => {
         if(err) throw err; // не удалось переименовать файл
@@ -281,10 +285,21 @@ requestToDbCUDUserData(query, dbConnection, response);
 //////////////////////////////////////////////ExistingUserData PUT/////////////////////////////////////////////////////////////////////
 
 
-server.post("/existinguserdata", (req, res) => {
+server.post("/existinguserdata",upload.single('fupload'), function (req, res) {
 
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+console.log(req);
 
+    const fileName = req.file.originalname;
+    const newFileNameToDb = Date.now()+"_"+fileName;
+
+    fs.rename('uploads/'+fileName,'uploads/'+newFileNameToDb, err => {
+        if(err) throw err; // не удалось переименовать файл
+        console.log('Файл успешно переименован');
+        console.log("*** ::: "+newFileNameToDb+" ::: ***");
+     }); 
+
+    //console.log("NEW USER TO EUD ::: "+newUser);
     //получим нового пользователя из тела POST запроса,
     let updateUserData = req.body;   
 

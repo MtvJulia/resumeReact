@@ -47,7 +47,7 @@ class ExistingUserData extends React.Component {
         this.id_level="id_level";   
         this.count=0; 
         this.countLang=100; 
-        this.imageFromDB="";       
+        this.imageFromDB="";              
          //--------------------------------------------------------
 
         this.fillExpArr = this.fillExpArr.bind(this);
@@ -354,24 +354,47 @@ class ExistingUserData extends React.Component {
    
 
     onFileSelected(event) {
-        var selectedFile = event.target.files[0];
-        var reader = new FileReader();
+    //     var selectedFile = event.target.files[0];
+    //     var reader = new FileReader();
       
-        var imgtag = document.getElementById("myimage");
-        imgtag.title = selectedFile.name;       
+    //     var imgtag = document.getElementById("myimage");
+    //     imgtag.title = selectedFile.name;       
       
-        reader.onload = function(event) {
-          imgtag.src = event.target.result;
-        };  
-        if(imgtag) {  
-        reader.readAsDataURL(selectedFile);}
+    //     reader.onload = function(event) {
+    //       imgtag.src = event.target.result;
+    //     };  
+    //     if(imgtag) {  
+    //     reader.readAsDataURL(selectedFile);}
 
-        this.setState(Object.assign(this.state.items,{image:event.target.files[0],
-            loaded: 0}));          
+    //     this.setState(Object.assign(this.state.items,{image:event.target.files[0],
+    //         loaded: 0}));          
+    //         this.setState(Object.assign(this.state.users, { image: event.target.files[0], loaded: 0 }));
+    //     console.log(selectedFile);
+
+    //    // console.log(this.state.users);   
        
+       
+
+
+        ////загрузка картинки на форму
+        var selectedFile = event.target.files[0];
+
+        var reader = new FileReader();
+
+        var imgtag = document.getElementById("myimage");
+        imgtag.title = selectedFile.name;
+
+        reader.onload = function (event) {
+            imgtag.src = event.target.result;
+        };
+        if (imgtag) {
+            reader.readAsDataURL(selectedFile);
+        }
+
+        this.setState(Object.assign(this.state.items, { image: event.target.files[0], loaded: 0 }));
+
         console.log(selectedFile);
 
-        console.log(this.state.users);    
       }
 
     setFirstName(event){ this.setState(Object.assign(this.state.items,{ firstName:event.target.value})); }
@@ -408,7 +431,7 @@ class ExistingUserData extends React.Component {
         fetch(this.API_ADDRESS)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
+                console.log("DATA ::::::::::::::::::::  "+data);
                // data = data[0]; //переводим в объект                
                
 
@@ -420,25 +443,22 @@ class ExistingUserData extends React.Component {
                 let drLicense = {};
                 let currency = "";
              
-
-                this.imageFromDB = new Buffer.from(data.file).toString("base64");
-                  console.dir(data.file);
-                  console.dir( this.imageFromDB);
+              if(data.file){               
+                let fileFromDB = new Buffer.from(data.file).toString("base64");
+                this.imageFromDB = "data:image/png;base64," + fileFromDB;
+                 }
+               else{
+                this.imageFromDB = UploadPhoto;
+               }
+                //   console.dir(data.file);
+                //   console.dir( this.imageFromDB);
                                  
-
-                this.fillExpArr(data, expArr);
-                this.fillEducArr(data, educArr);
-                this.fillLangArr(data, langArr);
-                if (data.courseName != null) {
-                    this.fillCoursArr(data, coursArr);
-                }
-                if (data.phoneCompany != null) {
-                    this.fillRecomendArr(data, recomendArr);
-                }
-                if (data.driverLicense != null) {
-                    this.fillDriveLicenseObj(data, drLicense);
-                }
-
+            if(data.companyName != null) this.fillExpArr(data, expArr);
+            if(data.institutName != null) this.fillEducArr(data, educArr);
+            if(data.langName != null)  this.fillLangArr(data, langArr);
+            if (data.courseName != null)this.fillCoursArr(data, coursArr);               
+            if (data.phoneCompany != null)this.fillRecomendArr(data, recomendArr);             
+            if (data.driverLicense != null)this.fillDriveLicenseObj(data, drLicense);               
 
                 this.expArray = expArr;
                 this.educArray = educArr;
@@ -450,13 +470,17 @@ class ExistingUserData extends React.Component {
                 this.driveLicense = drLicense;
                 this.currencyName = this.getCurrency(data, currency);
 
+               if(data.birthOfDate == undefined)
+               {
+                data.birthOfDate=''; 
+               }
 
                 this.setState({
                     items: data                    
                 });
 
                 console.dir(this.state.items);
-
+            
             });
     }
 
@@ -479,7 +503,7 @@ class ExistingUserData extends React.Component {
                         {/* <!-- First container --> */}
                         <div className="divData col-md-6 ">
                             <div>
-                                <form action="http://localhost:55555/existinguserdata" method="POST">
+                                <form action="http://localhost:55555/existinguserdata" method="POST" encType="multipart/form-data">
 
                                     {/* <!-- -------ОСНОВНАЯ ИНФО----------- --> */}
                                     <fieldset className="form-group p-3">
@@ -503,9 +527,13 @@ class ExistingUserData extends React.Component {
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
                                                 <div className="userPhoto">
                                                     <label>
-                                                        <img className="avatar"  src={"data:image/png;base64," + this.imageFromDB} alt="Нажмите для выбора файла" id="myimage" />
-                                                        <input type="file" id="id_imgUpl" name="fupload" onChange={this.onFileSelected } hidden />
-                                                    </label>
+                                                        <img className="avatar"  src={ this.imageFromDB} alt="Нажмите для выбора файла" id="myimage" />
+                                                        <input 
+                                                        accept="image/*"
+                                                        type="file"                                                          
+                                                        name="fupload" 
+                                                        onChange={this.onFileSelected }  />
+                                                    </label>                                                                                                                                                     
                                                 </div>
                                             </div>
 

@@ -263,8 +263,9 @@ function changingMultiValuesToArray(userDataValue){
 function  getUserData(res,userData ,dbConnection,foundUserID,fs)
   {
   let queryToView = `SELECT * FROM v_getUserData WHERE userID = ${foundUserID} `; 
-
-  dbConnection.query(queryToView, (err, result) => {
+  if(foundUserID>0)
+  {
+    dbConnection.query(queryToView, (err, result) => {
       if (err) console.log(err.message);  
       if(result) 
       {
@@ -273,7 +274,10 @@ function  getUserData(res,userData ,dbConnection,foundUserID,fs)
           userDataChecking(userData,fs,res);                       
       }                         
   });
-};  
+  return true;
+  }
+return false;
+  };  
 
 module.exports.getFkValue = getFkValue;
 module.exports.getEndData = getEndData;
