@@ -285,10 +285,10 @@ requestToDbCUDUserData(query, dbConnection, response);
 //////////////////////////////////////////////ExistingUserData PUT/////////////////////////////////////////////////////////////////////
 
 
-server.post("/existinguserdata",upload.single('fupload'), function (req, res) {
+server.post("/existinguserdata",upload.single('fupload'), function (req, res){ 
 
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-console.log(req);
+console.log("REQUEST ::: "+req);
 
     const fileName = req.file.originalname;
     const newFileNameToDb = Date.now()+"_"+fileName;
@@ -301,47 +301,77 @@ console.log(req);
 
     //console.log("NEW USER TO EUD ::: "+newUser);
     //получим нового пользователя из тела POST запроса,
-    let updateUserData = req.body;   
+      
 
     console.log("---------updateUser----------------------------------------");
 
     console.log(foundUser);
 
-    console.log("---------updateUser-end--------------------------------------");
+    console.log("---------updateUser-end--------------------------------------");    
 
-    console.log("---------updateUserData----------------------------------------");
-
-    console.log(updateUserData);
-
-    console.log("---------updateUserData--end--------------------------------------");
-
-
-
-     if (updateUserData) {
+     if(foundUser.UserLogin==undefined)
+     {
+        let newUserData = req.body;
+        if (newUserData) {
       
-        let endWork = getEndData(updateUserData);  //////////////////////////////////////////////////            
-
-        let userDataChecked = getCheckedInfo(updateUserData);      
-
-        let checkToNull =  CheckedToNull(updateUserData); 
-      
-        let fk_value = getFkValue(updateUserData);     
-       
-      
-    let query = `UPDATE user_info SET   userLogin=\'${foundUser.UserLogin}\',userPassword=\'${foundUser.UserPassword}\',firstName=\'${updateUserData.id_firstName}\',lastName=\'${updateUserData.id_lastName}\',middleName= ${checkToNull.id_middleName},
-    birthOfDate=\'${updateUserData.id_birthOfDate}\',сityOfResidence=\'${updateUserData.id_cityOfResidence}\',position=\'${updateUserData.id_userPosition}\',driverLicense=\'${userDataChecked.drivLicense}\',privateСar=${userDataChecked.privateCar},army= ${userDataChecked.army},
-    hobby= ${checkToNull.id_hobby},personalQualities=${checkToNull.id_personalQualities},professionalSkills=${checkToNull.id_professionalSkills},phone=\'${updateUserData.id_phone}\',email=\'${updateUserData.id_email}\',nationality=${checkToNull.id_nationality},
-    relocate= ${userDataChecked.relocation},desiredSalary= ${checkToNull.id_desiredSalary},fk_employmentID=\'${fk_value.id_employment}\',fk_scheduleID=\'${fk_value.id_schedule}\',businessTrip=${userDataChecked.businessTrip},fk_marital_statusID=\'${fk_value.id_maritalStatus}\',
-    fk_level_of_educationID=\'${fk_value.id_education}\', image=${checkToNull.fupload},courseName=${checkToNull.id_courseName},organization= ${checkToNull.id_organization},endingCourse=${checkToNull.id_endingCourse},institutName=${checkToNull.id_institutName},levelEducation=${checkToNull.id_levelEducation},
-    faculty=${checkToNull.id_faculty},specialty= ${checkToNull.id_specialty},ending= ${checkToNull.id_ending},startWork=${checkToNull.id_startWork}, endWork= \'${endWork}\',stillWorking=${userDataChecked.stillWorking},positionWork=${checkToNull.id_positionWork},companyName= ${checkToNull.id_companyName},
-    jobDuties=${checkToNull.id_jobDuties}, langName=${checkToNull.id_langName}, languag_proficiency_levelID=${checkToNull.id_level}, personRecommending=${checkToNull.id_personRecommending}, company=${checkToNull.id_company}, emailCompany=${checkToNull.id_emailCompany},
-    phoneCompany=${checkToNull.id_phoneCompany}, children=${userDataChecked.children}, fk_currencyID =\'${fk_value.id_currency}\' WHERE UserID=\'${foundUser.UserID}\'`;
-      
-
- requestToDbCUDUserData(query, dbConnection, res);     
+            let endWork = getEndData(newUserData);              
+    
+            let userDataChecked = getCheckedInfo(newUserData);      
+    
+            let checkToNull =  CheckedToNull(newUserData); 
+          
+            let fk_value = getFkValue(newUserData);            
+          
+        let query = `INSERT INTO user_info (userLogin,userPassword,firstName,lastName,middleName,birthOfDate,сityOfResidence,position,
+            driverLicense,privateСar,army,hobby,personalQualities,professionalSkills,phone,email,nationality,relocate,desiredSalary,fk_employmentID,fk_scheduleID,
+            businessTrip,fk_marital_statusID,fk_level_of_educationID,image,courseName,organization,endingCourse,institutName,levelEducation,faculty,specialty,ending,startWork,
+            endWork,stillWorking,positionWork,companyName, jobDuties, langName, languag_proficiency_levelID, personRecommending, company, 
+            emailCompany, phoneCompany, children, fk_currencyID) 
+    
+            VALUES ( \'${newUser.UserLogin}\', \'${newUser.Password}\', \'${newUserData.id_firstName}\', \'${newUserData.id_lastName}\', ${checkToNull.id_middleName}, 
+    \'${newUserData.id_birthOfDate}\', \'${newUserData.id_cityOfResidence}\', \'${newUserData.id_userPosition}\', \'${userDataChecked.drivLicense}\',
+     ${userDataChecked.privateCar}, ${userDataChecked.army}, ${checkToNull.id_hobby}, ${checkToNull.id_personalQualities},${checkToNull.id_professionalSkills},
+    \'${newUserData.id_phone}\', \'${newUserData.id_email}\',${checkToNull.id_nationality}, ${userDataChecked.relocation}, ${checkToNull.id_desiredSalary}, \'${fk_value.id_employment}\', 
+    \'${fk_value.id_schedule}\', ${userDataChecked.businessTrip},\'${fk_value.id_maritalStatus}\',  \'${fk_value.id_education}\',\'${newFileNameToDb}\',
+    ${checkToNull.id_courseName}, ${checkToNull.id_organization}, ${checkToNull.id_endingCourse},${checkToNull.id_institutName}, ${checkToNull.id_levelEducation},
+    ${checkToNull.id_faculty}, ${checkToNull.id_specialty}, ${checkToNull.id_ending},
+    ${checkToNull.id_startWork}, \'${endWork}\', ${userDataChecked.stillWorking}, ${checkToNull.id_positionWork}, ${checkToNull.id_companyName}, ${checkToNull.id_jobDuties},
+    ${checkToNull.id_langName}, ${checkToNull.id_level},${checkToNull.id_personRecommending}, ${checkToNull.id_company}, ${checkToNull.id_emailCompany},
+    ${checkToNull.id_phoneCompany},${userDataChecked.children},\'${fk_value.id_currency}\' )`;
+    requestToDbCUDUserData(query, dbConnection, res);     
         
-    }
-    res.end();
+     }
+       res.end();
+     }
+
+else{
+    let updateUserData = req.body; 
+
+    if (updateUserData) {
+     
+       let endWork = getEndData(updateUserData);  //////////////////////////////////////////////////            
+
+       let userDataChecked = getCheckedInfo(updateUserData);      
+
+       let checkToNull =  CheckedToNull(updateUserData); 
+     
+       let fk_value = getFkValue(updateUserData);     
+      
+     
+   let query = `UPDATE user_info SET   userLogin=\'${foundUser.UserLogin}\',userPassword=\'${foundUser.UserPassword}\',firstName=\'${updateUserData.id_firstName}\',lastName=\'${updateUserData.id_lastName}\',middleName= ${checkToNull.id_middleName},
+   birthOfDate=\'${updateUserData.id_birthOfDate}\',сityOfResidence=\'${updateUserData.id_cityOfResidence}\',position=\'${updateUserData.id_userPosition}\',driverLicense=\'${userDataChecked.drivLicense}\',privateСar=${userDataChecked.privateCar},army= ${userDataChecked.army},
+   hobby= ${checkToNull.id_hobby},personalQualities=${checkToNull.id_personalQualities},professionalSkills=${checkToNull.id_professionalSkills},phone=\'${updateUserData.id_phone}\',email=\'${updateUserData.id_email}\',nationality=${checkToNull.id_nationality},
+   relocate= ${userDataChecked.relocation},desiredSalary= ${checkToNull.id_desiredSalary},fk_employmentID=\'${fk_value.id_employment}\',fk_scheduleID=\'${fk_value.id_schedule}\',businessTrip=${userDataChecked.businessTrip},fk_marital_statusID=\'${fk_value.id_maritalStatus}\',
+   fk_level_of_educationID=\'${fk_value.id_education}\', image=${checkToNull.fupload},courseName=${checkToNull.id_courseName},organization= ${checkToNull.id_organization},endingCourse=${checkToNull.id_endingCourse},institutName=${checkToNull.id_institutName},levelEducation=${checkToNull.id_levelEducation},
+   faculty=${checkToNull.id_faculty},specialty= ${checkToNull.id_specialty},ending= ${checkToNull.id_ending},startWork=${checkToNull.id_startWork}, endWork= \'${endWork}\',stillWorking=${userDataChecked.stillWorking},positionWork=${checkToNull.id_positionWork},companyName= ${checkToNull.id_companyName},
+   jobDuties=${checkToNull.id_jobDuties}, langName=${checkToNull.id_langName}, languag_proficiency_levelID=${checkToNull.id_level}, personRecommending=${checkToNull.id_personRecommending}, company=${checkToNull.id_company}, emailCompany=${checkToNull.id_emailCompany},
+   phoneCompany=${checkToNull.id_phoneCompany}, children=${userDataChecked.children}, fk_currencyID =\'${fk_value.id_currency}\' WHERE UserID=\'${foundUser.UserID}\'`;
+   requestToDbCUDUserData(query, dbConnection, res);     
+        
+}
+res.end();
+
+} 
 
 });
 
