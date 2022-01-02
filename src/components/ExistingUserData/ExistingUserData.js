@@ -353,29 +353,7 @@ class ExistingUserData extends React.Component {
     }
    
 
-    onFileSelected(event) {
-    //     var selectedFile = event.target.files[0];
-    //     var reader = new FileReader();
-      
-    //     var imgtag = document.getElementById("myimage");
-    //     imgtag.title = selectedFile.name;       
-      
-    //     reader.onload = function(event) {
-    //       imgtag.src = event.target.result;
-    //     };  
-    //     if(imgtag) {  
-    //     reader.readAsDataURL(selectedFile);}
-
-    //     this.setState(Object.assign(this.state.items,{image:event.target.files[0],
-    //         loaded: 0}));          
-    //         this.setState(Object.assign(this.state.users, { image: event.target.files[0], loaded: 0 }));
-    //     console.log(selectedFile);
-
-    //    // console.log(this.state.users);   
-       
-       
-
-
+    onFileSelected(event) {       
         ////загрузка картинки на форму
         var selectedFile = event.target.files[0];
 

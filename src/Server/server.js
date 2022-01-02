@@ -9,7 +9,10 @@ const { connString } = require("./ConnectionModule");
 const {CheckedToNull,getCheckedInfo} = require("./CheckedModule");
 const{getFkValue,getEndData,getUserData} = require("./GetToPostModule");
 const multer  = require('multer');
+const bcrypt = require('bcrypt'); // import the Library. 
 
+
+const saltRounds = 10; // The number of rounds for encrypt the passwords. 
 
 
 const server = express();
@@ -28,7 +31,7 @@ var upload = multer({ storage: storage })
  
 
 
-
+var hashPassword ="";
 var duplicateFlag = false;
 var userIDFromDB = 0;
 var arrUsers = [];
@@ -165,24 +168,50 @@ server.post("/login", function (request, response) {
     response.header("Access-Control-Allow-Origin", "http://localhost:3000");
     foundUserID = 0;
     var foundFlag = false;
-    arrUsers.forEach(element => {
-        if (element.userLogin === request.body.UserLogin && element.userPassword === request.body.Password) {
-            console.log(`User login : ${element.userLogin} password : ${element.userPassword} have ID :${element.userID}`);
-            foundFlag = true;          
-            foundUserID = element.userID;
-            foundUser.UserID=element.userID;
-            foundUser.UserLogin = element.userLogin;
-            foundUser.UserPassword = element.userPassword;             
-            //ПЕРЕХОД ПО ССЫЛКЕ НА ЗАПОЛНЕННУЮ КОЛБАСУ!!!!!!!!!     
-            return response.redirect("http://localhost:3000/existinguserdata");
-        }
-    });    
-    if (foundFlag === false) {
-        console.log(`User login : ${request.body.UserLogin} password : ${request.body.Password} NOT FOUND , Go to regestration!!!`);
-        ////переход на регистрацию сделать правильно!!!!!!!
-        return response.redirect('http://localhost:3000/registration');
-    }
-    response.end();
+
+    var userLog = request.body.UserLogin;
+    var userPass = request.body.Password;
+
+    let query = `SELECT * FROM resume_db.user_info WHERE userLogin = '${request.body.UserLogin}'`;
+   
+    console.log("QUERY : "+query);
+  // query database for user's password
+    dbConnection.query(query, (err, result)=> {
+    if (err)throw err;  
+    if(result){         
+      var hash = result[0];
+      console.log(hash.userPassword);
+
+      // compare hash and password
+      bcrypt.compare(userPass, hash.userPassword, function(err, result) {
+        if (err) console.log(err.message);              
+        console.log("LOGIN RESULT ::: "+result);
+        console.log("USER HASH + USER LOGIN ::: "+hash.userPassword,userLog);
+          if(result)
+          {
+              console.log(`User login : ${hash.userLogin} password : ${hash.userPassword} have ID :${hash.userID}`);
+               foundFlag = true;          
+               foundUserID = hash.userID;
+               foundUser.UserID=hash.userID;
+               foundUser.UserLogin = hash.userLogin;
+               foundUser.UserPassword = hash.userPassword; 
+               console.log("FOUND USER ::: "+foundUser);
+                //ПЕРЕХОД ПО ССЫЛКЕ НА ЗАПОЛНЕННУЮ КОЛБАСУ!!!!!!!!!     
+                return response.redirect("http://localhost:3000/existinguserdata");
+          }   
+          else{
+              //ЕСЛИ ПАРОЛЬ НЕ СОВПАЛ !!!!!!!!!!!!!!!
+              if (foundFlag === false) {
+                    console.log(`User login : ${request.body.UserLogin} password : ${request.body.Password} NOT FOUND , Go to regestration!!!`);
+                    ////переход на регистрацию сделать правильно!!!!!!!
+                    return response.redirect('http://localhost:3000/registration');
+                }
+          } 
+          response.end();
+      });
+    }   
+  });   
+
 });
 
 
@@ -193,7 +222,15 @@ server.post("/registration", function (request, response) {
         //// потом переход в форму регистрации заполнение
         //логин-пароль у будущего пользователя
          newUser = request.body;
-
+        console.log(newUser);
+        ////hash+ salt
+        bcrypt.genSalt(saltRounds, function(err, salt) {
+            bcrypt.hash(newUser.Password, salt, function(err, hash) {
+                hashPassword = hash;
+                console.log(hashPassword);
+             });
+          });
+        console.log("HASH PASSWORD ::: "+hashPassword);
         arrUsers.forEach(element => {
 
             if (element.userLogin === newUser.UserLogin) {
@@ -223,64 +260,49 @@ server.post("/registration", function (request, response) {
 
 ////////////////////////////USER DATA POST///////////////////////////////////////////
 
-server.post("/userdata", upload.single('fupload'), function (request, response) {
-
-    response.header("Access-Control-Allow-Origin", "http://localhost:3000");      
-    
-   // const fileName = request.file.originalname;
-    //const newFileNameToDb = Date.now()+"_"+fileName;
-
-    fs.rename('uploads/'+fileName,'uploads/'+newFileNameToDb, err => {
-        if(err) throw err; // не удалось переименовать файл
-        console.log('Файл успешно переименован');
-        console.log("*** ::: "+newFileNameToDb+" ::: ***");
-     });   
-   
-    let newUserData = request.body;
-    console.log("---------request body start----------------------------------------");
-    console.log(request.body);
-    console.log("---------request body end----------------------------------------");    
-    console.log("---------newUser----------------------------------------");
-    console.log(newUser);
-    console.log("---------newUser-end--------------------------------------");
-    console.log("---------newUserData----------------------------------------");
-    console.log(request.body);
-    console.log("---------newUserData--end--------------------------------------");
-    
-    if (newUserData) {
-      
-        let endWork = getEndData(newUserData);              
-
-        let userDataChecked = getCheckedInfo(newUserData);      
-
-        let checkToNull =  CheckedToNull(newUserData); 
-      
-        let fk_value = getFkValue(newUserData);       
-       
-             
-      
-    let query = `INSERT INTO user_info (userLogin,userPassword,firstName,lastName,middleName,birthOfDate,сityOfResidence,position,
-        driverLicense,privateСar,army,hobby,personalQualities,professionalSkills,phone,email,nationality,relocate,desiredSalary,fk_employmentID,fk_scheduleID,
-        businessTrip,fk_marital_statusID,fk_level_of_educationID,image,courseName,organization,endingCourse,institutName,levelEducation,faculty,specialty,ending,startWork,
-        endWork,stillWorking,positionWork,companyName, jobDuties, langName, languag_proficiency_levelID, personRecommending, company, 
-        emailCompany, phoneCompany, children, fk_currencyID) 
-
-        VALUES ( \'${newUser.UserLogin}\', \'${newUser.Password}\', \'${newUserData.id_firstName}\', \'${newUserData.id_lastName}\', ${checkToNull.id_middleName}, 
-\'${newUserData.id_birthOfDate}\', \'${newUserData.id_cityOfResidence}\', \'${newUserData.id_userPosition}\', \'${userDataChecked.drivLicense}\',
- ${userDataChecked.privateCar}, ${userDataChecked.army}, ${checkToNull.id_hobby}, ${checkToNull.id_personalQualities},${checkToNull.id_professionalSkills},
-\'${newUserData.id_phone}\', \'${newUserData.id_email}\',${checkToNull.id_nationality}, ${userDataChecked.relocation}, ${checkToNull.id_desiredSalary}, \'${fk_value.id_employment}\', 
-\'${fk_value.id_schedule}\', ${userDataChecked.businessTrip},\'${fk_value.id_maritalStatus}\',  \'${fk_value.id_education}\',\'${newFileNameToDb}\',
-${checkToNull.id_courseName}, ${checkToNull.id_organization}, ${checkToNull.id_endingCourse},${checkToNull.id_institutName}, ${checkToNull.id_levelEducation},
-${checkToNull.id_faculty}, ${checkToNull.id_specialty}, ${checkToNull.id_ending},
-${checkToNull.id_startWork}, \'${endWork}\', ${userDataChecked.stillWorking}, ${checkToNull.id_positionWork}, ${checkToNull.id_companyName}, ${checkToNull.id_jobDuties},
-${checkToNull.id_langName}, ${checkToNull.id_level},${checkToNull.id_personRecommending}, ${checkToNull.id_company}, ${checkToNull.id_emailCompany},
-${checkToNull.id_phoneCompany},${userDataChecked.children},\'${fk_value.id_currency}\' )`;
-
-requestToDbCUDUserData(query, dbConnection, response);     
-        
-     }
-    response.end();
-});
+// server.post("/userdata", upload.single('fupload'), function (request, response) {
+//     response.header("Access-Control-Allow-Origin", "http://localhost:3000");     
+//     const fileName = request.file.originalname;
+//     const newFileNameToDb = Date.now()+"_"+fileName;
+//     fs.rename('uploads/'+fileName,'uploads/'+newFileNameToDb, err => {
+//         if(err) throw err; // не удалось переименовать файл
+//         console.log('Файл успешно переименован');
+//         console.log("*** ::: "+newFileNameToDb+" ::: ***");
+//      });      
+//     let newUserData = request.body;
+//     console.log("---------request body start----------------------------------------");
+//     console.log(request.body);
+//     console.log("---------request body end----------------------------------------");    
+//     console.log("---------newUser----------------------------------------");
+//     console.log(newUser);
+//     console.log("---------newUser-end--------------------------------------");
+//     console.log("---------newUserData----------------------------------------");
+//     console.log(request.body);
+//     console.log("---------newUserData--end--------------------------------------");    
+//     if (newUserData) {      
+//         let endWork = getEndData(newUserData);            
+//         let userDataChecked = getCheckedInfo(newUserData);     
+//         let checkToNull =  CheckedToNull(newUserData);      
+//         let fk_value = getFkValue(newUserData);                            
+//     let query = `INSERT INTO user_info (userLogin,userPassword,firstName,lastName,middleName,birthOfDate,сityOfResidence,position,
+//         driverLicense,privateСar,army,hobby,personalQualities,professionalSkills,phone,email,nationality,relocate,desiredSalary,fk_employmentID,fk_scheduleID,
+//         businessTrip,fk_marital_statusID,fk_level_of_educationID,image,courseName,organization,endingCourse,institutName,levelEducation,faculty,specialty,ending,startWork,
+//         endWork,stillWorking,positionWork,companyName, jobDuties, langName, languag_proficiency_levelID, personRecommending, company, 
+//         emailCompany, phoneCompany, children, fk_currencyID) 
+//         VALUES ( \'${newUser.UserLogin}\', \'${newUser.Password}\', \'${newUserData.id_firstName}\', \'${newUserData.id_lastName}\', ${checkToNull.id_middleName}, 
+// \'${newUserData.id_birthOfDate}\', \'${newUserData.id_cityOfResidence}\', \'${newUserData.id_userPosition}\', \'${userDataChecked.drivLicense}\',
+//  ${userDataChecked.privateCar}, ${userDataChecked.army}, ${checkToNull.id_hobby}, ${checkToNull.id_personalQualities},${checkToNull.id_professionalSkills},
+// \'${newUserData.id_phone}\', \'${newUserData.id_email}\',${checkToNull.id_nationality}, ${userDataChecked.relocation}, ${checkToNull.id_desiredSalary}, \'${fk_value.id_employment}\', 
+// \'${fk_value.id_schedule}\', ${userDataChecked.businessTrip},\'${fk_value.id_maritalStatus}\',  \'${fk_value.id_education}\',\'${newFileNameToDb}\',
+// ${checkToNull.id_courseName}, ${checkToNull.id_organization}, ${checkToNull.id_endingCourse},${checkToNull.id_institutName}, ${checkToNull.id_levelEducation},
+// ${checkToNull.id_faculty}, ${checkToNull.id_specialty}, ${checkToNull.id_ending},
+// ${checkToNull.id_startWork}, \'${endWork}\', ${userDataChecked.stillWorking}, ${checkToNull.id_positionWork}, ${checkToNull.id_companyName}, ${checkToNull.id_jobDuties},
+// ${checkToNull.id_langName}, ${checkToNull.id_level},${checkToNull.id_personRecommending}, ${checkToNull.id_company}, ${checkToNull.id_emailCompany},
+// ${checkToNull.id_phoneCompany},${userDataChecked.children},\'${fk_value.id_currency}\' )`;
+// requestToDbCUDUserData(query, dbConnection, response);           
+//      }
+//     response.end();
+// });
 
 //////////////////////////////////////////////ExistingUserData PUT/////////////////////////////////////////////////////////////////////
 
@@ -292,6 +314,7 @@ console.log("REQUEST ::: "+req);
 
     const fileName = req.file.originalname;
     const newFileNameToDb = Date.now()+"_"+fileName;
+   
 
     fs.rename('uploads/'+fileName,'uploads/'+newFileNameToDb, err => {
         if(err) throw err; // не удалось переименовать файл
@@ -308,10 +331,13 @@ console.log("REQUEST ::: "+req);
     console.log(foundUser);
 
     console.log("---------updateUser-end--------------------------------------");    
-
+////--------------------- NEW USER AFTER REGESTRATION --------------------------------------------
      if(foundUser.UserLogin==undefined)
      {
-        let newUserData = req.body;
+        let newUserData = req.body;       
+
+       
+
         if (newUserData) {
       
             let endWork = getEndData(newUserData);              
@@ -328,7 +354,7 @@ console.log("REQUEST ::: "+req);
             endWork,stillWorking,positionWork,companyName, jobDuties, langName, languag_proficiency_levelID, personRecommending, company, 
             emailCompany, phoneCompany, children, fk_currencyID) 
     
-            VALUES ( \'${newUser.UserLogin}\', \'${newUser.Password}\', \'${newUserData.id_firstName}\', \'${newUserData.id_lastName}\', ${checkToNull.id_middleName}, 
+            VALUES ( \'${newUser.UserLogin}\', \'${hashPassword}\', \'${newUserData.id_firstName}\', \'${newUserData.id_lastName}\', ${checkToNull.id_middleName}, 
     \'${newUserData.id_birthOfDate}\', \'${newUserData.id_cityOfResidence}\', \'${newUserData.id_userPosition}\', \'${userDataChecked.drivLicense}\',
      ${userDataChecked.privateCar}, ${userDataChecked.army}, ${checkToNull.id_hobby}, ${checkToNull.id_personalQualities},${checkToNull.id_professionalSkills},
     \'${newUserData.id_phone}\', \'${newUserData.id_email}\',${checkToNull.id_nationality}, ${userDataChecked.relocation}, ${checkToNull.id_desiredSalary}, \'${fk_value.id_employment}\', 
@@ -343,9 +369,12 @@ console.log("REQUEST ::: "+req);
      }
        res.end();
      }
-
+////------------------------------UPDATE USER AFTER LOGIN ----------------------------------
 else{
+
     let updateUserData = req.body; 
+
+
 
     if (updateUserData) {
      
