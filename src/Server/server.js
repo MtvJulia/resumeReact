@@ -309,7 +309,7 @@ server.post("/registration", function (request, response) {
 
 server.post("/existinguserdata",upload.single('fupload'), function (req, res){ 
 
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+res.header("Access-Control-Allow-Origin", "http://localhost:3000");
 console.log("REQUEST ::: "+req);
 var newFileNameToDb;
 console.log("REQUEST FILE ::: "+req.file);
@@ -349,7 +349,6 @@ if(req.file)
 if(newFileNameToDb){
     fileToDB = newFileNameToDb;
 }
-
           
         let query = `INSERT INTO user_info (userLogin,userPassword,firstName,lastName,middleName,birthOfDate,сityOfResidence,position,
             driverLicense,privateСar,army,hobby,personalQualities,professionalSkills,phone,email,nationality,relocate,desiredSalary,fk_employmentID,fk_scheduleID,
