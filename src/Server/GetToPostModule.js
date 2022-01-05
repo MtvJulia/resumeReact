@@ -183,9 +183,6 @@ const userDataChecking=(userData,fs,res,callback = (res,userData)=>{
   console.log("************************");
   console.log(userData);
 
-  var imageData = userData.image.toString();
-  console.log("////////////////////////////////////////" + imageData) ; 
- 
   userData.positionWork = changingMultiValuesToArray(userData.positionWork);
   userData.startWork =  changingMultiValuesToArray(userData.startWork);
   userData.endWork = changingMultiValuesToArray(userData.endWork);
@@ -207,16 +204,17 @@ const userDataChecking=(userData,fs,res,callback = (res,userData)=>{
   userData.emailCompany = changingMultiValuesToArray(userData.emailCompany);
   userData.phoneCompany = changingMultiValuesToArray(userData.phoneCompany);
 
-
-  fs.readFile('uploads/'+imageData, function(error, data){
-    
-    if(error){
-              
+if(userData.image != null){
+  var imageData = userData.image.toString();
+  console.log("////////////////////////////////////////" + imageData) ;  
+  fs.readFile('uploads/'+imageData, function(error, data){    
+    if(error){              
         response.statusCode = 404;
         response.end("Resourse not found!");
     }   
     else{
         userData.file = data;
+        userData.file.originalname = imageData;
         console.log("OOOOKKKKKK!!!!");
         console.log( userData.file);
         console.log("------------NEW--USER DATA-----------");
@@ -225,7 +223,13 @@ const userDataChecking=(userData,fs,res,callback = (res,userData)=>{
         callback(res,userData);
     }
 });
-    
+} 
+else{
+
+  callback(res,userData);
+}
+
+
 }
 
 function changingMultiValuesToArray(userDataValue){

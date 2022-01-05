@@ -34,17 +34,19 @@ const CheckedToNull = (newUserData) => {
         objChecked.id_desiredSalary = `\'${newUserData.id_desiredSalary}\'`;
     }
     
-    
-    
-    if(newUserData.fupload==''||newUserData.fupload==null){
-        objChecked.fupload = null;
-       }
-    
-    else{
-        objChecked.fupload = `\'${newUserData.fupload}\'`;
-        //////////////////////////////////////////////////////////////////////////////////////????????????????????????????
-        console.log(objChecked.fupload);
-    }
+    // console.log("NEW FILE ::: -/// "+newFileNameToDb);
+    // if(newFileNameToDb!= '')
+    // {
+    //     if(newUserData.fupload==null){
+    //         objChecked.fupload = null;
+    //        }
+        
+    //     else{
+    //         objChecked.fupload = `\'${newFileNameToDb}\'`;
+    //         //////////////////////////////////////////////////////////////////////////////////////????????????????????????????
+    //         console.log(objChecked.fupload);
+    //     }
+    // }    
     
     
     if(newUserData.id_courseName==''||newUserData.id_courseName==null){
