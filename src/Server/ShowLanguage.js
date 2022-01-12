@@ -210,13 +210,13 @@ class ShowLanguage extends React.Component {
                                                 
                                                 >                                                                                                                                                                                                                                                                                                                                           
                                                     <option disabled>Выберите уровень</option>
-                                                    <option selected></option>
-                                                    <option>A1 - начальный</option>
-                                                    <option>A2 - базовый</option>
-                                                    <option>B1 - средний</option>
-                                                    <option>B2 - выше среднего</option>
-                                                    <option>C1 - продвинутый</option>
-                                                    <option>C2 - профессиональный</option>
+                                                    <option selected value ="7"></option>
+                                                    <option value ="1">A1 - начальный</option>
+                                                    <option value ="2">A2 - базовый</option>
+                                                    <option value ="3">B1 - средний</option>
+                                                    <option value ="4">B2 - выше среднего</option>
+                                                    <option value ="5">C1 - продвинутый</option>
+                                                    <option value ="6">C2 - профессиональный</option>
                                                 </select>
                                             </div>
                                         </div>

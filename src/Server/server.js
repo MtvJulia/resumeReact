@@ -100,14 +100,104 @@ const requestToDbGETAferPost = (query, dbConnection, res, newUser) => {
     });
 }
 
-const requestToDbCUDUserData = (query, dbConnection, res) => {
-    console.log("-----------query-------------");
-    console.log(query);
+const fillDriverLicense=(userData)=>{
+let driverLicense=[];
+ if(userData.id_driverLicenseA1!= undefined && userData.id_driverLicenseA1=="on"){driverLicense.push(1);}
+ if(userData.id_driverLicenseA!= undefined && userData.id_driverLicenseA=="on"){driverLicense.push(2);}
+ if(userData.id_driverLicenseB1!= undefined && userData.id_driverLicenseB1=="on"){driverLicense.push(3);}
+ if(userData.id_driverLicenseB!= undefined && userData.id_driverLicenseB=="on"){driverLicense.push(4);}
+ if(userData.id_driverLicenseC1!= undefined && userData.id_driverLicenseC1=="on"){driverLicense.push(5);}
+ if(userData.id_driverLicenseC!= undefined && userData.id_driverLicenseC=="on"){driverLicense.push(6);}
+ if(userData.id_driverLicenseD1!= undefined && userData.id_driverLicenseD1=="on"){driverLicense.push(7);}
+ if(userData.id_driverLicenseD!= undefined && userData.id_driverLicenseD=="on"){driverLicense.push(8);}
+ if(userData.id_driverLicenseT!= undefined && userData.id_driverLicenseT=="on"){driverLicense.push(9);}
+    return driverLicense;
+}
+
+
+const requestToDbCUDUserData = (query, dbConnection, res,userData,callback = (res,userData,newIDFromDB,dbConnection)=>{ 
+    console.log("I'm here!!!");  
+    console.log(userData);
+    
+    let drLicense = fillDriverLicense(userData);    
+  
+if(drLicense.length>0)
+{
+    drLicense.forEach(function(item){ 
+        let queryDriverLicense =` INSERT INTO user_driver_license(userID,fk_driverLicense)
+    VALUES(${newIDFromDB},${item})`;
+            dbConnection.query(queryDriverLicense, (err, result) => {
+        if (err) console.log(err.message);             
+    });
+  });
+}
+   
+if(userData.id_langName.length>0)
+{
+    for(i=0;i<userData.id_langName.length;i++)
+    {
+        if(userData.id_langName[i]!=''&& userData.id_level[i]!="")
+        { 
+            let queryLang =` INSERT INTO user_language(userID,fk_langName,fk_languag_proficiency_levelID)
+        VALUES(${newIDFromDB},${userData.id_langName[i]},${userData.id_level[i]})`;
+        dbConnection.query(queryLang, (err, result) => {
+            if (err) console.log(err.message);             
+        });
+        }
+    }
+}
+
+if(userData.id_courseName.length>0)
+{
+    for(i=0;i<userData.id_courseName.length;i++)
+    {
+        if(userData.id_courseName[i]!=''&& userData.id_organization[i]!=""&&userData.id_endingCourse[i]!="" )
+        { 
+            let queryLang =` INSERT INTO user_course(userID,courseName,organization,endingCourse)
+        VALUES(${newIDFromDB},\'${userData.courseName[i]}\',\'${userData.id_organization[i]}\',\'${userData.id_endingCourse[i]}\')`;
+        dbConnection.query(queryLang, (err, result) => {
+            if (err) console.log(err.message);             
+        });
+        }
+    }  
+}
+
+if(userData.id_courseName.length>0)
+{
+    for(i=0;i<userData.id_courseName.length;i++)
+    {
+        if(userData.id_courseName[i]!=''&& userData.id_organization[i]!=""&&userData.id_endingCourse[i]!="" )
+        { 
+            let queryLang =` INSERT INTO user_course(userID,courseName,organization,endingCourse)
+        VALUES(${newIDFromDB},\'${userData.courseName[i]}\',\'${userData.id_organization[i]}\',\'${userData.id_endingCourse[i]}\')`;
+        dbConnection.query(queryLang, (err, result) => {
+            if (err) console.log(err.message);             
+        });
+        }
+    }  
+}
+
+   // dbConnection.query(queryDriverLicense, (err, result) => {
+    //     if (err) console.log(err.message);
+    //    console.log(result);       
+    // });
+
+    // res.json(userData);   
+    // res.end();  
+    // console.log("I'm gooooo!!!");   
+  }) => {
+    // console.log("-----------query-------------");
+    // console.log(query);
+
+    ////-----insert user data to db
     dbConnection.query(query, (err, result) => {
 
         if (err) console.log(err.message);
-
-        res.end();
+        
+       var newIDFromDB = result.insertId;
+       
+       ////-----insert all user data with id
+        callback(res,userData,newIDFromDB,dbConnection);        
     });
 }
 
@@ -126,26 +216,26 @@ const requestToDbGET = (query, dbConnection, res) => {
 
 server.get("/", (req, res) => {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    let query = "SELECT * FROM user_info";
+    let query = "SELECT * FROM users_info";
     requestToDbGET(query, dbConnection, res);
 });
 
 server.get("/login", function (request, res) {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    let query = "SELECT * FROM user_info";
+    let query = "SELECT * FROM users_info";
     requestToDbGET(query, dbConnection, res);
     
 });
 
 server.get("/register", function (request, res) {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    let query = "SELECT * FROM user_info";
+    let query = "SELECT * FROM users_info";
     requestToDbGET(query, dbConnection, res);
 });
 
 server.get("/userdata", function (request, res) {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    let query = "SELECT * FROM user_info";
+    let query = "SELECT * FROM users_info";
     requestToDbGET(query, dbConnection, res);
 });   
 
@@ -172,7 +262,7 @@ server.post("/login", function (request, response) {
     var userLog = request.body.UserLogin;
     var userPass = request.body.Password;
 
-    let query = `SELECT * FROM resume_db.user_info WHERE userLogin = '${request.body.UserLogin}'`;
+    let query = `SELECT * FROM resume_db.users_info WHERE userLogin = '${request.body.UserLogin}'`;
    
     console.log("QUERY : "+query);
   // query database for user's password
@@ -216,12 +306,14 @@ server.post("/login", function (request, response) {
 
 
 server.post("/registration", function (request, response) {
+
     response.header("Access-Control-Allow-Origin", "http://localhost:3000");
+
     if (request.body.Password === request.body.RepeatPassword) {
         console.log("OK");       
         //// потом переход в форму регистрации заполнение
         //логин-пароль у будущего пользователя
-         newUser = request.body;
+        newUser = request.body;
         console.log(newUser);
         ////hash+ salt
         bcrypt.genSalt(saltRounds, function(err, salt) {
@@ -231,22 +323,49 @@ server.post("/registration", function (request, response) {
              });
           });
         console.log("HASH PASSWORD ::: "+hashPassword);
-        arrUsers.forEach(element => {
 
-            if (element.userLogin === newUser.UserLogin) {
+        let query = `SELECT * FROM resume_db.users_info WHERE userLogin = '${newUser.UserLogin}'`;   
+        console.log(query);
+  // query database for user  login
+  dbConnection.query(query, (err, result)=> {
+    if (err)throw err;   
+      var userDataFromDB = result[0];
+     // console.log(userDataFromDB.userLogin);
+      if(userDataFromDB){
+      duplicateFlag = true;
+      let objJSON1 = { "result": "Пользователь с данным логином уже зарегистрирован, придумайте новый логин !" };              
+      return response.redirect("http://localhost:3000/registration");        
+    }  
+    else
+    { 
+        duplicateFlag = false;
+        console.log("duplicateFlag === false");
+        return response.redirect("http://localhost:3000/existinguserdata"); 
+    }
+    
 
-                duplicateFlag = true;
-                let objJSON1 = { "result": "Пользователь с данным логином уже зарегистрирован, придумайте новый логин !" };              
-                return response.redirect("http://localhost:3000/registration");
-            }
-        });
+  }); 
+
+
+
+
+
+        // arrUsers.forEach(element => {
+
+        //     if (element.userLogin === newUser.UserLogin) {
+
+        //         duplicateFlag = true;
+        //         let objJSON1 = { "result": "Пользователь с данным логином уже зарегистрирован, придумайте новый логин !" };              
+        //         return response.redirect("http://localhost:3000/registration");
+        //     }
+        // });
 
         //если нет пользователя с данным логином в базе
-        if (duplicateFlag === false) {    
+    //     if () {    
 
-    return response.redirect("http://localhost:3000/existinguserdata");
+    // return response.redirect("http://localhost:3000/existinguserdata");
            
-        }
+    //     }
     }
 
     else {
@@ -254,7 +373,7 @@ server.post("/registration", function (request, response) {
         newUser = {};
         return response.redirect('http://localhost:3000/registration');
     }
-    response.end();
+   // response.end();
 });
 
 
@@ -333,40 +452,81 @@ if(req.file)
 ////--------------------- NEW USER AFTER REGESTRATION --------------------------------------------
      if(foundUser.UserLogin==undefined)
      {
-        let newUserData = req.body;    
-
+        let newUserData = req.body;  
         if (newUserData) {
       
-            let endWork = getEndData(newUserData);              
+           // let endWork = getEndData(newUserData);              
     
             let userDataChecked = getCheckedInfo(newUserData);      
     
-            let checkToNull =  CheckedToNull(newUserData); 
-          
-            let fk_value = getFkValue(newUserData);      
+            let checkToNull =  CheckedToNull(newUserData);           
             
             let fileToDB = null;
 if(newFileNameToDb){
     fileToDB = newFileNameToDb;
-}
-          
-        let query = `INSERT INTO user_info (userLogin,userPassword,firstName,lastName,middleName,birthOfDate,сityOfResidence,position,
-            driverLicense,privateСar,army,hobby,personalQualities,professionalSkills,phone,email,nationality,relocate,desiredSalary,fk_employmentID,fk_scheduleID,
-            businessTrip,fk_marital_statusID,fk_level_of_educationID,image,courseName,organization,endingCourse,institutName,levelEducation,faculty,specialty,ending,startWork,
-            endWork,stillWorking,positionWork,companyName, jobDuties, langName, languag_proficiency_levelID, personRecommending, company, 
-            emailCompany, phoneCompany, children, fk_currencyID) 
+}    
+        let query = `INSERT INTO users_info (userLogin,userPassword,firstName,lastName,middleName,birthOfDate,phone,email,сityOfResidence,nationality,position,privateСar,
+            army,hobby,personalQualities,professionalSkills,relocate,desiredSalary,children,businessTrip,fk_employmentID,fk_scheduleID,
+            fk_marital_statusID,fk_level_of_educationID,fk_currencyID,image) 
     
             VALUES ( \'${newUser.UserLogin}\', \'${hashPassword}\', \'${newUserData.id_firstName}\', \'${newUserData.id_lastName}\', ${checkToNull.id_middleName}, 
-    \'${newUserData.id_birthOfDate}\', \'${newUserData.id_cityOfResidence}\', \'${newUserData.id_userPosition}\', \'${userDataChecked.drivLicense}\',
-     ${userDataChecked.privateCar}, ${userDataChecked.army}, ${checkToNull.id_hobby}, ${checkToNull.id_personalQualities},${checkToNull.id_professionalSkills},
-    \'${newUserData.id_phone}\', \'${newUserData.id_email}\',${checkToNull.id_nationality}, ${userDataChecked.relocation}, ${checkToNull.id_desiredSalary}, \'${fk_value.id_employment}\', 
-    \'${fk_value.id_schedule}\', ${userDataChecked.businessTrip},\'${fk_value.id_maritalStatus}\',  \'${fk_value.id_education}\',\'${fileToDB}\',
-    ${checkToNull.id_courseName}, ${checkToNull.id_organization}, ${checkToNull.id_endingCourse},${checkToNull.id_institutName}, ${checkToNull.id_levelEducation},
-    ${checkToNull.id_faculty}, ${checkToNull.id_specialty}, ${checkToNull.id_ending},
-    ${checkToNull.id_startWork}, \'${endWork}\', ${userDataChecked.stillWorking}, ${checkToNull.id_positionWork}, ${checkToNull.id_companyName}, ${checkToNull.id_jobDuties},
-    ${checkToNull.id_langName}, ${checkToNull.id_level},${checkToNull.id_personRecommending}, ${checkToNull.id_company}, ${checkToNull.id_emailCompany},
-    ${checkToNull.id_phoneCompany},${userDataChecked.children},\'${fk_value.id_currency}\' )`;
-    requestToDbCUDUserData(query, dbConnection, res);     
+    \'${newUserData.id_birthOfDate}\',\'${newUserData.id_phone}\', \'${newUserData.id_email}\', \'${newUserData.id_cityOfResidence}\', ${checkToNull.id_nationality},
+    \'${newUserData.id_userPosition}\', ${userDataChecked.privateCar}, ${userDataChecked.army}, ${checkToNull.id_hobby}, ${checkToNull.id_personalQualities},${checkToNull.id_professionalSkills},
+     ${userDataChecked.relocation}, ${checkToNull.id_desiredSalary},${userDataChecked.children},  ${userDataChecked.businessTrip},\'${newUserData.id_employment}\', 
+    \'${newUserData.id_schedule}\', \'${newUserData.id_maritalStatus}\',  \'${newUserData.id_education}\',\'${newUserData.id_currency}\',\'${fileToDB}\' )`;
+
+    requestToDbCUDUserData(query, dbConnection, res,newUserData);
+
+
+
+// \'${userDataChecked.drivLicense}\',
+//     ${checkToNull.id_courseName}, ${checkToNull.id_organization}, ${checkToNull.id_endingCourse},${checkToNull.id_institutName}, ${checkToNull.id_levelEducation},
+//     ${checkToNull.id_faculty}, ${checkToNull.id_specialty}, ${checkToNull.id_ending},
+//     ${checkToNull.id_startWork}, \'${endWork}\', ${userDataChecked.stillWorking}, ${checkToNull.id_positionWork}, ${checkToNull.id_companyName}, ${checkToNull.id_jobDuties},
+//     ${checkToNull.id_langName}, ${checkToNull.id_level},${checkToNull.id_personRecommending}, ${checkToNull.id_company}, ${checkToNull.id_emailCompany},
+//     ${checkToNull.id_phoneCompany}
+
+    // ,courseName,organization,endingCourse,institutName,levelEducation,faculty,specialty,ending,startWork,
+    // endWork,stillWorking,positionWork,companyName, jobDuties, langName, languag_proficiency_levelID, personRecommending, company, 
+    // emailCompany, phoneCompany
+
+
+
+
+
+
+//         if (newUserData) {
+      
+//             let endWork = getEndData(newUserData);              
+    
+//             let userDataChecked = getCheckedInfo(newUserData);      
+    
+//             let checkToNull =  CheckedToNull(newUserData); 
+          
+//             let fk_value = getFkValue(newUserData);      
+            
+//             let fileToDB = null;
+// if(newFileNameToDb){
+//     fileToDB = newFileNameToDb;
+// }
+          
+//         let query = `INSERT INTO user_info (userLogin,userPassword,firstName,lastName,middleName,birthOfDate,сityOfResidence,position,
+//             driverLicense,privateСar,army,hobby,personalQualities,professionalSkills,phone,email,nationality,relocate,desiredSalary,fk_employmentID,fk_scheduleID,
+//             businessTrip,fk_marital_statusID,fk_level_of_educationID,image,courseName,organization,endingCourse,institutName,levelEducation,faculty,specialty,ending,startWork,
+//             endWork,stillWorking,positionWork,companyName, jobDuties, langName, languag_proficiency_levelID, personRecommending, company, 
+//             emailCompany, phoneCompany, children, fk_currencyID) 
+    
+//             VALUES ( \'${newUser.UserLogin}\', \'${hashPassword}\', \'${newUserData.id_firstName}\', \'${newUserData.id_lastName}\', ${checkToNull.id_middleName}, 
+//     \'${newUserData.id_birthOfDate}\', \'${newUserData.id_cityOfResidence}\', \'${newUserData.id_userPosition}\', \'${userDataChecked.drivLicense}\',
+//      ${userDataChecked.privateCar}, ${userDataChecked.army}, ${checkToNull.id_hobby}, ${checkToNull.id_personalQualities},${checkToNull.id_professionalSkills},
+//     \'${newUserData.id_phone}\', \'${newUserData.id_email}\',${checkToNull.id_nationality}, ${userDataChecked.relocation}, ${checkToNull.id_desiredSalary}, \'${fk_value.id_employment}\', 
+//     \'${fk_value.id_schedule}\', ${userDataChecked.businessTrip},\'${fk_value.id_maritalStatus}\',  \'${fk_value.id_education}\',\'${fileToDB}\',
+//     ${checkToNull.id_courseName}, ${checkToNull.id_organization}, ${checkToNull.id_endingCourse},${checkToNull.id_institutName}, ${checkToNull.id_levelEducation},
+//     ${checkToNull.id_faculty}, ${checkToNull.id_specialty}, ${checkToNull.id_ending},
+//     ${checkToNull.id_startWork}, \'${endWork}\', ${userDataChecked.stillWorking}, ${checkToNull.id_positionWork}, ${checkToNull.id_companyName}, ${checkToNull.id_jobDuties},
+//     ${checkToNull.id_langName}, ${checkToNull.id_level},${checkToNull.id_personRecommending}, ${checkToNull.id_company}, ${checkToNull.id_emailCompany},
+//     ${checkToNull.id_phoneCompany},${userDataChecked.children},\'${fk_value.id_currency}\' )`;
+         
         
      }
        res.end();
