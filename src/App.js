@@ -37,7 +37,7 @@ class App extends React.Component {
                   <li className="nav-item"><a className="nav-link" href="/home">Главная</a></li>
                   <li className="nav-item"><a className="nav-link" href="/services">Как составить резюме</a></li>
                   <li className="nav-item"><a className="nav-link" href="/about">О нас</a></li>
-                  {/* <li className="nav-item"><a className="nav-link" href="http://localhost:3000/userdata">News</a></li> */}
+                  <li className="nav-item"><a className="nav-link" href="http://localhost:3000/existinguserdata">News</a></li>
                 </ul>
 
                 <ul className="nav ">
