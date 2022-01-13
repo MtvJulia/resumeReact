@@ -102,15 +102,15 @@ const requestToDbGETAferPost = (query, dbConnection, res, newUser) => {
 
 const fillDriverLicense=(userData)=>{
 let driverLicense=[];
- if(userData.id_driverLicenseA1!= undefined && userData.id_driverLicenseA1=="on"){driverLicense.push(1);}
- if(userData.id_driverLicenseA!= undefined && userData.id_driverLicenseA=="on"){driverLicense.push(2);}
- if(userData.id_driverLicenseB1!= undefined && userData.id_driverLicenseB1=="on"){driverLicense.push(3);}
- if(userData.id_driverLicenseB!= undefined && userData.id_driverLicenseB=="on"){driverLicense.push(4);}
- if(userData.id_driverLicenseC1!= undefined && userData.id_driverLicenseC1=="on"){driverLicense.push(5);}
- if(userData.id_driverLicenseC!= undefined && userData.id_driverLicenseC=="on"){driverLicense.push(6);}
- if(userData.id_driverLicenseD1!= undefined && userData.id_driverLicenseD1=="on"){driverLicense.push(7);}
- if(userData.id_driverLicenseD!= undefined && userData.id_driverLicenseD=="on"){driverLicense.push(8);}
- if(userData.id_driverLicenseT!= undefined && userData.id_driverLicenseT=="on"){driverLicense.push(9);}
+ if(userData.id_driverLicenseA1!= undefined ){driverLicense.push(userData.id_driverLicenseA1);}
+ if(userData.id_driverLicenseA!= undefined ){driverLicense.push( userData.id_driverLicenseA);}
+ if(userData.id_driverLicenseB1!= undefined ){driverLicense.push(userData.id_driverLicenseB1);}
+ if(userData.id_driverLicenseB!= undefined ){driverLicense.push(userData.id_driverLicenseB);}
+ if(userData.id_driverLicenseC1!= undefined){driverLicense.push(userData.id_driverLicenseC1);}
+ if(userData.id_driverLicenseC!= undefined ){driverLicense.push(userData.id_driverLicenseC);}
+ if(userData.id_driverLicenseD1!= undefined ){driverLicense.push( userData.id_driverLicenseD1);}
+ if(userData.id_driverLicenseD!= undefined){driverLicense.push(userData.id_driverLicenseD);}
+ if(userData.id_driverLicenseT!= undefined ){driverLicense.push(userData.id_driverLicenseT);}
     return driverLicense;
 }
 
