@@ -153,38 +153,92 @@ if(userData.id_courseName.length>0)
     {
         if(userData.id_courseName[i]!=''&& userData.id_organization[i]!=""&&userData.id_endingCourse[i]!="" )
         { 
-            let queryLang =` INSERT INTO user_course(userID,courseName,organization,endingCourse)
-        VALUES(${newIDFromDB},\'${userData.courseName[i]}\',\'${userData.id_organization[i]}\',\'${userData.id_endingCourse[i]}\')`;
-        dbConnection.query(queryLang, (err, result) => {
-            if (err) console.log(err.message);             
+            let queryCourses =` INSERT INTO user_course(userID,courseName,organization,endingCourse)
+        VALUES(${newIDFromDB},\'${userData.id_courseName[i]}\',\'${userData.id_organization[i]}\',\'${userData.id_endingCourse[i]}\')`;
+        dbConnection.query(queryCourses, (err, result) => {
+            if (err) console.log(err.message);            
         });
         }
     }  
 }
 
-if(userData.id_courseName.length>0)
+if(userData.id_company.length>0)
 {
-    for(i=0;i<userData.id_courseName.length;i++)
+    for(i=0;i<userData.id_company.length;i++)
     {
-        if(userData.id_courseName[i]!=''&& userData.id_organization[i]!=""&&userData.id_endingCourse[i]!="" )
+        if(userData.id_company[i]!=''&& userData.id_personRecommending[i]!=""&&userData.id_phoneCompany[i]!="" )
         { 
-            let queryLang =` INSERT INTO user_course(userID,courseName,organization,endingCourse)
-        VALUES(${newIDFromDB},\'${userData.courseName[i]}\',\'${userData.id_organization[i]}\',\'${userData.id_endingCourse[i]}\')`;
-        dbConnection.query(queryLang, (err, result) => {
+            let email=null;
+              if(userData.id_emailCompany[i]!= undefined && userData.id_emailCompany[i]!="")
+              {
+                  email = userData.id_emailCompany[i];
+              }
+
+            let queryRecomending =` INSERT INTO user_recomending(userID,company,personRecommending,emailCompany,phoneCompany)
+        VALUES(${newIDFromDB},\'${userData.id_company[i]}\',\'${userData.id_personRecommending[i]}\',\'${email}\',\'${userData.id_phoneCompany[i]}\')`;
+        dbConnection.query(queryRecomending, (err, result) => {
             if (err) console.log(err.message);             
         });
         }
     }  
 }
 
-   // dbConnection.query(queryDriverLicense, (err, result) => {
-    //     if (err) console.log(err.message);
-    //    console.log(result);       
-    // });
+if(userData.id_institutName.length>0)
+{
+    for(i=0;i<userData.id_institutName.length;i++)
+    {
+        if(userData.id_institutName[i]!=''&& userData.id_faculty[i]!=""&&userData.id_specialty[i]!=""&&userData.id_ending[i]!="" &&userData.id_levelEducation[i]!="" )
+        {             
+            let queryEducation =` INSERT INTO user_education(userID,institutName,faculty,specialty,ending,fk_levelEducation)
+        VALUES(${newIDFromDB},\'${userData.id_institutName[i]}\',\'${userData.id_faculty[i]}\',\'${userData.id_specialty[i]}\',\'${userData.id_ending[i]}\',${userData.id_levelEducation[i]})`;
+       
+        dbConnection.query(queryEducation, (err, result) => {
+            if (err) console.log(err.message);             
+        });
+        }
+    }  
+}
+if(userData.id_companyName.length>0)
+{
+    for(i=0;i<userData.id_companyName.length;i++)
+    {
+        if(userData.id_companyName[i]!=''&& userData.id_positionWork[i]!=""&&userData.id_jobDuties[i]!=""&&userData.id_startWork[i]!="" )
+        {     
+            let queryExpiriennce="";
+            let endWork = null;
+            let stillWorking = 0;
+            if(userData.id_endWork[i]!="" )
+            {
+                stillWorking = 0;
+            }
+            if(userData.id_stillWorking!=undefined && userData.id_stillWorking[i]=="on"&&userData.id_endWork[i]=="" )
+            {
+                stillWorking = 1;
+            }
+            if(userData.id_endWork[i]!=undefined && userData.id_endWork[i]!="")
+            {
+                endWork = userData.id_endWork[i];
 
-    // res.json(userData);   
-    // res.end();  
-    // console.log("I'm gooooo!!!");   
+                queryExpiriennce =` INSERT INTO user_expirience(userID,companyName,positionWork,jobDuties,startWork,endWork,stillWorking)
+        VALUES(${newIDFromDB},\'${userData.id_companyName[i]}\',\'${userData.id_positionWork[i]}\',\'${userData.id_jobDuties[i]}\',\'${userData.id_startWork[i]}\',
+        \'${endWork}\',${stillWorking})`;
+            }
+            else{
+                stillWorking = 1;
+
+                queryExpiriennce =` INSERT INTO user_expirience(userID,companyName,positionWork,jobDuties,startWork,endWork,stillWorking)
+        VALUES(${newIDFromDB},\'${userData.id_companyName[i]}\',\'${userData.id_positionWork[i]}\',\'${userData.id_jobDuties[i]}\',\'${userData.id_startWork[i]}\',
+        ${endWork},${stillWorking})`;
+  }                
+
+        dbConnection.query(queryExpiriennce, (err, result) => {
+            if (err) console.log(err.message);             
+        });
+        }
+    }  
+}     
+    res.end();  
+    console.log("I'm gooooo!!!");   
   }) => {
     // console.log("-----------query-------------");
     // console.log(query);

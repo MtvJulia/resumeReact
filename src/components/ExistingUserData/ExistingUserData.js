@@ -477,18 +477,7 @@ class ExistingUserData extends React.Component {
                     items: data                    
                 });
                 console.dir(this.state.items);
-                // if(this.state.items.driverLicense==undefined)
-                // {
-                //  this.setState(Object.assign(this.state.items.driverLicense,{A1: 0}));
-                //  this.setState(Object.assign(this.state.items.driverLicense,{A: 0}));
-                //  this.setState(Object.assign(this.state.items.driverLicense,{B1: 0}));
-                //  this.setState(Object.assign(this.state.items.driverLicense,{B: 0}));
-                //  this.setState(Object.assign(this.state.items.driverLicense,{C1: 0}));
-                //  this.setState(Object.assign(this.state.items.driverLicense,{C: 0}));
-                //  this.setState(Object.assign(this.state.items.driverLicense,{D1: 0}));
-                //  this.setState(Object.assign(this.state.items.driverLicense,{D: 0}));
-                //  this.setState(Object.assign(this.state.items.driverLicense,{T: 0}));
-                // }
+                
                
                this.setState(Object.assign(this.state.items,{ currency: this.currencyName}));
                console.dir(this.state.items.currency);
@@ -715,7 +704,7 @@ class ExistingUserData extends React.Component {
                                         <ShowCourses arrayToDisplay={this.coursArray} />                                       
                                         <div id="courseList">
                                         </div>
-                                        <a href="javascript:AddCourse()" onClick={this.AddCourse}>Добавить</a>
+                                        <a href="javascript:AddCourse()"ShowCourses onClick={this.AddCourse}>Добавить</a>
                                     </fieldset>
 
                                     {/* <!-- -------ОПЫТ РАБОТЫ----------- --> */}
