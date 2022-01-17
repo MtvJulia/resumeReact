@@ -137,7 +137,7 @@ class ShowLanguage extends React.Component {
             return (
                 <div >
                     <details id={"langDetails" + count} open>
-                        <a id={"idDelete" + count} href="javascript:DeleteLang(e)" name="delete" onClick={this.DeleteLang} > Удалить  </a>
+                        <a id={"idDelete" + count} href="javascript:DeleteLang(e)" className='delete' name="delete" onClick={this.DeleteLang} > Удалить  </a>
                         <summary>Язык</summary>
                         <div className="row">
                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
