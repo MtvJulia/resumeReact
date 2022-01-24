@@ -39,7 +39,7 @@ class ShowExperience extends React.Component {
                     {
                         arrayToDisplay.map((item) => {
                             count++;
-                            if (item.endWork != "NULL") {
+                            if (item.endWork != null) {
                                 return (
 
                                     <div>
