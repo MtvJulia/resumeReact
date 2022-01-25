@@ -27,60 +27,62 @@ result:null};
 // }
 
 function getDriverLicenseDataFromDB(userDataFromPromis){
-  console.log("IN DRIVER LICENSE BEFORE ::: "+userDataFromPromis, userDataFromPromis.userdata.userID)
+  
   return new Promise(function(resolve,reject){
-    console.log("IN DRIVER LICENSE ::: "+userDataFromPromis.userdata, userDataFromPromis.userdata.userID)
+  
   let queryCourses = `SELECT * FROM v_user_data_driver_license WHERE userID = ${userDataFromPromis.userdata.userID} `;
+
   userDataFromPromis.connection.query(queryCourses, (err, result) => {
     if (err) reject(console.log(err.message));
     if (result) {
       console.log(result);
       if (Array.isArray(result)) {
         result.forEach(item => {
-          switch (item) {
+        
+          switch (item.driverLicenseName) {
             case 'A1':
               {
-                userDataFromPromis.userdata.drivLicense.driverLicenseA1 = 1;
+                userDataFromPromis.userdata.drivLicense.driverLicenseA1 =1;
                 break;
               }
             case 'A':
               {
-                userDataFromPromis.userdata.drivLicense.driverLicenseA = 1;
+                userDataFromPromis.userdata.drivLicense.driverLicenseA =1;
                 break;
               }
             case 'B1':
               {
-                userDataFromPromis.userdata.drivLicense.driverLicenseB1 = 1;
+                userDataFromPromis.userdata.drivLicense.driverLicenseB1 =1;
                 break;
               }
             case 'B':
               {
-                userDataFromPromis.userdata.drivLicense.driverLicenseB = 1;
+                userDataFromPromis.userdata.drivLicense.driverLicenseB =1;
                 break;
               }
             case 'C1':
               {
-                userDataFromPromis.userdata.drivLicense.driverLicenseC1 = 1;
+                userDataFromPromis.userdata.drivLicense.driverLicenseC1 =1;
                 break;
               }
             case 'C':
               {
-                userDataFromPromis.userdata.drivLicense.driverLicenseC = 1;
+                userDataFromPromis.userdata.drivLicense.driverLicenseC =1;
                 break;
               }
             case 'D1':
               {
-                userDataFromPromis.userdata.drivLicense.driverLicenseD1 = 1;
+                userDataFromPromis.userdata.drivLicense.driverLicenseD1 =1;
                 break;
               }
             case 'D':
               {
-                userDataFromPromis.userdata.drivLicense.driverLicenseD = 1;
+                userDataFromPromis.userdata.drivLicense.driverLicenseD =1;
                 break;
               }
             case 'T':
               {
-                userDataFromPromis.userdata.drivLicense.driverLicenseT = 1;
+                userDataFromPromis.userdata.drivLicense.driverLicenseT =1;
                 break;
               }
             default:
@@ -91,6 +93,7 @@ function getDriverLicenseDataFromDB(userDataFromPromis){
 
         });
       }
+      console.log("userDataFromPromis.userdata.drivLicense ================== "+ userDataFromPromis.userdata.drivLicense);
       resolve(userDataFromPromis);
     }
   });
@@ -119,7 +122,7 @@ const getExpirienceDataFromDB = (userDataFromPromis) => {
 }
 const getEducationDataFromDB = (userDataFromPromis) => {
   return new Promise(function(resolve,reject){
-  let queryCourses = `SELECT * FROM v_user_data_education WHERE userID = ${userDataFromPromis.userdata.userID} `;
+  let queryCourses = `SELECT * FROM user_education WHERE userID = ${userDataFromPromis.userdata.userID} `;
   userDataFromPromis.connection.query(queryCourses, (err, result) => {
     if (err)reject(console.log(err.message));
     if (result) {
@@ -130,7 +133,7 @@ const getEducationDataFromDB = (userDataFromPromis) => {
           userDataFromPromis.userdata.faculty.push(item.faculty);
           userDataFromPromis.userdata.specialty.push(item.specialty);
           userDataFromPromis.userdata.ending.push(item.ending);
-          userDataFromPromis.userdata.levelEducation.push(item.level_of_educationName);
+          userDataFromPromis.userdata.levelEducation.push(item.fk_levelEducation);
         });
       }
       resolve(userDataFromPromis);
@@ -183,15 +186,15 @@ const getCourseDataFromDB = (userDataFromPromis) => {
 
 const getLanguageDataFromDB = (userDataFromPromis) => {
   return new Promise(function(resolve,reject){
-  let queryCourses = `SELECT * FROM v_user_data_language WHERE userID = ${userDataFromPromis.userdata.userID} `;
+  let queryCourses = `SELECT * FROM user_language WHERE userID = ${userDataFromPromis.userdata.userID} `;
   userDataFromPromis.connection.query(queryCourses, (err, result) => {
     if (err) reject(console.log(err.message));
     if (result) {
       console.log(result);
       if (Array.isArray(result)) {
         result.forEach(item => {
-          userDataFromPromis.userdata.langName.push(item.language_name);
-          userDataFromPromis.userdata.level.push(item.languag_proficiency_levelName);
+          userDataFromPromis.userdata.langName.push(item.fk_langName);
+          userDataFromPromis.userdata.level.push(item.fk_languag_proficiency_levelID);
 
         });
       }
@@ -285,7 +288,7 @@ function getMainUserDataFromDB(dbConnection,userData,foundUserID,fs,res){
     userDataFromPromis.filestream=fs;
     userDataFromPromis.userdata=userData;
     userDataFromPromis.result=res;   
-let queryToView = `SELECT * FROM v_user_data WHERE userID = ${foundUserID} `;
+let queryToView = `SELECT * FROM users_info WHERE userID = ${foundUserID} `;
 console.log("userDataFromPromis" + userDataFromPromis);
 userDataFromPromis.connection.query(queryToView, (err, result) => {
       if (err) reject(console.log(err.message));
@@ -312,11 +315,11 @@ userDataFromPromis.connection.query(queryToView, (err, result) => {
         userDataFromPromis.userdata.children = result.children;
         userDataFromPromis.userdata.businessTrip = result.businessTrip;
         userDataFromPromis.userdata.image = result.image;
-        userDataFromPromis.userdata.employment = result.employmentName;
-        userDataFromPromis.userdata.schedule = result.scheduleName;
-        userDataFromPromis.userdata.maritalStatus = result.marital_statusName;
-        userDataFromPromis.userdata.education = result.level_of_educationName;
-        userDataFromPromis.userdata.currency = result.currencyName;  
+        userDataFromPromis.userdata.employment = result.fk_employmentID;
+        userDataFromPromis.userdata.schedule = result.fk_scheduleID;
+        userDataFromPromis.userdata.maritalStatus = result.fk_marital_statusID;
+        userDataFromPromis.userdata.education = result.fk_level_of_educationID;
+        userDataFromPromis.userdata.currency = result.fk_currencyID;  
         console.log("In getUserData ::: " + userDataFromPromis.userdata.image);      
   }
   console.log("AFTER  ::: " + userDataFromPromis.userdata.userID);

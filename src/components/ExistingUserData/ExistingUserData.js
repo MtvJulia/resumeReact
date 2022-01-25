@@ -21,7 +21,7 @@ class ExistingUserData extends React.Component {
         }
         this.API_ADDRESS = "http://localhost:55555/existinguserdata";
         this.API_ADDRESS_FILE = "http://localhost:55555/file";
-        this.changeData = this.changeData.bind(this);
+       
         this.expArray = [];
         this.educArray = [];
         this.langArray = [];
@@ -40,13 +40,12 @@ class ExistingUserData extends React.Component {
         this.imageFromDB="";              
          //--------------------------------------------------------
 
+       // this.changeData = this.changeData.bind(this);
         this.fillExpArr = this.fillExpArr.bind(this);
         this.fillEducArr = this.fillEducArr.bind(this);
         this.fillLangArr = this.fillLangArr.bind(this);
         this.fillCoursArr = this.fillCoursArr.bind(this);
-        this.fillRecomendArr = this.fillRecomendArr.bind(this);
-        this.fillDriveLicenseObj = this.fillDriveLicenseObj.bind(this);
-        this.getCurrency = this.getCurrency.bind(this);
+        this.fillRecomendArr = this.fillRecomendArr.bind(this);    
         this.AddLang = this.AddLang.bind(this);
         this.AddScheduler = this.AddScheduler.bind(this);
         this.AddCourse = this.AddCourse.bind(this);
@@ -85,117 +84,12 @@ class ExistingUserData extends React.Component {
         this.setDriveLicenseD1 = this.setDriveLicenseD1.bind(this);
         this.setDriveLicenseD = this.setDriveLicenseD.bind(this);
         this.setDriveLicenseT = this.setDriveLicenseT.bind(this);     
-    }
-    
-       
-    getCurrency(data, currency) {
-
-        switch (data.currency) {
-            case "Гривна":
-                {
-                    currency = "₴ - гривна";
-                    break;
-                }
-            case "Доллар США":
-                {
-                    currency = "$ - доллар";
-                    break;
-                }
-            case "Евро":
-                {
-                    currency = "€ - евро";
-                    break;
-                }
-            case "Рубли":
-                {
-                    currency = "₽ - рубль";
-                    break;
-                }
-            case "Фунт стерлингов":
-                {
-                    currency = "£ - фунты";
-                    break;
-                }
-            case "Юань":
-                {
-                    currency = "¥ - юань";
-                    break;
-                }
-            case "Другая":
-                {
-                    currency = "другая валюта";
-                    break;
-                }
-        }
-        return currency;
-    }
-
-    fillDriveLicenseObj(data) {
-        for (let i = 0; i < data.driverLicense.length; i++) {
-            switch (data.driverLicense[i]) {
-                case "A1":
-                    {
-                        data.driverLicense.A1 = 1;
-                        document.getElementById('id_driverLicenseA1').checked=data.driverLicense.A1;
-                        break;
-                    }
-                case "A":
-                    {
-                        data.driverLicense.A = 1;
-                        document.getElementById('id_driverLicenseA').checked=data.driverLicense.A;
-                        break;
-                    }
-                case "B1":
-                    {
-                        data.driverLicense.B1 = 1;
-                        document.getElementById('id_driverLicenseB1').checked=data.driverLicense.B1;
-                        break;
-                    }
-                case "B":
-                    {                      
-                        data.driverLicense.B = 1; 
-                        document.getElementById('id_driverLicenseB').checked=data.driverLicense.B;                       
-                        break;
-                    }
-                case "C1":
-                    {
-                        data.driverLicense.C1 = 1;
-                        document.getElementById('id_driverLicenseC1').checked=data.driverLicense.C1;
-                        break;
-                    }
-                case "C":
-                    {
-                        data.driverLicense.C = 1;
-                        document.getElementById('id_driverLicenseC').checked=data.driverLicense.C;
-                        break;
-                    }
-                case "D1":
-                    {
-                        data.driverLicense.D1 = 1;
-                        document.getElementById('id_driverLicenseD1').checked=data.driverLicense.D1;
-                        break;
-                    }
-                case "D":
-                    {
-                        data.driverLicense.D = 1;
-                        document.getElementById('id_driverLicenseD').checked=data.driverLicense.D;
-                        break;
-                    }
-                case "T":
-                    {
-                        data.driverLicense.T = 1;
-                        document.getElementById('id_driverLicenseT').checked=data.driverLicense.T;
-                        break;
-                    }
-            }
-        }
-    }
-
-
+    } 
+   
     fillCoursArr(data, coursArr) {
 
         for (let i = 0; i < data.courseName.length; i++) {
-            if (data.courseName[i] != "NULL"&&data.organization[i]!="NULL") 
+            if (data.courseName[i] != null&&data.organization[i]!=null) 
             {
                 var objCourses = {};
 
@@ -210,7 +104,7 @@ class ExistingUserData extends React.Component {
     fillRecomendArr(data, recomendArr) {
 
         for (let i = 0; i < data.phoneCompany.length; i++) {
-            if (data.phoneCompany[i]!="NULL") // data.company[i]!="NULL" && 
+            if (data.phoneCompany[i]!=null)  
             {
                 var objRecomendation = {};
 
@@ -227,49 +121,13 @@ class ExistingUserData extends React.Component {
     fillLangArr(data, langArr) {
         for (let i = 0; i < data.langName.length; i++) {
 
-            if (data.langName[i] != "NULL" && data.level[i]!="NULL") 
+            if (data.langName[i] != null && data.level[i]!=null) 
             {
                 var objLanguage = {};
 
                 objLanguage.langName = data.langName[i];
-                switch (data.level[i]) {
-                    case "1":
-                        {
-                            objLanguage.level = "A1 - начальный";
-                            break;
-                        }
-                    case "2":
-                        {
-                            objLanguage.level = "A2 - базовый";
-                            break;
-                        }
-                    case "3":
-                        {
-                            objLanguage.level = "B1 - средний";
-                            break;
-                        }
-                    case "4":
-                        {
-                            objLanguage.level = "B2 - выше среднего";
-                            break;
-                        }
-                    case "5":
-                        {
-                            objLanguage.level = "C1 - продвинутый";
-                            break;
-                        }
-                    case "6":
-                        {
-                            objLanguage.level = "C2 - профессиональный";
-                            break;
-                        }
-                    case "7":
-                        {
-                            objLanguage.level = "A1 - начальный";
-                            break;
-                        }
-    
-                }
+                objLanguage.level = data.level[i];
+               
                 langArr.push(objLanguage);
             }           
         }
@@ -278,7 +136,7 @@ class ExistingUserData extends React.Component {
     fillEducArr(data, educArr) {
         if (data.institutName != null) {
             for (let i = 0; i < data.institutName.length; i++) {
-                if (data.institutName[i] != "NULL" && data.specialty[i]!="NULL"){
+                if (data.institutName[i] != null && data.specialty[i]!=null){
                     var objEducation = {};
 
                 objEducation.institutName = data.institutName[i];
@@ -297,7 +155,7 @@ class ExistingUserData extends React.Component {
     fillExpArr(data, expArr) {
         if (data.companyName != null) {
             for (let i = 0; i < data.companyName.length; i++) {
-                if (data.companyName[i] != "NULL" && data.positionWork[i]!="NULL")
+                if (data.companyName[i] != null && data.positionWork[i]!=null)
                 {
                     var objExperience = {};
 
@@ -314,14 +172,14 @@ class ExistingUserData extends React.Component {
             }
         }
     }
-    changeData(data) {
+    // changeData(data) {
 
-        if (data[0].endingCourse == null) {
-            data[0].endingCourse = "";
-        }
-        data[0].positionWork = data[0].positionWork.split("~");
+    //     if (data[0].endingCourse == null) {
+    //         data[0].endingCourse = "";
+    //     }
+    //     data[0].positionWork = data[0].positionWork.split("~");
 
-    }
+    // }
     AddLang() {
         var langList = document.getElementById("langList");                 
                  
@@ -406,20 +264,15 @@ class ExistingUserData extends React.Component {
     setHobby(event){ this.setState(Object.assign(this.state.items,{ hobby:event.target.value})); }
     setPersonalQualities(event){ this.setState(Object.assign(this.state.items,{ personalQualities:event.target.value})); }
     setProfessionalSkills(event){ this.setState(Object.assign(this.state.items,{ professionalSkills:event.target.value})); }
-    setDriveLicenseA1(event){if(this.state.items.driverLicense!=undefined){this.setState(Object.assign(this.state.items.driverLicense,{ A1:event.target.checked}));}}
-    setDriveLicenseA(event){if(this.state.items.driverLicense!=undefined){this.setState(Object.assign(this.state.items.driverLicense,{ A:event.target.checked}));}}
-    setDriveLicenseB1(event){if(this.state.items.driverLicense!=undefined){this.setState(Object.assign(this.state.items.driverLicense,{ B1:event.target.checked}));}}
-    setDriveLicenseB(event){if(this.state.items.driverLicense!=undefined){this.setState(Object.assign(this.state.items.driverLicense,{ B:event.target.checked}));}}
-    setDriveLicenseC1(event){if(this.state.items.driverLicense!=undefined){this.setState(Object.assign(this.state.items.driverLicense,{ C1:event.target.checked}));}}
-    setDriveLicenseC(event){if(this.state.items.driverLicense!=undefined){this.setState(Object.assign(this.state.items.driverLicense,{ C:event.target.checked}));}}
-    setDriveLicenseD1(event){if(this.state.items.driverLicense!=undefined){this.setState(Object.assign(this.state.items.driverLicense,{ D1:event.target.checked}));}}
-    setDriveLicenseD(event){if(this.state.items.driverLicense!=undefined){this.setState(Object.assign(this.state.items.driverLicense,{ D:event.target.checked}));}}
-    setDriveLicenseT(event){if(this.state.items.driverLicense!=undefined){this.setState(Object.assign(this.state.items.driverLicense,{ T:event.target.checked}));} }
-
-
-
-
-
+    setDriveLicenseA1(event){if(this.state.items.drivLicense!=undefined){this.setState(Object.assign(this.state.items.drivLicense,{ driverLicenseA1:event.target.checked}));}}
+    setDriveLicenseA(event){if(this.state.items.drivLicense!=undefined){this.setState(Object.assign(this.state.items.drivLicense,{ driverLicenseA:event.target.checked}));}}
+    setDriveLicenseB1(event){if(this.state.items.drivLicense!=undefined){this.setState(Object.assign(this.state.items.drivLicense,{ driverLicenseB1:event.target.checked}));}}
+    setDriveLicenseB(event){if(this.state.items.drivLicense!=undefined){this.setState(Object.assign(this.state.items.drivLicense,{ driverLicenseB:event.target.checked}));}}
+    setDriveLicenseC1(event){if(this.state.items.drivLicense!=undefined){this.setState(Object.assign(this.state.items.drivLicense,{ driverLicenseC1:event.target.checked}));}}
+    setDriveLicenseC(event){if(this.state.items.drivLicense!=undefined){this.setState(Object.assign(this.state.items.drivLicense,{ driverLicenseC:event.target.checked}));}}
+    setDriveLicenseD1(event){if(this.state.items.drivLicense!=undefined){this.setState(Object.assign(this.state.items.drivLicense,{ driverLicensD1:event.target.checked}));}}
+    setDriveLicenseD(event){if(this.state.items.drivLicense!=undefined){this.setState(Object.assign(this.state.items.drivLicense,{ driverLicenseD:event.target.checked}));}}
+    setDriveLicenseT(event){if(this.state.items.drivLicense!=undefined){this.setState(Object.assign(this.state.items.drivLicense,{ driverLicenseT:event.target.checked}));} }
 
 
 
@@ -428,18 +281,14 @@ class ExistingUserData extends React.Component {
         fetch(this.API_ADDRESS)
             .then((response) => response.json())
             .then((data) => {
-                console.log("DATA ::::::::::::::::::::  "+data);
-                console.log(data[0]);
-               // data = data[0]; //переводим в объект                
-               
-
+                console.log("DATA ::::::::::::::::::::  "+data.drivLicense.driverLicenseA1);              
+                                    
                 let expArr = [];
                 let educArr = [];
                 let langArr = [];
                 let coursArr = [];
-                let recomendArr = [];               
-                let currency = "";
-             
+                let recomendArr = [];             
+                            
               if(data.file){               
                 let fileFromDB = new Buffer.from(data.file).toString("base64");
                 this.imageFromDB = "data:image/png;base64," + fileFromDB;
@@ -448,39 +297,29 @@ class ExistingUserData extends React.Component {
                 this.imageFromDB = UploadPhoto;
                }
                    console.dir(data.file);
-                //   console.dir( this.imageFromDB);
                                  
             if(data.companyName != null) this.fillExpArr(data, expArr);
             if(data.institutName != null) this.fillEducArr(data, educArr);
             if(data.langName != null)  this.fillLangArr(data, langArr);
             if (data.courseName != null)this.fillCoursArr(data, coursArr);               
             if (data.phoneCompany != null)this.fillRecomendArr(data, recomendArr);             
-            if (data.driverLicense != null)this.fillDriveLicenseObj(data); 
-                     
-
+          
                 this.expArray = expArr;
                 this.educArray = educArr;
-                this.langArray = langArr;
-                console.log(this.langArray);
-                this.coursArray = coursArr;
-                console.log(this.coursArray);
-                this.recomendationArray = recomendArr;              
-                this.currencyName = this.getCurrency(data, currency);
-               
+                this.langArray = langArr;              
+                this.coursArray = coursArr;             
+                this.recomendationArray = recomendArr;                          
 
-               if(data.birthOfDate == undefined)
-               {
-                data.birthOfDate=''; 
-               }
+               if(data.birthOfDate == undefined){ data.birthOfDate=''; }
 
                 this.setState({
                     items: data                    
                 });
-                console.dir(this.state.items);
-                
+                console.dir(this.state.items);               
                
-               this.setState(Object.assign(this.state.items,{ currency: this.currencyName}));
-               console.dir(this.state.items.currency);
+            //    this.setState(Object.assign(this.state.items,{ currency: this.currencyName}));
+            //    console.dir(this.state.items.currency);
+           
             });
     }
 
@@ -741,39 +580,39 @@ class ExistingUserData extends React.Component {
                                             <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <label for="id_driverLicense">Права категории:</label>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseA1" className="custom-control-input" name="id_driverLicenseA1" value="1" onChange = {this.setDriveLicenseA1} />
+                                                    <input type="checkbox" id="id_driverLicenseA1" className="custom-control-input" name="id_driverLicenseA1"checked={this.state.items.drivLicense.driverLicenseA1} value="1" onChange = {this.setDriveLicenseA1} />
                                                     <label className="custom-control-label" for="id_driverLicenseA1">A1</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseA" className="custom-control-input" name="id_driverLicenseA" value="2"   onChange = {this.setDriveLicenseA} />
+                                                    <input type="checkbox" id="id_driverLicenseA" className="custom-control-input" name="id_driverLicenseA" value="2" checked={this.state.items.drivLicense.driverLicenseA}  onChange = {this.setDriveLicenseA} />
                                                     <label className="custom-control-label" for="id_driverLicenseA">A</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseB1" className="custom-control-input" name="id_driverLicenseB1"  value="3"  onChange = {this.setDriveLicenseB1}/>
+                                                    <input type="checkbox" id="id_driverLicenseB1" className="custom-control-input" name="id_driverLicenseB1"  value="3" checked={this.state.items.drivLicense.driverLicenseB1} onChange = {this.setDriveLicenseB1}/>
                                                     <label className="custom-control-label" for="id_driverLicenseB1">B1</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseB" className="custom-control-input" name="id_driverLicenseB"   value="4"  onChange = {this.setDriveLicenseB}/>
+                                                    <input type="checkbox" id="id_driverLicenseB" className="custom-control-input" name="id_driverLicenseB"   value="4" checked={this.state.items.drivLicense.driverLicenseB} onChange = {this.setDriveLicenseB}/>
                                                     <label className="custom-control-label" for="id_driverLicenseB">B</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseC1" className="custom-control-input" name="id_driverLicenseC1"   value="5"  onChange = {this.setDriveLicenseC1}/>
+                                                    <input type="checkbox" id="id_driverLicenseC1" className="custom-control-input" name="id_driverLicenseC1"   value="5" checked={this.state.items.drivLicense.driverLicenseC1} onChange = {this.setDriveLicenseC1}/>
                                                     <label className="custom-control-label" for="id_driverLicenseC1">C1</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseC" className="custom-control-input" name="id_driverLicenseC" value="6"  onChange = {this.setDriveLicenseC}/>
+                                                    <input type="checkbox" id="id_driverLicenseC" className="custom-control-input" name="id_driverLicenseC" value="6" checked={this.state.items.drivLicense.driverLicenseC} onChange = {this.setDriveLicenseC}/>
                                                     <label className="custom-control-label" for="id_driverLicenseC">C</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseD1" className="custom-control-input" name="id_driverLicenseD1"   value="7"  onChange = {this.setDriveLicenseD1}/>
+                                                    <input type="checkbox" id="id_driverLicenseD1" className="custom-control-input" name="id_driverLicenseD1"   value="7" checked={this.state.items.drivLicense.driverLicenseD1} onChange = {this.setDriveLicenseD1}/>
                                                     <label className="custom-control-label" for="id_driverLicenseD1">D1</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseD" className="custom-control-input" name="id_driverLicenseD"  value="8"  onChange = {this.setDriveLicenseD}/>
+                                                    <input type="checkbox" id="id_driverLicenseD" className="custom-control-input" name="id_driverLicenseD"  value="8" checked={this.state.items.drivLicense.driverLicenseD} onChange = {this.setDriveLicenseD}/>
                                                     <label className="custom-control-label" for="id_driverLicenseD">D</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseT" className="custom-control-input" name="id_driverLicenseT" value="9"    onChange = {this.setDriveLicenseT}/>
+                                                    <input type="checkbox" id="id_driverLicenseT" className="custom-control-input" name="id_driverLicenseT" value="9" checked={this.state.items.drivLicense.driverLicenseT} onChange = {this.setDriveLicenseT}/>
                                                     <label className="custom-control-label" for="id_driverLicenseT">T</label>
                                                 </div>
                                             </div>
