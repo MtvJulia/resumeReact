@@ -35,7 +35,7 @@ function getDriverLicenseDataFromDB(userDataFromPromis){
   userDataFromPromis.connection.query(queryCourses, (err, result) => {
     if (err) reject(console.log(err.message));
     if (result) {
-      console.log(result);
+      //console.log(result);
       if (Array.isArray(result)) {
         result.forEach(item => {
         
@@ -93,7 +93,7 @@ function getDriverLicenseDataFromDB(userDataFromPromis){
 
         });
       }
-      console.log("userDataFromPromis.userdata.drivLicense ================== "+ userDataFromPromis.userdata.drivLicense);
+     // console.log("userDataFromPromis.userdata.drivLicense ================== "+ userDataFromPromis.userdata.drivLicense);
       resolve(userDataFromPromis);
     }
   });
@@ -104,7 +104,7 @@ const getExpirienceDataFromDB = (userDataFromPromis) => {
   userDataFromPromis.connection.query(queryCourses, (err, result) => {
     if (err)reject(console.log(err.message));
     if (result) {
-      console.log(result);
+     // console.log(result);
       if (Array.isArray(result)) {
         result.forEach(item => {
           userDataFromPromis.userdata.companyName.push(item.companyName);
@@ -126,7 +126,7 @@ const getEducationDataFromDB = (userDataFromPromis) => {
   userDataFromPromis.connection.query(queryCourses, (err, result) => {
     if (err)reject(console.log(err.message));
     if (result) {
-      console.log(result);
+      //console.log(result);
       if (Array.isArray(result)) {
         result.forEach(item => {
           userDataFromPromis.userdata.institutName.push(item.institutName);
@@ -148,12 +148,13 @@ const getRecomendingDataFromDB = (userDataFromPromis) => {
   userDataFromPromis.connection.query(queryCourses, (err, result) => {
     if (err)reject(console.log(err.message));
     if (result) {
-      console.log(result);
+     // console.log(result);
       if (Array.isArray(result)) {
         result.forEach(item => {
           userDataFromPromis.userdata.company.push(item.company);
           userDataFromPromis.userdata.personRecommending.push(item.personRecommending);
-          userDataFromPromis.userdata.emailCompany.push(item.emailCompany);
+          if(item.emailCompany!=null)userDataFromPromis.userdata.emailCompany.push(item.emailCompany);
+          else{userDataFromPromis.userdata.emailCompany.push("");}
           userDataFromPromis.userdata.phoneCompany.push(item.phoneCompany);
         });
       }
@@ -190,7 +191,7 @@ const getLanguageDataFromDB = (userDataFromPromis) => {
   userDataFromPromis.connection.query(queryCourses, (err, result) => {
     if (err) reject(console.log(err.message));
     if (result) {
-      console.log(result);
+      //console.log(result);
       if (Array.isArray(result)) {
         result.forEach(item => {
           userDataFromPromis.userdata.langName.push(item.fk_langName);
@@ -206,17 +207,17 @@ const getLanguageDataFromDB = (userDataFromPromis) => {
 
 
 const sendData = (userDataFromPromis,callback=(userDataFromPromis)=>{
-  console.log("I'm here!!!");  
-  console.log(userDataFromPromis);
+  //console.log("I'm here!!!");  
+ // console.log(userDataFromPromis);
   var userData = userDataFromPromis.userdata;
-  console.log("USER DATA SEND DATA :" + userData);
+  //console.log("USER DATA SEND DATA :" + userData);
   userDataFromPromis.result.json(userData);
   userDataFromPromis.result.end();
-  console.log("I'm gooooo!!!");
+  //console.log("I'm gooooo!!!");
 }) => {
   if (userDataFromPromis.userdata.image != null) {
     var imageData = userDataFromPromis.userdata.image.toString();
-console.log(userDataFromPromis.userdata.image.toString());
+//console.log(userDataFromPromis.userdata.image.toString());
 userDataFromPromis.filestream.readFile('uploads/' + imageData, function (error, data) {
       if (error) {
         response.statusCode = 404;
@@ -225,17 +226,14 @@ userDataFromPromis.filestream.readFile('uploads/' + imageData, function (error, 
       else {
         userDataFromPromis.userdata.file = data;
         userDataFromPromis.userdata.file.originalname = imageData;
-        console.log("OOOOKKKKKK!!!!");
-        console.log(userDataFromPromis.userdata.file);
-        console.log("------------NEW--USER DATA-----------");
-        console.log(userDataFromPromis.userdata); 
+        // console.log("OOOOKKKKKK!!!!");
+        // console.log(userDataFromPromis.userdata.file);
+        // console.log("------------NEW--USER DATA-----------");
+        // console.log(userDataFromPromis.userdata); 
         callback(userDataFromPromis);          
       }
     });    
   } 
-
-
-
 };
 
 
@@ -289,7 +287,7 @@ function getMainUserDataFromDB(dbConnection,userData,foundUserID,fs,res){
     userDataFromPromis.userdata=userData;
     userDataFromPromis.result=res;   
 let queryToView = `SELECT * FROM users_info WHERE userID = ${foundUserID} `;
-console.log("userDataFromPromis" + userDataFromPromis);
+//console.log("userDataFromPromis" + userDataFromPromis);
 userDataFromPromis.connection.query(queryToView, (err, result) => {
       if (err) reject(console.log(err.message));
       if (result) {
@@ -301,7 +299,7 @@ userDataFromPromis.connection.query(queryToView, (err, result) => {
         userDataFromPromis.userdata.middleName = result.middleName;
         userDataFromPromis.userdata.birthOfDate = result.birthOfDate;
         userDataFromPromis.userdata.phone = result.phone;
-        userDataFromPromis.userdata.email = result.email;
+        userDataFromPromis.userdata.email = result.email;       
         userDataFromPromis.userdata.сityOfResidence = result.сityOfResidence;
         userDataFromPromis.userdata.nationality = result.nationality;
         userDataFromPromis.userdata.position = result.position;
@@ -320,9 +318,9 @@ userDataFromPromis.connection.query(queryToView, (err, result) => {
         userDataFromPromis.userdata.maritalStatus = result.fk_marital_statusID;
         userDataFromPromis.userdata.education = result.fk_level_of_educationID;
         userDataFromPromis.userdata.currency = result.fk_currencyID;  
-        console.log("In getUserData ::: " + userDataFromPromis.userdata.image);      
+       // console.log("In getUserData ::: " + userDataFromPromis.userdata.image);      
   }
-  console.log("AFTER  ::: " + userDataFromPromis.userdata.userID);
+  //console.log("AFTER  ::: " + userDataFromPromis.userdata.userID);
   resolve(userDataFromPromis);
 });
   })
@@ -330,7 +328,7 @@ userDataFromPromis.connection.query(queryToView, (err, result) => {
 }
 
 function getUserData(res, userData, dbConnection, foundUserID, fs)    {
-  console.log(foundUserID);
+ // console.log(foundUserID);
 
  // console.log(userData);
 

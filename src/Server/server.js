@@ -108,24 +108,24 @@ dbConnection.connect((err) => {
 });
 
 
-const requestToDbCUD = (query, dbConnection, res, objJSON, newUser) => {
+// const requestToDbCUD = (query, dbConnection, res, objJSON, newUser) => {
 
-    console.log(newUser);
+//     console.log(newUser);
 
-    dbConnection.query(query, (err, result) => {
+//     dbConnection.query(query, (err, result) => {
 
-        if (err) console.log(err.message);
+//         if (err) console.log(err.message);
 
-        else {
+//         else {
 
-            getToRegistrationFlag = true;
+//             getToRegistrationFlag = true;
 
-            return requestToDbGETAferPost("SELECT * FROM v_getUserData", dbConnection, res, newUser);
+//             return requestToDbGETAferPost("SELECT * FROM v_getUserData", dbConnection, res, newUser);
 
-        }
-        res.end();
-    });
-}
+//         }
+//         res.end();
+//     });
+// }
 const requestToDbGETAferPost = (query, dbConnection, res, newUser) => {
 
     dbConnection.query(query, (err, result) => {
@@ -145,7 +145,6 @@ const requestToDbGETAferPost = (query, dbConnection, res, newUser) => {
     });
 }
 
-///////////////////////???????????????????????????????????????????
 const fillDriverLicense = (newUserData) => {
     let driverLicense = [];
     if (newUserData.id_driverLicenseA1 != undefined) { driverLicense.push(newUserData.id_driverLicenseA1); }
@@ -159,38 +158,54 @@ const fillDriverLicense = (newUserData) => {
     if (newUserData.id_driverLicenseT != undefined) {driverLicense.push(newUserData.id_driverLicenseT); }
     return driverLicense;
 }
-const addDriverLicenseToDB = (newUserData, newIDFromDB, dbConnection) => {
+const addDriverLicenseToDB = (newUserData, dbConnection) => {
     let drLicense = fillDriverLicense(newUserData);
-
-    if (drLicense.length > 0) {
-        drLicense.forEach(function (item) {
-            let queryDriverLicense = ` INSERT INTO user_driver_license(userID,fk_driverLicense)
-        VALUES(${newIDFromDB},${item})`;
-            dbConnection.query(queryDriverLicense, (err, result) => {
-                if (err) console.log(err.message);
+    // Data new user from db.
+    if(foundUser.UserLogin == undefined){
+        if (drLicense.length > 0) {
+            drLicense.forEach(function (item) {
+                let queryDriverLicense = ` INSERT INTO user_driver_license(userID,fk_driverLicense)
+            VALUES(${newUserData.userID},${item})`;
+                dbConnection.query(queryDriverLicense, (err, result) => {
+                    if (err) console.log(err.message);
+                });
             });
-        });
-    }
-}
-const addLanguageToDB = (newUserData, newIDFromDB, dbConnection) => {
-    if (newUserData.id_langName != undefined && newUserData.id_langName != '' && newUserData.id_langName != null) {
-        //// lang name a number  
-        if (newUserData.id_langName.length > 0) {
-
-            for (i = 0; i < newUserData.id_langName.length; i++) {
-                if (newUserData.id_langName[i] != '' && newUserData.id_level[i] != "") {
-                    let queryLang = ` INSERT INTO user_language(userID,fk_langName,fk_languag_proficiency_levelID)
-        VALUES(${newIDFromDB},${newUserData.id_langName[i]},${newUserData.id_level[i]})`;
-                    dbConnection.query(queryLang, (err, result) => {
-                        if (err) console.log(err.message);
-                    });
-                }
-            }
         }
     }
+    else {
+
+
+
+    }
+    
+}
+const addLanguageToDB = (newUserData, dbConnection) => {
+    if (newUserData.id_langName != undefined && newUserData.id_langName != '' && newUserData.id_langName != null) {
+        
+    // Data new user from db or update user.
+    
+    //// lang name a number  
+    if (newUserData.id_langName.length > 0) {
+
+        for (i = 0; i < newUserData.id_langName.length; i++) {
+            if (newUserData.id_langName[i] != '' && newUserData.id_level[i] != "") {
+                let queryLang = ` INSERT INTO user_language(userID,fk_langName,fk_languag_proficiency_levelID)
+                                  VALUES(${newUserData.userID},${newUserData.id_langName[i]},${newUserData.id_level[i]}) 
+                                  ON DUPLICATE KEY UPDATE fk_langName=${newUserData.id_langName[i]}, fk_languag_proficiency_levelID=${newUserData.id_level[i]}`;
+                dbConnection.query(queryLang, (err, result) => {
+                    if (err) console.log(err.message);
+                    console.log("RES INSERT");
+                    console.log(result);
+                });
+            }
+        }
+    }     
+   }
 }
 
-const addCoursesToDB = (newUserData, newIDFromDB, dbConnection) => {
+const addCoursesToDB = (newUserData, dbConnection) => {
+      // Data new user from db.
+    
     if (newUserData.id_courseName != '' && newUserData.id_courseName != null) {
         let count = 0;
         console.log(newUserData.id_courseName);
@@ -202,9 +217,13 @@ const addCoursesToDB = (newUserData, newIDFromDB, dbConnection) => {
         if (count > 0) {
             for (i = 0; i < newUserData.id_courseName.length; i++) {
                 if (newUserData.id_courseName[i] != '' && newUserData.id_organization[i] != "" && newUserData.id_endingCourse[i] != "") {
+
                     let queryCourses = ` INSERT INTO user_course(userID,courseName,organization,endingCourse)
-                VALUES(${newIDFromDB},\'${newUserData.id_courseName[i]}\',\'${newUserData.id_organization[i]}\',\'${newUserData.id_endingCourse[i]}\')`;
-                    dbConnection.query(queryCourses, (err, result) => {
+                                         VALUES(${newUserData.userID },\'${newUserData.id_courseName[i]}\',\'${newUserData.id_organization[i]}\',\'${newUserData.id_endingCourse[i]}\')
+                                         ON DUPLICATE KEY UPDATE courseName=\'${newUserData.id_courseName[i]}\', organization=\'${newUserData.id_organization[i]}\', 
+                                         endingCourse=\'${newUserData.id_endingCourse[i]}\' `;
+                   
+                dbConnection.query(queryCourses, (err, result) => {
                         if (err) console.log(err.message);
                     });
                 }
@@ -212,15 +231,17 @@ const addCoursesToDB = (newUserData, newIDFromDB, dbConnection) => {
         }
         else {
             let queryCourses = ` INSERT INTO user_course(userID,courseName,organization,endingCourse)
-                VALUES(${newIDFromDB},\'${newUserData.id_courseName}\',\'${newUserData.id_organization}\',\'${newUserData.id_endingCourse}\')`;
+                VALUES(${newUserData.userID },\'${newUserData.id_courseName}\',\'${newUserData.id_organization}\',\'${newUserData.id_endingCourse}\')
+                ON DUPLICATE KEY UPDATE courseName=\'${newUserData.id_courseName}\', organization=\'${newUserData.id_organization}\', endingCourse=\'${newUserData.id_endingCourse}\'`;
             dbConnection.query(queryCourses, (err, result) => {
                 if (err) console.log(err.message);
             });
         }
     }
+
 }
 
-const addRecomendingToDB = (newUserData, newIDFromDB, dbConnection) => {
+const addRecomendingToDB = (newUserData, dbConnection) => {
     if (newUserData.id_company != '' && newUserData.id_company != null) {
         let count = 0;
         let email = null;
@@ -237,7 +258,8 @@ const addRecomendingToDB = (newUserData, newIDFromDB, dbConnection) => {
                     }
 
                     let queryRecomending = ` INSERT INTO user_recomending(userID,company,personRecommending,emailCompany,phoneCompany)
-                    VALUES(${newIDFromDB},\'${newUserData.id_company[i]}\',\'${newUserData.id_personRecommending[i]}\',\'${email}\',\'${newUserData.id_phoneCompany[i]}\')`;
+                    VALUES(${newUserData.userID},\'${newUserData.id_company[i]}\',\'${newUserData.id_personRecommending[i]}\',\'${email}\',\'${newUserData.id_phoneCompany[i]}\')
+                    ON DUPLICATE KEY UPDATE company=\'${newUserData.id_company[i]}\',personRecommending=\'${newUserData.id_personRecommending[i]}\', emailCompany=\'${email}\',phoneCompany=\'${newUserData.id_phoneCompany[i]}\'`;
                     dbConnection.query(queryRecomending, (err, result) => {
                         if (err) console.log(err.message);
                     });
@@ -246,14 +268,15 @@ const addRecomendingToDB = (newUserData, newIDFromDB, dbConnection) => {
         }
         else {
             let queryRecomending = ` INSERT INTO user_recomending(userID,company,personRecommending,emailCompany,phoneCompany)
-                VALUES(${newIDFromDB},\'${newUserData.id_company}\',\'${newUserData.id_personRecommending}\',\'${email}\',\'${newUserData.id_phoneCompany}\')`;
+                VALUES(${newUserData.userID},\'${newUserData.id_company}\',\'${newUserData.id_personRecommending}\',\'${email}\',\'${newUserData.id_phoneCompany}\')
+                ON DUPLICATE KEY UPDATE company=\'${newUserData.id_company}\',personRecommending=\'${newUserData.id_personRecommending}\', emailCompany=\'${email}\',phoneCompany=\'${newUserData.id_phoneCompany}\'`;
             dbConnection.query(queryRecomending, (err, result) => {
                 if (err) console.log(err.message);
             });
         }
     }
 }
-const addEducationToDB = (newUserData, newIDFromDB, dbConnection) => {
+const addEducationToDB = (newUserData, dbConnection) => {
     if (newUserData.id_institutName != '' && newUserData.id_institutName != null) {
         let count = 0;
         if (Array.isArray(newUserData.id_institutName)) {
@@ -265,7 +288,7 @@ const addEducationToDB = (newUserData, newIDFromDB, dbConnection) => {
             for (i = 0; i < newUserData.id_institutName.length; i++) {
                 if (newUserData.id_institutName[i] != '' && newUserData.id_faculty[i] != "" && newUserData.id_specialty[i] != "" && newUserData.id_ending[i] != "" && newUserData.id_levelEducation[i] != "") {
                     let queryEducation = ` INSERT INTO user_education(userID,institutName,faculty,specialty,ending,fk_levelEducation)
-                        VALUES(${newIDFromDB},\'${newUserData.id_institutName[i]}\',\'${newUserData.id_faculty[i]}\',\'${newUserData.id_specialty[i]}\',\'${newUserData.id_ending[i]}\',${newUserData.id_levelEducation[i]})`;
+                        VALUES(${newUserData.userID},\'${newUserData.id_institutName[i]}\',\'${newUserData.id_faculty[i]}\',\'${newUserData.id_specialty[i]}\',\'${newUserData.id_ending[i]}\',${newUserData.id_levelEducation[i]})`;
 
                     dbConnection.query(queryEducation, (err, result) => {
                         if (err) console.log(err.message);
@@ -275,7 +298,7 @@ const addEducationToDB = (newUserData, newIDFromDB, dbConnection) => {
         }
         else {
             let queryEducation = ` INSERT INTO user_education(userID,institutName,faculty,specialty,ending,fk_levelEducation)
-                    VALUES(${newIDFromDB},\'${newUserData.id_institutName}\',\'${newUserData.id_faculty}\',\'${newUserData.id_specialty}\',\'${newUserData.id_ending}\',${newUserData.id_levelEducation})`;
+                    VALUES(${newUserData.userID},\'${newUserData.id_institutName}\',\'${newUserData.id_faculty}\',\'${newUserData.id_specialty}\',\'${newUserData.id_ending}\',${newUserData.id_levelEducation})`;
 
             dbConnection.query(queryEducation, (err, result) => {
                 if (err) console.log(err.message);
@@ -283,7 +306,7 @@ const addEducationToDB = (newUserData, newIDFromDB, dbConnection) => {
         }
     }
 }
-const addExpirienceToDB = (newUserData, newIDFromDB, dbConnection) => {
+const addExpirienceToDB = (newUserData, dbConnection) => {
     if (newUserData.id_companyName != '' && newUserData.id_companyName != null) {
         let count = 0;
         let queryExpiriennce = "";
@@ -308,14 +331,14 @@ const addExpirienceToDB = (newUserData, newIDFromDB, dbConnection) => {
                         endWork = newUserData.id_endWork[i];
 
                         queryExpiriennce = ` INSERT INTO user_expirience(userID,companyName,positionWork,jobDuties,startWork,endWork,stillWorking)
-                            VALUES(${newIDFromDB},\'${newUserData.id_companyName[i]}\',\'${newUserData.id_positionWork[i]}\',\'${newUserData.id_jobDuties[i]}\',\'${newUserData.id_startWork[i]}\',
+                            VALUES(${newUserData.userID},\'${newUserData.id_companyName[i]}\',\'${newUserData.id_positionWork[i]}\',\'${newUserData.id_jobDuties[i]}\',\'${newUserData.id_startWork[i]}\',
                             \'${endWork}\',${stillWorking})`;
                     }
                     else {
                         stillWorking = 1;
 
                         queryExpiriennce = ` INSERT INTO user_expirience(userID,companyName,positionWork,jobDuties,startWork,endWork,stillWorking)
-                            VALUES(${newIDFromDB},\'${newUserData.id_companyName[i]}\',\'${newUserData.id_positionWork[i]}\',\'${newUserData.id_jobDuties[i]}\',\'${newUserData.id_startWork[i]}\',
+                            VALUES(${newUserData.userID},\'${newUserData.id_companyName[i]}\',\'${newUserData.id_positionWork[i]}\',\'${newUserData.id_jobDuties[i]}\',\'${newUserData.id_startWork[i]}\',
                             ${endWork},${stillWorking})`;
                     }
 
@@ -334,14 +357,14 @@ const addExpirienceToDB = (newUserData, newIDFromDB, dbConnection) => {
             }
             if (newUserData.id_endWork != undefined && newUserData.id_endWork != "") {
                 queryExpiriennce = ` INSERT INTO user_expirience(userID,companyName,positionWork,jobDuties,startWork,endWork,stillWorking)
-                    VALUES(${newIDFromDB},\'${newUserData.id_companyName[i]}\',\'${newUserData.id_positionWork[i]}\',\'${newUserData.id_jobDuties[i]}\',\'${newUserData.id_startWork[i]}\',
+                    VALUES(${newUserData.userID},\'${newUserData.id_companyName[i]}\',\'${newUserData.id_positionWork[i]}\',\'${newUserData.id_jobDuties[i]}\',\'${newUserData.id_startWork[i]}\',
                     \'${newUserData.id_endWork}\',${stillWorking})`;
             }
             else {
                 stillWorking = 1;
 
                 queryExpiriennce = ` INSERT INTO user_expirience(userID,companyName,positionWork,jobDuties,startWork,endWork,stillWorking)
-                    VALUES(${newIDFromDB},\'${newUserData.id_companyName[i]}\',\'${newUserData.id_positionWork[i]}\',\'${newUserData.id_jobDuties[i]}\',\'${newUserData.id_startWork[i]}\',
+                    VALUES(${newUserData.userID},\'${newUserData.id_companyName[i]}\',\'${newUserData.id_positionWork[i]}\',\'${newUserData.id_jobDuties[i]}\',\'${newUserData.id_startWork[i]}\',
                     ${endWork},${stillWorking})`;
             }
 
@@ -352,31 +375,34 @@ const addExpirienceToDB = (newUserData, newIDFromDB, dbConnection) => {
     }
 }
 
-const requestToDbCUDUserData = (query, dbConnection, res, newUserData, callback = (res, newUserData, newIDFromDB, dbConnection) => {
+const requestToDbCUDUserData = (query, dbConnection,newUserData,res, callback = (res, newUserData, dbConnection) => {
     // console.log("I'm here!!!");  
+    console.log("NEW DATA ::: \\\ ");
     console.log(newUserData);
 
-    addDriverLicenseToDB(newUserData, newIDFromDB, dbConnection);
-    addLanguageToDB(newUserData, newIDFromDB, dbConnection);
-    addCoursesToDB(newUserData, newIDFromDB, dbConnection);
-    addRecomendingToDB(newUserData, newIDFromDB, dbConnection);
-    addEducationToDB(newUserData, newIDFromDB, dbConnection);
-    addExpirienceToDB(newUserData, newIDFromDB, dbConnection);
-    res.end();
+   // addDriverLicenseToDB(newUserData, dbConnection);
+    addLanguageToDB(newUserData, dbConnection);
+    addCoursesToDB(newUserData,  dbConnection);
+    addRecomendingToDB(newUserData,  dbConnection);
+    // addEducationToDB(newUserData, dbConnection);
+    // addExpirienceToDB(newUserData, dbConnection);
+   // res.end();
     console.log("I'm OK END!!!");
 }) => {
-    // console.log("-----------query-------------");
-    // console.log(query);
+    // console.log("-----------query-------------");  
 
+    
     ////-----insert user data to db
-    dbConnection.query(query, (err, result) => {
+        dbConnection.query(query, (err, result) => {
 
         if (err) console.log(err.message);
+        console.log("User ID : ");
+        console.log(newUserData);
+        console.log("User ID END : ");
+        if(newUserData.userID==undefined||newUserData.userID==null||newUserData.userID==""||newUserData.userID==0)newUserData.userID = result.insertId;       
 
-        var newIDFromDB = result.insertId;
-
-        ////-----insert all user data with id
-        callback(res, newUserData, newIDFromDB, dbConnection);
+        ////-----insert or update all user data with id
+        callback(res, newUserData, dbConnection);
     });
 }
 
@@ -523,53 +549,7 @@ server.post("/registration", function (request, response) {
 });
 
 
-////////////////////////////USER DATA POST///////////////////////////////////////////
-
-// server.post("/userdata", upload.single('fupload'), function (request, response) {
-//     response.header("Access-Control-Allow-Origin", "http://localhost:3000");     
-//     const fileName = request.file.originalname;
-//     const newFileNameToDb = Date.now()+"_"+fileName;
-//     fs.rename('uploads/'+fileName,'uploads/'+newFileNameToDb, err => {
-//         if(err) throw err; // не удалось переименовать файл
-//         console.log('Файл успешно переименован');
-//         console.log("*** ::: "+newFileNameToDb+" ::: ***");
-//      });      
-//     let newUserData = request.body;
-//     console.log("---------request body start----------------------------------------");
-//     console.log(request.body);
-//     console.log("---------request body end----------------------------------------");    
-//     console.log("---------newUser----------------------------------------");
-//     console.log(newUser);
-//     console.log("---------newUser-end--------------------------------------");
-//     console.log("---------newUserData----------------------------------------");
-//     console.log(request.body);
-//     console.log("---------newUserData--end--------------------------------------");    
-//     if (newUserData) {      
-//         let endWork = getEndData(newUserData);            
-//         let userDataChecked = getCheckedInfo(newUserData);     
-//         let checkToNull =  CheckedToNull(newUserData);      
-//         let fk_value = getFkValue(newUserData);                            
-//     let query = `INSERT INTO user_info (userLogin,userPassword,firstName,lastName,middleName,birthOfDate,сityOfResidence,position,
-//         driverLicense,privateСar,army,hobby,personalQualities,professionalSkills,phone,email,nationality,relocate,desiredSalary,fk_employmentID,fk_scheduleID,
-//         businessTrip,fk_marital_statusID,fk_level_of_educationID,image,courseName,organization,endingCourse,institutName,levelEducation,faculty,specialty,ending,startWork,
-//         endWork,stillWorking,positionWork,companyName, jobDuties, langName, languag_proficiency_levelID, personRecommending, company, 
-//         emailCompany, phoneCompany, children, fk_currencyID) 
-//         VALUES ( \'${newUser.UserLogin}\', \'${newUser.Password}\', \'${newUserData.id_firstName}\', \'${newUserData.id_lastName}\', ${checkToNull.id_middleName}, 
-// \'${newUserData.id_birthOfDate}\', \'${newUserData.id_cityOfResidence}\', \'${newUserData.id_userPosition}\', \'${userDataChecked.drivLicense}\',
-//  ${userDataChecked.privateCar}, ${userDataChecked.army}, ${checkToNull.id_hobby}, ${checkToNull.id_personalQualities},${checkToNull.id_professionalSkills},
-// \'${newUserData.id_phone}\', \'${newUserData.id_email}\',${checkToNull.id_nationality}, ${userDataChecked.relocation}, ${checkToNull.id_desiredSalary}, \'${fk_value.id_employment}\', 
-// \'${fk_value.id_schedule}\', ${userDataChecked.businessTrip},\'${fk_value.id_maritalStatus}\',  \'${fk_value.id_education}\',\'${newFileNameToDb}\',
-// ${checkToNull.id_courseName}, ${checkToNull.id_organization}, ${checkToNull.id_endingCourse},${checkToNull.id_institutName}, ${checkToNull.id_levelEducation},
-// ${checkToNull.id_faculty}, ${checkToNull.id_specialty}, ${checkToNull.id_ending},
-// ${checkToNull.id_startWork}, \'${endWork}\', ${userDataChecked.stillWorking}, ${checkToNull.id_positionWork}, ${checkToNull.id_companyName}, ${checkToNull.id_jobDuties},
-// ${checkToNull.id_langName}, ${checkToNull.id_level},${checkToNull.id_personRecommending}, ${checkToNull.id_company}, ${checkToNull.id_emailCompany},
-// ${checkToNull.id_phoneCompany},${userDataChecked.children},\'${fk_value.id_currency}\' )`;
-// requestToDbCUDUserData(query, dbConnection, response);           
-//      }
-//     response.end();
-// });
-
-//////////////////////////////////////////////ExistingUserData PUT/////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////ExistingUserData POST/////////////////////////////////////////////////////////////////////
 
 
 server.post("/existinguserdata", upload.single('fupload'), function (req, res) {
@@ -625,51 +605,44 @@ server.post("/existinguserdata", upload.single('fupload'), function (req, res) {
     ////------------------------------UPDATE USER AFTER LOGIN ----------------------------------
     else {
         let updateUserData = req.body;
-
-        if (updateUserData) {
-
-            let endWork = getEndData(updateUserData);            
+        console.log(updateUserData);
+        updateUserData.userID = foundUser.UserID;
+        if (updateUserData) {                      
 
             let userDataChecked = getCheckedInfo(updateUserData);
 
-            let checkToNull = CheckedToNull(updateUserData);
-
-            let fk_value = getFkValue(updateUserData);
+            let checkToNull = CheckedToNull(updateUserData);           
 
             if (req.file == undefined)//если загруженное фото уже есть
             {
-                let query = `UPDATE user_info SET   userLogin=\'${foundUser.UserLogin}\',userPassword=\'${foundUser.UserPassword}\',firstName=\'${updateUserData.id_firstName}\',lastName=\'${updateUserData.id_lastName}\',middleName= ${checkToNull.id_middleName},
-   birthOfDate=\'${updateUserData.id_birthOfDate}\',сityOfResidence=\'${updateUserData.id_cityOfResidence}\',position=\'${updateUserData.id_userPosition}\',driverLicense=\'${userDataChecked.drivLicense}\',privateСar=${userDataChecked.privateCar},army= ${userDataChecked.army},
-   hobby= ${checkToNull.id_hobby},personalQualities=${checkToNull.id_personalQualities},professionalSkills=${checkToNull.id_professionalSkills},phone=\'${updateUserData.id_phone}\',email=\'${updateUserData.id_email}\',nationality=${checkToNull.id_nationality},
-   relocate= ${userDataChecked.relocation},desiredSalary= ${checkToNull.id_desiredSalary},fk_employmentID=\'${fk_value.id_employment}\',fk_scheduleID=\'${fk_value.id_schedule}\',businessTrip=${userDataChecked.businessTrip},fk_marital_statusID=\'${fk_value.id_maritalStatus}\',
-   fk_level_of_educationID=\'${fk_value.id_education}\',courseName=${checkToNull.id_courseName},organization= ${checkToNull.id_organization},endingCourse=${checkToNull.id_endingCourse},institutName=${checkToNull.id_institutName},levelEducation=${checkToNull.id_levelEducation},
-   faculty=${checkToNull.id_faculty},specialty= ${checkToNull.id_specialty},ending= ${checkToNull.id_ending},startWork=${checkToNull.id_startWork}, endWork= \'${endWork}\',stillWorking=${userDataChecked.stillWorking},positionWork=${checkToNull.id_positionWork},companyName= ${checkToNull.id_companyName},
-   jobDuties=${checkToNull.id_jobDuties}, langName=${checkToNull.id_langName}, languag_proficiency_levelID=${checkToNull.id_level}, personRecommending=${checkToNull.id_personRecommending}, company=${checkToNull.id_company}, emailCompany=${checkToNull.id_emailCompany},
-   phoneCompany=${checkToNull.id_phoneCompany}, children=${userDataChecked.children}, fk_currencyID =\'${fk_value.id_currency}\' WHERE UserID=\'${foundUser.UserID}\'`;
-                requestToDbCUDUserData(query, dbConnection, res);
+                let query = `UPDATE users_info SET  firstName=\'${updateUserData.id_firstName}\',lastName=\'${updateUserData.id_lastName}\',middleName= ${checkToNull.id_middleName},
+   birthOfDate=\'${updateUserData.id_birthOfDate}\', phone=\'${updateUserData.id_phone}\',email=\'${updateUserData.id_email}\',сityOfResidence=\'${updateUserData.id_cityOfResidence}\',
+   nationality=${checkToNull.id_nationality},position=\'${updateUserData.id_userPosition}\',privateСar=${userDataChecked.privateCar},army= ${userDataChecked.army},
+   hobby= ${checkToNull.id_hobby},personalQualities=${checkToNull.id_personalQualities},professionalSkills=${checkToNull.id_professionalSkills}, relocate= ${userDataChecked.relocation},
+   desiredSalary= ${checkToNull.id_desiredSalary}, children=${userDataChecked.children},businessTrip=${userDataChecked.businessTrip},fk_employmentID=\'${updateUserData.id_employment}\',fk_scheduleID=\'${updateUserData.id_schedule}\',
+   fk_marital_statusID=\'${updateUserData.id_maritalStatus}\',fk_level_of_educationID=\'${updateUserData.id_education}\', fk_currencyID =\'${updateUserData.id_currency}\' WHERE UserID=\'${foundUser.UserID}\'`;   
+      
+           console.log("************************** "+updateUserData.userID);
+             requestToDbCUDUserData(query, dbConnection,updateUserData, res);
             }
             else {
                 let fileToDB = null;
                 if (newFileNameToDb) {
                     fileToDB = newFileNameToDb;
                 }
-                let query = `UPDATE user_info SET   userLogin=\'${foundUser.UserLogin}\',userPassword=\'${foundUser.UserPassword}\',firstName=\'${updateUserData.id_firstName}\',lastName=\'${updateUserData.id_lastName}\',middleName= ${checkToNull.id_middleName},
-        birthOfDate=\'${updateUserData.id_birthOfDate}\',сityOfResidence=\'${updateUserData.id_cityOfResidence}\',position=\'${updateUserData.id_userPosition}\',driverLicense=\'${userDataChecked.drivLicense}\',privateСar=${userDataChecked.privateCar},army= ${userDataChecked.army},
-        hobby= ${checkToNull.id_hobby},personalQualities=${checkToNull.id_personalQualities},professionalSkills=${checkToNull.id_professionalSkills},phone=\'${updateUserData.id_phone}\',email=\'${updateUserData.id_email}\',nationality=${checkToNull.id_nationality},
-        relocate= ${userDataChecked.relocation},desiredSalary= ${checkToNull.id_desiredSalary},fk_employmentID=\'${fk_value.id_employment}\',fk_scheduleID=\'${fk_value.id_schedule}\',businessTrip=${userDataChecked.businessTrip},fk_marital_statusID=\'${fk_value.id_maritalStatus}\',
-        fk_level_of_educationID=\'${fk_value.id_education}\', image=\'${fileToDB}\',courseName=${checkToNull.id_courseName},organization= ${checkToNull.id_organization},endingCourse=${checkToNull.id_endingCourse},institutName=${checkToNull.id_institutName},levelEducation=${checkToNull.id_levelEducation},
-        faculty=${checkToNull.id_faculty},specialty= ${checkToNull.id_specialty},ending= ${checkToNull.id_ending},startWork=${checkToNull.id_startWork}, endWork= \'${endWork}\',stillWorking=${userDataChecked.stillWorking},positionWork=${checkToNull.id_positionWork},companyName= ${checkToNull.id_companyName},
-        jobDuties=${checkToNull.id_jobDuties}, langName=${checkToNull.id_langName}, languag_proficiency_levelID=${checkToNull.id_level}, personRecommending=${checkToNull.id_personRecommending}, company=${checkToNull.id_company}, emailCompany=${checkToNull.id_emailCompany},
-        phoneCompany=${checkToNull.id_phoneCompany}, children=${userDataChecked.children}, fk_currencyID =\'${fk_value.id_currency}\' WHERE UserID=\'${foundUser.UserID}\'`;
-                requestToDbCUDUserData(query, dbConnection, res);
-            }
 
-
+                let query = `UPDATE users_info SET  firstName=\'${updateUserData.id_firstName}\',lastName=\'${updateUserData.id_lastName}\',middleName= ${checkToNull.id_middleName},
+                birthOfDate=\'${updateUserData.id_birthOfDate}\', phone=\'${updateUserData.id_phone}\',email=\'${updateUserData.id_email}\',сityOfResidence=\'${updateUserData.id_cityOfResidence}\',
+                nationality=${checkToNull.id_nationality},position=\'${updateUserData.id_userPosition}\',privateСar=${userDataChecked.privateCar},army= ${userDataChecked.army},
+                hobby= ${checkToNull.id_hobby},personalQualities=${checkToNull.id_personalQualities},professionalSkills=${checkToNull.id_professionalSkills}, relocate= ${userDataChecked.relocation},
+                desiredSalary= ${checkToNull.id_desiredSalary}, children=${userDataChecked.children},businessTrip=${userDataChecked.businessTrip},fk_employmentID=\'${updateUserData.id_employment}\',fk_scheduleID=\'${updateUserData.id_schedule}\',
+                fk_marital_statusID=\'${updateUserData.id_maritalStatus}\',fk_level_of_educationID=\'${updateUserData.id_education}\', fk_currencyID =\'${updateUserData.id_currency}\', image=\'${fileToDB}\' WHERE UserID=\'${foundUser.UserID}\'`;   
+                                
+                requestToDbCUDUserData(query, dbConnection,updateUserData, res);              
+            }     
         }
         res.end();
-
     }
-
 });
 
 const startupCallback = function () {
