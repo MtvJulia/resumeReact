@@ -146,7 +146,7 @@ const requestToDbGETAferPost = (query, dbConnection, res, newUser) => {
 }
 
 const fillDriverLicense = (newUserData) => {
-    let driverLicense = [];
+        let driverLicense = [];
     if (newUserData.id_driverLicenseA1 != undefined) { driverLicense.push(newUserData.id_driverLicenseA1); }
     if (newUserData.id_driverLicenseA != undefined) {driverLicense.push(newUserData.id_driverLicenseA); }
     if (newUserData.id_driverLicenseB1 != undefined) { driverLicense.push(newUserData.id_driverLicenseB1); }
@@ -160,23 +160,21 @@ const fillDriverLicense = (newUserData) => {
 }
 const addDriverLicenseToDB = (newUserData, dbConnection) => {
     let drLicense = fillDriverLicense(newUserData);
-    // Data new user from db.
-    if(foundUser.UserLogin == undefined){
+    console.log("------------ARRAY DR LICENSE--------------");
+    console.log(drLicense);
+    // Data new user or update user from db.
+   
         if (drLicense.length > 0) {
             drLicense.forEach(function (item) {
-                let queryDriverLicense = ` INSERT INTO user_driver_license(userID,fk_driverLicense)
-            VALUES(${newUserData.userID},${item})`;
+                console.log("------------ITEM--------------");
+                console.log(item);
+                let queryDriverLicense = ` INSERT INTO user_driver_license(userID,fk_driverLicense) VALUES(${newUserData.userID},${item}) 
+                ON DUPLICATE KEY UPDATE fk_driverLicense=${item}`;
                 dbConnection.query(queryDriverLicense, (err, result) => {
                     if (err) console.log(err.message);
                 });
             });
-        }
-    }
-    else {
-
-
-
-    }
+        }    
     
 }
 const addLanguageToDB = (newUserData, dbConnection) => {
@@ -288,7 +286,9 @@ const addEducationToDB = (newUserData, dbConnection) => {
             for (i = 0; i < newUserData.id_institutName.length; i++) {
                 if (newUserData.id_institutName[i] != '' && newUserData.id_faculty[i] != "" && newUserData.id_specialty[i] != "" && newUserData.id_ending[i] != "" && newUserData.id_levelEducation[i] != "") {
                     let queryEducation = ` INSERT INTO user_education(userID,institutName,faculty,specialty,ending,fk_levelEducation)
-                        VALUES(${newUserData.userID},\'${newUserData.id_institutName[i]}\',\'${newUserData.id_faculty[i]}\',\'${newUserData.id_specialty[i]}\',\'${newUserData.id_ending[i]}\',${newUserData.id_levelEducation[i]})`;
+                        VALUES(${newUserData.userID},\'${newUserData.id_institutName[i]}\',\'${newUserData.id_faculty[i]}\',\'${newUserData.id_specialty[i]}\',\'${newUserData.id_ending[i]}\',${newUserData.id_levelEducation[i]})
+                        ON DUPLICATE KEY UPDATE institutName=\'${newUserData.id_institutName[i]}\',faculty=\'${newUserData.id_faculty[i]}\', specialty=\'${newUserData.id_specialty[i]}\',
+                        ending=\'${newUserData.id_ending[i]}\',fk_levelEducation=${newUserData.id_levelEducation[i]}`;
 
                     dbConnection.query(queryEducation, (err, result) => {
                         if (err) console.log(err.message);
@@ -298,7 +298,9 @@ const addEducationToDB = (newUserData, dbConnection) => {
         }
         else {
             let queryEducation = ` INSERT INTO user_education(userID,institutName,faculty,specialty,ending,fk_levelEducation)
-                    VALUES(${newUserData.userID},\'${newUserData.id_institutName}\',\'${newUserData.id_faculty}\',\'${newUserData.id_specialty}\',\'${newUserData.id_ending}\',${newUserData.id_levelEducation})`;
+                    VALUES(${newUserData.userID},\'${newUserData.id_institutName}\',\'${newUserData.id_faculty}\',\'${newUserData.id_specialty}\',\'${newUserData.id_ending}\',${newUserData.id_levelEducation})
+                    ON DUPLICATE KEY UPDATE institutName=\'${newUserData.id_institutName}\',faculty=\'${newUserData.id_faculty}\', specialty=\'${newUserData.id_specialty}\',
+                    ending=\'${newUserData.id_ending}\',fk_levelEducation=${newUserData.id_levelEducation}`;
 
             dbConnection.query(queryEducation, (err, result) => {
                 if (err) console.log(err.message);
@@ -309,8 +311,7 @@ const addEducationToDB = (newUserData, dbConnection) => {
 const addExpirienceToDB = (newUserData, dbConnection) => {
     if (newUserData.id_companyName != '' && newUserData.id_companyName != null) {
         let count = 0;
-        let queryExpiriennce = "";
-        let endWork = null;
+        let queryExpiriennce = "";        
         let stillWorking = 0;
         if (Array.isArray(newUserData.id_companyName)) {
             newUserData.id_companyName.forEach(function (element) {
@@ -320,6 +321,7 @@ const addExpirienceToDB = (newUserData, dbConnection) => {
 
         if (count > 0) {
             for (i = 0; i < newUserData.id_companyName.length; i++) {
+                let endWork = null;
                 if (newUserData.id_companyName[i] != '' && newUserData.id_positionWork[i] != "" && newUserData.id_jobDuties[i] != "" && newUserData.id_startWork[i] != "") {
                     if (newUserData.id_endWork[i] != "") {
                         stillWorking = 0;
@@ -329,19 +331,23 @@ const addExpirienceToDB = (newUserData, dbConnection) => {
                     }
                     if (newUserData.id_endWork[i] != undefined && newUserData.id_endWork[i] != "") {
                         endWork = newUserData.id_endWork[i];
+                       
 
                         queryExpiriennce = ` INSERT INTO user_expirience(userID,companyName,positionWork,jobDuties,startWork,endWork,stillWorking)
                             VALUES(${newUserData.userID},\'${newUserData.id_companyName[i]}\',\'${newUserData.id_positionWork[i]}\',\'${newUserData.id_jobDuties[i]}\',\'${newUserData.id_startWork[i]}\',
-                            \'${endWork}\',${stillWorking})`;
+                            \'${endWork}\',${stillWorking})
+                            ON DUPLICATE KEY UPDATE companyName=\'${newUserData.id_companyName[i]}\',positionWork=\'${newUserData.id_positionWork[i]}\', jobDuties=\'${newUserData.id_jobDuties[i]}\',
+                            startWork=\'${newUserData.id_startWork[i]}\',endWork=\'${endWork}\',stillWorking=${stillWorking}`;                                                  
                     }
                     else {
                         stillWorking = 1;
-
+                       
                         queryExpiriennce = ` INSERT INTO user_expirience(userID,companyName,positionWork,jobDuties,startWork,endWork,stillWorking)
                             VALUES(${newUserData.userID},\'${newUserData.id_companyName[i]}\',\'${newUserData.id_positionWork[i]}\',\'${newUserData.id_jobDuties[i]}\',\'${newUserData.id_startWork[i]}\',
-                            ${endWork},${stillWorking})`;
+                            ${endWork},${stillWorking})
+                            ON DUPLICATE KEY UPDATE companyName=\'${newUserData.id_companyName[i]}\',positionWork=\'${newUserData.id_positionWork[i]}\', jobDuties=\'${newUserData.id_jobDuties[i]}\',
+                            startWork=\'${newUserData.id_startWork[i]}\',endWork=${endWork},stillWorking=${stillWorking}`;                            
                     }
-
                     dbConnection.query(queryExpiriennce, (err, result) => {
                         if (err) console.log(err.message);
                     });
@@ -349,23 +355,30 @@ const addExpirienceToDB = (newUserData, dbConnection) => {
             }
         }
         else {
+            let endWork = null;
             if (newUserData.id_endWork != "") {
                 stillWorking = 0;
+                endWork=newUserData.id_endWork;
             }
             if (newUserData.id_stillWorking != undefined && newUserData.id_stillWorking == "on" && newUserData.id_endWork == "") {
                 stillWorking = 1;
             }
             if (newUserData.id_endWork != undefined && newUserData.id_endWork != "") {
+                
                 queryExpiriennce = ` INSERT INTO user_expirience(userID,companyName,positionWork,jobDuties,startWork,endWork,stillWorking)
-                    VALUES(${newUserData.userID},\'${newUserData.id_companyName[i]}\',\'${newUserData.id_positionWork[i]}\',\'${newUserData.id_jobDuties[i]}\',\'${newUserData.id_startWork[i]}\',
-                    \'${newUserData.id_endWork}\',${stillWorking})`;
+                    VALUES(${newUserData.userID},\'${newUserData.id_companyName}\',\'${newUserData.id_positionWork}\',\'${newUserData.id_jobDuties}\',\'${newUserData.id_startWork}\',
+                    \'${endWork}\',${stillWorking})
+                    ON DUPLICATE KEY UPDATE companyName=\'${newUserData.id_companyName}\',positionWork=\'${newUserData.id_positionWork}\', jobDuties=\'${newUserData.id_jobDuties}\',
+                    startWork=\'${newUserData.id_startWork}\',endWork= \'${endWork}\',stillWorking=${stillWorking}`;
             }
             else {
                 stillWorking = 1;
 
                 queryExpiriennce = ` INSERT INTO user_expirience(userID,companyName,positionWork,jobDuties,startWork,endWork,stillWorking)
-                    VALUES(${newUserData.userID},\'${newUserData.id_companyName[i]}\',\'${newUserData.id_positionWork[i]}\',\'${newUserData.id_jobDuties[i]}\',\'${newUserData.id_startWork[i]}\',
-                    ${endWork},${stillWorking})`;
+                    VALUES(${newUserData.userID},\'${newUserData.id_companyName}\',\'${newUserData.id_positionWork}\',\'${newUserData.id_jobDuties}\',\'${newUserData.id_startWork}\',
+                    ${endWork},${stillWorking})
+                    ON DUPLICATE KEY UPDATE companyName=\'${newUserData.id_companyName}\',positionWork=\'${newUserData.id_positionWork}\', jobDuties=\'${newUserData.id_jobDuties}\',
+                    startWork=\'${newUserData.id_startWork}\',endWork=${endWork},stillWorking=${stillWorking}`;
             }
 
             dbConnection.query(queryExpiriennce, (err, result) => {
@@ -380,12 +393,12 @@ const requestToDbCUDUserData = (query, dbConnection,newUserData,res, callback = 
     console.log("NEW DATA ::: \\\ ");
     console.log(newUserData);
 
-   // addDriverLicenseToDB(newUserData, dbConnection);
+    addDriverLicenseToDB(newUserData, dbConnection);
     addLanguageToDB(newUserData, dbConnection);
     addCoursesToDB(newUserData,  dbConnection);
     addRecomendingToDB(newUserData,  dbConnection);
-    // addEducationToDB(newUserData, dbConnection);
-    // addExpirienceToDB(newUserData, dbConnection);
+    addEducationToDB(newUserData, dbConnection);
+    addExpirienceToDB(newUserData, dbConnection);
    // res.end();
     console.log("I'm OK END!!!");
 }) => {
