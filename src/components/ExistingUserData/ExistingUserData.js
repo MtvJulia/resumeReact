@@ -172,14 +172,7 @@ class ExistingUserData extends React.Component {
             }
         }
     }
-    // changeData(data) {
-
-    //     if (data[0].endingCourse == null) {
-    //         data[0].endingCourse = "";
-    //     }
-    //     data[0].positionWork = data[0].positionWork.split("~");
-
-    // }
+    
     AddLang() {
         var langList = document.getElementById("langList");                 
                  
