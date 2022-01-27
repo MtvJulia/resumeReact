@@ -5,27 +5,6 @@ filestream:null,
 userdata:{},
 result:null};
 
-// const getDataFile=(userData,fs)=>{  
-//   if (userData.image != null) {
-//     var imageData = userData.image.toString();
-// console.log(userData.image.toString());
-//     fs.readFile('uploads/' + imageData, function (error, data) {
-//       if (error) {
-//         response.statusCode = 404;
-//         response.end("Resourse not found!");
-//       }
-//       else {
-//         userData.file = data;
-//         userData.file.originalname = imageData;
-//         console.log("OOOOKKKKKK!!!!");
-//         console.log(userData.file);
-//         console.log("------------NEW--USER DATA-----------");
-//         console.log(userData);           
-//       }
-//     });    
-//   } 
-// }
-
 function getDriverLicenseDataFromDB(userDataFromPromis){
   
   return new Promise(function(resolve,reject){
@@ -35,7 +14,6 @@ function getDriverLicenseDataFromDB(userDataFromPromis){
   userDataFromPromis.connection.query(queryCourses, (err, result) => {
     if (err) reject(console.log(err.message));
     if (result) {
-      //console.log(result);
       if (Array.isArray(result)) {
         result.forEach(item => {
         
@@ -92,8 +70,7 @@ function getDriverLicenseDataFromDB(userDataFromPromis){
           }
 
         });
-      }
-     // console.log("userDataFromPromis.userdata.drivLicense ================== "+ userDataFromPromis.userdata.drivLicense);
+      }    
       resolve(userDataFromPromis);
     }
   });
@@ -125,8 +102,7 @@ const getEducationDataFromDB = (userDataFromPromis) => {
   let queryCourses = `SELECT * FROM user_education WHERE userID = ${userDataFromPromis.userdata.userID} `;
   userDataFromPromis.connection.query(queryCourses, (err, result) => {
     if (err)reject(console.log(err.message));
-    if (result) {
-      //console.log(result);
+    if (result) {     
       if (Array.isArray(result)) {
         result.forEach(item => {
           userDataFromPromis.userdata.institutName.push(item.institutName);
@@ -147,8 +123,7 @@ const getRecomendingDataFromDB = (userDataFromPromis) => {
   let queryCourses = `SELECT * FROM v_user_data_recomending WHERE userID = ${userDataFromPromis.userdata.userID} `;
   userDataFromPromis.connection.query(queryCourses, (err, result) => {
     if (err)reject(console.log(err.message));
-    if (result) {
-     // console.log(result);
+    if (result) {    
       if (Array.isArray(result)) {
         result.forEach(item => {
           userDataFromPromis.userdata.company.push(item.company);
@@ -190,13 +165,11 @@ const getLanguageDataFromDB = (userDataFromPromis) => {
   let queryCourses = `SELECT * FROM user_language WHERE userID = ${userDataFromPromis.userdata.userID} `;
   userDataFromPromis.connection.query(queryCourses, (err, result) => {
     if (err) reject(console.log(err.message));
-    if (result) {
-      //console.log(result);
+    if (result) {     
       if (Array.isArray(result)) {
         result.forEach(item => {
           userDataFromPromis.userdata.langName.push(item.fk_langName);
           userDataFromPromis.userdata.level.push(item.fk_languag_proficiency_levelID);
-
         });
       }
       resolve(userDataFromPromis);
@@ -207,17 +180,15 @@ const getLanguageDataFromDB = (userDataFromPromis) => {
 
 
 const sendData = (userDataFromPromis,callback=(userDataFromPromis)=>{
-  //console.log("I'm here!!!");  
- // console.log(userDataFromPromis);
-  var userData = userDataFromPromis.userdata;
-  //console.log("USER DATA SEND DATA :" + userData);
+  
+  var userData = userDataFromPromis.userdata; 
   userDataFromPromis.result.json(userData);
   userDataFromPromis.result.end();
-  //console.log("I'm gooooo!!!");
+ 
 }) => {
   if (userDataFromPromis.userdata.image != null) {
     var imageData = userDataFromPromis.userdata.image.toString();
-//console.log(userDataFromPromis.userdata.image.toString());
+
 userDataFromPromis.filestream.readFile('uploads/' + imageData, function (error, data) {
       if (error) {
         response.statusCode = 404;
@@ -225,60 +196,13 @@ userDataFromPromis.filestream.readFile('uploads/' + imageData, function (error, 
       }
       else {
         userDataFromPromis.userdata.file = data;
-        userDataFromPromis.userdata.file.originalname = imageData;
-        // console.log("OOOOKKKKKK!!!!");
-        // console.log(userDataFromPromis.userdata.file);
-        // console.log("------------NEW--USER DATA-----------");
-        // console.log(userDataFromPromis.userdata); 
+        userDataFromPromis.userdata.file.originalname = imageData;        
         callback(userDataFromPromis);          
       }
     });    
   } 
 };
 
-
-const getUserDataFromDB = (userData, dbConnection, foundUserID, fs, res, callback = (userData, dbConnection, fs, res, foundUserID) => { 
-
-  getAllData(userData, dbConnection, fs, res, foundUserID);
-  
-}) => {
-  let queryToView = `SELECT * FROM v_user_data WHERE userID = ${foundUserID} `;
-  dbConnection.query(queryToView, (err, result) => {
-    if (err) console.log(err.message);
-    if (result) {
-      result = result[0];
-      userData.userID = result.userID;
-      userData.userLogin = result.userLogin;
-      userData.firstName = result.firstName;
-      userData.lastName = result.lastName;
-      userData.middleName = result.middleName;
-      userData.birthOfDate = result.birthOfDate;
-      userData.phone = result.phone;
-      userData.email = result.email;
-      userData.сityOfResidence = result.сityOfResidence;
-      userData.nationality = result.nationality;
-      userData.position = result.position;
-      userData.privateСar = result.privateСar;
-      userData.army = result.army;
-      userData.hobby = result.hobby;
-      userData.personalQualities = result.personalQualities;
-      userData.professionalSkills = result.professionalSkills;
-      userData.relocate = result.relocate;
-      userData.desiredSalary = result.desiredSalary;
-      userData.children = result.children;
-      userData.businessTrip = result.businessTrip;
-      userData.image = result.image;
-      userData.employment = result.employmentName;
-      userData.schedule = result.scheduleName;
-      userData.maritalStatus = result.marital_statusName;
-      userData.education = result.level_of_educationName;
-      userData.currency = result.currencyName;
-
-      console.log("In getUserData ::: " + userData.image);
-      callback(userData, dbConnection, fs, res,foundUserID);
-    }
-  });
-}
 function getMainUserDataFromDB(dbConnection,userData,foundUserID,fs,res){
   return new Promise(function(resolve,reject){
 
@@ -286,8 +210,9 @@ function getMainUserDataFromDB(dbConnection,userData,foundUserID,fs,res){
     userDataFromPromis.filestream=fs;
     userDataFromPromis.userdata=userData;
     userDataFromPromis.result=res;   
+
 let queryToView = `SELECT * FROM users_info WHERE userID = ${foundUserID} `;
-//console.log("userDataFromPromis" + userDataFromPromis);
+
 userDataFromPromis.connection.query(queryToView, (err, result) => {
       if (err) reject(console.log(err.message));
       if (result) {
@@ -317,10 +242,8 @@ userDataFromPromis.connection.query(queryToView, (err, result) => {
         userDataFromPromis.userdata.schedule = result.fk_scheduleID;
         userDataFromPromis.userdata.maritalStatus = result.fk_marital_statusID;
         userDataFromPromis.userdata.education = result.fk_level_of_educationID;
-        userDataFromPromis.userdata.currency = result.fk_currencyID;  
-       // console.log("In getUserData ::: " + userDataFromPromis.userdata.image);      
-  }
-  //console.log("AFTER  ::: " + userDataFromPromis.userdata.userID);
+        userDataFromPromis.userdata.currency = result.fk_currencyID;               
+  }  
   resolve(userDataFromPromis);
 });
   })
@@ -328,12 +251,8 @@ userDataFromPromis.connection.query(queryToView, (err, result) => {
 }
 
 function getUserData(res, userData, dbConnection, foundUserID, fs)    {
- // console.log(foundUserID);
-
- // console.log(userData);
-
-  if (foundUserID > 0) {
-    // getUserDataFromDB(userData, dbConnection, foundUserID, fs, res); 
+ 
+  if (foundUserID > 0) {    
     
     getMainUserDataFromDB(dbConnection,userData,foundUserID,fs,res)    
        .then(getDriverLicenseDataFromDB)
@@ -344,9 +263,6 @@ function getUserData(res, userData, dbConnection, foundUserID, fs)    {
        .then(getLanguageDataFromDB)
        .then(sendData)
        .catch(err=>console.log(err))
-
-
-
 
     return true;
   }

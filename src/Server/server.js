@@ -30,63 +30,61 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage })
 
 
-
 var hashPassword = "";
 var duplicateFlag = false;
 var userIDFromDB = 0;
-var arrUsers = [];
 var foundUserID = 0; //найденный пользователь при входе уже зарегистрированного пользователя
 var foundUser = {};
 var getToRegistrationFlag = false;
 var newUser = {};
 var userData = {
-    userID:0,
-    userLogin:"",
-    firstName:"",
-    lastName:"",
-    middleName:"",
-    birthOfDate:"",
-    phone:"",
-    email:"",
-    сityOfResidence:"",
-    nationality:"",
-    position:"",
-    privateСar:0,
+    userID: 0,
+    userLogin: "",
+    firstName: "",
+    lastName: "",
+    middleName: "",
+    birthOfDate: "",
+    phone: "",
+    email: "",
+    сityOfResidence: "",
+    nationality: "",
+    position: "",
+    privateСar: 0,
     army: 0,
-    hobby:"",
-    personalQualities:"",
-    professionalSkills:"",
-    relocate:0,
-    desiredSalary:0,
+    hobby: "",
+    personalQualities: "",
+    professionalSkills: "",
+    relocate: 0,
+    desiredSalary: 0,
     children: 0,
-    businessTrip:0,
-    image:[],
-    employment:"",
-    schedule:"",
-    maritalStatus:"",
-    education:"",
-    currency:"",
-    drivLicense:{ driverLicenseA1:0,driverLicenseA:0,driverLicenseB1:0,driverLicenseB:0,driverLicenseC1:0,driverLicenseC:0,driverLicenseD1:0,driverLicenseD:0,driverLicenseT:0},
-    courseName:[],
-    organization:[],
-    endingCourse:[],
-    company:[],
-    personRecommending:[],
-    emailCompany:[],
-    phoneCompany:[],
-    langName:[],
-    level:[],
-    institutName:[],
-    levelEducation:[],
-    faculty:[],
-    specialty:[],
-    ending:[],
-    companyName:[],
-    positionWork:[],
-    jobDuties:[],
-    startWork:[],
-    endWork:[],
-    stillWorking:[]
+    businessTrip: 0,
+    image: [],
+    employment: "",
+    schedule: "",
+    maritalStatus: "",
+    education: "",
+    currency: "",
+    drivLicense: { driverLicenseA1: 0, driverLicenseA: 0, driverLicenseB1: 0, driverLicenseB: 0, driverLicenseC1: 0, driverLicenseC: 0, driverLicenseD1: 0, driverLicenseD: 0, driverLicenseT: 0 },
+    courseName: [],
+    organization: [],
+    endingCourse: [],
+    company: [],
+    personRecommending: [],
+    emailCompany: [],
+    phoneCompany: [],
+    langName: [],
+    level: [],
+    institutName: [],
+    levelEducation: [],
+    faculty: [],
+    specialty: [],
+    ending: [],
+    companyName: [],
+    positionWork: [],
+    jobDuties: [],
+    startWork: [],
+    endWork: [],
+    stillWorking: []
 };
 
 
@@ -95,7 +93,7 @@ server.use(bodyParser.urlencoded({ extended: false }));
 server.engine('html', require('ejs').renderFile);
 server.set('view engine', 'html');
 server.set('views', __dirname);
-//server.use(bodyParser.json());
+
 
 const SERVER_PORT = 55555;
 const HTTP_OK = 200;
@@ -108,105 +106,64 @@ dbConnection.connect((err) => {
 });
 
 
-// const requestToDbCUD = (query, dbConnection, res, objJSON, newUser) => {
-
-//     console.log(newUser);
-
-//     dbConnection.query(query, (err, result) => {
-
-//         if (err) console.log(err.message);
-
-//         else {
-
-//             getToRegistrationFlag = true;
-
-//             return requestToDbGETAferPost("SELECT * FROM v_getUserData", dbConnection, res, newUser);
-
-//         }
-//         res.end();
-//     });
-// }
-const requestToDbGETAferPost = (query, dbConnection, res, newUser) => {
-
-    dbConnection.query(query, (err, result) => {
-
-        if (err) console.log(err.message);
-
-        arrUsers = result;
-        if (getToRegistrationFlag === true) {
-
-            arrUsers.forEach(element => {
-                if (element.userLogin === newUser.UserLogin && element.userPassword === newUser.Password)
-
-                    userIDFromDB = element.userID;
-            });
-        }
-        res.end();
-    });
-}
-
 const fillDriverLicense = (newUserData) => {
-        let driverLicense = [];
+    let driverLicense = [];
     if (newUserData.id_driverLicenseA1 != undefined) { driverLicense.push(newUserData.id_driverLicenseA1); }
-    if (newUserData.id_driverLicenseA != undefined) {driverLicense.push(newUserData.id_driverLicenseA); }
+    if (newUserData.id_driverLicenseA != undefined) { driverLicense.push(newUserData.id_driverLicenseA); }
     if (newUserData.id_driverLicenseB1 != undefined) { driverLicense.push(newUserData.id_driverLicenseB1); }
-    if (newUserData.id_driverLicenseB != undefined) {driverLicense.push(newUserData.id_driverLicenseB); }
-    if (newUserData.id_driverLicenseC1 != undefined) {driverLicense.push(newUserData.id_driverLicenseC1); }
-    if (newUserData.id_driverLicenseC != undefined) {driverLicense.push(newUserData.id_driverLicenseC); }
-    if (newUserData.id_driverLicenseD1 != undefined) {driverLicense.push(newUserData.id_driverLicenseD1); }
-    if (newUserData.id_driverLicenseD != undefined) {driverLicense.push(newUserData.id_driverLicenseD); }
-    if (newUserData.id_driverLicenseT != undefined) {driverLicense.push(newUserData.id_driverLicenseT); }
+    if (newUserData.id_driverLicenseB != undefined) { driverLicense.push(newUserData.id_driverLicenseB); }
+    if (newUserData.id_driverLicenseC1 != undefined) { driverLicense.push(newUserData.id_driverLicenseC1); }
+    if (newUserData.id_driverLicenseC != undefined) { driverLicense.push(newUserData.id_driverLicenseC); }
+    if (newUserData.id_driverLicenseD1 != undefined) { driverLicense.push(newUserData.id_driverLicenseD1); }
+    if (newUserData.id_driverLicenseD != undefined) { driverLicense.push(newUserData.id_driverLicenseD); }
+    if (newUserData.id_driverLicenseT != undefined) { driverLicense.push(newUserData.id_driverLicenseT); }
     return driverLicense;
 }
 const addDriverLicenseToDB = (newUserData, dbConnection) => {
+
     let drLicense = fillDriverLicense(newUserData);
-    console.log("------------ARRAY DR LICENSE--------------");
-    console.log(drLicense);
     // Data new user or update user from db.
-   
-        if (drLicense.length > 0) {
-            drLicense.forEach(function (item) {
-                console.log("------------ITEM--------------");
-                console.log(item);
-                let queryDriverLicense = ` INSERT INTO user_driver_license(userID,fk_driverLicense) VALUES(${newUserData.userID},${item}) 
+
+    if (drLicense.length > 0) {
+
+        drLicense.forEach(function (item) {
+            let queryDriverLicense = ` INSERT INTO user_driver_license(userID,fk_driverLicense) VALUES(${newUserData.userID},${item}) 
                 ON DUPLICATE KEY UPDATE fk_driverLicense=${item}`;
-                dbConnection.query(queryDriverLicense, (err, result) => {
-                    if (err) console.log(err.message);
-                });
+            dbConnection.query(queryDriverLicense, (err, result) => {
+                if (err) console.log(err.message);
             });
-        }    
-    
+        });
+    }
+
 }
 const addLanguageToDB = (newUserData, dbConnection) => {
     if (newUserData.id_langName != undefined && newUserData.id_langName != '' && newUserData.id_langName != null) {
-        
-    // Data new user from db or update user.
-    
-    //// lang name a number  
-    if (newUserData.id_langName.length > 0) {
 
-        for (i = 0; i < newUserData.id_langName.length; i++) {
-            if (newUserData.id_langName[i] != '' && newUserData.id_level[i] != "") {
-                let queryLang = ` INSERT INTO user_language(userID,fk_langName,fk_languag_proficiency_levelID)
+        // Data new user from db or update user.
+
+        //// lang name a number  
+        if (newUserData.id_langName.length > 0) {
+
+            for (i = 0; i < newUserData.id_langName.length; i++) {
+                if (newUserData.id_langName[i] != '' && newUserData.id_level[i] != "") {
+                    let queryLang = ` INSERT INTO user_language(userID,fk_langName,fk_languag_proficiency_levelID)
                                   VALUES(${newUserData.userID},${newUserData.id_langName[i]},${newUserData.id_level[i]}) 
                                   ON DUPLICATE KEY UPDATE fk_langName=${newUserData.id_langName[i]}, fk_languag_proficiency_levelID=${newUserData.id_level[i]}`;
-                dbConnection.query(queryLang, (err, result) => {
-                    if (err) console.log(err.message);
-                    console.log("RES INSERT");
-                    console.log(result);
-                });
+                    dbConnection.query(queryLang, (err, result) => {
+                        if (err) console.log(err.message);
+
+                    });
+                }
             }
         }
-    }     
-   }
+    }
 }
 
 const addCoursesToDB = (newUserData, dbConnection) => {
-      // Data new user from db.
-    
+    // Data new user or update user from db.
+
     if (newUserData.id_courseName != '' && newUserData.id_courseName != null) {
         let count = 0;
-        console.log(newUserData.id_courseName);
         if (Array.isArray(newUserData.id_courseName)) {
             newUserData.id_courseName.forEach(function (element) {
                 if (element.length > 1) count++;
@@ -217,11 +174,11 @@ const addCoursesToDB = (newUserData, dbConnection) => {
                 if (newUserData.id_courseName[i] != '' && newUserData.id_organization[i] != "" && newUserData.id_endingCourse[i] != "") {
 
                     let queryCourses = ` INSERT INTO user_course(userID,courseName,organization,endingCourse)
-                                         VALUES(${newUserData.userID },\'${newUserData.id_courseName[i]}\',\'${newUserData.id_organization[i]}\',\'${newUserData.id_endingCourse[i]}\')
+                                         VALUES(${newUserData.userID},\'${newUserData.id_courseName[i]}\',\'${newUserData.id_organization[i]}\',\'${newUserData.id_endingCourse[i]}\')
                                          ON DUPLICATE KEY UPDATE courseName=\'${newUserData.id_courseName[i]}\', organization=\'${newUserData.id_organization[i]}\', 
                                          endingCourse=\'${newUserData.id_endingCourse[i]}\' `;
-                   
-                dbConnection.query(queryCourses, (err, result) => {
+
+                    dbConnection.query(queryCourses, (err, result) => {
                         if (err) console.log(err.message);
                     });
                 }
@@ -229,7 +186,7 @@ const addCoursesToDB = (newUserData, dbConnection) => {
         }
         else {
             let queryCourses = ` INSERT INTO user_course(userID,courseName,organization,endingCourse)
-                VALUES(${newUserData.userID },\'${newUserData.id_courseName}\',\'${newUserData.id_organization}\',\'${newUserData.id_endingCourse}\')
+                VALUES(${newUserData.userID},\'${newUserData.id_courseName}\',\'${newUserData.id_organization}\',\'${newUserData.id_endingCourse}\')
                 ON DUPLICATE KEY UPDATE courseName=\'${newUserData.id_courseName}\', organization=\'${newUserData.id_organization}\', endingCourse=\'${newUserData.id_endingCourse}\'`;
             dbConnection.query(queryCourses, (err, result) => {
                 if (err) console.log(err.message);
@@ -311,7 +268,7 @@ const addEducationToDB = (newUserData, dbConnection) => {
 const addExpirienceToDB = (newUserData, dbConnection) => {
     if (newUserData.id_companyName != '' && newUserData.id_companyName != null) {
         let count = 0;
-        let queryExpiriennce = "";        
+        let queryExpiriennce = "";
         let stillWorking = 0;
         if (Array.isArray(newUserData.id_companyName)) {
             newUserData.id_companyName.forEach(function (element) {
@@ -331,22 +288,22 @@ const addExpirienceToDB = (newUserData, dbConnection) => {
                     }
                     if (newUserData.id_endWork[i] != undefined && newUserData.id_endWork[i] != "") {
                         endWork = newUserData.id_endWork[i];
-                       
+
 
                         queryExpiriennce = ` INSERT INTO user_expirience(userID,companyName,positionWork,jobDuties,startWork,endWork,stillWorking)
                             VALUES(${newUserData.userID},\'${newUserData.id_companyName[i]}\',\'${newUserData.id_positionWork[i]}\',\'${newUserData.id_jobDuties[i]}\',\'${newUserData.id_startWork[i]}\',
                             \'${endWork}\',${stillWorking})
                             ON DUPLICATE KEY UPDATE companyName=\'${newUserData.id_companyName[i]}\',positionWork=\'${newUserData.id_positionWork[i]}\', jobDuties=\'${newUserData.id_jobDuties[i]}\',
-                            startWork=\'${newUserData.id_startWork[i]}\',endWork=\'${endWork}\',stillWorking=${stillWorking}`;                                                  
+                            startWork=\'${newUserData.id_startWork[i]}\',endWork=\'${endWork}\',stillWorking=${stillWorking}`;
                     }
                     else {
                         stillWorking = 1;
-                       
+
                         queryExpiriennce = ` INSERT INTO user_expirience(userID,companyName,positionWork,jobDuties,startWork,endWork,stillWorking)
                             VALUES(${newUserData.userID},\'${newUserData.id_companyName[i]}\',\'${newUserData.id_positionWork[i]}\',\'${newUserData.id_jobDuties[i]}\',\'${newUserData.id_startWork[i]}\',
                             ${endWork},${stillWorking})
                             ON DUPLICATE KEY UPDATE companyName=\'${newUserData.id_companyName[i]}\',positionWork=\'${newUserData.id_positionWork[i]}\', jobDuties=\'${newUserData.id_jobDuties[i]}\',
-                            startWork=\'${newUserData.id_startWork[i]}\',endWork=${endWork},stillWorking=${stillWorking}`;                            
+                            startWork=\'${newUserData.id_startWork[i]}\',endWork=${endWork},stillWorking=${stillWorking}`;
                     }
                     dbConnection.query(queryExpiriennce, (err, result) => {
                         if (err) console.log(err.message);
@@ -358,13 +315,13 @@ const addExpirienceToDB = (newUserData, dbConnection) => {
             let endWork = null;
             if (newUserData.id_endWork != "") {
                 stillWorking = 0;
-                endWork=newUserData.id_endWork;
+                endWork = newUserData.id_endWork;
             }
             if (newUserData.id_stillWorking != undefined && newUserData.id_stillWorking == "on" && newUserData.id_endWork == "") {
                 stillWorking = 1;
             }
             if (newUserData.id_endWork != undefined && newUserData.id_endWork != "") {
-                
+
                 queryExpiriennce = ` INSERT INTO user_expirience(userID,companyName,positionWork,jobDuties,startWork,endWork,stillWorking)
                     VALUES(${newUserData.userID},\'${newUserData.id_companyName}\',\'${newUserData.id_positionWork}\',\'${newUserData.id_jobDuties}\',\'${newUserData.id_startWork}\',
                     \'${endWork}\',${stillWorking})
@@ -388,31 +345,22 @@ const addExpirienceToDB = (newUserData, dbConnection) => {
     }
 }
 
-const requestToDbCUDUserData = (query, dbConnection,newUserData,res, callback = (res, newUserData, dbConnection) => {
-    // console.log("I'm here!!!");  
-    console.log("NEW DATA ::: \\\ ");
-    console.log(newUserData);
+const requestToDbCUDUserData = (query, dbConnection, newUserData, res, callback = (res, newUserData, dbConnection) => {
 
     addDriverLicenseToDB(newUserData, dbConnection);
     addLanguageToDB(newUserData, dbConnection);
-    addCoursesToDB(newUserData,  dbConnection);
-    addRecomendingToDB(newUserData,  dbConnection);
+    addCoursesToDB(newUserData, dbConnection);
+    addRecomendingToDB(newUserData, dbConnection);
     addEducationToDB(newUserData, dbConnection);
     addExpirienceToDB(newUserData, dbConnection);
-   // res.end();
-    console.log("I'm OK END!!!");
-}) => {
-    // console.log("-----------query-------------");  
 
-    
-    ////-----insert user data to db
-        dbConnection.query(query, (err, result) => {
+}) => {
+
+    ////-----insert or update user data to db
+    dbConnection.query(query, (err, result) => {
 
         if (err) console.log(err.message);
-        console.log("User ID : ");
-        console.log(newUserData);
-        console.log("User ID END : ");
-        if(newUserData.userID==undefined||newUserData.userID==null||newUserData.userID==""||newUserData.userID==0)newUserData.userID = result.insertId;       
+        if (newUserData.userID == undefined || newUserData.userID == null || newUserData.userID == "" || newUserData.userID == 0) newUserData.userID = result.insertId;
 
         ////-----insert or update all user data with id
         callback(res, newUserData, dbConnection);
@@ -457,9 +405,9 @@ server.get("/userdata", function (request, res) {
 });
 
 server.get("/existinguserdata", (req, res) => {
-   
+
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    let result = getUserData(res, userData, dbConnection, foundUserID, fs);    
+    let result = getUserData(res, userData, dbConnection, foundUserID, fs);
     if (result == false) {
         res.json(userData);
         res.end();
@@ -499,7 +447,7 @@ server.post("/login", function (request, response) {
                     foundUser.UserLogin = hash.userLogin;
                     foundUser.UserPassword = hash.userPassword;
                     console.log("FOUND USER ::: " + foundUser);
-                    //ПЕРЕХОД ПО ССЫЛКЕ НА ЗАПОЛНЕННУЮ КОЛБАСУ!!!!!!!!!     
+                        
                     return response.redirect("http://localhost:3000/existinguserdata");
                 }
                 else {
@@ -522,9 +470,9 @@ server.post("/registration", function (request, response) {
     response.header("Access-Control-Allow-Origin", "http://localhost:3000");
 
     if (request.body.Password === request.body.RepeatPassword) {
-        console.log("OK");
-        //// потом переход в форму регистрации заполнение
-        //логин-пароль у будущего пользователя
+       
+        //// Go to registration form
+        //Login and password new user
         newUser = request.body;
         console.log(newUser);
         ////hash+ salt
@@ -534,15 +482,15 @@ server.post("/registration", function (request, response) {
                 console.log(hashPassword);
             });
         });
-        console.log("HASH PASSWORD ::: " + hashPassword);
+        //console.log("HASH PASSWORD ::: " + hashPassword);
 
         let query = `SELECT * FROM resume_db.users_info WHERE userLogin = '${newUser.UserLogin}'`;
-        console.log(query);
+        
         // query database for user  login
         dbConnection.query(query, (err, result) => {
             if (err) throw err;
             var userDataFromDB = result[0];
-            // console.log(userDataFromDB.userLogin);
+
             if (userDataFromDB) {
                 duplicateFlag = true;
                 let objJSON1 = { "result": "Пользователь с данным логином уже зарегистрирован, придумайте новый логин !" };
@@ -553,12 +501,11 @@ server.post("/registration", function (request, response) {
                 console.log("duplicateFlag === false");
                 return response.redirect("http://localhost:3000/existinguserdata");
             }
-        });      
+        });
     }
-
-    else {        
+    else {
         return response.redirect('http://localhost:3000/registration');
-    }    
+    }
 });
 
 
@@ -590,7 +537,7 @@ server.post("/existinguserdata", upload.single('fupload'), function (req, res) {
     ////--------------------- NEW USER AFTER REGESTRATION --------------------------------------------
     if (foundUser.UserLogin == undefined) {
         let newUserData = req.body;
-        if (newUserData) {                          
+        if (newUserData) {
 
             let userDataChecked = getCheckedInfo(newUserData);
 
@@ -620,11 +567,11 @@ server.post("/existinguserdata", upload.single('fupload'), function (req, res) {
         let updateUserData = req.body;
         console.log(updateUserData);
         updateUserData.userID = foundUser.UserID;
-        if (updateUserData) {                      
+        if (updateUserData) {
 
             let userDataChecked = getCheckedInfo(updateUserData);
 
-            let checkToNull = CheckedToNull(updateUserData);           
+            let checkToNull = CheckedToNull(updateUserData);
 
             if (req.file == undefined)//если загруженное фото уже есть
             {
@@ -633,10 +580,10 @@ server.post("/existinguserdata", upload.single('fupload'), function (req, res) {
    nationality=${checkToNull.id_nationality},position=\'${updateUserData.id_userPosition}\',privateСar=${userDataChecked.privateCar},army= ${userDataChecked.army},
    hobby= ${checkToNull.id_hobby},personalQualities=${checkToNull.id_personalQualities},professionalSkills=${checkToNull.id_professionalSkills}, relocate= ${userDataChecked.relocation},
    desiredSalary= ${checkToNull.id_desiredSalary}, children=${userDataChecked.children},businessTrip=${userDataChecked.businessTrip},fk_employmentID=\'${updateUserData.id_employment}\',fk_scheduleID=\'${updateUserData.id_schedule}\',
-   fk_marital_statusID=\'${updateUserData.id_maritalStatus}\',fk_level_of_educationID=\'${updateUserData.id_education}\', fk_currencyID =\'${updateUserData.id_currency}\' WHERE UserID=\'${foundUser.UserID}\'`;   
-      
-           console.log("************************** "+updateUserData.userID);
-             requestToDbCUDUserData(query, dbConnection,updateUserData, res);
+   fk_marital_statusID=\'${updateUserData.id_maritalStatus}\',fk_level_of_educationID=\'${updateUserData.id_education}\', fk_currencyID =\'${updateUserData.id_currency}\' WHERE UserID=\'${foundUser.UserID}\'`;
+
+                console.log("************************** " + updateUserData.userID);
+                requestToDbCUDUserData(query, dbConnection, updateUserData, res);
             }
             else {
                 let fileToDB = null;
@@ -649,10 +596,10 @@ server.post("/existinguserdata", upload.single('fupload'), function (req, res) {
                 nationality=${checkToNull.id_nationality},position=\'${updateUserData.id_userPosition}\',privateСar=${userDataChecked.privateCar},army= ${userDataChecked.army},
                 hobby= ${checkToNull.id_hobby},personalQualities=${checkToNull.id_personalQualities},professionalSkills=${checkToNull.id_professionalSkills}, relocate= ${userDataChecked.relocation},
                 desiredSalary= ${checkToNull.id_desiredSalary}, children=${userDataChecked.children},businessTrip=${userDataChecked.businessTrip},fk_employmentID=\'${updateUserData.id_employment}\',fk_scheduleID=\'${updateUserData.id_schedule}\',
-                fk_marital_statusID=\'${updateUserData.id_maritalStatus}\',fk_level_of_educationID=\'${updateUserData.id_education}\', fk_currencyID =\'${updateUserData.id_currency}\', image=\'${fileToDB}\' WHERE UserID=\'${foundUser.UserID}\'`;   
-                                
-                requestToDbCUDUserData(query, dbConnection,updateUserData, res);              
-            }     
+                fk_marital_statusID=\'${updateUserData.id_maritalStatus}\',fk_level_of_educationID=\'${updateUserData.id_education}\', fk_currencyID =\'${updateUserData.id_currency}\', image=\'${fileToDB}\' WHERE UserID=\'${foundUser.UserID}\'`;
+
+                requestToDbCUDUserData(query, dbConnection, updateUserData, res);
+            }
         }
         res.end();
     }
