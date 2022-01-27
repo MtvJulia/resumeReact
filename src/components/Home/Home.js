@@ -57,7 +57,9 @@ class Home extends React.Component {
                         <div className='row align-items-center justify-content-evenly' id='first-container'>
                             <div className='col col-md-6 col-12'>
                                 <div className="header-title">Создайте резюме в онлайн конструкторе</div>
-                                <p>Увеличьте шансы получить работу, создав свое профессиональное резюме в онлайн конструкторе всего за 15 минут.</p>
+                                <div>
+                                    <p>Увеличьте шансы получить работу, создав свое профессиональное резюме в онлайн конструкторе всего за 15 минут.</p>
+                                </div>
                             </div>
                             <div className='col col-md-6 col-12' >
                                 <img src={mainPhoto} alt='photo' id='photoResume'></img>
@@ -127,7 +129,7 @@ class Home extends React.Component {
                             </div>
                             <div className='col'>
                                 <img className='img-template' src={mainPhoto} alt='template'></img>
-                            </div>                            
+                            </div>
                         </div>
 
                         {/* sixth container */}
