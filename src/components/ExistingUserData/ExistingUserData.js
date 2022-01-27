@@ -27,17 +27,7 @@ class ExistingUserData extends React.Component {
         this.langArray = [];
         this.coursArray = [];
         this.recomendationArray = [];
-        this.driveLicense = {
-            A1: 0,
-            A: 0,
-            B1: 0,
-            B: 0,
-            C1: 0,
-            C: 0,
-            D1: 0,
-            D: 0,
-            T: 0
-        };
+        
         this.currencyName = "";
         this.imageBase64="";    
 
@@ -47,7 +37,7 @@ class ExistingUserData extends React.Component {
         this.id_level="id_level";   
         this.count=0; 
         this.countLang=100; 
-        this.imageFromDB="";       
+        this.imageFromDB="";              
          //--------------------------------------------------------
 
         this.fillExpArr = this.fillExpArr.bind(this);
@@ -85,7 +75,16 @@ class ExistingUserData extends React.Component {
         this.setHobby = this.setHobby.bind(this);
         this.setPersonalQualities = this.setPersonalQualities.bind(this);
         this.setProfessionalSkills = this.setProfessionalSkills.bind(this);        
-        this.onFileSelected = this.onFileSelected.bind(this);         
+        this.onFileSelected = this.onFileSelected.bind(this);    
+        this.setDriveLicenseA1 = this.setDriveLicenseA1.bind(this);
+        this.setDriveLicenseA = this.setDriveLicenseA.bind(this);
+        this.setDriveLicenseB1 = this.setDriveLicenseB1.bind(this);
+        this.setDriveLicenseB = this.setDriveLicenseB.bind(this);
+        this.setDriveLicenseC1 = this.setDriveLicenseC1.bind(this);
+        this.setDriveLicenseC = this.setDriveLicenseC.bind(this);
+        this.setDriveLicenseD1 = this.setDriveLicenseD1.bind(this);
+        this.setDriveLicenseD = this.setDriveLicenseD.bind(this);
+        this.setDriveLicenseT = this.setDriveLicenseT.bind(this);     
     }
     
        
@@ -131,52 +130,61 @@ class ExistingUserData extends React.Component {
         return currency;
     }
 
-    fillDriveLicenseObj(data, drLicense) {
+    fillDriveLicenseObj(data) {
         for (let i = 0; i < data.driverLicense.length; i++) {
             switch (data.driverLicense[i]) {
                 case "A1":
                     {
-                        drLicense.A1 = 1;
+                        data.driverLicense.A1 = 1;
+                        document.getElementById('id_driverLicenseA1').checked=data.driverLicense.A1;
                         break;
                     }
                 case "A":
                     {
-                        drLicense.A = 1;
+                        data.driverLicense.A = 1;
+                        document.getElementById('id_driverLicenseA').checked=data.driverLicense.A;
                         break;
                     }
                 case "B1":
                     {
-                        drLicense.B1 = 1;
+                        data.driverLicense.B1 = 1;
+                        document.getElementById('id_driverLicenseB1').checked=data.driverLicense.B1;
                         break;
                     }
                 case "B":
-                    {
-                        drLicense.B = 1;
+                    {                      
+                        data.driverLicense.B = 1; 
+                        document.getElementById('id_driverLicenseB').checked=data.driverLicense.B;                       
                         break;
                     }
                 case "C1":
                     {
-                        drLicense.C1 = 1;
+                        data.driverLicense.C1 = 1;
+                        document.getElementById('id_driverLicenseC1').checked=data.driverLicense.C1;
                         break;
                     }
                 case "C":
                     {
-                        drLicense.C = 1;
+                        data.driverLicense.C = 1;
+                        document.getElementById('id_driverLicenseC').checked=data.driverLicense.C;
                         break;
                     }
                 case "D1":
                     {
-                        drLicense.D1 = 1;
+                        data.driverLicense.D1 = 1;
+                        document.getElementById('id_driverLicenseD1').checked=data.driverLicense.D1;
                         break;
                     }
                 case "D":
                     {
-                        drLicense.D = 1;
+                        data.driverLicense.D = 1;
+                        document.getElementById('id_driverLicenseD').checked=data.driverLicense.D;
                         break;
                     }
                 case "T":
                     {
-                        drLicense.T = 1;
+                        data.driverLicense.T = 1;
+                        document.getElementById('id_driverLicenseT').checked=data.driverLicense.T;
                         break;
                     }
             }
@@ -353,25 +361,26 @@ class ExistingUserData extends React.Component {
     }
    
 
-    onFileSelected(event) {
+    onFileSelected(event) {       
+        ////загрузка картинки на форму
         var selectedFile = event.target.files[0];
-        var reader = new FileReader();
-      
-        var imgtag = document.getElementById("myimage");
-        imgtag.title = selectedFile.name;       
-      
-        reader.onload = function(event) {
-          imgtag.src = event.target.result;
-        };  
-        if(imgtag) {  
-        reader.readAsDataURL(selectedFile);}
 
-        this.setState(Object.assign(this.state.items,{image:event.target.files[0],
-            loaded: 0}));          
-       
+        var reader = new FileReader();
+
+        var imgtag = document.getElementById("myimage");
+        imgtag.title = selectedFile.name;
+
+        reader.onload = function (event) {
+            imgtag.src = event.target.result;
+        };
+        if (imgtag) {
+            reader.readAsDataURL(selectedFile);
+        }
+
+        this.setState(Object.assign(this.state.items, { image: event.target.files[0], loaded: 0 }));
+
         console.log(selectedFile);
 
-        console.log(this.state.users);    
       }
 
     setFirstName(event){ this.setState(Object.assign(this.state.items,{ firstName:event.target.value})); }
@@ -384,7 +393,7 @@ class ExistingUserData extends React.Component {
     setEmail(event){ this.setState(Object.assign(this.state.items,{ email:event.target.value})); }
     setNationality(event){ this.setState(Object.assign(this.state.items,{ nationality:event.target.value})); }
     setDesiredSalary(event){ this.setState(Object.assign(this.state.items,{ desiredSalary:event.target.value})); }
-    setCurrencyName(event){ this.setState(Object.assign(this.state.items,{ currencyName:event.target.value})); }
+    setCurrencyName(event){ this.setState(Object.assign(this.state.items,{ currency:event.target.value})); }
     setEmployment(event){ this.setState(Object.assign(this.state.items,{ employment:event.target.value})); }
     setSchedule(event){ this.setState(Object.assign(this.state.items,{ schedule:event.target.value})); }
     setBusinessTrip(event){ this.setState(Object.assign(this.state.items,{ businessTrip:event.target.checked})); }
@@ -397,9 +406,20 @@ class ExistingUserData extends React.Component {
     setHobby(event){ this.setState(Object.assign(this.state.items,{ hobby:event.target.value})); }
     setPersonalQualities(event){ this.setState(Object.assign(this.state.items,{ personalQualities:event.target.value})); }
     setProfessionalSkills(event){ this.setState(Object.assign(this.state.items,{ professionalSkills:event.target.value})); }
-    
-    
-   
+    setDriveLicenseA1(event){if(this.state.items.driverLicense!=undefined){this.setState(Object.assign(this.state.items.driverLicense,{ A1:event.target.checked}));}}
+    setDriveLicenseA(event){if(this.state.items.driverLicense!=undefined){this.setState(Object.assign(this.state.items.driverLicense,{ A:event.target.checked}));}}
+    setDriveLicenseB1(event){if(this.state.items.driverLicense!=undefined){this.setState(Object.assign(this.state.items.driverLicense,{ B1:event.target.checked}));}}
+    setDriveLicenseB(event){if(this.state.items.driverLicense!=undefined){this.setState(Object.assign(this.state.items.driverLicense,{ B:event.target.checked}));}}
+    setDriveLicenseC1(event){if(this.state.items.driverLicense!=undefined){this.setState(Object.assign(this.state.items.driverLicense,{ C1:event.target.checked}));}}
+    setDriveLicenseC(event){if(this.state.items.driverLicense!=undefined){this.setState(Object.assign(this.state.items.driverLicense,{ C:event.target.checked}));}}
+    setDriveLicenseD1(event){if(this.state.items.driverLicense!=undefined){this.setState(Object.assign(this.state.items.driverLicense,{ D1:event.target.checked}));}}
+    setDriveLicenseD(event){if(this.state.items.driverLicense!=undefined){this.setState(Object.assign(this.state.items.driverLicense,{ D:event.target.checked}));}}
+    setDriveLicenseT(event){if(this.state.items.driverLicense!=undefined){this.setState(Object.assign(this.state.items.driverLicense,{ T:event.target.checked}));} }
+
+
+
+
+
 
 
 
@@ -408,7 +428,8 @@ class ExistingUserData extends React.Component {
         fetch(this.API_ADDRESS)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
+                console.log("DATA ::::::::::::::::::::  "+data);
+                console.log(data[0]);
                // data = data[0]; //переводим в объект                
                
 
@@ -416,29 +437,26 @@ class ExistingUserData extends React.Component {
                 let educArr = [];
                 let langArr = [];
                 let coursArr = [];
-                let recomendArr = [];
-                let drLicense = {};
+                let recomendArr = [];               
                 let currency = "";
              
-
-                this.imageFromDB = new Buffer.from(data.file).toString("base64");
-                  console.dir(data.file);
-                  console.dir( this.imageFromDB);
+              if(data.file){               
+                let fileFromDB = new Buffer.from(data.file).toString("base64");
+                this.imageFromDB = "data:image/png;base64," + fileFromDB;
+                 }
+               else{
+                this.imageFromDB = UploadPhoto;
+               }
+                   console.dir(data.file);
+                //   console.dir( this.imageFromDB);
                                  
-
-                this.fillExpArr(data, expArr);
-                this.fillEducArr(data, educArr);
-                this.fillLangArr(data, langArr);
-                if (data.courseName != null) {
-                    this.fillCoursArr(data, coursArr);
-                }
-                if (data.phoneCompany != null) {
-                    this.fillRecomendArr(data, recomendArr);
-                }
-                if (data.driverLicense != null) {
-                    this.fillDriveLicenseObj(data, drLicense);
-                }
-
+            if(data.companyName != null) this.fillExpArr(data, expArr);
+            if(data.institutName != null) this.fillEducArr(data, educArr);
+            if(data.langName != null)  this.fillLangArr(data, langArr);
+            if (data.courseName != null)this.fillCoursArr(data, coursArr);               
+            if (data.phoneCompany != null)this.fillRecomendArr(data, recomendArr);             
+            if (data.driverLicense != null)this.fillDriveLicenseObj(data); 
+                     
 
                 this.expArray = expArr;
                 this.educArray = educArr;
@@ -446,20 +464,27 @@ class ExistingUserData extends React.Component {
                 console.log(this.langArray);
                 this.coursArray = coursArr;
                 console.log(this.coursArray);
-                this.recomendationArray = recomendArr;
-                this.driveLicense = drLicense;
+                this.recomendationArray = recomendArr;              
                 this.currencyName = this.getCurrency(data, currency);
+               
 
+               if(data.birthOfDate == undefined)
+               {
+                data.birthOfDate=''; 
+               }
 
                 this.setState({
                     items: data                    
                 });
-
                 console.dir(this.state.items);
-
+                
+               
+               this.setState(Object.assign(this.state.items,{ currency: this.currencyName}));
+               console.dir(this.state.items.currency);
             });
     }
 
+    
     render() {      
         if (this.state.items == null) {
             return (
@@ -479,7 +504,7 @@ class ExistingUserData extends React.Component {
                         {/* <!-- First container --> */}
                         <div className="divData col-md-6 ">
                             <div>
-                                <form action="http://localhost:55555/existinguserdata" method="POST">
+                                <form action="http://localhost:55555/existinguserdata" method="POST" encType="multipart/form-data">
 
                                     {/* <!-- -------ОСНОВНАЯ ИНФО----------- --> */}
                                     <fieldset className="form-group p-3">
@@ -503,9 +528,13 @@ class ExistingUserData extends React.Component {
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
                                                 <div className="userPhoto">
                                                     <label>
-                                                        <img className="avatar"  src={"data:image/png;base64," + this.imageFromDB} alt="Нажмите для выбора файла" id="myimage" />
-                                                        <input type="file" id="id_imgUpl" name="fupload" onChange={this.onFileSelected } hidden />
-                                                    </label>
+                                                        <img className="avatar"  src={ this.imageFromDB} alt="Нажмите для выбора файла" id="myimage" />
+                                                        <input 
+                                                        accept="image/*"
+                                                        type="file"                                                          
+                                                        name="fupload" 
+                                                        onChange={this.onFileSelected }  />
+                                                    </label>                                                                                                                                                     
                                                 </div>
                                             </div>
 
@@ -566,14 +595,14 @@ class ExistingUserData extends React.Component {
                                                     <input type="number" className="form-control" id="id_desiredSalary" name="id_desiredSalary" value={this.state.items.desiredSalary} onChange = {this.setDesiredSalary} placeholder="0"
                                                         step="1" min="0" />
                                                     <div className="input-group-append">
-                                                        <select className="form-control" id="id_currency" name="id_currency" onChange = {this.setCurrencyName} value={this.currencyName}>
-                                                            <option>₴ - гривна</option>
-                                                            <option>$ - доллар</option>
-                                                            <option>€ - евро</option>
-                                                            <option>₽ - рубль</option>
-                                                            <option>£ - фунты</option>
-                                                            <option>¥ - юань</option>
-                                                            <option>другая валюта</option>
+                                                        <select className="form-control" id="id_currency" name="id_currency" onChange = {this.setCurrencyName} value={this.state.items.currency}>
+                                                            <option  value="1">₴ - гривна</option>
+                                                            <option  value="2">$ - доллар</option>
+                                                            <option value="3">€ - евро</option>
+                                                            <option value="4">₽ - рубль</option>
+                                                            <option value="5">£ - фунты</option>
+                                                            <option value="6">¥ - юань</option>
+                                                            <option value="7">другая валюта</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -584,21 +613,21 @@ class ExistingUserData extends React.Component {
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_employment">Занятось:</label>
                                                 <select className="form-control" id="id_employment" name="id_employment" placeholder="выбрать" value={this.state.items.employment} onChange = {this.setEmployment}>
-                                                    <option>Полная занятость</option>
-                                                    <option>Частичная занятость</option>
-                                                    <option>Проектная работа</option>
-                                                    <option>Волонтерство</option>
-                                                    <option>Стажировка</option>
+                                                    <option value="1">Полная занятость</option>
+                                                    <option  value="2">Частичная занятость</option>
+                                                    <option  value="3">Проектная работа</option>
+                                                    <option  value="4">Волонтерство</option>
+                                                    <option  value="5">Стажировка</option>
                                                 </select>
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_schedule">График работы:</label>
                                                 <select className="form-control" id="id_schedule" name="id_schedule" value={this.state.items.schedule} onChange = {this.setSchedule}>
-                                                    <option>Полный день</option>
-                                                    <option>Сменный график</option>
-                                                    <option>Гибкий график</option>
-                                                    <option>Удаленная работа</option>
-                                                    <option>Вахтовый метод</option>
+                                                    <option  value="1">Полный день</option>
+                                                    <option  value="2">Сменный график</option>
+                                                    <option  value="3">Гибкий график</option>
+                                                    <option  value="4">Удаленная работа</option>
+                                                    <option  value="5">Вахтовый метод</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -620,10 +649,10 @@ class ExistingUserData extends React.Component {
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_maritalStatus">Семейное положение:</label>
                                                 <select className="form-control" id="id_maritalStatus" name="id_maritalStatus" value={this.state.items.maritalStatus} onChange = {this.setMaritalStatus} >
-                                                    <option>Замужем</option>
-                                                    <option>Не замужем</option>
-                                                    <option>Женат</option>
-                                                    <option>Не женат</option>
+                                                    <option  value="1">Замужем</option>
+                                                    <option  value="2">Не замужем</option>
+                                                    <option  value="3">Женат</option>
+                                                    <option  value="4">Не женат</option>
                                                 </select>
                                                 <div
                                                     className="custom-control custom-checkbox custom-control-inline ccb-right childrenCheckBox">
@@ -634,11 +663,11 @@ class ExistingUserData extends React.Component {
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_education">Основное образование:</label>
                                                 <select className="form-control" id="id_education" name="id_education" value={this.state.items.education} onChange = {this.setEducation}>
-                                                    <option>Общее среднее образование</option>
-                                                    <option>Профессионально-техническое образование</option>
-                                                    <option>Высшее образования</option>
-                                                    <option>Аспирантура</option>
-                                                    <option>Докторантура</option>
+                                                    <option  value="1">Общее среднее образование</option>
+                                                    <option  value="2">Профессионально-техническое образование</option>
+                                                    <option  value="3">Высшее образования</option>
+                                                    <option  value="4">Аспирантура</option>
+                                                    <option  value="5">Докторантура</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -675,7 +704,7 @@ class ExistingUserData extends React.Component {
                                         <ShowCourses arrayToDisplay={this.coursArray} />                                       
                                         <div id="courseList">
                                         </div>
-                                        <a href="javascript:AddCourse()" onClick={this.AddCourse}>Добавить</a>
+                                        <a href="javascript:AddCourse()"ShowCourses onClick={this.AddCourse}>Добавить</a>
                                     </fieldset>
 
                                     {/* <!-- -------ОПЫТ РАБОТЫ----------- --> */}
@@ -712,39 +741,39 @@ class ExistingUserData extends React.Component {
                                             <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <label for="id_driverLicense">Права категории:</label>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseA1" className="custom-control-input" name="id_driverLicenseA1" checked={this.driveLicense.A1}  />
+                                                    <input type="checkbox" id="id_driverLicenseA1" className="custom-control-input" name="id_driverLicenseA1" value="1" onChange = {this.setDriveLicenseA1} />
                                                     <label className="custom-control-label" for="id_driverLicenseA1">A1</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseA" className="custom-control-input" name="id_driverLicenseA" checked={this.driveLicense.A} />
+                                                    <input type="checkbox" id="id_driverLicenseA" className="custom-control-input" name="id_driverLicenseA" value="2"   onChange = {this.setDriveLicenseA} />
                                                     <label className="custom-control-label" for="id_driverLicenseA">A</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseB1" className="custom-control-input" name="id_driverLicenseB1" checked={this.driveLicense.B1} />
+                                                    <input type="checkbox" id="id_driverLicenseB1" className="custom-control-input" name="id_driverLicenseB1"  value="3"  onChange = {this.setDriveLicenseB1}/>
                                                     <label className="custom-control-label" for="id_driverLicenseB1">B1</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseB" className="custom-control-input" name="id_driverLicenseB" checked={this.driveLicense.B} />
+                                                    <input type="checkbox" id="id_driverLicenseB" className="custom-control-input" name="id_driverLicenseB"   value="4"  onChange = {this.setDriveLicenseB}/>
                                                     <label className="custom-control-label" for="id_driverLicenseB">B</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseC1" className="custom-control-input" name="id_driverLicenseC1" checked={this.driveLicense.C1} />
+                                                    <input type="checkbox" id="id_driverLicenseC1" className="custom-control-input" name="id_driverLicenseC1"   value="5"  onChange = {this.setDriveLicenseC1}/>
                                                     <label className="custom-control-label" for="id_driverLicenseC1">C1</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseC" className="custom-control-input" name="id_driverLicenseC" checked={this.driveLicense.C} />
+                                                    <input type="checkbox" id="id_driverLicenseC" className="custom-control-input" name="id_driverLicenseC" value="6"  onChange = {this.setDriveLicenseC}/>
                                                     <label className="custom-control-label" for="id_driverLicenseC">C</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseD1" className="custom-control-input" name="id_driverLicenseD1" checked={this.driveLicense.D1} />
+                                                    <input type="checkbox" id="id_driverLicenseD1" className="custom-control-input" name="id_driverLicenseD1"   value="7"  onChange = {this.setDriveLicenseD1}/>
                                                     <label className="custom-control-label" for="id_driverLicenseD1">D1</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseD" className="custom-control-input" name="id_driverLicenseD" checked={this.driveLicense.D} />
+                                                    <input type="checkbox" id="id_driverLicenseD" className="custom-control-input" name="id_driverLicenseD"  value="8"  onChange = {this.setDriveLicenseD}/>
                                                     <label className="custom-control-label" for="id_driverLicenseD">D</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseT" className="custom-control-input" name="id_driverLicenseT" checked={this.driveLicense.T} />
+                                                    <input type="checkbox" id="id_driverLicenseT" className="custom-control-input" name="id_driverLicenseT" value="9"    onChange = {this.setDriveLicenseT}/>
                                                     <label className="custom-control-label" for="id_driverLicenseT">T</label>
                                                 </div>
                                             </div>
@@ -778,8 +807,6 @@ class ExistingUserData extends React.Component {
                                         </div>
                                     </fieldset>
                                     <button type="submit" className="btn btn-primary" id="sbmResume" >Отправить</button>
-
-
                                 </form>
                             </div>
                         </div>

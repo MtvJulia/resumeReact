@@ -1,146 +1,3 @@
-const getFkValue = (newUserData) =>{
-
-    let fkValue={};
-
-    if(newUserData.id_employment!="")
-    {
-        switch(newUserData.id_employment)
-        {
-          case "Полная занятость":{
-            fkValue.id_employment = 1;
-              break;
-          }
-          case "Частичная занятость":{
-            fkValue.id_employment = 2;
-              break;
-          }
-          case "Проектная работа":{
-            fkValue.id_employment = 3;
-              break;
-          }
-          case "Волонтерство":{
-            fkValue.id_employment = 4;
-              break;
-          }
-          case "Стажировка":{
-            fkValue.id_employment = 5;
-              break;
-          }
-        } 
-    }
-    
-    if(newUserData.id_schedule!="")
-    {
-        switch(newUserData.id_schedule)
-        {
-          case "Полный день":{
-            fkValue.id_schedule = 1;
-              break;
-          }
-          case "Сменный график":{
-            fkValue.id_schedule = 2;
-              break;
-          }
-          case "Гибкий график":{
-            fkValue.id_schedule = 3;
-              break;
-          }
-          case "Удаленная работа":{
-            fkValue.id_schedule = 4;
-              break;
-          }
-          case "Вахтовый метод":{
-            fkValue.id_schedule = 5;
-              break;
-          }
-        } 
-    }
-    if(newUserData.id_maritalStatus!="")
-    {
-        switch(newUserData.id_maritalStatus)
-        {
-          case "Замужем":{
-            fkValue.id_maritalStatus = 1;
-              break;
-          }
-          case "Не замужем":{
-            fkValue.id_maritalStatus = 2;
-              break;
-          }
-          case "Женат":{
-            fkValue.id_maritalStatus = 3;
-              break;
-          }
-          case "Не женат":{
-            fkValue.id_maritalStatus = 4;
-              break;
-          }          
-        } 
-    }
-    if(newUserData.id_education!="")
-    {
-        switch(newUserData.id_education)
-        {
-          case "Общее среднее образование":{
-            fkValue.id_education = 1;
-              break;
-          }
-          case "Профессионально-техническое образование":{
-            fkValue.id_education = 2;
-              break;
-          }
-          case "Высшее образования":{
-            fkValue.id_education = 3;
-              break;
-          }
-          case "Аспирантура":{
-            fkValue.id_education= 4;
-              break;
-          }
-          case "Докторантура":{
-            fkValue.id_education = 5;
-              break;
-          }
-        } 
-    }
-    if(newUserData.id_currency!="")
-    {
-        switch(newUserData.id_currency)
-        {
-          case "₴ - гривна":{
-            fkValue.id_currency = 1;
-              break;
-          } 
-          case "$ - доллар":{
-            fkValue.id_currency = 2;
-              break;
-          }
-          case "€ - евро":{
-            fkValue.id_currency = 3;
-              break;
-          }
-          case "₽ - рубль":{
-            fkValue.id_currency = 4;
-              break;
-          }
-          case "£ - фунты":{
-            fkValue.id_currency= 5;
-              break;
-          }
-          case "¥ - юань":{
-            fkValue.id_currency = 6;
-              break;
-          }
-          case "другая валюта":{
-            fkValue.id_currency = 7;
-              break;
-          }
-        } 
-    }   
-return fkValue;
-
-}
-
 const getEndData = (newUserData) => {
 
     let endWork = '';
@@ -183,9 +40,6 @@ const userDataChecking=(userData,fs,res,callback = (res,userData)=>{
   console.log("************************");
   console.log(userData);
 
-  var imageData = userData.image.toString();
-  console.log("////////////////////////////////////////" + imageData) ; 
- 
   userData.positionWork = changingMultiValuesToArray(userData.positionWork);
   userData.startWork =  changingMultiValuesToArray(userData.startWork);
   userData.endWork = changingMultiValuesToArray(userData.endWork);
@@ -207,16 +61,17 @@ const userDataChecking=(userData,fs,res,callback = (res,userData)=>{
   userData.emailCompany = changingMultiValuesToArray(userData.emailCompany);
   userData.phoneCompany = changingMultiValuesToArray(userData.phoneCompany);
 
-
-  fs.readFile('uploads/'+imageData, function(error, data){
-    
-    if(error){
-              
+if(userData.image != null){
+  var imageData = userData.image.toString();
+  console.log("////////////////////////////////////////" + imageData) ;  
+  fs.readFile('uploads/'+imageData, function(error, data){    
+    if(error){              
         response.statusCode = 404;
         response.end("Resourse not found!");
     }   
     else{
         userData.file = data;
+        userData.file.originalname = imageData;
         console.log("OOOOKKKKKK!!!!");
         console.log( userData.file);
         console.log("------------NEW--USER DATA-----------");
@@ -225,7 +80,13 @@ const userDataChecking=(userData,fs,res,callback = (res,userData)=>{
         callback(res,userData);
     }
 });
-    
+} 
+else{
+
+  callback(res,userData);
+}
+
+
 }
 
 function changingMultiValuesToArray(userDataValue){
@@ -263,8 +124,9 @@ function changingMultiValuesToArray(userDataValue){
 function  getUserData(res,userData ,dbConnection,foundUserID,fs)
   {
   let queryToView = `SELECT * FROM v_getUserData WHERE userID = ${foundUserID} `; 
-
-  dbConnection.query(queryToView, (err, result) => {
+  if(foundUserID>0)
+  {
+    dbConnection.query(queryToView, (err, result) => {
       if (err) console.log(err.message);  
       if(result) 
       {
@@ -273,8 +135,11 @@ function  getUserData(res,userData ,dbConnection,foundUserID,fs)
           userDataChecking(userData,fs,res);                       
       }                         
   });
-};  
+  return true;
+  }
+return false;
+  };  
 
-module.exports.getFkValue = getFkValue;
+
 module.exports.getEndData = getEndData;
 module.exports.getUserData = getUserData;
