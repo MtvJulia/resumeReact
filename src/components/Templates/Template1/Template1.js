@@ -104,7 +104,7 @@ class Template1 extends React.Component {
                                         </div>
                                         <p className="mb-1" >менеджер</p>
                                         <small>ведение клиентов, продажи</small>
-                                    </div>                                    
+                                    </div>
                                     <div className="list-group-item ">
                                         <div className="d-flex w-100 justify-content-between">
                                             <h5 className="mb-1">Рога и копыта</h5>
@@ -112,14 +112,56 @@ class Template1 extends React.Component {
                                         </div>
                                         <p className="mb-1" >бухгалтер</p>
                                         <small>бухгалтерия предприятия</small>
-                                    </div>                                    
+                                    </div>
                                 </div>
 
-                                <div className="col header-text border">Образование</div>
-                                <div className="col header-text border">Курсы</div>
-                                <div className="col header-text border">Рекомендации</div>
-                                <div className="col header-text border">Личные качества</div>
-                                <div className="col header-text border">Хобби</div>
+                                <div className="col header-text border box">Образование</div>
+                                <div className="list-group ">
+                                    <div className="list-group-item ">
+                                        <div className="d-flex w-100 justify-content-between">
+                                            <h5 className="mb-1">ЗИГМУ</h5>
+                                            <h5 className="mb-1">2000</h5>
+                                        </div>
+                                        <p className="mb-1" >менеджмент и ВЭД</p>
+                                        <small>менеджер среднего звена, бакалавр</small>
+                                    </div>
+                                </div>
+
+                                <div className="col header-text border box">Курсы</div>
+                                <div className="list-group ">
+                                    <div className="list-group-item ">
+                                        <div className="d-flex w-100 justify-content-between">
+                                            <h5 className="mb-1">ЗИГМУ</h5>
+                                            <h5 className="mb-1">2001</h5>
+                                        </div>
+                                        <p className="mb-1" >менеджмент и ВЭД</p>
+                                        {/* <small>менеджер среднего звена, бакалавр</small> */}
+                                    </div>
+                                </div>
+
+                                <div className="col header-text border box">Рекомендации</div>
+                                <div className="list-group ">
+                                    <div className="list-group-item ">
+                                        <div className="d-flex w-100 justify-content-between">
+                                            <h5 className="mb-1">ЗИГМУ</h5>
+                                            {/* <h5 className="mb-1">2000</h5> */}
+                                        </div>
+                                        <p className="mb-1" >Иванов Иван Иванович</p>
+                                        <div >+380661234512</div>
+                                        <div >ivanov@gmail.com</div>
+                                    </div>
+                                </div>
+
+                                <div className="col header-text border box">Личные качества</div>
+                                <div className="list-group ">
+                                    <div className="list-group-item ">                                        
+                                        <p className="mb-1" >
+                                            Здравствуйте. Основные сведения обо мне вы уже знаете из резюме. Могу немного рассказать о себе. Мне … лет, по специальности я работаю уже … года. Получать высшее образование по этой специальности решил осознанно, так как мне нравится профессия и то, что она может дать. Я стараюсь развиваться всесторонне, люблю получать новые знания. Поэтому работа в вашей компании окажется для меня очень полезной. А я, в свою очередь, все свои имеющиеся знания приложу для того, чтобы компания становилась еще перспективнее, а ее доходы росли. Там, где я работал раньше, мне удалось добиться существенных результатов (перечислите их). Прежнее место работы мне очень нравилось, но я хочу продвигаться вперед. Думаю, именно ваша компания мне такую возможность даст
+                                        </p>                                        
+                                    </div>
+                                </div>
+
+                                <div className="col header-text border box">Хобби</div>
 
                             </div>
                         </div>

@@ -139,11 +139,12 @@ class Home extends React.Component {
 
                         {/* seventh container */}
                         <div className='row justify-content-center'>
-                            <div className='col header-tips'>
-                                <div className="text-center">Выбираете хорошо подходящий Вам шаблон</div>
-                            </div>
+                            
                             <div className='col header-tips '>
                                 <div className="text-center">Заполняете резюме online в удобной форме</div>
+                            </div>
+                            <div className='col header-tips'>
+                                <div className="text-center">Выбираете хорошо подходящий Вам шаблон</div>
                             </div>
                             <div className='col header-tips'>
                                 <div className="text-center">Скачиваете или размещаете online свое резюме</div>
