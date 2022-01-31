@@ -46,16 +46,16 @@
     flex-wrap: nowrap;
 }
 
-#left-container {
+#left-container-t1 {
     background-color: #edd9b4;
     /* burlywood; */
     /* height: 1754px    ; */
     min-width: min-content;
-
 }
 
 #avatar {
     padding: 30px 0px;
+    max-width: 200px;
 }
 
 #full-name {
