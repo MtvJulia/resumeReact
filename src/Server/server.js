@@ -1,5 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const pdf = require('html-pdf');
+const cors = require('cors');
 const path = require('path');// модуль для парсинга пути
 const mysql = require('mysql');
 const fs = require("fs");
@@ -89,21 +91,62 @@ var userData = {
 
 
 server.use(express.static(__dirname + '/public'));
-server.use(bodyParser.urlencoded({ extended: false }));
+// server.use(bodyParser.json()); 
+
+server.use(bodyParser.json({limit: '50mb'}));
+server.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
+
+//server.use(bodyParser.urlencoded({ extended: false }));
+server.use(cors());
 server.engine('html', require('ejs').renderFile);
 server.set('view engine', 'html');
 server.set('views', __dirname);
-
+const pdfTemplate1 = require('./documents/tmp1');
 
 const SERVER_PORT = 55555;
 const HTTP_OK = 200;
 const dbConnection = mysql.createConnection(connString);
+
+
 
 // подключаемся
 dbConnection.connect((err) => {
     if (err) console.log(err.message);
     else console.log("Connected to MySQL");
 });
+
+function strToObj(str){
+    var obj = {};
+    if(str&&typeof str ==='string'){
+        var objStr = str.match(/\{(.)+\}/g);
+        eval("obj ="+objStr);
+    }
+    return obj
+ }
+
+server.post('/create-pdf', (req, res) => {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    console.log("TO POST ");
+    console.log(req.body);
+
+    var userDataTo=strToObj(req.body);
+    console.log("TO POST ");
+    console.log(userDataTo);
+
+    pdf.create(pdfTemplate1(userDataTo), {}).toFile('result.pdf', (err) => {
+        if(err) {
+            res.send(Promise.reject());
+        }
+        console.log(req.body);
+        res.send(Promise.resolve());
+    });
+});
+
+server.get('/fetch-pdf', (req, res) => {
+    res.sendFile(`${__dirname}/result.pdf`)
+})
+
 
 
 const fillDriverLicense = (newUserData) => {
@@ -413,7 +456,15 @@ server.get("/existinguserdata", (req, res) => {
         res.end();
     }
 });
+server.get("/template1", (req, res) => {
 
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    let result = getUserData(res, userData, dbConnection, foundUserID, fs);
+    if (result == false) {
+        res.json(userData);
+        res.end();
+    }
+});
 
 ////----------------SERVER.POST--------------------------------------
 server.post("/login", function (request, response) {
@@ -559,8 +610,8 @@ server.post("/existinguserdata", upload.single('fupload'), function (req, res) {
 
             requestToDbCUDUserData(query, dbConnection, res, newUserData);
         }
-
-        res.end();
+        return res.redirect("http://localhost:3000/tmp1");
+      //  res.end();
     }
     ////------------------------------UPDATE USER AFTER LOGIN ----------------------------------
     else {
@@ -601,8 +652,10 @@ server.post("/existinguserdata", upload.single('fupload'), function (req, res) {
                 requestToDbCUDUserData(query, dbConnection, updateUserData, res);
             }
         }
-        res.end();
+        return res.redirect("http://localhost:3000/tmp1");
+      // res.end();
     }
+   
 });
 
 const startupCallback = function () {

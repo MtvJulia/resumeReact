@@ -73,7 +73,7 @@ class Home extends React.Component {
 
                         {/* third container */}
                         <div className='row' id='third-container'>
-                            <div className='col col-12 col-md-6 col-xl-4 '>
+                            <div className='col col-12 col-md-6 col-xl-4'>
                                 <img className='img-tips' src={search} alt='search'></img>
                                 <div className='header-tips'>Больше шансов получить работу</div>
                                 <div className='text-tips'>Репрезентативное резюме выделит Вас среди других кандидатов, что повысит вероятность приглашения на собеседование.</div>
@@ -111,25 +111,20 @@ class Home extends React.Component {
                         </div>
 
                         {/* fifth container */}
-                        <div className='row row-cols-3 justify-content-between' id='fifth container'>
-                            <div className='col'>
+                        <div className='d-flex flex-wrap justify-content-center' id='fifth-container'>
+                            
                                 <img className='img-template' src={mainPhoto} alt='template'></img>
-                            </div>
-                            <div className='col'>
+                            
                                 <img className='img-template' src={mainPhoto} alt='template'></img>
-                            </div>
-                            <div className='col'>
+                           
                                 <img className='img-template' src={mainPhoto} alt='template'></img>
-                            </div>
-                            <div className='col'>
+                            
                                 <img className='img-template' src={mainPhoto} alt='template'></img>
-                            </div>
-                            <div className='col'>
+                            
                                 <img className='img-template' src={mainPhoto} alt='template'></img>
-                            </div>
-                            <div className='col'>
+                            
                                 <img className='img-template' src={mainPhoto} alt='template'></img>
-                            </div>
+                            
                         </div>
 
                         {/* sixth container */}
@@ -138,17 +133,40 @@ class Home extends React.Component {
                         </div>
 
                         {/* seventh container */}
-                        <div className='row justify-content-center'>
-                            <div className='col header-tips'>
-                                <div className="text-center">Выбираете хорошо подходящий Вам шаблон</div>
-                            </div>
+                        {/* <div className='row justify-content-center'>
+                            
                             <div className='col header-tips '>
                                 <div className="text-center">Заполняете резюме online в удобной форме</div>
                             </div>
                             <div className='col header-tips'>
+                                <div className="text-center">Выбираете хорошо подходящий Вам шаблон</div>
+                            </div>
+                            <div className='col header-tips'>
                                 <div className="text-center">Скачиваете или размещаете online свое резюме</div>
                             </div>
+                        </div> */}
+
+                        <div class="md-stepper-horizontal orange">
+                            <div class="md-step ">
+                                <div class="md-step-circle"><span>1</span></div>
+                                <div class="md-step-title">Заполняете резюме online в форме</div>
+                                <div class="md-step-bar-left"></div>
+                                <div class="md-step-bar-right"></div>
+                            </div>
+                            <div class="md-step ">
+                                <div class="md-step-circle"><span>2</span></div>
+                                <div class="md-step-title">Выбираете подходящий Вам шаблон</div>
+                                <div class="md-step-bar-left"></div>
+                                <div class="md-step-bar-right"></div>
+                            </div>
+                            <div class="md-step ">
+                                <div class="md-step-circle"><span>3</span></div>
+                                <div class="md-step-title">Скачиваете или размещаете online свое резюме</div>
+                                <div class="md-step-bar-left"></div>
+                                <div class="md-step-bar-right"></div>
+                            </div>                            
                         </div>
+
                     </div>
                 </div>
             );
