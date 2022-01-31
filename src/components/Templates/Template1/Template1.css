@@ -2,54 +2,106 @@
     border: 1px solid black;
 } */
 
-#main-container-t1{
-    height: 1754px;
-    width: 1240px;
+/* xs - устройства (до 576px) */
+/* CSS для ширины, которая меньше 575px (включительно) */
+@media(max-width: 576px) {
+    .col {
+        padding: 0px;
+        /* background-color: rgb(42, 165, 48); */
+    }
+}
+
+/* sm-устройства (больше или равно 576px) */
+@media (min-width: 576px) {
+
+    /* CSS для: 576px <= ширины <= 767px */
+    .col {
+        padding: 0px 10px;
+    }
+}
+
+/* md-устройства (больше или равно 768px) */
+@media (min-width: 768px) {
+    /* CSS для: 768px <= ширины <= 991px */
+
+}
+
+/* lg-устройства (больше или равно 992px) */
+@media (min-width: 992px) {
+    /* CSS для: 992px <= ширины <= 1119px */
+}
+
+/* xl-устройства (больше или равно 1200px) */
+@media (min-width: 1200px) {
+    /* CSS для: ширины >= 1200px */
+}
+
+
+#main-container-t1 {
     margin-top: 30px;
+    margin-bottom: 30px;
 }
 
-#left-container{
-    background-color: burlywood;
-    height: 1754px
+.container-t1 {
+    flex-wrap: nowrap;
 }
 
-#avatar{
+#left-container {
+    background-color: #edd9b4;
+    /* burlywood; */
+    /* height: 1754px    ; */
+    min-width: min-content;
+
+}
+
+#avatar {
     padding: 30px 0px;
 }
 
-#full-name{
+#full-name {
     margin-left: 5px;
-    
 }
 
-.name-text{
+.name-text {
+    word-wrap: break-word;
     font-size: 26px;
-    padding: 0px 5px;
-    font-weight: 700;   
+    padding: 0px 5px 0 0;
+    margin: 0px;
+    font-weight: 700;
 }
 
-.header-text{
+.header-text {
     font-size: 20px;
-    padding: 10px 5px;  
-    font-weight: 600; 
+    padding: 10px 5px;
+    font-weight: 600;
 }
 
-.main-text{
-    font-size: 14px;
-    font-weight: 400; 
+.main-text {
+    font-size: 1rem;
+    font-weight: 400;
 }
 
-.icon-item{
+.icon-item {
     width: 15px;
-    height: 15px;   
-    margin: 0px 5px;    
+    height: 15px;
+    margin: 0px 5px 3px 5px;
 }
 
 /* border */
 .box {
     display: inline-block;
-    width: 100%;    
-    background-color: #F8F8FA;
+    width: 100%;
+    background-color: #fdf5e5;
+    /* #F8F8FA; */
     border-color: #e9ecef !important;
 }
 
+.years {
+    white-space: nowrap;
+    margin-left: 25px;
+}
+
+.long-text {
+    /* white-space: pre-wrap; */
+    word-wrap: break-word;
+}
