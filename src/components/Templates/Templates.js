@@ -24,7 +24,8 @@ class Templates extends React.Component {
             languagesArr:null,
             coursesArr :null,
             educationArr : null,
-            experienceArr : null 
+            experienceArr : null ,
+            recomendingArr : null 
         }
 
         this.nameUserData = "";
@@ -36,6 +37,7 @@ class Templates extends React.Component {
         this.courseArr=[];
         this.educatArr= [];
         this.experArr =[];
+        this.recomendArr=[];
 
         this.age = 0;
        
@@ -52,14 +54,15 @@ class Templates extends React.Component {
         this.getCourses = this.getCourses.bind(this);
         this.getEducation =  this.getEducation.bind(this);
         this.getExperience = this.getExperience.bind(this);
+        this.getRecomendingArr = this.getRecomendingArr.bind(this);
     }
 
     createAndDownloadPdf = () => {
-        console.log(this.state);
+       // console.log(this.state);
         var uData = this.state;
 
-        console.log(typeof (uData));
-        console.log(typeof (JSON.stringify(uData)));
+        // console.log(typeof (uData));
+        // console.log(typeof (JSON.stringify(uData)));
 
 
         const options = {
@@ -547,13 +550,13 @@ else{return "";}
                     expItem.companyName  = data.companyName[i];
                     expItem.positionWork = data.positionWork[i];
                     expItem.jobDuties = data.jobDuties[i];
-                    expItem.startWork = data.startWork[i];
+                    expItem.startWork = data.startWork[i].substr(0,10);
                     if(data.endWork[i]==null&&data.stillWorking[i]==1)
                     {
                         expItem.endWork = "еще работаю";
                     }
                     else{
-                        expItem.endWork = data.endWork[i] ;
+                        expItem.endWork = data.endWork[i].substr(0,10) ;
                     }
                     experienceArr.push(expItem);
                 }
@@ -563,19 +566,54 @@ else{return "";}
                 expItem.companyName  = data.companyName;
                 expItem.positionWork = data.positionWork;
                 expItem.jobDuties = data.jobDuties;
-                expItem.startWork = data.startWork;
+                expItem.startWork = data.startWork.substr(0,10);
                 if(data.endWork==null&&data.stillWorking==1)
                 {
                     expItem.endWork = "еще работаю";
                 }
                 else{
-                    expItem.endWork = data.endWork ;
+                    expItem.endWork = data.endWork.substr(0,10) ;
                 }
                 experienceArr.push(expItem);
             }
             }
             return experienceArr;
     }
+
+    getRecomendingArr(data){
+        var recomendingArr=[];
+        if (data.phoneCompany != '' && data.phoneCompany != null){
+            let count = 0;
+            if (Array.isArray(data.phoneCompany)) {
+                data.phoneCompany.forEach(function (element) {
+                    if (element.length > 1) count++;
+                });
+            }
+            if (count > 0){
+                for(let i=0;i<data.phoneCompany.length;i++)
+                {
+                 let recomendingItem={};
+                 recomendingItem.personRecommending = data.personRecommending[i];
+                 recomendingItem.organcompanyization = data.company[i];
+                 recomendingItem.emailCompany = data.emailCompany[i];  
+                 recomendingItem.phoneCompany = data.phoneCompany[i];  
+                 recomendingArr.push(recomendingItem);
+                }
+            }
+            else{
+                let recomendingItem={};
+                recomendingItem.personRecommending = data.personRecommending;
+                recomendingItem.company = data.company;
+                recomendingItem.emailCompany = data.emailCompany;
+                recomendingItem.phoneCompany = data.phoneCompany;     
+                recomendingArr.push(recomendingItem);
+            }
+        }
+          return recomendingArr;
+
+
+    }
+
 
     componentDidMount() {
 
@@ -604,12 +642,7 @@ else{return "";}
                 this.courseArr = this.getCourses(data);
                 this.educatArr = this.getEducation(data);
                 this.experArr = this.getExperience(data);
-
-                                            
-
-
-
-
+                this.recomendArr = this.getRecomendingArr(data);                                         
 
 
                 this.setState({
@@ -617,7 +650,8 @@ else{return "";}
                     languagesArr :  this.languagesArr ,
                     coursesArr : this.courseArr ,
                     educationArr : this.educatArr ,
-                    experienceArr : this.experArr              
+                    experienceArr : this.experArr,
+                    recomendingArr : this.recomendArr              
                 });
                
 
@@ -687,8 +721,7 @@ else{return "";}
                                     <div className="col main-text">{this.employmentStr}</div>
                                 </div>
                                 <div className="col header-text">Языки
-                                { this.state.languagesArr.map(function(value,i) { return (<div className="col main-text" key={'val-' + i}>{value}</div>);} )}
-                                   
+                                { this.state.languagesArr.map(function(value,i) { return (<div className="col main-text" key={'val-' + i}>{value}</div>);} )}                                  
                                   
                                 </div>
                                 <div className="col header-text">{this.army}
@@ -699,28 +732,19 @@ else{return "";}
                             <div className="col" id="right-container">
                                 <div className="col header-text border box">Опыт работы </div>
                                 <div className="list-group ">
-                                { this.state.educationArr.map(function(value,i) {
+                                { this.state.experienceArr.map(function(value,i) {
                                      return (
-
+                                        <div className="list-group-item "  key={'val-' + i}>
+                                        <div className="d-flex w-100 justify-content-between">
+                                            <h5 className="mb-1">{value.companyName}</h5>
+                                            <h5 className="mb-1 years">{value.startWork + " - "+ value.endWork}</h5>
+                                        </div>
+                                        <p className="mb-1" >{value.positionWork}</p>
+                                        <small>{value.jobDuties}</small>
+                                    </div>                                  
 
                                         );} )}
-
-                                    <div className="list-group-item ">
-                                        <div className="d-flex w-100 justify-content-between">
-                                            <h5 className="mb-1">государственная служба</h5>
-                                            <h5 className="mb-1 years">2000-2007</h5>
-                                        </div>
-                                        <p className="mb-1" >менеджер</p>
-                                        <small>ведение клиентов, продажи</small>
-                                    </div>
-                                    <div className="list-group-item ">
-                                        <div className="d-flex w-100 justify-content-between">
-                                            <h5 className="mb-1">государственная служба</h5>
-                                            <h5 className="mb-1 years">2007-2022</h5>
-                                        </div>
-                                        <p className="mb-1" >бухгалтер</p>
-                                        <small>бухгалтерия предприятия</small>
-                                    </div>
+                                   
                                 </div>
 
                                 <div className="col header-text border box">Образование</div>
@@ -757,14 +781,17 @@ else{return "";}
 
                                 <div className="col header-text border box">Рекомендации</div>
                                 <div className="list-group ">
-                                    <div className="list-group-item ">
+                                { this.state.recomendingArr.map(function(value,i) {
+                                     return (                          
+                                    <div className="list-group-item " key={'val-' + i}>
                                         <div className="d-flex w-100 justify-content-between">
-                                            <h5 className="mb-1">{this.state.userData.company}</h5>
+                                            <h5 className="mb-1">{value.company}</h5>
                                         </div>
-                                        <p className="mb-1 text-capitalize" >{this.state.userData.personRecommending}</p>
-                                        <div >{this.state.userData.phoneCompany}</div>
-                                        <div >{this.state.userData.emailCompany}</div>
+                                        <p className="mb-1 text-capitalize" >{value.personRecommending}</p>
+                                        <div >{value.phoneCompany}</div>
+                                        <div >{value.emailCompany}</div>
                                     </div>
+                                     );} )}
                                 </div>
                                 <div className="col header-text border box">Профессиональные навыки</div>
                                 <div className="list-group ">

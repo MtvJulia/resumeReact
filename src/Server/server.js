@@ -128,16 +128,16 @@ function strToObj(str){
 server.post('/create-pdf', (req, res) => {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     
-    var userDataTo=req.body;
+    var userDataTo=JSON.stringify(req.body);
     console.log("TO POST ");
-    console.log(userDataTo);
+   // console.log(userDataTo);
       console.log(typeof(userDataTo));
 
     pdf.create(pdfTemplate1(userDataTo), {}).toFile('result.pdf', (err) => {
         if(err) {
             res.send(Promise.reject());
         }
-       // console.log(req.body);
+               
         res.send(Promise.resolve());
     });
 });
