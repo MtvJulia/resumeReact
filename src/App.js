@@ -8,7 +8,7 @@ import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
 import UserData from './components/UserData/UserData';
 import ExistingUserData from './components/ExistingUserData/ExistingUserData';
-import Template1 from './components/Templates/Template1/Template1';
+import Templates from './components/Templates/Templates';
 
 import './App.css';
 import logoPhoto from './images/logoResume.png';
@@ -38,7 +38,7 @@ class App extends React.Component {
                   <li className="nav-item"><a className="nav-link" href="/home">Главная</a></li>
                   <li className="nav-item"><a className="nav-link" href="/services">Как составить резюме</a></li>
                   <li className="nav-item"><a className="nav-link" href="/about">О нас</a></li>
-                  <li className="nav-item"><a className="nav-link" href="/tmp1">tmp1</a></li>
+                  <li className="nav-item"><a className="nav-link" href="/tmps">tmps</a></li>
                   <li className="nav-item"><a className="nav-link" href="http://localhost:3000/existinguserdata">News</a></li>
                 </ul>
 
@@ -60,7 +60,7 @@ class App extends React.Component {
             <Route path="/registration" component={Registration} />
             <Route path="/userdata" component={UserData} />
             <Route path="/existinguserdata" component={ExistingUserData} />
-            <Route path="/tmp1" component={Template1} />
+            <Route path="/tmps" component={Templates} />
           </div>
 
         </BrowserRouter>

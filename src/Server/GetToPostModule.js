@@ -264,6 +264,7 @@ function getUserData(res, userData, dbConnection, foundUserID, fs)    {
        .then(sendData)
        .catch(err=>console.log(err))
 
+       console.log(userData);
     return true;
   }
   return false;

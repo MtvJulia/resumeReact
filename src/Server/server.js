@@ -127,18 +127,17 @@ function strToObj(str){
 
 server.post('/create-pdf', (req, res) => {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    console.log("TO POST ");
-    console.log(req.body);
-
-    var userDataTo=strToObj(req.body);
+    
+    var userDataTo=req.body;
     console.log("TO POST ");
     console.log(userDataTo);
+      console.log(typeof(userDataTo));
 
     pdf.create(pdfTemplate1(userDataTo), {}).toFile('result.pdf', (err) => {
         if(err) {
             res.send(Promise.reject());
         }
-        console.log(req.body);
+       // console.log(req.body);
         res.send(Promise.resolve());
     });
 });
@@ -414,8 +413,7 @@ const requestToDbGET = (query, dbConnection, res) => {
 
     dbConnection.query(query, (err, result) => {
         if (err) console.log(err.message);
-        res.json(result);
-        arrUsers = result;
+        res.json(result);      
         res.end();
     });
 }
@@ -456,10 +454,17 @@ server.get("/existinguserdata", (req, res) => {
         res.end();
     }
 });
-server.get("/template1", (req, res) => {
+server.get("/tmps", (req, res) => {
+    userData = {userID: 0,  userLogin: "", firstName: "", lastName: "", middleName: "", birthOfDate: "", phone: "",  email: "", сityOfResidence: "", nationality: "",   position: "",
+        privateСar: 0,  army: 0, hobby: "", personalQualities: "", professionalSkills: "",relocate: 0,desiredSalary: 0,children: 0, businessTrip: 0, image: [], employment: "",schedule: "",
+        maritalStatus: "",education: "",
+        currency: "",drivLicense: { driverLicenseA1: 0, driverLicenseA: 0, driverLicenseB1: 0, driverLicenseB: 0, driverLicenseC1: 0, driverLicenseC: 0, driverLicenseD1: 0, driverLicenseD: 0, driverLicenseT: 0 },
+        courseName: [],organization: [],endingCourse: [],company: [],personRecommending: [],emailCompany: [],phoneCompany: [],langName: [], level: [],institutName: [],levelEducation: [],
+        faculty: [],specialty: [],ending: [],companyName: [],positionWork: [],jobDuties: [],startWork: [], endWork: [],stillWorking: [] };  
 
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     let result = getUserData(res, userData, dbConnection, foundUserID, fs);
+   
     if (result == false) {
         res.json(userData);
         res.end();
@@ -610,7 +615,7 @@ server.post("/existinguserdata", upload.single('fupload'), function (req, res) {
 
             requestToDbCUDUserData(query, dbConnection, res, newUserData);
         }
-        return res.redirect("http://localhost:3000/tmp1");
+        return res.redirect("http://localhost:3000/tmps");
       //  res.end();
     }
     ////------------------------------UPDATE USER AFTER LOGIN ----------------------------------
@@ -652,7 +657,7 @@ server.post("/existinguserdata", upload.single('fupload'), function (req, res) {
                 requestToDbCUDUserData(query, dbConnection, updateUserData, res);
             }
         }
-        return res.redirect("http://localhost:3000/tmp1");
+        return res.redirect("http://localhost:3000/tmps");
       // res.end();
     }
    

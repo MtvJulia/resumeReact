@@ -1,7 +1,7 @@
 module.exports = (userData) => {
    console.log("++++++++++++++++++++++++++++++++++++");
    console.log(userData);
-   console.log(userData.userID);
+  
 return `
     <!doctype html>
     <html>
@@ -20,7 +20,7 @@ return `
                    <img id="avatar" src={avatar} className="rounded mx-auto d-block" alt="avatar" />
                    <div className="row justify-content-start" id='full-name'>
                        <div className="col  name-text">
-                       <label for="id_firstName">${userData.firstName+""+userData.lastName}</label>
+                       <label for="id_firstName">${userData.firstName+""+userData.firstName}</label>
                        </div>                                   
                    </div>
 
