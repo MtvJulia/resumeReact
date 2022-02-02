@@ -211,7 +211,7 @@ server.get("/existinguserdata", (req, res) => {
         res.end();
     }
 });
-server.get("/tmps", (req, res) => {
+server.get("/tmp1", (req, res) => {
     userData = {userID: 0,  userLogin: "", firstName: "", lastName: "", middleName: "", birthOfDate: "", phone: "",  email: "", сityOfResidence: "", nationality: "",   position: "",
         privateСar: 0,  army: 0, hobby: "", personalQualities: "", professionalSkills: "",relocate: 0,desiredSalary: 0,children: 0, businessTrip: 0, image: [], employment: "",schedule: "",
         maritalStatus: "",education: "",

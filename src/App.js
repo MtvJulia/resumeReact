@@ -8,7 +8,12 @@ import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
 import UserData from './components/UserData/UserData';
 import ExistingUserData from './components/ExistingUserData/ExistingUserData';
+
 import Templates from './components/Templates/Templates';
+import Template1 from './components/Templates/Template1';
+import Template2 from './components/Templates/Template2';
+import Template3 from './components/Templates/Template3';
+import Template4 from './components/Templates/Template4';
 
 import './App.css';
 import logoPhoto from './images/logoResume.png';
@@ -39,6 +44,10 @@ class App extends React.Component {
                   <li className="nav-item"><a className="nav-link" href="/services">Как составить резюме</a></li>
                   <li className="nav-item"><a className="nav-link" href="/about">О нас</a></li>
                   <li className="nav-item"><a className="nav-link" href="/tmps">tmps</a></li>
+                  <li className="nav-item"><a className="nav-link" href="/tmp1">tmp1</a></li>
+                  <li className="nav-item"><a className="nav-link" href="/tmp2">tmp2</a></li>
+                  <li className="nav-item"><a className="nav-link" href="/tmp3">tmp3</a></li>
+                  <li className="nav-item"><a className="nav-link" href="/tmp4">tmp4</a></li>
                   <li className="nav-item"><a className="nav-link" href="http://localhost:3000/existinguserdata">News</a></li>
                 </ul>
 
@@ -61,6 +70,10 @@ class App extends React.Component {
             <Route path="/userdata" component={UserData} />
             <Route path="/existinguserdata" component={ExistingUserData} />
             <Route path="/tmps" component={Templates} />
+            <Route path="/tmp1" component={Template1} />
+            <Route path="/tmp2" component={Template2} />
+            <Route path="/tmp3" component={Template3} />
+            <Route path="/tmp4" component={Template4} />
           </div>
 
         </BrowserRouter>
