@@ -112,19 +112,19 @@ class Home extends React.Component {
 
                         {/* fifth container */}
                         <div className='d-flex flex-wrap justify-content-center' id='fifth-container'>
-                            
-                                <img className='img-template' src={mainPhoto} alt='template'></img>
-                            
-                                <img className='img-template' src={mainPhoto} alt='template'></img>
-                           
-                                <img className='img-template' src={mainPhoto} alt='template'></img>
-                            
-                                <img className='img-template' src={mainPhoto} alt='template'></img>
-                            
-                                <img className='img-template' src={mainPhoto} alt='template'></img>
-                            
-                                <img className='img-template' src={mainPhoto} alt='template'></img>
-                            
+
+                            <img className='img-template' src={mainPhoto} alt='template'></img>
+
+                            <img className='img-template' src={mainPhoto} alt='template'></img>
+
+                            <img className='img-template' src={mainPhoto} alt='template'></img>
+
+                            <img className='img-template' src={mainPhoto} alt='template'></img>
+
+                            <img className='img-template' src={mainPhoto} alt='template'></img>
+
+                            <img className='img-template' src={mainPhoto} alt='template'></img>
+
                         </div>
 
                         {/* sixth container */}
@@ -133,19 +133,6 @@ class Home extends React.Component {
                         </div>
 
                         {/* seventh container */}
-                        {/* <div className='row justify-content-center'>
-                            
-                            <div className='col header-tips '>
-                                <div className="text-center">Заполняете резюме online в удобной форме</div>
-                            </div>
-                            <div className='col header-tips'>
-                                <div className="text-center">Выбираете хорошо подходящий Вам шаблон</div>
-                            </div>
-                            <div className='col header-tips'>
-                                <div className="text-center">Скачиваете или размещаете online свое резюме</div>
-                            </div>
-                        </div> */}
-
                         <div className="md-stepper-horizontal orange">
                             <div className="md-step ">
                                 <div className="md-step-circle"><span>1</span></div>
@@ -164,7 +151,7 @@ class Home extends React.Component {
                                 <div className="md-step-title">Скачиваете или размещаете online свое резюме</div>
                                 <div className="md-step-bar-left"></div>
                                 <div className="md-step-bar-right"></div>
-                            </div>                            
+                            </div>
                         </div>
 
                     </div>

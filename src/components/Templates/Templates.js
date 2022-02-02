@@ -7,6 +7,8 @@ import location from '../../images/location.png';
 import phone from '../../images/phone.png';
 import email from '../../images/email.png';
 
+import {getDriverLicense,getRecomendingArr,getExperience,getEducation,calculateAge,getCourses,getLanguages,getArmyData,getEmployment,getDesiredSalary,getMaritalStatus} from "../TemplateLoadingMethods";
+
 class Templates extends React.Component {
 
     constructor(props) {
@@ -15,28 +17,98 @@ class Templates extends React.Component {
 
         //Начальное состояние состояния (state)
         this.state = {
-            users: null
+            userData: null,
+            languagesArr: null,
+            coursesArr: null,
+            educationArr: null,
+            experienceArr: null,
+            recomendingArr: null
         }
 
-        this.API_BASE_ADDRESS = "http://localhost:55555";
+        this.nameUserData = "";
+        this.driverLicenseStr = "";
+        this.maritalStatusStr = "";
+        this.employmentStr = "";
+        this.army = "";
+        this.languagesArr = [];
+        this.courseArr = [];
+        this.educatArr = [];
+        this.experArr = [];
+        this.recomendArr = [];
+        this.age = 0;
+
+        
+        this.API_ADDRESS = "http://localhost:55555/tmps";
+
+        }
+
+    createAndDownloadPdf = () => {
+
+        const options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            data: this.state,
+            url: 'http://localhost:55555/create-pdf'
+        };
+
+        axios(options)
+            .then(() => axios.get('http://localhost:55555/fetch-pdf', { responseType: 'blob' }))
+            .then((res) => {
+                const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
+
+                saveAs(pdfBlob, 'newPdf.pdf');
+            })
     }
 
     componentDidMount() {
 
         //Встроенный метод для GET (и только) запросов
-        fetch(this.API_BASE_ADDRESS)
+        fetch(this.API_ADDRESS)
             .then((response) => response.json())
             .then((data) => {
-                // console.log(data);
+                console.log(data);
+                if (data.middleName == null) {
+                    data.middleName = "";
+                }
+                if (data.file) {
+                    let fileFromDB = new Buffer.from(data.file).toString("base64");
+                    this.imageFromDB = "data:image/png;base64," + fileFromDB;
+                }
+                else {
+                    this.imageFromDB = avatar;
+                }
+                this.languagesArr = getLanguages(data);
+                this.driverLicenseStr = getDriverLicense(data);
+                this.maritalStatusStr =getMaritalStatus(data);
+                this.salaryStr = getDesiredSalary(data);
+                this.employmentStr = getEmployment(data);
+                this.army =getArmyData(data);
+                this.age = calculateAge(data.birthOfDate);
+                this.courseArr = getCourses(data);
+                this.educatArr = getEducation(data);
+                this.experArr = getExperience(data);
+                this.recomendArr = getRecomendingArr(data);
+
+
                 this.setState({
-                    items: data
+                    userData: data,
+                    languagesArr: this.languagesArr,
+                    coursesArr: this.courseArr,
+                    educationArr: this.educatArr,
+                    experienceArr: this.experArr,
+                    recomendingArr: this.recomendArr
                 });
+
+
+                console.dir(this.state.userData);
+
+
             });
     }
 
     render() {
 
-        if (this.state.items == null) {
+        if (this.state.userData == null) {
             return (
                 <div className="d-flex justify-content-center spin">
                     <div className="spinner-border  text-primary" role="status">
