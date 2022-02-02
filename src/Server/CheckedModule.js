@@ -55,41 +55,7 @@ const CheckedToNull = (newUserData) => {
         return objChecked;
     
     }
-
-
-    // const getInfoTodrivLicense = (newUserData) => {
-
-    //     let drivarLiscense = "";
-    //     if (newUserData.id_driverLicenseA1 == 'on') {
-    //         drivarLiscense += "A1~";
-    //     }
-    //     if (newUserData.id_driverLicenseA == 'on') {
-    //         drivarLiscense += "A~";
-    //     }
-    //     if (newUserData.id_driverLicenseB1 == 'on') {
-    //         drivarLiscense += "B1~";
-    //     }
-    //     if (newUserData.id_driverLicenseB == 'on') {
-    //         drivarLiscense += "B~";
-    //     }
-    //     if (newUserData.id_driverLicenseC1 == 'on') {
-    //         drivarLiscense += "C1~";
-    //     }
-    //     if (newUserData.id_driverLicenseC == 'on') {
-    //         drivarLiscense += "C~";
-    //     }
-    //     if (newUserData.id_driverLicenseD1 == 'on') {
-    //         drivarLiscense += "D1~";
-    //     }
-    //     if (newUserData.id_driverLicenseD == 'on') {
-    //         drivarLiscense += "D~";
-    //     }
-    //     if (newUserData.id_driverLicenseT == 'on') {
-    //         drivarLiscense += "T~";
-    //     }
-    //     return drivarLiscense;
-    // }
-
+   
 
     const getCheckedInfo = (newUserData) => {
 

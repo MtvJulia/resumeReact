@@ -332,9 +332,9 @@ class ExistingUserData extends React.Component {
             return (
                 <div className="container-fluid mainUserData">
 
-                    <div className="container-fluid ">
+                    <div className="container ">
                         {/* <!-- First container --> */}
-                        <div className="divData col-md-6 ">
+                        <div className="divData col-md-12  ">
                             <div>
                                 <form action="http://localhost:55555/existinguserdata" method="POST" encType="multipart/form-data">
 

@@ -1,8 +1,8 @@
 module.exports = (userData) => {
-   console.log("++++++++++++++++++++++++++++++++++++");
+   console.log("++++++++++++++++++++++++++++++++++++");   
+   console.log(JSON.parse(userData));
+  
   // console.log(userData);
-   var obj = JSON.parse(userData);
-   console.log(userData);
 return `
     <!doctype html>
     <html>
