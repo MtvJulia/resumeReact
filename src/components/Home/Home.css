@@ -2,123 +2,123 @@
     border: 1px solid black;
 } */
 
-.spin{    
+.spin {
     margin-top: 20vw;
 }
 
-#container-main{
+#container-main {
     background-color: #F8F8FA;
 }
 
-#first-container{
+#first-container {
     margin-top: 20px;
     padding-top: 30px;
 }
 
-#photoResume{
+#photoResume {
     width: 300px;
 }
 
-.header-title{
+.header-title {
     font-size: 22px;
     font-weight: bold;
 }
 
 #second-container,
 #fourth-container,
-#sixth-container{
+#sixth-container {
     margin: 70px 0 20px 0;
 }
 
-
-
-#fifth-container{
-
-}
-
-.img-tips{
+.img-tips {
     margin: 20px 0px 10px 120px;
-    width: 60px;    
+    width: 60px;
 }
 
-.header-tips{    
+.header-tips {
     font-size: 18px;
     font-weight: bold;
 }
 
-.text-tips{
+.text-tips {
     font-size: 14px;
 }
 
-.img-template{
-    width: 35vw;
+.img-template {
+    width: 20vw;
     padding: 10px;
 }
 
 /* seventh container */
 .md-stepper-horizontal {
-	display:table;
-	width:100%;
-	margin:0 auto;
-	/* background-color:#FFFFFF; */
-	/* box-shadow: 0 3px 8px -6px rgba(0,0,0,.50); */
+    display: table;
+    width: 100%;
+    margin: 0 auto;
+    /* background-color:#FFFFFF; */
+    /* box-shadow: 0 3px 8px -6px rgba(0,0,0,.50); */
 }
+
 .md-stepper-horizontal .md-step {
-	display:table-cell;
-	position:relative;
-	padding:24px;
+    display: table-cell;
+    position: relative;
+    padding: 24px;
 }
 
 .md-stepper-horizontal .md-step:first-child .md-step-bar-left,
 .md-stepper-horizontal .md-step:last-child .md-step-bar-right {
-	display:none;
+    display: none;
 }
+
 .md-stepper-horizontal .md-step .md-step-circle {
-	width:30px;
-	height:30px;
-	margin:0 auto;
-	background-color:#504d4d;
-	border-radius: 50%;
-	text-align: center;
-	line-height:30px;
-	font-size: 16px;
-	font-weight: 600;
-	color:#FFFFFF;
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+    background-color: #504d4d;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #FFFFFF;
 }
 
 .md-stepper-horizontal.orange .md-step .md-step-circle {
-	background-color:#504d4d;
+    background-color: #504d4d;
 }
 
 .md-stepper-horizontal .md-step .md-step-title {
-	margin-top:16px;
-	font-size:16px;
-	font-weight:600;
+    margin-top: 16px;
+    font-size: 16px;
+    font-weight: 600;
 }
+
 .md-stepper-horizontal .md-step .md-step-title,
 .md-stepper-horizontal .md-step .md-step-optional {
-	text-align: center;
-	/* color:rgba(0,0,0,.26); */
+    text-align: center;
+    /* color:rgba(0,0,0,.26); */
 }
+
 .md-stepper-horizontal .md-step .md-step-title {
-	font-weight: 600;
-	color:rgba(0,0,0,.87);
+    font-weight: 600;
+    color: rgba(0, 0, 0, .87);
 }
 
 .md-stepper-horizontal .md-step .md-step-bar-left,
 .md-stepper-horizontal .md-step .md-step-bar-right {
-	position:absolute;
-	top:36px;
-	height:1px;
-	border-top:1px solid #DDDDDD;
+    position: absolute;
+    top: 36px;
+    height: 1px;
+    border-top: 1px solid #DDDDDD;
 }
+
 .md-stepper-horizontal .md-step .md-step-bar-right {
-	right:0;
-	left:50%;
-	margin-left:20px;
+    right: 0;
+    left: 50%;
+    margin-left: 20px;
 }
+
 .md-stepper-horizontal .md-step .md-step-bar-left {
-	left:0;
-	right:50%;
-	margin-right:20px;
+    left: 0;
+    right: 50%;
+    margin-right: 20px;
 }

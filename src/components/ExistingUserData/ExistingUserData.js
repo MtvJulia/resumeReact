@@ -89,8 +89,7 @@ class ExistingUserData extends React.Component {
     fillCoursArr(data, coursArr) {
 
         for (let i = 0; i < data.courseName.length; i++) {
-            if (data.courseName[i] != null&&data.organization[i]!=null) 
-            {
+            if (data.courseName[i] != null&&data.organization[i]!=null)  {
                 var objCourses = {};
 
                 objCourses.courseName = data.courseName[i];
@@ -104,8 +103,7 @@ class ExistingUserData extends React.Component {
     fillRecomendArr(data, recomendArr) {
 
         for (let i = 0; i < data.phoneCompany.length; i++) {
-            if (data.phoneCompany[i]!=null)  
-            {
+            if (data.phoneCompany[i]!=null)  {
                 var objRecomendation = {};
 
                 objRecomendation.personRecommending = data.personRecommending[i];
@@ -121,8 +119,7 @@ class ExistingUserData extends React.Component {
     fillLangArr(data, langArr) {
         for (let i = 0; i < data.langName.length; i++) {
 
-            if (data.langName[i] != null && data.level[i]!=null) 
-            {
+            if (data.langName[i] != null && data.level[i]!=null)  {
                 var objLanguage = {};
 
                 objLanguage.langName = data.langName[i];
@@ -332,9 +329,9 @@ class ExistingUserData extends React.Component {
             return (
                 <div className="container-fluid mainUserData">
 
-                    <div className="container ">
+                    <div className="container">
                         {/* <!-- First container --> */}
-                        <div className="divData col-md-12  ">
+                        <div className="divData col-md-12 mt-5">
                             <div>
                                 <form action="http://localhost:55555/existinguserdata" method="POST" encType="multipart/form-data">
 
@@ -357,24 +354,24 @@ class ExistingUserData extends React.Component {
                                         </div>
 
                                         <div className="row">
-                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12"> 
+                                            <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <div className="userPhoto">
                                                     <label>
-                                                        <img className="avatar"  src={ this.imageFromDB} alt="Нажмите для выбора файла" id="myimage" />
-                                                        <input 
-                                                        accept="image/*"
-                                                        type="file"                                                          
-                                                        name="fupload" 
-                                                        onChange={this.onFileSelected }  />
-                                                    </label>                                                                                                                                                     
+                                                        <img className="avatar" src={this.imageFromDB} alt="Нажмите для выбора файла" id="myimage" />
+                                                        <input
+                                                            accept="image/*"
+                                                            type="file"
+                                                            name="fupload"
+                                                            onChange={this.onFileSelected} />
+                                                    </label>
                                                 </div>
                                             </div>
 
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_firstName">Имя:</label>
-                                                <input type="text" className="form-control" id="id_firstName" onChange = {this.setFirstName} name="id_firstName" value={this.state.items.firstName} placeholder="Введите имя" />
+                                                <input type="text" className="form-control" id="id_firstName" onChange={this.setFirstName} name="id_firstName" value={this.state.items.firstName} placeholder="Введите имя" />
                                                 <label for="id_middleName">Отчество:</label>
-                                                <input type="text" className="form-control" id="id_middleName" name="id_middleName" value={this.state.items.middleName} onChange = {this.setMiddleName}
+                                                <input type="text" className="form-control" id="id_middleName" name="id_middleName" value={this.state.items.middleName} onChange={this.setMiddleName}
                                                     placeholder="Введите отчество" />
                                             </div>
                                         </div>
@@ -382,11 +379,11 @@ class ExistingUserData extends React.Component {
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_birthOfDate">Дата рождения:</label>
-                                                <input type="date" className="form-control" id="id_birthOfDate" value={this.state.items.birthOfDate.substr(0, 10)} onChange = {this.setBirthOfDate} name="id_birthOfDate" />
+                                                <input type="date" className="form-control" id="id_birthOfDate" value={this.state.items.birthOfDate.substr(0, 10)} onChange={this.setBirthOfDate} name="id_birthOfDate" />
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_cityOfResidence">Город проживания:</label>
-                                                <input type="text" className="form-control" id="id_cityOfResidence" name="id_cityOfResidence" value={this.state.items.сityOfResidence} onChange = {this.setCityOfResidence}
+                                                <input type="text" className="form-control" id="id_cityOfResidence" name="id_cityOfResidence" value={this.state.items.сityOfResidence} onChange={this.setCityOfResidence}
                                                     placeholder="Введите город" />
                                             </div>
                                         </div>
@@ -400,11 +397,11 @@ class ExistingUserData extends React.Component {
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_phone">Телефон:</label>
-                                                <input type="text" className="form-control" id="id_phone" name="id_phone" value={this.state.items.phone}  onChange = {this.setPhone} placeholder="+380661234567" />
+                                                <input type="text" className="form-control" id="id_phone" name="id_phone" value={this.state.items.phone} onChange={this.setPhone} placeholder="+380661234567" />
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_email">Электронная почта:</label>
-                                                <input type="email" className="form-control" id="id_email" name="id_email" value={this.state.items.email}  onChange = {this.setEmail}
+                                                <input type="email" className="form-control" id="id_email" name="id_email" value={this.state.items.email} onChange={this.setEmail}
                                                     placeholder="address@site.com" />
                                             </div>
                                         </div>
@@ -417,19 +414,19 @@ class ExistingUserData extends React.Component {
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_nationality">Национальность:</label>
-                                                <input type="text" className="form-control" id="id_nationality" name="id_nationality" value={this.state.items.nationality} onChange = {this.setNationality}
+                                                <input type="text" className="form-control" id="id_nationality" name="id_nationality" value={this.state.items.nationality} onChange={this.setNationality}
                                                     placeholder="Введите национальность" />
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_desiredSalary">Желаемая зарплата:</label>
 
                                                 <div className="input-group mb-2">
-                                                    <input type="number" className="form-control" id="id_desiredSalary" name="id_desiredSalary" value={this.state.items.desiredSalary} onChange = {this.setDesiredSalary} placeholder="0"
+                                                    <input type="number" className="form-control" id="id_desiredSalary" name="id_desiredSalary" value={this.state.items.desiredSalary} onChange={this.setDesiredSalary} placeholder="0"
                                                         step="1" min="0" />
                                                     <div className="input-group-append">
-                                                        <select className="form-control" id="id_currency" name="id_currency" onChange = {this.setCurrencyName} value={this.state.items.currency}>
-                                                            <option  value="1">₴ - гривна</option>
-                                                            <option  value="2">$ - доллар</option>
+                                                        <select className="form-control" id="id_currency" name="id_currency" onChange={this.setCurrencyName} value={this.state.items.currency}>
+                                                            <option value="1">₴ - гривна</option>
+                                                            <option value="2">$ - доллар</option>
                                                             <option value="3">€ - евро</option>
                                                             <option value="4">₽ - рубль</option>
                                                             <option value="5">£ - фунты</option>
@@ -444,35 +441,35 @@ class ExistingUserData extends React.Component {
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_employment">Занятось:</label>
-                                                <select className="form-control" id="id_employment" name="id_employment" placeholder="выбрать" value={this.state.items.employment} onChange = {this.setEmployment}>
+                                                <select className="form-control" id="id_employment" name="id_employment" placeholder="выбрать" value={this.state.items.employment} onChange={this.setEmployment}>
                                                     <option value="1">Полная занятость</option>
-                                                    <option  value="2">Частичная занятость</option>
-                                                    <option  value="3">Проектная работа</option>
-                                                    <option  value="4">Волонтерство</option>
-                                                    <option  value="5">Стажировка</option>
+                                                    <option value="2">Частичная занятость</option>
+                                                    <option value="3">Проектная работа</option>
+                                                    <option value="4">Волонтерство</option>
+                                                    <option value="5">Стажировка</option>
                                                 </select>
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_schedule">График работы:</label>
-                                                <select className="form-control" id="id_schedule" name="id_schedule" value={this.state.items.schedule} onChange = {this.setSchedule}>
-                                                    <option  value="1">Полный день</option>
-                                                    <option  value="2">Сменный график</option>
-                                                    <option  value="3">Гибкий график</option>
-                                                    <option  value="4">Удаленная работа</option>
-                                                    <option  value="5">Вахтовый метод</option>
+                                                <select className="form-control" id="id_schedule" name="id_schedule" value={this.state.items.schedule} onChange={this.setSchedule}>
+                                                    <option value="1">Полный день</option>
+                                                    <option value="2">Сменный график</option>
+                                                    <option value="3">Гибкий график</option>
+                                                    <option value="4">Удаленная работа</option>
+                                                    <option value="5">Вахтовый метод</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_businessTrip" className="custom-control-input" name="id_businessTrip" checked={this.state.items.businessTrip} onChange = {this.setBusinessTrip}/>
+                                                    <input type="checkbox" id="id_businessTrip" className="custom-control-input" name="id_businessTrip" checked={this.state.items.businessTrip} onChange={this.setBusinessTrip} />
                                                     <label className="custom-control-label" for="id_businessTrip">Командировки</label>
                                                 </div>
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_relocate" className="custom-control-input" name="id_relocate" checked={this.state.items.relocate} onChange = {this.setRelocate} />
+                                                    <input type="checkbox" id="id_relocate" className="custom-control-input" name="id_relocate" checked={this.state.items.relocate} onChange={this.setRelocate} />
                                                     <label className="custom-control-label" for="id_relocate">Готовность на переезд</label>
                                                 </div>
                                             </div>
@@ -480,26 +477,26 @@ class ExistingUserData extends React.Component {
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_maritalStatus">Семейное положение:</label>
-                                                <select className="form-control" id="id_maritalStatus" name="id_maritalStatus" value={this.state.items.maritalStatus} onChange = {this.setMaritalStatus} >
-                                                    <option  value="1">Замужем</option>
-                                                    <option  value="2">Не замужем</option>
-                                                    <option  value="3">Женат</option>
-                                                    <option  value="4">Не женат</option>
+                                                <select className="form-control" id="id_maritalStatus" name="id_maritalStatus" value={this.state.items.maritalStatus} onChange={this.setMaritalStatus} >
+                                                    <option value="1">Замужем</option>
+                                                    <option value="2">Не замужем</option>
+                                                    <option value="3">Женат</option>
+                                                    <option value="4">Не женат</option>
                                                 </select>
                                                 <div
                                                     className="custom-control custom-checkbox custom-control-inline ccb-right childrenCheckBox">
-                                                    <input type="checkbox" id="id_children" className="custom-control-input" name="id_children" checked={this.state.items.children} onChange = {this.setChildren} />
+                                                    <input type="checkbox" id="id_children" className="custom-control-input" name="id_children" checked={this.state.items.children} onChange={this.setChildren} />
                                                     <label className="custom-control-label" for="id_children">Дети</label>
                                                 </div>
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_education">Основное образование:</label>
-                                                <select className="form-control" id="id_education" name="id_education" value={this.state.items.education} onChange = {this.setEducation}>
-                                                    <option  value="1">Общее среднее образование</option>
-                                                    <option  value="2">Профессионально-техническое образование</option>
-                                                    <option  value="3">Высшее образования</option>
-                                                    <option  value="4">Аспирантура</option>
-                                                    <option  value="5">Докторантура</option>
+                                                <select className="form-control" id="id_education" name="id_education" value={this.state.items.education} onChange={this.setEducation}>
+                                                    <option value="1">Общее среднее образование</option>
+                                                    <option value="2">Профессионально-техническое образование</option>
+                                                    <option value="3">Высшее образования</option>
+                                                    <option value="4">Аспирантура</option>
+                                                    <option value="5">Докторантура</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -512,8 +509,8 @@ class ExistingUserData extends React.Component {
                                         </legend>
                                         <ShowLanguage arrayToDisplay={this.langArray} />
                                         <AddLanguage />
-                                        <div id="langList">                                                                                     
-                                         </div>                                                   
+                                        <div id="langList">
+                                        </div>
                                         <a href="javascript:AddLang()" AddLanguage onClick={this.AddLang}>Добавить</a>
                                     </fieldset>
 
@@ -533,10 +530,10 @@ class ExistingUserData extends React.Component {
                                         <legend className="scheduler-border">
                                             <h3>Курсы повышения квалификации</h3>
                                         </legend>
-                                        <ShowCourses arrayToDisplay={this.coursArray} />                                       
+                                        <ShowCourses arrayToDisplay={this.coursArray} />
                                         <div id="courseList">
                                         </div>
-                                        <a href="javascript:AddCourse()"ShowCourses onClick={this.AddCourse}>Добавить</a>
+                                        <a href="javascript:AddCourse()" ShowCourses onClick={this.AddCourse}>Добавить</a>
                                     </fieldset>
 
                                     {/* <!-- -------ОПЫТ РАБОТЫ----------- --> */}
@@ -573,39 +570,39 @@ class ExistingUserData extends React.Component {
                                             <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <label for="id_driverLicense">Права категории:</label>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseA1" className="custom-control-input" name="id_driverLicenseA1"checked={this.state.items.drivLicense.driverLicenseA1} value="1" onChange = {this.setDriveLicenseA1} />
+                                                    <input type="checkbox" id="id_driverLicenseA1" className="custom-control-input" name="id_driverLicenseA1" checked={this.state.items.drivLicense.driverLicenseA1} value="1" onChange={this.setDriveLicenseA1} />
                                                     <label className="custom-control-label" for="id_driverLicenseA1">A1</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseA" className="custom-control-input" name="id_driverLicenseA" value="2" checked={this.state.items.drivLicense.driverLicenseA}  onChange = {this.setDriveLicenseA} />
+                                                    <input type="checkbox" id="id_driverLicenseA" className="custom-control-input" name="id_driverLicenseA" value="2" checked={this.state.items.drivLicense.driverLicenseA} onChange={this.setDriveLicenseA} />
                                                     <label className="custom-control-label" for="id_driverLicenseA">A</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseB1" className="custom-control-input" name="id_driverLicenseB1"  value="3" checked={this.state.items.drivLicense.driverLicenseB1} onChange = {this.setDriveLicenseB1}/>
+                                                    <input type="checkbox" id="id_driverLicenseB1" className="custom-control-input" name="id_driverLicenseB1" value="3" checked={this.state.items.drivLicense.driverLicenseB1} onChange={this.setDriveLicenseB1} />
                                                     <label className="custom-control-label" for="id_driverLicenseB1">B1</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseB" className="custom-control-input" name="id_driverLicenseB"   value="4" checked={this.state.items.drivLicense.driverLicenseB} onChange = {this.setDriveLicenseB}/>
+                                                    <input type="checkbox" id="id_driverLicenseB" className="custom-control-input" name="id_driverLicenseB" value="4" checked={this.state.items.drivLicense.driverLicenseB} onChange={this.setDriveLicenseB} />
                                                     <label className="custom-control-label" for="id_driverLicenseB">B</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseC1" className="custom-control-input" name="id_driverLicenseC1"   value="5" checked={this.state.items.drivLicense.driverLicenseC1} onChange = {this.setDriveLicenseC1}/>
+                                                    <input type="checkbox" id="id_driverLicenseC1" className="custom-control-input" name="id_driverLicenseC1" value="5" checked={this.state.items.drivLicense.driverLicenseC1} onChange={this.setDriveLicenseC1} />
                                                     <label className="custom-control-label" for="id_driverLicenseC1">C1</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseC" className="custom-control-input" name="id_driverLicenseC" value="6" checked={this.state.items.drivLicense.driverLicenseC} onChange = {this.setDriveLicenseC}/>
+                                                    <input type="checkbox" id="id_driverLicenseC" className="custom-control-input" name="id_driverLicenseC" value="6" checked={this.state.items.drivLicense.driverLicenseC} onChange={this.setDriveLicenseC} />
                                                     <label className="custom-control-label" for="id_driverLicenseC">C</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseD1" className="custom-control-input" name="id_driverLicenseD1"   value="7" checked={this.state.items.drivLicense.driverLicenseD1} onChange = {this.setDriveLicenseD1}/>
+                                                    <input type="checkbox" id="id_driverLicenseD1" className="custom-control-input" name="id_driverLicenseD1" value="7" checked={this.state.items.drivLicense.driverLicenseD1} onChange={this.setDriveLicenseD1} />
                                                     <label className="custom-control-label" for="id_driverLicenseD1">D1</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseD" className="custom-control-input" name="id_driverLicenseD"  value="8" checked={this.state.items.drivLicense.driverLicenseD} onChange = {this.setDriveLicenseD}/>
+                                                    <input type="checkbox" id="id_driverLicenseD" className="custom-control-input" name="id_driverLicenseD" value="8" checked={this.state.items.drivLicense.driverLicenseD} onChange={this.setDriveLicenseD} />
                                                     <label className="custom-control-label" for="id_driverLicenseD">D</label>
                                                 </div>
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseT" className="custom-control-input" name="id_driverLicenseT" value="9" checked={this.state.items.drivLicense.driverLicenseT} onChange = {this.setDriveLicenseT}/>
+                                                    <input type="checkbox" id="id_driverLicenseT" className="custom-control-input" name="id_driverLicenseT" value="9" checked={this.state.items.drivLicense.driverLicenseT} onChange={this.setDriveLicenseT} />
                                                     <label className="custom-control-label" for="id_driverLicenseT">T</label>
                                                 </div>
                                             </div>
@@ -613,35 +610,41 @@ class ExistingUserData extends React.Component {
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_privatCar" className="custom-control-input" name="id_privatCar" checked={this.state.items.privateСar} onChange = {this.setPrivateСar} />
+                                                    <input type="checkbox" id="id_privatCar" className="custom-control-input" name="id_privatCar" checked={this.state.items.privateСar} onChange={this.setPrivateСar} />
                                                     <label className="custom-control-label" for="id_privatCar">Есть личный
-                                        автомобиль</label>
+                                                        автомобиль</label>
                                                 </div>
                                             </div>
                                             <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_army" className="custom-control-input" name="id_army" checked={this.state.items.army} onChange = {this.setArmy} />
+                                                    <input type="checkbox" id="id_army" className="custom-control-input" name="id_army" checked={this.state.items.army} onChange={this.setArmy} />
                                                     <label className="custom-control-label" for="id_army">Служба в армии</label>
                                                 </div>
                                             </div>
                                             <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <label for="id_hobby">Хобби:</label>
-                                                <textarea className="form-control" id="id_hobby" name="id_hobby" value={this.state.items.hobby} onChange = {this.setHobby}></textarea>
+                                                <textarea className="form-control" id="id_hobby" name="id_hobby" value={this.state.items.hobby} onChange={this.setHobby}></textarea>
                                             </div>
                                             <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <label for="id_personalQualities">Личные качества:</label>
-                                                <textarea className="form-control" id="id_personalQualities" name="id_personalQualities" value={this.state.items.personalQualities} onChange = {this.setPersonalQualities}></textarea>
+                                                <textarea className="form-control" id="id_personalQualities" name="id_personalQualities" value={this.state.items.personalQualities} onChange={this.setPersonalQualities}></textarea>
                                             </div>
                                             <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <label for="id_professionalSkills">Профессиональные навыки:</label>
-                                                <textarea className="form-control" id="id_professionalSkills" name="id_professionalSkills" value={this.state.items.professionalSkills} onChange = {this.setProfessionalSkills}></textarea>
+                                                <textarea className="form-control" id="id_professionalSkills" name="id_professionalSkills" value={this.state.items.professionalSkills} onChange={this.setProfessionalSkills}></textarea>
                                             </div>
                                         </div>
                                     </fieldset>
-                                    <button type="submit" className="btn btn-primary" id="sbmResume" >Отправить</button>
+                                    <div class="d-flex justify-content-center mt-3">
+                                        <button type="submit" className="btn btn-primary btn-lg mb-5" id="sbmResume">Перейти к шаблонам</button>
+
+                                    </div>
+
                                 </form>
                             </div>
                         </div>
+
+
                         <div>
                         </div>
                     </div>
