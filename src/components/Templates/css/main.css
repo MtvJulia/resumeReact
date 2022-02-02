@@ -1,3 +1,7 @@
+@import url('Template1.css');
+@import url('Template2.css');
+@import url('Template3.css');
+
 /* div{
     border: 1px solid black;
 } */
@@ -36,21 +40,13 @@
     /* CSS для: ширины >= 1200px */
 }
 
-
-#main-container-t1 {
+.container-sm{
     margin-top: 30px;
     margin-bottom: 30px;
 }
 
-.container-t1 {
+.container-t {
     flex-wrap: nowrap;
-}
-
-#left-container-t1 {
-    background-color: #edd9b4;
-    /* burlywood; */
-    /* height: 1754px    ; */
-    min-width: min-content;
 }
 
 #avatar {
@@ -87,21 +83,18 @@
     margin: 0px 5px 3px 5px;
 }
 
-/* border */
-.box {
-    display: inline-block;
-    width: 100%;
-    background-color: #fdf5e5;
-    /* #F8F8FA; */
-    border-color: #e9ecef !important;
-}
-
 .years {
     white-space: nowrap;
     margin-left: 25px;
 }
 
-.long-text {
-    /* white-space: pre-wrap; */
+.long-text {    
     word-wrap: break-word;
+}
+
+.hr2 {
+    border: none;   /* Убираем границу */
+    background-color: black;    /* Цвет линии */
+    color: black;    /* Цвет линии для IE6-7 */
+    height: 2px;    /* Толщина линии */
 }

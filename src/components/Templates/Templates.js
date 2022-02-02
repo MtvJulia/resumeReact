@@ -1,13 +1,13 @@
 import React from 'react';
 
-import './Template1.css';
+import './css/main.css';
 
-import avatar from '../../../images/avatar.png';
-import location from '../../../images/location.png';
-import phone from '../../../images/phone.png';
-import email from '../../../images/email.png';
+import avatar from '../../images/avatar.png';
+import location from '../../images/location.png';
+import phone from '../../images/phone.png';
+import email from '../../images/email.png';
 
-class Template1 extends React.Component {
+class Templates extends React.Component {
 
     constructor(props) {
 
@@ -48,10 +48,10 @@ class Template1 extends React.Component {
         else {
             return (
                 <div className="container">
-                   
-                   {/* template 1 */}
+
+                    {/* template 1 */}
                     <div className="container-sm" id="main-container-t1" >
-                        <div className="row container-t1">
+                        <div className="row container-t">
                             {/* left-container */}
                             <div className="col col-4" id="left-container-t1">
                                 <img id="avatar" src={avatar} className="rounded mx-auto d-block" alt="avatar" />
@@ -61,7 +61,7 @@ class Template1 extends React.Component {
                                     <div className="mr-3 text-capitalize name-text">Викторовна</div>
                                 </div>
 
-                                <hr className="style1" />
+                                <hr className="hr2" />
 
                                 <div className="col header-text">Должность
                                     <div className="col main-text">Бухгалтер</div>
@@ -71,7 +71,7 @@ class Template1 extends React.Component {
                                 </div>
                                 <div className="col header-text">Контакты</div>
 
-                                <div className="col text-capitalize "><img className="icon-item" src={location} alt="location" />
+                                <div className="col text-capitalize "><img className="icon-item " src={location} alt="location" />
                                     Запорожье</div>
                                 <div className="col "><img className="icon-item" src={phone} alt="phone" />
                                     +380661212123</div>
@@ -107,7 +107,7 @@ class Template1 extends React.Component {
 
                             {/* right-container */}
                             <div className="col" id="right-container">
-                                <div className="col header-text border box">Опыт работы </div>
+                                <div className="col header-text border box-t1">Опыт работы </div>
                                 <div className="list-group ">
                                     <div className="list-group-item ">
                                         <div className="d-flex w-100 justify-content-between">
@@ -127,7 +127,7 @@ class Template1 extends React.Component {
                                     </div>
                                 </div>
 
-                                <div className="col header-text border box">Образование</div>
+                                <div className="col header-text border box-t1">Образование</div>
                                 <div className="list-group ">
                                     <div className="list-group-item ">
                                         <div className="d-flex w-100 justify-content-between">
@@ -139,7 +139,7 @@ class Template1 extends React.Component {
                                     </div>
                                 </div>
 
-                                <div className="col header-text border box">Курсы</div>
+                                <div className="col header-text border box-t1">Курсы</div>
                                 <div className="list-group ">
                                     <div className="list-group-item ">
                                         <div className="d-flex w-100 justify-content-between">
@@ -150,7 +150,7 @@ class Template1 extends React.Component {
                                     </div>
                                 </div>
 
-                                <div className="col header-text border box">Рекомендации</div>
+                                <div className="col header-text border box-t1">Рекомендации</div>
                                 <div className="list-group ">
                                     <div className="list-group-item ">
                                         <div className="d-flex w-100 justify-content-between">
@@ -162,7 +162,7 @@ class Template1 extends React.Component {
                                     </div>
                                 </div>
 
-                                <div className="col header-text border box">Профессиональные навыки</div>
+                                <div className="col header-text border box-t1">Профессиональные навыки</div>
                                 <div className="list-group ">
                                     <div className="list-group-item ">
                                         <div className="mb-1 long-text" >
@@ -177,7 +177,7 @@ class Template1 extends React.Component {
                                     </div>
                                 </div>
 
-                                <div className="col header-text border box">Личные качества</div>
+                                <div className="col header-text border box-t1">Личные качества</div>
                                 <div className="list-group ">
                                     <div className="list-group-item ">
                                         <p className="mb-1" >
@@ -198,7 +198,7 @@ class Template1 extends React.Component {
                                     </div>
                                 </div>
 
-                                <div className="col header-text border box">Хобби</div>
+                                <div className="col header-text border box-t1">Хобби</div>
                                 <div className="list-group ">
                                     <div className="list-group-item ">
                                         <p className="mb-1" >
@@ -211,56 +211,56 @@ class Template1 extends React.Component {
                         </div>
                     </div>
 
-                   {/* template 2 */}
+                    {/* template 2 */}
                     <div className="container-sm" id="main-container-t2" >
-                        <div className="row container-t2">
+                        <div className="row container-t">
                             {/* left-container */}
                             <div className="col col-4" id="left-container-t2">
                                 <img id="avatar" src={avatar} className="rounded mx-auto d-block" alt="avatar" />
                                 <div className="row justify-content-start" id='full-name'>
-                                    <div className="mr-3 text-capitalize text-break name-text">иванова</div>
-                                    <div className="mr-3 text-capitalize name-text">ольга</div>
-                                    <div className="mr-3 text-capitalize name-text">Викторовна</div>
+                                    <div className="mr-3 text-capitalize text-break name-text txt-white">иванова</div>
+                                    <div className="mr-3 text-capitalize name-text txt-white">ольга</div>
+                                    <div className="mr-3 text-capitalize name-text txt-white">Викторовна</div>
                                 </div>
 
-                                <hr className="style1" />
+                                <hr className="hr2 invert" />
 
-                                <div className="col header-text">Должность
+                                <div className="col header-text txt-white">Должность
                                     <div className="col main-text">Бухгалтер</div>
                                 </div>
-                                <div className="col header-text">Возраст
+                                <div className="col header-text txt-white">Возраст
                                     <div className="col main-text">47</div>
                                 </div>
-                                <div className="col header-text">Контакты</div>
+                                <div className="col header-text txt-white">Контакты</div>
 
-                                <div className="col text-capitalize "><img className="icon-item" src={location} alt="location" />
+                                <div className="col text-capitalize txt-white"><img className="icon-item-t2" src={location} alt="location" />
                                     Запорожье</div>
-                                <div className="col "><img className="icon-item" src={phone} alt="phone" />
+                                <div className="col txt-white"><img className="icon-item-t2" src={phone} alt="phone" />
                                     +380661212123</div>
-                                <div className="col long-text "><img className="icon-item" src={email} alt="email" />
+                                <div className="col long-text txt-white"><img className="icon-item-t2" src={email} alt="email" />
                                     ivanova_olga@gmail.com</div>
 
-                                <div className="col text-nowrap header-text" >Водительские права
+                                <div className="col text-nowrap header-text txt-white" >Водительские права
                                     <div className="col main-text">B, C, есть личный авто</div>
                                 </div>
 
-                                <div className="col header-text">Гражданство
+                                <div className="col header-text txt-white">Гражданство
                                     <div className="col main-text">украинка</div>
                                 </div>
-                                <div className="col text-nowrap header-text">Семейное положение
+                                <div className="col text-nowrap header-text txt-white">Семейное положение
                                     <div className="col main-text">замужем, есть дети</div>
                                 </div>
-                                <div className="col text-nowrap header-text">Желаемая зарплата
+                                <div className="col text-nowrap header-text txt-white">Желаемая зарплата
                                     <div className="col main-text">500$</div>
                                 </div>
-                                <div className="col header-text">Занятость
+                                <div className="col header-text txt-white">Занятость
                                     <div className="col main-text">полная, полный день, командировки, готовность на переезд</div>
                                 </div>
-                                <div className="col header-text">Языки
+                                <div className="col header-text txt-white">Языки
                                     <div className="col main-text">английский, В1</div>
                                     <div className="col main-text">украинский, С1</div>
                                 </div>
-                                <div className="col header-text">Армия
+                                <div className="col header-text txt-white">Армия
                                 </div>
 
 
@@ -269,7 +269,7 @@ class Template1 extends React.Component {
 
                             {/* right-container */}
                             <div className="col" id="right-container">
-                                <div className="col header-text border box">Опыт работы </div>
+                                <div className="col header-text border box-t2">Опыт работы </div>
                                 <div className="list-group ">
                                     <div className="list-group-item ">
                                         <div className="d-flex w-100 justify-content-between">
@@ -289,7 +289,7 @@ class Template1 extends React.Component {
                                     </div>
                                 </div>
 
-                                <div className="col header-text border box">Образование</div>
+                                <div className="col header-text border box-t2">Образование</div>
                                 <div className="list-group ">
                                     <div className="list-group-item ">
                                         <div className="d-flex w-100 justify-content-between">
@@ -301,7 +301,7 @@ class Template1 extends React.Component {
                                     </div>
                                 </div>
 
-                                <div className="col header-text border box">Курсы</div>
+                                <div className="col header-text border box-t2">Курсы</div>
                                 <div className="list-group ">
                                     <div className="list-group-item ">
                                         <div className="d-flex w-100 justify-content-between">
@@ -312,7 +312,7 @@ class Template1 extends React.Component {
                                     </div>
                                 </div>
 
-                                <div className="col header-text border box">Рекомендации</div>
+                                <div className="col header-text border box-t2">Рекомендации</div>
                                 <div className="list-group ">
                                     <div className="list-group-item ">
                                         <div className="d-flex w-100 justify-content-between">
@@ -324,7 +324,7 @@ class Template1 extends React.Component {
                                     </div>
                                 </div>
 
-                                <div className="col header-text border box">Профессиональные навыки</div>
+                                <div className="col header-text border box-t2">Профессиональные навыки</div>
                                 <div className="list-group ">
                                     <div className="list-group-item ">
                                         <div className="mb-1 long-text" >
@@ -339,7 +339,7 @@ class Template1 extends React.Component {
                                     </div>
                                 </div>
 
-                                <div className="col header-text border box">Личные качества</div>
+                                <div className="col header-text border box-t2">Личные качества</div>
                                 <div className="list-group ">
                                     <div className="list-group-item ">
                                         <p className="mb-1" >
@@ -360,7 +360,7 @@ class Template1 extends React.Component {
                                     </div>
                                 </div>
 
-                                <div className="col header-text border box">Хобби</div>
+                                <div className="col header-text border box-t2">Хобби</div>
                                 <div className="list-group ">
                                     <div className="list-group-item ">
                                         <p className="mb-1" >
@@ -371,6 +371,124 @@ class Template1 extends React.Component {
 
                             </div>
                         </div>
+                    </div>
+
+                    {/* template 3 */}
+                    <div className="container-sm border" id="main-container-t3" >
+                        <div className="media align-items-center">
+                            <div className="media-body ">
+                                <div className='row justify-content-center m-0'>
+                                    <div className='mr-3 text-capitalize text-break name-text-t3'>иванова</div>
+                                    <div className='mr-3 text-capitalize text-break name-text-t3'>Ольга</div>
+                                    <div className='mr-3 text-capitalize text-break name-text-t3'>викторовна</div>
+                                </div>
+                                <div className='row justify-content-center m-0 header-text'><h2>менеджер, 27 лет</h2></div>
+                                <div className='row justify-content-center m-0 header-text'>ожидаемая заработная плата: 20000 грн</div>
+                            </div>
+                            <div className="media-right">
+                                <img className="media-object" id="avatar" src={avatar} alt="avatar" />
+                            </div>
+                        </div>
+
+                        <hr className='hr2'></hr>
+
+                        <div className='header-text m-0'>Контакты</div>
+
+                        <div className='row justify-content-around'>
+                            <div className="d-flex text-capitalize"><img className="icon-item-t3" src={location} alt="location" />
+                                Запорожье</div>
+                            <div className="d-flex "><img className="icon-item-t3" src={phone} alt="phone" />
+                                +380661212123</div>
+                            <div className="d-flex long-text "><img className="icon-item-t3" src={email} alt="email" />
+                                ivanova_olga@gmail.com</div>
+                        </div>
+
+                        <hr className='hr2'></hr>
+
+                        <div className='row user-info-t3'>
+                            <div className="col text-nowrap header-text" >Водительские права
+                                <div className="col main-text">B, C, есть личный авто</div>
+                            </div>
+                            <div className="col header-text">Гражданство
+                                <div className="col main-text">украинка</div>
+                            </div>
+                        </div>
+                        <div className='row user-info-t3'>
+                            <div className="col header-text">Занятость
+                                <div className="col main-text">полная, полный день, командировки, готовность на переезд</div>
+                            </div>
+                            <div className="col text-nowrap header-text">Семейное положение
+                                <div className="col main-text">замужем, есть дети</div>
+                            </div>
+                        </div>
+                        <div className='row user-info-t3'>
+                            <div className="col header-text">Языки
+                                <div className="col main-text">английский, В1</div>
+                                <div className="col main-text">украинский, С1</div>
+                            </div>
+                            <div className="col header-text">Армия
+                            </div>
+                        </div>
+                        <hr className='hr2'></hr>
+
+                        <div className='row justify-content-start header-text m-0'>Опыт работы</div>
+                        <div className="list-group ">
+                            <div className="d-flex w-100 justify-content-between">
+                                <h5 className="mb-1 pl-4">государственная служба</h5>
+                                <h5 className="mb-1 pr-4 years">2007-2022</h5>
+                            </div>
+                            <p className="mb-1 pl-4" >бухгалтер</p>
+                            <small className='pl-4 mb-2'>бухгалтерия предприятия</small>
+
+                            <div className="d-flex w-100 justify-content-between">
+                                <h5 className="mb-1 pl-4">государственная служба</h5>
+                                <h5 className="mb-1 pr-4 years">2007-2022</h5>
+                            </div>
+                            <p className="mb-1 pl-4" >бухгалтер</p>
+                            <small className='pl-4 mb-2'>бухгалтерия предприятия</small>
+
+                        </div>
+                        <hr className='hr2'></hr>
+                        <div className='row justify-content-start header-text m-0'>Образование</div>
+                        <div className="list-group ">
+                            <div className="d-flex w-100 justify-content-between">
+                                <h5 className="mb-1 pl-4">Университет</h5>
+                                <h5 className="mb-1 pr-4 years">2000</h5>
+                            </div>
+                            <p className="mb-1 pl-4" >менеджмент и ВЭД</p>
+                            <small className='pl-4 mb-2'>менеджер среднего звена, бакалавр</small>
+                        </div>
+
+                        <hr className='hr2'></hr>
+                        <div className='row justify-content-start header-text m-0'>Курсы</div>
+                        <div className="list-group ">
+                            <div className="d-flex w-100 justify-content-between">
+                                <h5 className="mb-1 pl-4">Университет</h5>
+                                <h5 className="mb-1 pr-4 years">2001</h5>
+                            </div>
+                            <p className="mb-1 pl-4" >менеджмент и ВЭД</p>
+                        </div>
+
+                        <hr className='hr2'></hr>
+                        <div className='row justify-content-start header-text m-0'>Рекомендации</div>
+                        <div className="list-group ">
+                            <div className="d-flex w-100 justify-content-start">
+                                <h5 className="mb-1 pl-4">Университет</h5>
+                                <h5 className="mb-1 pr-4 years">2001</h5>
+                            </div>
+                            <div className='row ml-4 justify-content-start'>
+                                <div className="mb-1 text-capitalize">иванов Иван Иванович
+                                    Запорожье</div>
+                                <div className="d-flex "><img className="icon-item-t3" src={phone} alt="phone" />
+                                    +380661234512</div>
+                                <div className="d-flex long-text "><img className="icon-item-t3" src={email} alt="email" />
+                                    ivanov@gmail.com</div>
+                            </div>
+                            {/* <p className="mb-1 text-capitalize" >иванов Иван Иванович</p>
+                            <div >+380661234512</div>
+                            <div >ivanov@gmail.com</div> */}
+                        </div>
+
                     </div>
 
                 </div>
@@ -378,4 +496,4 @@ class Template1 extends React.Component {
         }
     };
 }
-export default Template1;
+export default Templates;

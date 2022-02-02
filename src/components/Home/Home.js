@@ -146,24 +146,24 @@ class Home extends React.Component {
                             </div>
                         </div> */}
 
-                        <div class="md-stepper-horizontal orange">
-                            <div class="md-step ">
-                                <div class="md-step-circle"><span>1</span></div>
-                                <div class="md-step-title">Заполняете резюме online в форме</div>
-                                <div class="md-step-bar-left"></div>
-                                <div class="md-step-bar-right"></div>
+                        <div className="md-stepper-horizontal orange">
+                            <div className="md-step ">
+                                <div className="md-step-circle"><span>1</span></div>
+                                <div className="md-step-title">Заполняете резюме online в форме</div>
+                                <div className="md-step-bar-left"></div>
+                                <div className="md-step-bar-right"></div>
                             </div>
-                            <div class="md-step ">
-                                <div class="md-step-circle"><span>2</span></div>
-                                <div class="md-step-title">Выбираете подходящий Вам шаблон</div>
-                                <div class="md-step-bar-left"></div>
-                                <div class="md-step-bar-right"></div>
+                            <div className="md-step ">
+                                <div className="md-step-circle"><span>2</span></div>
+                                <div className="md-step-title">Выбираете подходящий Вам шаблон</div>
+                                <div className="md-step-bar-left"></div>
+                                <div className="md-step-bar-right"></div>
                             </div>
-                            <div class="md-step ">
-                                <div class="md-step-circle"><span>3</span></div>
-                                <div class="md-step-title">Скачиваете или размещаете online свое резюме</div>
-                                <div class="md-step-bar-left"></div>
-                                <div class="md-step-bar-right"></div>
+                            <div className="md-step ">
+                                <div className="md-step-circle"><span>3</span></div>
+                                <div className="md-step-title">Скачиваете или размещаете online свое резюме</div>
+                                <div className="md-step-bar-left"></div>
+                                <div className="md-step-bar-right"></div>
                             </div>                            
                         </div>
 

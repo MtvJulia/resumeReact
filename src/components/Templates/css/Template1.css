@@ -1,0 +1,11 @@
+#left-container-t1 {
+    background-color: #edd9b4;    
+    min-width: min-content;
+}
+
+.box-t1 {
+    display: inline-block;
+    width: 100%;
+    background-color: #fdf5e5;    
+    border-color: #e9ecef !important;
+}
