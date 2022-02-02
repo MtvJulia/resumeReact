@@ -1,6 +1,7 @@
 @import url('Template1.css');
 @import url('Template2.css');
 @import url('Template3.css');
+@import url('Template4.css');
 
 /* div{
     border: 1px solid black;
@@ -43,6 +44,7 @@
 .container-sm{
     margin-top: 30px;
     margin-bottom: 30px;
+    padding-bottom: 20px;
 }
 
 .container-t {
@@ -97,4 +99,10 @@
     background-color: black;    /* Цвет линии */
     color: black;    /* Цвет линии для IE6-7 */
     height: 2px;    /* Толщина линии */
+}
+
+.line { 
+    border-left: 2px solid #ccc; /* Параметры линии */ 
+    margin-left: 20px; /* Отступ слева */
+    padding-left: 10px; /* Расстояние от линии до текста */    
 }

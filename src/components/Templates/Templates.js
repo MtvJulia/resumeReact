@@ -212,7 +212,7 @@ class Templates extends React.Component {
                     </div>
 
                     {/* template 2 */}
-                    <div className="container-sm" id="main-container-t2" >
+                    <div className="container-sm" id="main-container-t2" hidden>
                         <div className="row container-t">
                             {/* left-container */}
                             <div className="col col-4" id="left-container-t2">
@@ -374,7 +374,7 @@ class Templates extends React.Component {
                     </div>
 
                     {/* template 3 */}
-                    <div className="container-sm border" id="main-container-t3" >
+                    <div className="container-sm border " id="main-container-t3" hidden>
                         <div className="media align-items-center">
                             <div className="media-body ">
                                 <div className='row justify-content-center m-0'>
@@ -429,6 +429,7 @@ class Templates extends React.Component {
                             <div className="col header-text">Армия
                             </div>
                         </div>
+
                         <hr className='hr2'></hr>
 
                         <div className='row justify-content-start header-text m-0'>Опыт работы</div>
@@ -439,15 +440,8 @@ class Templates extends React.Component {
                             </div>
                             <p className="mb-1 pl-4" >бухгалтер</p>
                             <small className='pl-4 mb-2'>бухгалтерия предприятия</small>
-
-                            <div className="d-flex w-100 justify-content-between">
-                                <h5 className="mb-1 pl-4">государственная служба</h5>
-                                <h5 className="mb-1 pr-4 years">2007-2022</h5>
-                            </div>
-                            <p className="mb-1 pl-4" >бухгалтер</p>
-                            <small className='pl-4 mb-2'>бухгалтерия предприятия</small>
-
                         </div>
+
                         <hr className='hr2'></hr>
                         <div className='row justify-content-start header-text m-0'>Образование</div>
                         <div className="list-group ">
@@ -466,32 +460,222 @@ class Templates extends React.Component {
                                 <h5 className="mb-1 pl-4">Университет</h5>
                                 <h5 className="mb-1 pr-4 years">2001</h5>
                             </div>
-                            <p className="mb-1 pl-4" >менеджмент и ВЭД</p>
+                            <p className="mb-2 pl-4" >менеджмент и ВЭД</p>
                         </div>
 
                         <hr className='hr2'></hr>
                         <div className='row justify-content-start header-text m-0'>Рекомендации</div>
-                        <div className="list-group ">
-                            <div className="d-flex w-100 justify-content-start">
+                        <div className="list-group">
+                            <div className="d-flex w-100 justify-content-between">
                                 <h5 className="mb-1 pl-4">Университет</h5>
                                 <h5 className="mb-1 pr-4 years">2001</h5>
                             </div>
                             <div className='row ml-4 justify-content-start'>
-                                <div className="mb-1 text-capitalize">иванов Иван Иванович
-                                    Запорожье</div>
+                                <div className="mb-1 text-capitalize">
+                                    иванов Иван Иванович</div>
                                 <div className="d-flex "><img className="icon-item-t3" src={phone} alt="phone" />
                                     +380661234512</div>
-                                <div className="d-flex long-text "><img className="icon-item-t3" src={email} alt="email" />
+                                <div className="d-flex long-text mb-2"><img className="icon-item-t3" src={email} alt="email" />
                                     ivanov@gmail.com</div>
                             </div>
-                            {/* <p className="mb-1 text-capitalize" >иванов Иван Иванович</p>
-                            <div >+380661234512</div>
-                            <div >ivanov@gmail.com</div> */}
+                        </div>
+
+                        <hr className='hr2'></hr>
+                        <div className='row justify-content-start header-text m-0'>Профессиональные навыки</div>
+                        <div className="list-group ">
+                            <div className="mb-1 pl-4 long-text" >
+                                Составление договоров.
+                                Расширение клиентской базы.
+                                Проведение презентаций.
+                                консультирование по телефону.
+                                Привел в компанию 7 ключевых клиентов (совокупно до 50% заказов).
+                                Создал отдел продаж с нуля. Впоследствии отдел (5 человек) под моим руководством регулярно выполнял план по привлечению новых клиентов и продажам.
+                                Разработал и внедрил в компании технологию продаж технически сложного оборудования.
+                            </div>
+                        </div>
+                        <hr className='hr2'></hr>
+                        <div className='row justify-content-start header-text m-0'>Личные качества</div>
+                        <div className="list-group ">
+                            <div className="mb-1 pl-4 long-text" >
+                                Здравствуйте. Основные сведения обо мне вы уже знаете из резюме.
+                                Могу немного рассказать о себе. Мне … лет,
+                                по специальности я работаю уже … года. Получать высшее образование
+                                по этой специальности решил осознанно, так как мне нравится
+                                профессия и то, что она может дать. Я стараюсь развиваться
+                                всесторонне, люблю получать новые знания. Поэтому работа в вашей
+                                компании окажется для меня очень полезной. А я, в свою очередь,
+                                все свои имеющиеся знания приложу для того, чтобы компания
+                                становилась еще перспективнее, а ее доходы росли. Там, где
+                                я работал раньше, мне удалось добиться существенных результатов.
+                                Прежнее место работы мне очень нравилось,
+                                но я хочу продвигаться вперед. Думаю, именно ваша компания мне
+                                такую возможность даст
+                            </div>
+                        </div>
+                        <hr className='hr2'></hr>
+                        <div className='row justify-content-start header-text m-0'>Хобби</div>
+                        <div className="list-group ">
+                            <div className="mb-1 pl-4 long-text" >
+                                вязание крючком и вышивание крестиком
+                            </div>
                         </div>
 
                     </div>
 
-                </div>
+                    {/* template 4 */}
+                    <div className="container-sm" id="main-container-t4" >
+                        <div className="row container-t">
+                            {/* left-container */}
+                            <div className="col col-4" id="left-container-t4">
+
+                                <div className="col header-text">Контакты</div>
+                                <div className="col text-capitalize "><img className="icon-item " src={location} alt="location" />
+                                    Запорожье</div>
+                                <div className="col "><img className="icon-item" src={phone} alt="phone" />
+                                    +380661212123</div>
+                                <div className="col long-text "><img className="icon-item" src={email} alt="email" />
+                                    ivanova_olga@gmail.com</div>
+
+                                <div className="col text-nowrap header-text" >Водительские права
+                                    <div className="col main-text">B, C, есть личный авто</div>
+                                </div>
+
+                                <div className="col header-text">Гражданство
+                                    <div className="col main-text">украинка</div>
+                                </div>
+                                <div className="col text-nowrap header-text">Семейное положение
+                                    <div className="col main-text">замужем, есть дети</div>
+                                </div>
+                                <div className="col text-nowrap header-text">Желаемая зарплата
+                                    <div className="col main-text">500$</div>
+                                </div>
+                                <div className="col header-text">Занятость
+                                    <div className="col main-text">полная, полный день, командировки, готовность на переезд</div>
+                                </div>
+                                <div className="col header-text">Языки
+                                    <div className="col main-text">английский, В1</div>
+                                    <div className="col main-text">украинский, С1</div>
+                                </div>
+                                <div className="col header-text">Армия
+                                </div>
+                                <div className="col header-text">Хобби
+                                    <div className="col main-text">вязание крючком и вышивание крестиком</div>
+                                </div>
+
+
+                            </div>
+
+                            {/* right-container */}
+                            <div className="col" id="right-container">
+                                <div className="media align-items-center border">
+                                    <div className="media-body ">
+                                        <div className='row justify-content-center m-0 mark-t4'>
+                                            <div className='mr-3 text-capitalize text-break name-text'>иванова</div>
+                                            <div className='mr-3 text-capitalize text-break name-text'>Ольга</div>
+                                            <div className='mr-3 text-capitalize text-break name-text'>викторовна</div>
+                                        </div>
+                                        <div className='row justify-content-center m-0 header-text'>менеджер, 27 лет</div>
+                                        <div className='row justify-content-center m-0 main-text'>желаемая заработная плата: 20000 грн</div>
+                                    </div>
+                                    <div className="media-right">
+                                        <img className="media-object" id="avatar" src={avatar} alt="avatar" />
+                                    </div>
+                                </div>
+                                <div className="col header-text border box-t4">Опыт работы </div>
+                                <div className="list-group ">
+                                    <div className="list-group-item ">
+                                        <div className="d-flex w-100 justify-content-between">
+                                            <h5 className="mb-1">государственная служба</h5>
+                                            <h5 className="mb-1 years">2000-2007</h5>
+                                        </div>
+                                        <p className="mb-1" >менеджер</p>
+                                        <small>ведение клиентов, продажи</small>
+                                    </div>
+                                    <div className="list-group-item ">
+                                        <div className="d-flex w-100 justify-content-between">
+                                            <h5 className="mb-1">государственная служба</h5>
+                                            <h5 className="mb-1 years">2007-2022</h5>
+                                        </div>
+                                        <p className="mb-1" >бухгалтер</p>
+                                        <small>бухгалтерия предприятия</small>
+                                    </div>
+                                </div>
+
+                                <div className="col header-text border box-t4">Образование</div>
+                                <div className="list-group ">
+                                    <div className="list-group-item ">
+                                        <div className="d-flex w-100 justify-content-between">
+                                            <h5 className="mb-1">Университет</h5>
+                                            <h5 className="mb-1 years">2000</h5>
+                                        </div>
+                                        <p className="mb-1" >менеджмент и ВЭД</p>
+                                        <small>менеджер среднего звена, бакалавр</small>
+                                    </div>
+                                </div>
+
+                                <div className="col header-text border box-t4">Курсы</div>
+                                <div className="list-group ">
+                                    <div className="list-group-item ">
+                                        <div className="d-flex w-100 justify-content-between">
+                                            <h5 className="mb-1">Университет</h5>
+                                            <h5 className="mb-1 years">2001</h5>
+                                        </div>
+                                        <p className="mb-1" >менеджмент и ВЭД</p>
+                                    </div>
+                                </div>
+
+                                <div className="col header-text border box-t4">Рекомендации</div>
+                                <div className="list-group ">
+                                    <div className="list-group-item ">
+                                        <div className="d-flex w-100 justify-content-between">
+                                            <h5 className="mb-1">Университет</h5>
+                                        </div>
+                                        <p className="mb-1 text-capitalize" >иванов Иван Иванович</p>
+                                        <div >+380661234512</div>
+                                        <div >ivanov@gmail.com</div>
+                                    </div>
+                                </div>
+
+                                <div className="col header-text border box-t4">Профессиональные навыки</div>
+                                <div className="list-group ">
+                                    <div className="list-group-item ">
+                                        <div className="mb-1 long-text" >
+                                            Составление договоров.
+                                            Расширение клиентской базы.
+                                            Проведение презентаций.
+                                            консультирование по телефону.
+                                            Привел в компанию 7 ключевых клиентов (совокупно до 50% заказов).
+                                            Создал отдел продаж с нуля. Впоследствии отдел (5 человек) под моим руководством регулярно выполнял план по привлечению новых клиентов и продажам.
+                                            Разработал и внедрил в компании технологию продаж технически сложного оборудования.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="col header-text border box-t4">Личные качества</div>
+                                <div className="list-group ">
+                                    <div className="list-group-item ">
+                                        <p className="mb-1" >
+                                            Здравствуйте. Основные сведения обо мне вы уже знаете из резюме.
+                                            Могу немного рассказать о себе. Мне … лет,
+                                            по специальности я работаю уже … года. Получать высшее образование
+                                            по этой специальности решил осознанно, так как мне нравится
+                                            профессия и то, что она может дать. Я стараюсь развиваться
+                                            всесторонне, люблю получать новые знания. Поэтому работа в вашей
+                                            компании окажется для меня очень полезной. А я, в свою очередь,
+                                            все свои имеющиеся знания приложу для того, чтобы компания
+                                            становилась еще перспективнее, а ее доходы росли. Там, где
+                                            я работал раньше, мне удалось добиться существенных результатов.
+                                            Прежнее место работы мне очень нравилось,
+                                            но я хочу продвигаться вперед. Думаю, именно ваша компания мне
+                                            такую возможность даст
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div >
             );
         }
     };

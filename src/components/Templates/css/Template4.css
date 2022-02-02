@@ -1,0 +1,15 @@
+#left-container-t4 {
+    background-color: #e0f5d0;    
+    min-width: min-content;
+}
+
+.box-t4 {
+    display: inline-block;
+    width: 100%;
+    background-color: #effae7;    
+    border-color: #e9ecef !important;
+}
+
+.mark-t4{
+    background-color: #c9dcbb;
+}
