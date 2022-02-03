@@ -45,7 +45,11 @@
 }
 
 .img-template {
+<<<<<<< HEAD
     width: 35vw;
+=======
+    width: 20vw;
+>>>>>>> 0918056963aaf72b528281e019af0dcb74250afc
     padding: 10px;
 }
 

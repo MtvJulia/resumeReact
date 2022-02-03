@@ -89,7 +89,11 @@ class ExistingUserData extends React.Component {
     fillCoursArr(data, coursArr) {
 
         for (let i = 0; i < data.courseName.length; i++) {
+<<<<<<< HEAD
             if (data.courseName[i] != null && data.organization[i] != null) {
+=======
+            if (data.courseName[i] != null&&data.organization[i]!=null)  {
+>>>>>>> 0918056963aaf72b528281e019af0dcb74250afc
                 var objCourses = {};
 
                 objCourses.courseName = data.courseName[i];
@@ -103,7 +107,11 @@ class ExistingUserData extends React.Component {
     fillRecomendArr(data, recomendArr) {
 
         for (let i = 0; i < data.phoneCompany.length; i++) {
+<<<<<<< HEAD
             if (data.phoneCompany[i] != null) {
+=======
+            if (data.phoneCompany[i]!=null)  {
+>>>>>>> 0918056963aaf72b528281e019af0dcb74250afc
                 var objRecomendation = {};
 
                 objRecomendation.personRecommending = data.personRecommending[i];
@@ -119,7 +127,11 @@ class ExistingUserData extends React.Component {
     fillLangArr(data, langArr) {
         for (let i = 0; i < data.langName.length; i++) {
 
+<<<<<<< HEAD
             if (data.langName[i] != null && data.level[i] != null) {
+=======
+            if (data.langName[i] != null && data.level[i]!=null)  {
+>>>>>>> 0918056963aaf72b528281e019af0dcb74250afc
                 var objLanguage = {};
 
                 objLanguage.langName = data.langName[i];

@@ -1,5 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const pdf = require('html-pdf');
+const cors = require('cors');
 const path = require('path');// модуль для парсинга пути
 const mysql = require('mysql');
 const fs = require("fs");
@@ -7,9 +9,11 @@ const { Blob, Buffer } = require('buffer');
 const { Switch } = require('react-router');
 const { connString } = require("./ConnectionModule");
 const { CheckedToNull, getCheckedInfo } = require("./CheckedModule");
-const { getFkValue, getEndData, getUserData } = require("./GetToPostModule");
+const {fillDriverLicense,addDriverLicenseToDB,addLanguageToDB,addCoursesToDB,addRecomendingToDB, addEducationToDB,addExpirienceToDB} = require("./AddDataToDBModule");
+const {  getUserData } = require("./GetToPostModule");
 const multer = require('multer');
 const bcrypt = require('bcrypt'); // import the Library. 
+
 
 
 const saltRounds = 10; // The number of rounds for encrypt the passwords. 
@@ -89,15 +93,24 @@ var userData = {
 
 
 server.use(express.static(__dirname + '/public'));
-server.use(bodyParser.urlencoded({ extended: false }));
+// server.use(bodyParser.json()); 
+
+server.use(bodyParser.json({limit: '50mb'}));
+server.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
+
+//server.use(bodyParser.urlencoded({ extended: false }));
+server.use(cors());
 server.engine('html', require('ejs').renderFile);
 server.set('view engine', 'html');
 server.set('views', __dirname);
-
+const pdfTemplate1 = require('./documents/tmp1');
 
 const SERVER_PORT = 55555;
 const HTTP_OK = 200;
 const dbConnection = mysql.createConnection(connString);
+
+
 
 // подключаемся
 dbConnection.connect((err) => {
@@ -105,245 +118,31 @@ dbConnection.connect((err) => {
     else console.log("Connected to MySQL");
 });
 
-
-const fillDriverLicense = (newUserData) => {
-    let driverLicense = [];
-    if (newUserData.id_driverLicenseA1 != undefined) { driverLicense.push(newUserData.id_driverLicenseA1); }
-    if (newUserData.id_driverLicenseA != undefined) { driverLicense.push(newUserData.id_driverLicenseA); }
-    if (newUserData.id_driverLicenseB1 != undefined) { driverLicense.push(newUserData.id_driverLicenseB1); }
-    if (newUserData.id_driverLicenseB != undefined) { driverLicense.push(newUserData.id_driverLicenseB); }
-    if (newUserData.id_driverLicenseC1 != undefined) { driverLicense.push(newUserData.id_driverLicenseC1); }
-    if (newUserData.id_driverLicenseC != undefined) { driverLicense.push(newUserData.id_driverLicenseC); }
-    if (newUserData.id_driverLicenseD1 != undefined) { driverLicense.push(newUserData.id_driverLicenseD1); }
-    if (newUserData.id_driverLicenseD != undefined) { driverLicense.push(newUserData.id_driverLicenseD); }
-    if (newUserData.id_driverLicenseT != undefined) { driverLicense.push(newUserData.id_driverLicenseT); }
-    return driverLicense;
-}
-const addDriverLicenseToDB = (newUserData, dbConnection) => {
-
-    let drLicense = fillDriverLicense(newUserData);
-    // Data new user or update user from db.
-
-    if (drLicense.length > 0) {
-
-        drLicense.forEach(function (item) {
-            let queryDriverLicense = ` INSERT INTO user_driver_license(userID,fk_driverLicense) VALUES(${newUserData.userID},${item}) 
-                ON DUPLICATE KEY UPDATE fk_driverLicense=${item}`;
-            dbConnection.query(queryDriverLicense, (err, result) => {
-                if (err) console.log(err.message);
-            });
-        });
+function strToObj(str){
+    var obj = {};
+    if(str&&typeof str ==='string'){
+        var objStr = str.match(/\{(.)+\}/g);
+        eval("obj ="+objStr);
     }
+    return obj
+ }
 
-}
-const addLanguageToDB = (newUserData, dbConnection) => {
-    if (newUserData.id_langName != undefined && newUserData.id_langName != '' && newUserData.id_langName != null) {
-
-        // Data new user from db or update user.
-
-        //// lang name a number  
-        if (newUserData.id_langName.length > 0) {
-
-            for (i = 0; i < newUserData.id_langName.length; i++) {
-                if (newUserData.id_langName[i] != '' && newUserData.id_level[i] != "") {
-                    let queryLang = ` INSERT INTO user_language(userID,fk_langName,fk_languag_proficiency_levelID)
-                                  VALUES(${newUserData.userID},${newUserData.id_langName[i]},${newUserData.id_level[i]}) 
-                                  ON DUPLICATE KEY UPDATE fk_langName=${newUserData.id_langName[i]}, fk_languag_proficiency_levelID=${newUserData.id_level[i]}`;
-                    dbConnection.query(queryLang, (err, result) => {
-                        if (err) console.log(err.message);
-
-                    });
-                }
-            }
+server.post('/create-pdf', (req, res) => {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    console.log("111111111111111111111111111111111");
+        console.log(JSON.stringify(req.body));
+     pdf.create(pdfTemplate1(req.body), {}).toFile('result.pdf', (err) => {
+        if(err) {
+            res.send(Promise.reject());
         }
-    }
-}
+               
+        res.send(Promise.resolve());
+    });
+});
 
-const addCoursesToDB = (newUserData, dbConnection) => {
-    // Data new user or update user from db.
-
-    if (newUserData.id_courseName != '' && newUserData.id_courseName != null) {
-        let count = 0;
-        if (Array.isArray(newUserData.id_courseName)) {
-            newUserData.id_courseName.forEach(function (element) {
-                if (element.length > 1) count++;
-            });
-        }
-        if (count > 0) {
-            for (i = 0; i < newUserData.id_courseName.length; i++) {
-                if (newUserData.id_courseName[i] != '' && newUserData.id_organization[i] != "" && newUserData.id_endingCourse[i] != "") {
-
-                    let queryCourses = ` INSERT INTO user_course(userID,courseName,organization,endingCourse)
-                                         VALUES(${newUserData.userID},\'${newUserData.id_courseName[i]}\',\'${newUserData.id_organization[i]}\',\'${newUserData.id_endingCourse[i]}\')
-                                         ON DUPLICATE KEY UPDATE courseName=\'${newUserData.id_courseName[i]}\', organization=\'${newUserData.id_organization[i]}\', 
-                                         endingCourse=\'${newUserData.id_endingCourse[i]}\' `;
-
-                    dbConnection.query(queryCourses, (err, result) => {
-                        if (err) console.log(err.message);
-                    });
-                }
-            }
-        }
-        else {
-            let queryCourses = ` INSERT INTO user_course(userID,courseName,organization,endingCourse)
-                VALUES(${newUserData.userID},\'${newUserData.id_courseName}\',\'${newUserData.id_organization}\',\'${newUserData.id_endingCourse}\')
-                ON DUPLICATE KEY UPDATE courseName=\'${newUserData.id_courseName}\', organization=\'${newUserData.id_organization}\', endingCourse=\'${newUserData.id_endingCourse}\'`;
-            dbConnection.query(queryCourses, (err, result) => {
-                if (err) console.log(err.message);
-            });
-        }
-    }
-
-}
-
-const addRecomendingToDB = (newUserData, dbConnection) => {
-    if (newUserData.id_company != '' && newUserData.id_company != null) {
-        let count = 0;
-        let email = null;
-        if (Array.isArray(newUserData.id_company)) {
-            newUserData.id_company.forEach(function (element) {
-                if (element.length > 1) count++;
-            });
-        }
-        if (count > 0) {
-            for (i = 0; i < newUserData.id_company.length; i++) {
-                if (newUserData.id_company[i] != '' && newUserData.id_personRecommending[i] != "" && newUserData.id_phoneCompany[i] != "") {
-                    if (newUserData.id_emailCompany[i] != undefined && newUserData.id_emailCompany[i] != "") {
-                        email = newUserData.id_emailCompany[i];
-                    }
-
-                    let queryRecomending = ` INSERT INTO user_recomending(userID,company,personRecommending,emailCompany,phoneCompany)
-                    VALUES(${newUserData.userID},\'${newUserData.id_company[i]}\',\'${newUserData.id_personRecommending[i]}\',\'${email}\',\'${newUserData.id_phoneCompany[i]}\')
-                    ON DUPLICATE KEY UPDATE company=\'${newUserData.id_company[i]}\',personRecommending=\'${newUserData.id_personRecommending[i]}\', emailCompany=\'${email}\',phoneCompany=\'${newUserData.id_phoneCompany[i]}\'`;
-                    dbConnection.query(queryRecomending, (err, result) => {
-                        if (err) console.log(err.message);
-                    });
-                }
-            }
-        }
-        else {
-            let queryRecomending = ` INSERT INTO user_recomending(userID,company,personRecommending,emailCompany,phoneCompany)
-                VALUES(${newUserData.userID},\'${newUserData.id_company}\',\'${newUserData.id_personRecommending}\',\'${email}\',\'${newUserData.id_phoneCompany}\')
-                ON DUPLICATE KEY UPDATE company=\'${newUserData.id_company}\',personRecommending=\'${newUserData.id_personRecommending}\', emailCompany=\'${email}\',phoneCompany=\'${newUserData.id_phoneCompany}\'`;
-            dbConnection.query(queryRecomending, (err, result) => {
-                if (err) console.log(err.message);
-            });
-        }
-    }
-}
-const addEducationToDB = (newUserData, dbConnection) => {
-    if (newUserData.id_institutName != '' && newUserData.id_institutName != null) {
-        let count = 0;
-        if (Array.isArray(newUserData.id_institutName)) {
-            newUserData.id_institutName.forEach(function (element) {
-                if (element.length > 1) count++;
-            });
-        }
-        if (count > 0) {
-            for (i = 0; i < newUserData.id_institutName.length; i++) {
-                if (newUserData.id_institutName[i] != '' && newUserData.id_faculty[i] != "" && newUserData.id_specialty[i] != "" && newUserData.id_ending[i] != "" && newUserData.id_levelEducation[i] != "") {
-                    let queryEducation = ` INSERT INTO user_education(userID,institutName,faculty,specialty,ending,fk_levelEducation)
-                        VALUES(${newUserData.userID},\'${newUserData.id_institutName[i]}\',\'${newUserData.id_faculty[i]}\',\'${newUserData.id_specialty[i]}\',\'${newUserData.id_ending[i]}\',${newUserData.id_levelEducation[i]})
-                        ON DUPLICATE KEY UPDATE institutName=\'${newUserData.id_institutName[i]}\',faculty=\'${newUserData.id_faculty[i]}\', specialty=\'${newUserData.id_specialty[i]}\',
-                        ending=\'${newUserData.id_ending[i]}\',fk_levelEducation=${newUserData.id_levelEducation[i]}`;
-
-                    dbConnection.query(queryEducation, (err, result) => {
-                        if (err) console.log(err.message);
-                    });
-                }
-            }
-        }
-        else {
-            let queryEducation = ` INSERT INTO user_education(userID,institutName,faculty,specialty,ending,fk_levelEducation)
-                    VALUES(${newUserData.userID},\'${newUserData.id_institutName}\',\'${newUserData.id_faculty}\',\'${newUserData.id_specialty}\',\'${newUserData.id_ending}\',${newUserData.id_levelEducation})
-                    ON DUPLICATE KEY UPDATE institutName=\'${newUserData.id_institutName}\',faculty=\'${newUserData.id_faculty}\', specialty=\'${newUserData.id_specialty}\',
-                    ending=\'${newUserData.id_ending}\',fk_levelEducation=${newUserData.id_levelEducation}`;
-
-            dbConnection.query(queryEducation, (err, result) => {
-                if (err) console.log(err.message);
-            });
-        }
-    }
-}
-const addExpirienceToDB = (newUserData, dbConnection) => {
-    if (newUserData.id_companyName != '' && newUserData.id_companyName != null) {
-        let count = 0;
-        let queryExpiriennce = "";
-        let stillWorking = 0;
-        if (Array.isArray(newUserData.id_companyName)) {
-            newUserData.id_companyName.forEach(function (element) {
-                if (element.length > 1) count++;
-            });
-        }
-
-        if (count > 0) {
-            for (i = 0; i < newUserData.id_companyName.length; i++) {
-                let endWork = null;
-                if (newUserData.id_companyName[i] != '' && newUserData.id_positionWork[i] != "" && newUserData.id_jobDuties[i] != "" && newUserData.id_startWork[i] != "") {
-                    if (newUserData.id_endWork[i] != "") {
-                        stillWorking = 0;
-                    }
-                    if (newUserData.id_stillWorking != undefined && newUserData.id_stillWorking[i] == "on" && newUserData.id_endWork[i] == "") {
-                        stillWorking = 1;
-                    }
-                    if (newUserData.id_endWork[i] != undefined && newUserData.id_endWork[i] != "") {
-                        endWork = newUserData.id_endWork[i];
-
-
-                        queryExpiriennce = ` INSERT INTO user_expirience(userID,companyName,positionWork,jobDuties,startWork,endWork,stillWorking)
-                            VALUES(${newUserData.userID},\'${newUserData.id_companyName[i]}\',\'${newUserData.id_positionWork[i]}\',\'${newUserData.id_jobDuties[i]}\',\'${newUserData.id_startWork[i]}\',
-                            \'${endWork}\',${stillWorking})
-                            ON DUPLICATE KEY UPDATE companyName=\'${newUserData.id_companyName[i]}\',positionWork=\'${newUserData.id_positionWork[i]}\', jobDuties=\'${newUserData.id_jobDuties[i]}\',
-                            startWork=\'${newUserData.id_startWork[i]}\',endWork=\'${endWork}\',stillWorking=${stillWorking}`;
-                    }
-                    else {
-                        stillWorking = 1;
-
-                        queryExpiriennce = ` INSERT INTO user_expirience(userID,companyName,positionWork,jobDuties,startWork,endWork,stillWorking)
-                            VALUES(${newUserData.userID},\'${newUserData.id_companyName[i]}\',\'${newUserData.id_positionWork[i]}\',\'${newUserData.id_jobDuties[i]}\',\'${newUserData.id_startWork[i]}\',
-                            ${endWork},${stillWorking})
-                            ON DUPLICATE KEY UPDATE companyName=\'${newUserData.id_companyName[i]}\',positionWork=\'${newUserData.id_positionWork[i]}\', jobDuties=\'${newUserData.id_jobDuties[i]}\',
-                            startWork=\'${newUserData.id_startWork[i]}\',endWork=${endWork},stillWorking=${stillWorking}`;
-                    }
-                    dbConnection.query(queryExpiriennce, (err, result) => {
-                        if (err) console.log(err.message);
-                    });
-                }
-            }
-        }
-        else {
-            let endWork = null;
-            if (newUserData.id_endWork != "") {
-                stillWorking = 0;
-                endWork = newUserData.id_endWork;
-            }
-            if (newUserData.id_stillWorking != undefined && newUserData.id_stillWorking == "on" && newUserData.id_endWork == "") {
-                stillWorking = 1;
-            }
-            if (newUserData.id_endWork != undefined && newUserData.id_endWork != "") {
-
-                queryExpiriennce = ` INSERT INTO user_expirience(userID,companyName,positionWork,jobDuties,startWork,endWork,stillWorking)
-                    VALUES(${newUserData.userID},\'${newUserData.id_companyName}\',\'${newUserData.id_positionWork}\',\'${newUserData.id_jobDuties}\',\'${newUserData.id_startWork}\',
-                    \'${endWork}\',${stillWorking})
-                    ON DUPLICATE KEY UPDATE companyName=\'${newUserData.id_companyName}\',positionWork=\'${newUserData.id_positionWork}\', jobDuties=\'${newUserData.id_jobDuties}\',
-                    startWork=\'${newUserData.id_startWork}\',endWork= \'${endWork}\',stillWorking=${stillWorking}`;
-            }
-            else {
-                stillWorking = 1;
-
-                queryExpiriennce = ` INSERT INTO user_expirience(userID,companyName,positionWork,jobDuties,startWork,endWork,stillWorking)
-                    VALUES(${newUserData.userID},\'${newUserData.id_companyName}\',\'${newUserData.id_positionWork}\',\'${newUserData.id_jobDuties}\',\'${newUserData.id_startWork}\',
-                    ${endWork},${stillWorking})
-                    ON DUPLICATE KEY UPDATE companyName=\'${newUserData.id_companyName}\',positionWork=\'${newUserData.id_positionWork}\', jobDuties=\'${newUserData.id_jobDuties}\',
-                    startWork=\'${newUserData.id_startWork}\',endWork=${endWork},stillWorking=${stillWorking}`;
-            }
-
-            dbConnection.query(queryExpiriennce, (err, result) => {
-                if (err) console.log(err.message);
-            });
-        }
-    }
-}
+server.get('/fetch-pdf', (req, res) => {
+    res.sendFile(`${__dirname}/result.pdf`)
+})
 
 const requestToDbCUDUserData = (query, dbConnection, newUserData, res, callback = (res, newUserData, dbConnection) => {
 
@@ -371,8 +170,7 @@ const requestToDbGET = (query, dbConnection, res) => {
 
     dbConnection.query(query, (err, result) => {
         if (err) console.log(err.message);
-        res.json(result);
-        arrUsers = result;
+        res.json(result);      
         res.end();
     });
 }
@@ -413,7 +211,102 @@ server.get("/existinguserdata", (req, res) => {
         res.end();
     }
 });
+server.get("/tmp1", (req, res) => {
+    userData = {userID: 0,  userLogin: "", firstName: "", lastName: "", middleName: "", birthOfDate: "", phone: "",  email: "", сityOfResidence: "", nationality: "",   position: "",
+        privateСar: 0,  army: 0, hobby: "", personalQualities: "", professionalSkills: "",relocate: 0,desiredSalary: 0,children: 0, businessTrip: 0, image: [], employment: "",schedule: "",
+        maritalStatus: "",education: "",
+        currency: "",drivLicense: { driverLicenseA1: 0, driverLicenseA: 0, driverLicenseB1: 0, driverLicenseB: 0, driverLicenseC1: 0, driverLicenseC: 0, driverLicenseD1: 0, driverLicenseD: 0, driverLicenseT: 0 },
+        courseName: [],organization: [],endingCourse: [],company: [],personRecommending: [],emailCompany: [],phoneCompany: [],langName: [], level: [],institutName: [],levelEducation: [],
+        faculty: [],specialty: [],ending: [],companyName: [],positionWork: [],jobDuties: [],startWork: [], endWork: [],stillWorking: [] };  
 
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    let result = getUserData(res, userData, dbConnection, foundUserID, fs);
+   
+    if (result == false) {
+        res.json(userData);
+        res.end();
+    }
+});
+server.get("/tmp2", (req, res) => {
+    userData = {userID: 0,  userLogin: "", firstName: "", lastName: "", middleName: "", birthOfDate: "", phone: "",  email: "", сityOfResidence: "", nationality: "",   position: "",
+        privateСar: 0,  army: 0, hobby: "", personalQualities: "", professionalSkills: "",relocate: 0,desiredSalary: 0,children: 0, businessTrip: 0, image: [], employment: "",schedule: "",
+        maritalStatus: "",education: "",
+        currency: "",drivLicense: { driverLicenseA1: 0, driverLicenseA: 0, driverLicenseB1: 0, driverLicenseB: 0, driverLicenseC1: 0, driverLicenseC: 0, driverLicenseD1: 0, driverLicenseD: 0, driverLicenseT: 0 },
+        courseName: [],organization: [],endingCourse: [],company: [],personRecommending: [],emailCompany: [],phoneCompany: [],langName: [], level: [],institutName: [],levelEducation: [],
+        faculty: [],specialty: [],ending: [],companyName: [],positionWork: [],jobDuties: [],startWork: [], endWork: [],stillWorking: [] };  
+
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    let result = getUserData(res, userData, dbConnection, foundUserID, fs);
+   
+    if (result == false) {
+        res.json(userData);
+        res.end();
+    }
+});
+server.get("/tmp3", (req, res) => {
+    userData = {userID: 0,  userLogin: "", firstName: "", lastName: "", middleName: "", birthOfDate: "", phone: "",  email: "", сityOfResidence: "", nationality: "",   position: "",
+        privateСar: 0,  army: 0, hobby: "", personalQualities: "", professionalSkills: "",relocate: 0,desiredSalary: 0,children: 0, businessTrip: 0, image: [], employment: "",schedule: "",
+        maritalStatus: "",education: "",
+        currency: "",drivLicense: { driverLicenseA1: 0, driverLicenseA: 0, driverLicenseB1: 0, driverLicenseB: 0, driverLicenseC1: 0, driverLicenseC: 0, driverLicenseD1: 0, driverLicenseD: 0, driverLicenseT: 0 },
+        courseName: [],organization: [],endingCourse: [],company: [],personRecommending: [],emailCompany: [],phoneCompany: [],langName: [], level: [],institutName: [],levelEducation: [],
+        faculty: [],specialty: [],ending: [],companyName: [],positionWork: [],jobDuties: [],startWork: [], endWork: [],stillWorking: [] };  
+
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    let result = getUserData(res, userData, dbConnection, foundUserID, fs);
+   
+    if (result == false) {
+        res.json(userData);
+        res.end();
+    }
+});
+server.get("/tmp4", (req, res) => {
+    userData = {userID: 0,  userLogin: "", firstName: "", lastName: "", middleName: "", birthOfDate: "", phone: "",  email: "", сityOfResidence: "", nationality: "",   position: "",
+        privateСar: 0,  army: 0, hobby: "", personalQualities: "", professionalSkills: "",relocate: 0,desiredSalary: 0,children: 0, businessTrip: 0, image: [], employment: "",schedule: "",
+        maritalStatus: "",education: "",
+        currency: "",drivLicense: { driverLicenseA1: 0, driverLicenseA: 0, driverLicenseB1: 0, driverLicenseB: 0, driverLicenseC1: 0, driverLicenseC: 0, driverLicenseD1: 0, driverLicenseD: 0, driverLicenseT: 0 },
+        courseName: [],organization: [],endingCourse: [],company: [],personRecommending: [],emailCompany: [],phoneCompany: [],langName: [], level: [],institutName: [],levelEducation: [],
+        faculty: [],specialty: [],ending: [],companyName: [],positionWork: [],jobDuties: [],startWork: [], endWork: [],stillWorking: [] };  
+
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    let result = getUserData(res, userData, dbConnection, foundUserID, fs);
+   
+    if (result == false) {
+        res.json(userData);
+        res.end();
+    }
+});
+server.get("/tmp5", (req, res) => {
+    userData = {userID: 0,  userLogin: "", firstName: "", lastName: "", middleName: "", birthOfDate: "", phone: "",  email: "", сityOfResidence: "", nationality: "",   position: "",
+        privateСar: 0,  army: 0, hobby: "", personalQualities: "", professionalSkills: "",relocate: 0,desiredSalary: 0,children: 0, businessTrip: 0, image: [], employment: "",schedule: "",
+        maritalStatus: "",education: "",
+        currency: "",drivLicense: { driverLicenseA1: 0, driverLicenseA: 0, driverLicenseB1: 0, driverLicenseB: 0, driverLicenseC1: 0, driverLicenseC: 0, driverLicenseD1: 0, driverLicenseD: 0, driverLicenseT: 0 },
+        courseName: [],organization: [],endingCourse: [],company: [],personRecommending: [],emailCompany: [],phoneCompany: [],langName: [], level: [],institutName: [],levelEducation: [],
+        faculty: [],specialty: [],ending: [],companyName: [],positionWork: [],jobDuties: [],startWork: [], endWork: [],stillWorking: [] };  
+
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    let result = getUserData(res, userData, dbConnection, foundUserID, fs);
+   
+    if (result == false) {
+        res.json(userData);
+        res.end();
+    }
+});
+server.get("/tmp6", (req, res) => {
+    userData = {userID: 0,  userLogin: "", firstName: "", lastName: "", middleName: "", birthOfDate: "", phone: "",  email: "", сityOfResidence: "", nationality: "",   position: "",
+        privateСar: 0,  army: 0, hobby: "", personalQualities: "", professionalSkills: "",relocate: 0,desiredSalary: 0,children: 0, businessTrip: 0, image: [], employment: "",schedule: "",
+        maritalStatus: "",education: "",
+        currency: "",drivLicense: { driverLicenseA1: 0, driverLicenseA: 0, driverLicenseB1: 0, driverLicenseB: 0, driverLicenseC1: 0, driverLicenseC: 0, driverLicenseD1: 0, driverLicenseD: 0, driverLicenseT: 0 },
+        courseName: [],organization: [],endingCourse: [],company: [],personRecommending: [],emailCompany: [],phoneCompany: [],langName: [], level: [],institutName: [],levelEducation: [],
+        faculty: [],specialty: [],ending: [],companyName: [],positionWork: [],jobDuties: [],startWork: [], endWork: [],stillWorking: [] };  
+
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    let result = getUserData(res, userData, dbConnection, foundUserID, fs);
+   
+    if (result == false) {
+        res.json(userData);
+        res.end();
+    }
+});
 
 ////----------------SERVER.POST--------------------------------------
 server.post("/login", function (request, response) {
@@ -559,8 +452,8 @@ server.post("/existinguserdata", upload.single('fupload'), function (req, res) {
 
             requestToDbCUDUserData(query, dbConnection, res, newUserData);
         }
-
-        res.end();
+        return res.redirect("http://localhost:3000/tmps");
+      //  res.end();
     }
     ////------------------------------UPDATE USER AFTER LOGIN ----------------------------------
     else {
@@ -601,8 +494,10 @@ server.post("/existinguserdata", upload.single('fupload'), function (req, res) {
                 requestToDbCUDUserData(query, dbConnection, updateUserData, res);
             }
         }
-        res.end();
+        return res.redirect("http://localhost:3000/tmps");
+      // res.end();
     }
+   
 });
 
 const startupCallback = function () {

@@ -1,4 +1,5 @@
 import React from 'react';
+<<<<<<< HEAD
 
 import './css/main.css';
 
@@ -6,6 +7,17 @@ import avatar from '../../images/avatar.png';
 import location from '../../images/location.png';
 import phone from '../../images/phone.png';
 import email from '../../images/email.png';
+=======
+import axios from 'axios';
+
+import './css/main.css';
+
+import template1 from '../../images/template1.png';
+import template2 from '../../images/template2.png';
+import template3 from '../../images/template3.png';
+import template4 from '../../images/template4.png';
+
+>>>>>>> 0918056963aaf72b528281e019af0dcb74250afc
 
 class Templates extends React.Component {
 
@@ -47,6 +59,7 @@ class Templates extends React.Component {
         }
         else {
             return (
+<<<<<<< HEAD
                 <div className="container">
 
                     {/* template 1 */}
@@ -676,6 +689,30 @@ class Templates extends React.Component {
                         </div>
                     </div>
                 </div >
+=======
+                <div className="container-fluid" id='container-main' >
+                    <div className='container' >                        
+
+                        {/* fourth container */}
+                        <div className='row justify-content-center' id='fourth-container'>
+                            <h2>Выберите шаблон резюме</h2>
+                        </div>
+
+                        {/* fifth container */}
+                        <div className='d-flex flex-wrap justify-content-center' id='fifth-container'>
+
+                        <a href="http://localhost:3000/tmp1"><img className='img-template' src={template1}  alt='template'></img></a>  
+                        <a href="http://localhost:3000/tmp2"><img className='img-template' src={template2} alt='template'></img></a>  
+                        <a href="http://localhost:3000/tmp3"><img className='img-template' src={template3} alt='template'></img></a> 
+                        <a href="http://localhost:3000/tmp4"><img className='img-template' src={template4} alt='template'></img></a> 
+                        <a href="http://localhost:3000/tmp5"><img className='img-template' src={template4} alt='template'></img></a> 
+                        <a href="http://localhost:3000/tmp6"><img className='img-template' src={template4} alt='template'></img></a>                    
+                                                                      
+                        </div>                        
+
+                    </div>
+                </div>
+>>>>>>> 0918056963aaf72b528281e019af0dcb74250afc
             );
         }
     };
