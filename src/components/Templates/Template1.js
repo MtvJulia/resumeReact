@@ -2,8 +2,13 @@ import React from 'react';
 import axios from 'axios';
 import { saveAs } from 'file-saver';
 import PrintComponents from "react-print-components";
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import ReactDOMServer from "react-dom/server";
+import pdf from 'html-pdf';
 
 import './css/main.css';
+
 
 import avatar from '../../images/avatar.png';
 import location from '../../images/location.png';
@@ -44,7 +49,7 @@ class Template1 extends React.Component {
         this.API_ADDRESS = "http://localhost:55555/tmp1";
 
     }
-
+    
     createAndDownloadPdf = () => {
 
         const options = {
@@ -62,6 +67,22 @@ class Template1 extends React.Component {
                 saveAs(pdfBlob, 'newPdf.pdf');
             })
     }
+
+
+
+    pdfDocument() {
+        const input = document.getElementById('divToPDF');
+        html2canvas(input)
+          .then((canvas) => {          
+              console.dir(canvas);
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF();
+             pdf.addImage(imgData, 'JPEG', 0, 0);
+          //  pdf.output('dataurlnewwindow');
+            pdf.save("download.pdf");
+          });          
+      }
+
 
     componentDidMount() {
 
@@ -122,13 +143,13 @@ class Template1 extends React.Component {
         }
         else {
             return (
-                <div className="container">
-
+                <div className="container" >
+                   
                     {/* template 1 */}
                     <div className="container-sm" id="main-container-t1" >
-                        <div className="row container-t">
+                        <div className="row container-t" id="divToPDF">
                             {/* left-container */}
-                            <div className="col col-4" id="left-container-t1">
+                            <div className="col col-2" id="left-container-t1">
                                 <img id="avatar" src={this.imageFromDB} className="rounded mx-auto d-block" alt="avatar" />
                                 <div className="row justify-content-start" id='full-name'>
                                     <div className="mr-3 text-capitalize text-break name-text">{this.state.userData.lastName}</div>
@@ -180,7 +201,7 @@ class Template1 extends React.Component {
                             </div>
 
                             {/* right-container */}
-                            <div className="col" id="right-container">
+                            <div className="col col-8" id="right-container">
                                 <div className="col header-text border box-t1">Опыт работы </div>
                                 <div className="list-group ">
                                     {this.state.experienceArr.map(function (value, i) {
@@ -274,8 +295,8 @@ class Template1 extends React.Component {
                         </div>                       
                     </div>
                     <PrintComponents trigger={<button>Print</button>} >
-                         {/* template 1 */}
-                    <div className="container-sm" id="main-container-t1" >
+                         {/* template 1 */}                         
+                       <div className="container-sm" id="main-container-t1" >
                         <div className="row container-t">
                             {/* left-container */}
                             <div className="col col-4" id="left-container-t1">
@@ -424,7 +445,10 @@ class Template1 extends React.Component {
                         </div>                       
                     </div>
                         </PrintComponents>
-                        <div> <button onClick={this.createAndDownloadPdf}>Download PDF</button> </div>                        
+                        <div> <button onClick={this.createAndDownloadPdf}>Download PDF</button> </div>
+                        <button onClick={this. pdfDocument}>TO PDF</button>  
+                      
+   
                 </div >
             );
         }
