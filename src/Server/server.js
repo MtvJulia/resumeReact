@@ -196,14 +196,14 @@ server.get("/register", function (request, res) {
     requestToDbGET(query, dbConnection, res);
 });
 
-server.get("/userdata", function (request, res) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    let query = "SELECT * FROM users_info";
-    requestToDbGET(query, dbConnection, res);
-});
 
 server.get("/existinguserdata", (req, res) => {
-
+    userData = {userID: 0,  userLogin: "", firstName: "", lastName: "", middleName: "", birthOfDate: "", phone: "",  email: "", сityOfResidence: "", nationality: "",   position: "",
+    privateСar: 0,  army: 0, hobby: "", personalQualities: "", professionalSkills: "",relocate: 0,desiredSalary: 0,children: 0, businessTrip: 0, image: [], employment: "",schedule: "",
+    maritalStatus: "",education: "",
+    currency: "",drivLicense: { driverLicenseA1: 0, driverLicenseA: 0, driverLicenseB1: 0, driverLicenseB: 0, driverLicenseC1: 0, driverLicenseC: 0, driverLicenseD1: 0, driverLicenseD: 0, driverLicenseT: 0 },
+    courseName: [],organization: [],endingCourse: [],company: [],personRecommending: [],emailCompany: [],phoneCompany: [],langName: [], level: [],institutName: [],levelEducation: [],
+    faculty: [],specialty: [],ending: [],companyName: [],positionWork: [],jobDuties: [],startWork: [], endWork: [],stillWorking: [] }; 
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     let result = getUserData(res, userData, dbConnection, foundUserID, fs);
     if (result == false) {

@@ -21,33 +21,33 @@ class ExistingUserData extends React.Component {
         }
         this.API_ADDRESS = "http://localhost:55555/existinguserdata";
         this.API_ADDRESS_FILE = "http://localhost:55555/file";
-       
+
         this.expArray = [];
         this.educArray = [];
         this.langArray = [];
         this.coursArray = [];
         this.recomendationArray = [];
-        
+
         this.currencyName = "";
-        this.imageBase64="";    
+        this.imageBase64 = "";
 
 
         //------------------------------------------
-        this.id_langName="id_langName";    
-        this.id_level="id_level";   
-        this.count=0; 
-        this.countLang=100; 
-        this.imageFromDB="";              
-         //--------------------------------------------------------
+        this.id_langName = "id_langName";
+        this.id_level = "id_level";
+        this.count = 0;
+        this.countLang = 100;
+        this.imageFromDB = "";
+        //--------------------------------------------------------
 
-       // this.changeData = this.changeData.bind(this);
+        // this.changeData = this.changeData.bind(this);
         this.fillExpArr = this.fillExpArr.bind(this);
         this.fillEducArr = this.fillEducArr.bind(this);
         this.fillLangArr = this.fillLangArr.bind(this);
         this.fillCoursArr = this.fillCoursArr.bind(this);
-        this.fillRecomendArr = this.fillRecomendArr.bind(this);    
+        this.fillRecomendArr = this.fillRecomendArr.bind(this);
         this.AddLang = this.AddLang.bind(this);
-        this.AddScheduler = this.AddScheduler.bind(this);
+        this.AddEducation = this.AddEducation.bind(this);
         this.AddCourse = this.AddCourse.bind(this);
         this.AddExperience = this.AddExperience.bind(this);
         this.AddRecommendation = this.AddRecommendation.bind(this);
@@ -73,8 +73,8 @@ class ExistingUserData extends React.Component {
         this.setArmy = this.setArmy.bind(this);
         this.setHobby = this.setHobby.bind(this);
         this.setPersonalQualities = this.setPersonalQualities.bind(this);
-        this.setProfessionalSkills = this.setProfessionalSkills.bind(this);        
-        this.onFileSelected = this.onFileSelected.bind(this);    
+        this.setProfessionalSkills = this.setProfessionalSkills.bind(this);
+        this.onFileSelected = this.onFileSelected.bind(this);
         this.setDriveLicenseA1 = this.setDriveLicenseA1.bind(this);
         this.setDriveLicenseA = this.setDriveLicenseA.bind(this);
         this.setDriveLicenseB1 = this.setDriveLicenseB1.bind(this);
@@ -83,13 +83,14 @@ class ExistingUserData extends React.Component {
         this.setDriveLicenseC = this.setDriveLicenseC.bind(this);
         this.setDriveLicenseD1 = this.setDriveLicenseD1.bind(this);
         this.setDriveLicenseD = this.setDriveLicenseD.bind(this);
-        this.setDriveLicenseT = this.setDriveLicenseT.bind(this);     
-    } 
-   
+        this.setDriveLicenseT = this.setDriveLicenseT.bind(this);
+        this.setStillWorking = this.setStillWorking.bind(this);
+    }
+
     fillCoursArr(data, coursArr) {
 
         for (let i = 0; i < data.courseName.length; i++) {
-            if (data.courseName[i] != null&&data.organization[i]!=null)  {
+            if (data.courseName[i] != null && data.organization[i] != null) {
                 var objCourses = {};
 
                 objCourses.courseName = data.courseName[i];
@@ -98,53 +99,52 @@ class ExistingUserData extends React.Component {
 
                 coursArr.push(objCourses);
             }
-        }      
+        }
     }
     fillRecomendArr(data, recomendArr) {
 
         for (let i = 0; i < data.phoneCompany.length; i++) {
-            if (data.phoneCompany[i]!=null)  {
+            if (data.phoneCompany[i] != null) {
                 var objRecomendation = {};
-
                 objRecomendation.personRecommending = data.personRecommending[i];
-                if(data.company!=null) {objRecomendation.company = data.company[i];}                
-                if(data.emailCompany!=null)  objRecomendation.emailCompany = data.emailCompany[i];
+                objRecomendation.company = data.company[i]; 
+                if (data.emailCompany == null || data.emailCompany == 'null') {objRecomendation.emailCompany = "";}                 
+                else {objRecomendation.emailCompany = data.emailCompany[i];}             
                 objRecomendation.phoneCompany = data.phoneCompany[i];
-    
-                recomendArr.push(objRecomendation);
-            }           
+                recomendArr.push(objRecomendation);              
+            }
         }
     }
 
     fillLangArr(data, langArr) {
         for (let i = 0; i < data.langName.length; i++) {
 
-            if (data.langName[i] != null && data.level[i]!=null)  {
+            if (data.langName[i] != null && data.level[i] != null) {
                 var objLanguage = {};
 
                 objLanguage.langName = data.langName[i];
                 objLanguage.level = data.level[i];
-               
+
                 langArr.push(objLanguage);
-            }           
+            }
         }
     }
 
     fillEducArr(data, educArr) {
         if (data.institutName != null) {
             for (let i = 0; i < data.institutName.length; i++) {
-                if (data.institutName[i] != null && data.specialty[i]!=null){
+                if (data.institutName[i] != null && data.specialty[i] != null) {
                     var objEducation = {};
 
-                objEducation.institutName = data.institutName[i];
-                objEducation.levelEducation = data.levelEducation[i];
-                objEducation.faculty = data.faculty[i];
-                objEducation.specialty = data.specialty[i];
-                objEducation.ending = data.ending[i];
+                    objEducation.institutName = data.institutName[i];
+                    objEducation.levelEducation = data.levelEducation[i];
+                    objEducation.faculty = data.faculty[i];
+                    objEducation.specialty = data.specialty[i];
+                    objEducation.ending = data.ending[i];
 
-                educArr.push(objEducation);
+                    educArr.push(objEducation);
 
-                }                
+                }
             }
         }
     }
@@ -152,64 +152,61 @@ class ExistingUserData extends React.Component {
     fillExpArr(data, expArr) {
         if (data.companyName != null) {
             for (let i = 0; i < data.companyName.length; i++) {
-                if (data.companyName[i] != null && data.positionWork[i]!=null)
-                {
+                if (data.companyName[i] != null && data.positionWork[i] != null) {
                     var objExperience = {};
 
                     objExperience.startWork = data.startWork[i];
                     objExperience.endWork = data.endWork[i];
-                    objExperience.stillWorking = data.stillWorking;
+                    objExperience.stillWorking = data.stillWorking[i];
                     objExperience.positionWork = data.positionWork[i];
                     objExperience.companyName = data.companyName[i];
                     objExperience.jobDuties = data.jobDuties[i];
-    
-                    expArr.push(objExperience);
 
-                }               
+                    expArr.push(objExperience);
+                }
             }
         }
     }
-    
-    AddLang() {
-        var langList = document.getElementById("langList");                 
-                 
-        console.log(langList);          
-      //  console.log(langDetails);   
-             
-      
-        document.getElementById('langAddDetails').childNodes.id = "idDelete" + this.countLang; 
-        console.log( document.getElementById('langAddDetails').childNodes.id);
-        var langDetails = document.getElementById('langAddDetails').outerHTML; 
-        langList.insertAdjacentHTML("beforeend", langDetails);  
-       
-        this.countLang++;
-       
-        console.log( this.countLang); 
 
+    AddLang() {
+
+        this.langArray.push({ langName: "", level: "" });
+        this.setState(Object.assign(this.state.items, { langName: this.langArray.langName }));
+        this.setState(Object.assign(this.state.items, { level: this.langArray.level }));
     }
-    AddScheduler() {
-        var educationList = document.getElementById("educationList");
-        var educationDatails = document.getElementById('educationDatailsClear').outerHTML;
-        educationList.insertAdjacentHTML("beforeend", educationDatails);
+    AddEducation() {
+        this.educArray.push({ institutName: "", levelEducation: "", faculty: "", specialty: "", ending: "" });
+        this.setState(Object.assign(this.state.items, { institutName: this.educArray.institutName }));
+        this.setState(Object.assign(this.state.items, { levelEducation: this.educArray.levelEducation }));
+        this.setState(Object.assign(this.state.items, { faculty: this.educArray.faculty }));
+        this.setState(Object.assign(this.state.items, { specialty: this.educArray.specialty }));
+        this.setState(Object.assign(this.state.items, { ending: this.educArray.ending }));
     }
     AddCourse() {
-        var courseList = document.getElementById("courseList");
-        var courseDetailsClear = document.getElementById('courseDetailsClear').outerHTML;               
-        courseList.insertAdjacentHTML("beforeend", courseDetailsClear);
+        this.coursArray.push({ courseName: "", organization: "", endingCourse: "" });
+        this.setState(Object.assign(this.state.items, { courseName: this.coursArray.courseName }));
+        this.setState(Object.assign(this.state.items, { organization: this.coursArray.organization }));
+        this.setState(Object.assign(this.state.items, { endingCourse: this.coursArray.endingCourse }));
     }
     AddExperience() {
-        var experienceList = document.getElementById("experienceList");
-        var experienceDetails = document.getElementById('experienceDetailsClear').outerHTML;
-        experienceList.insertAdjacentHTML("beforeend", experienceDetails);
+        this.expArray.push({ startWork: "", endWork: "", stillWorking: "", positionWork: "", companyName: "", jobDuties: "" });
+        this.setState(Object.assign(this.state.items, { startWork: this.expArray.startWork }));
+        this.setState(Object.assign(this.state.items, { endWork: this.expArray.endWork }));
+        this.setState(Object.assign(this.state.items, { stillWorking: this.expArray.stillWorking }));
+        this.setState(Object.assign(this.state.items, { positionWork: this.expArray.positionWork }));
+        this.setState(Object.assign(this.state.items, { companyName: this.expArray.companyName }));
+        this.setState(Object.assign(this.state.items, { jobDuties: this.expArray.jobDuties }));
     }
     AddRecommendation() {
-        var recommendationList = document.getElementById("recommendationList");
-        var recommendationDetails = document.getElementById('recommendationDetailsClear').outerHTML;
-        recommendationList.insertAdjacentHTML("beforeend", recommendationDetails);
+        this.recomendationArray.push({ personRecommending: "", company: "", emailCompany: "", phoneCompany: "" });
+        this.setState(Object.assign(this.state.items, { personRecommending: this.recomendationArray.personRecommending }));
+        this.setState(Object.assign(this.state.items, { company: this.recomendationArray.company }));
+        this.setState(Object.assign(this.state.items, { emailCompany: this.recomendationArray.emailCompany }));
+        this.setState(Object.assign(this.state.items, { phoneCompany: this.recomendationArray.phoneCompany }));
     }
-   
 
-    onFileSelected(event) {       
+
+    onFileSelected(event) {
         ////загрузка картинки на форму
         var selectedFile = event.target.files[0];
 
@@ -229,40 +226,41 @@ class ExistingUserData extends React.Component {
 
         console.log(selectedFile);
 
-      }
+    }
 
-    setFirstName(event){ this.setState(Object.assign(this.state.items,{ firstName:event.target.value})); }
-    setPositions(event){ this.setState(Object.assign(this.state.items,{ position:event.target.value})); }  
-    setLastName(event){ this.setState(Object.assign(this.state.items,{ lastName:event.target.value})); } 
-    setMiddleName(event){ this.setState(Object.assign(this.state.items,{ middleName:event.target.value})); }
-    setBirthOfDate(event){ this.setState(Object.assign(this.state.items,{ birthOfDate:event.target.value})); }
-    setCityOfResidence(event){ this.setState(Object.assign(this.state.items,{сityOfResidence:event.target.value})); }
-    setPhone(event){ this.setState(Object.assign(this.state.items,{ phone:event.target.value})); }
-    setEmail(event){ this.setState(Object.assign(this.state.items,{ email:event.target.value})); }
-    setNationality(event){ this.setState(Object.assign(this.state.items,{ nationality:event.target.value})); }
-    setDesiredSalary(event){ this.setState(Object.assign(this.state.items,{ desiredSalary:event.target.value})); }
-    setCurrencyName(event){ this.setState(Object.assign(this.state.items,{ currency:event.target.value})); }
-    setEmployment(event){ this.setState(Object.assign(this.state.items,{ employment:event.target.value})); }
-    setSchedule(event){ this.setState(Object.assign(this.state.items,{ schedule:event.target.value})); }
-    setBusinessTrip(event){ this.setState(Object.assign(this.state.items,{ businessTrip:event.target.checked})); }
-    setRelocate(event){ this.setState(Object.assign(this.state.items,{ relocate:event.target.checked})); }
-    setMaritalStatus(event){ this.setState(Object.assign(this.state.items,{ maritalStatus:event.target.value})); }
-    setChildren(event){ this.setState(Object.assign(this.state.items,{ children:event.target.checked})); }
-    setEducation(event){ this.setState(Object.assign(this.state.items,{ education:event.target.value})); }  
-    setPrivateСar(event){ this.setState(Object.assign(this.state.items,{ privateСar: event.target.checked})); }
-    setArmy(event){ this.setState(Object.assign(this.state.items,{ army:event.target.checked})); }
-    setHobby(event){ this.setState(Object.assign(this.state.items,{ hobby:event.target.value})); }
-    setPersonalQualities(event){ this.setState(Object.assign(this.state.items,{ personalQualities:event.target.value})); }
-    setProfessionalSkills(event){ this.setState(Object.assign(this.state.items,{ professionalSkills:event.target.value})); }
-    setDriveLicenseA1(event){if(this.state.items.drivLicense!=undefined){this.setState(Object.assign(this.state.items.drivLicense,{ driverLicenseA1:event.target.checked}));}}
-    setDriveLicenseA(event){if(this.state.items.drivLicense!=undefined){this.setState(Object.assign(this.state.items.drivLicense,{ driverLicenseA:event.target.checked}));}}
-    setDriveLicenseB1(event){if(this.state.items.drivLicense!=undefined){this.setState(Object.assign(this.state.items.drivLicense,{ driverLicenseB1:event.target.checked}));}}
-    setDriveLicenseB(event){if(this.state.items.drivLicense!=undefined){this.setState(Object.assign(this.state.items.drivLicense,{ driverLicenseB:event.target.checked}));}}
-    setDriveLicenseC1(event){if(this.state.items.drivLicense!=undefined){this.setState(Object.assign(this.state.items.drivLicense,{ driverLicenseC1:event.target.checked}));}}
-    setDriveLicenseC(event){if(this.state.items.drivLicense!=undefined){this.setState(Object.assign(this.state.items.drivLicense,{ driverLicenseC:event.target.checked}));}}
-    setDriveLicenseD1(event){if(this.state.items.drivLicense!=undefined){this.setState(Object.assign(this.state.items.drivLicense,{ driverLicensD1:event.target.checked}));}}
-    setDriveLicenseD(event){if(this.state.items.drivLicense!=undefined){this.setState(Object.assign(this.state.items.drivLicense,{ driverLicenseD:event.target.checked}));}}
-    setDriveLicenseT(event){if(this.state.items.drivLicense!=undefined){this.setState(Object.assign(this.state.items.drivLicense,{ driverLicenseT:event.target.checked}));} }
+    setFirstName(event) { this.setState(Object.assign(this.state.items, { firstName: event.target.value })); }
+    setPositions(event) { this.setState(Object.assign(this.state.items, { position: event.target.value })); }
+    setLastName(event) { this.setState(Object.assign(this.state.items, { lastName: event.target.value })); }
+    setMiddleName(event) { this.setState(Object.assign(this.state.items, { middleName: event.target.value })); }
+    setBirthOfDate(event) { this.setState(Object.assign(this.state.items, { birthOfDate: event.target.value })); }
+    setCityOfResidence(event) { this.setState(Object.assign(this.state.items, { сityOfResidence: event.target.value })); }
+    setPhone(event) { this.setState(Object.assign(this.state.items, { phone: event.target.value })); }
+    setEmail(event) { this.setState(Object.assign(this.state.items, { email: event.target.value })); }
+    setNationality(event) { this.setState(Object.assign(this.state.items, { nationality: event.target.value })); }
+    setDesiredSalary(event) { this.setState(Object.assign(this.state.items, { desiredSalary: event.target.value })); }
+    setCurrencyName(event) { this.setState(Object.assign(this.state.items, { currency: event.target.value })); }
+    setEmployment(event) { this.setState(Object.assign(this.state.items, { employment: event.target.value })); }
+    setSchedule(event) { this.setState(Object.assign(this.state.items, { schedule: event.target.value })); }
+    setBusinessTrip(event) { this.setState(Object.assign(this.state.items, { businessTrip: event.target.checked })); }
+    setRelocate(event) { this.setState(Object.assign(this.state.items, { relocate: event.target.checked })); }
+    setMaritalStatus(event) { this.setState(Object.assign(this.state.items, { maritalStatus: event.target.value })); }
+    setChildren(event) { this.setState(Object.assign(this.state.items, { children: event.target.checked })); }
+    setEducation(event) { this.setState(Object.assign(this.state.items, { education: event.target.value })); }
+    setPrivateСar(event) { this.setState(Object.assign(this.state.items, { privateСar: event.target.checked })); }
+    setArmy(event) { this.setState(Object.assign(this.state.items, { army: event.target.checked })); }
+    setHobby(event) { this.setState(Object.assign(this.state.items, { hobby: event.target.value })); }
+    setPersonalQualities(event) { this.setState(Object.assign(this.state.items, { personalQualities: event.target.value })); }
+    setProfessionalSkills(event) { this.setState(Object.assign(this.state.items, { professionalSkills: event.target.value })); }
+    setStillWorking(event) { this.setState(Object.assign(this.state.items, { stillWorking: event.target.checked })); }
+    setDriveLicenseA1(event) { if (this.state.items.drivLicense != undefined) { this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseA1: event.target.checked })); } }
+    setDriveLicenseA(event) { if (this.state.items.drivLicense != undefined) { this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseA: event.target.checked })); } }
+    setDriveLicenseB1(event) { if (this.state.items.drivLicense != undefined) { this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseB1: event.target.checked })); } }
+    setDriveLicenseB(event) { if (this.state.items.drivLicense != undefined) { this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseB: event.target.checked })); } }
+    setDriveLicenseC1(event) { if (this.state.items.drivLicense != undefined) { this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseC1: event.target.checked })); } }
+    setDriveLicenseC(event) { if (this.state.items.drivLicense != undefined) { this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseC: event.target.checked })); } }
+    setDriveLicenseD1(event) { if (this.state.items.drivLicense != undefined) { this.setState(Object.assign(this.state.items.drivLicense, { driverLicensD1: event.target.checked })); } }
+    setDriveLicenseD(event) { if (this.state.items.drivLicense != undefined) { this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseD: event.target.checked })); } }
+    setDriveLicenseT(event) { if (this.state.items.drivLicense != undefined) { this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseT: event.target.checked })); } }
 
 
 
@@ -271,64 +269,59 @@ class ExistingUserData extends React.Component {
         fetch(this.API_ADDRESS)
             .then((response) => response.json())
             .then((data) => {
-                console.log("DATA ::::::::::::::::::::  "+data.drivLicense.driverLicenseA1);              
-                                    
+                console.log("DATA ::::::::::::::::::::  " + data.drivLicense.driverLicenseA1);
+
                 let expArr = [];
                 let educArr = [];
                 let langArr = [];
                 let coursArr = [];
-                let recomendArr = [];             
-                            
-              if(data.file){               
-                let fileFromDB = new Buffer.from(data.file).toString("base64");
-                this.imageFromDB = "data:image/png;base64," + fileFromDB;
-                 }
-               else{
-                this.imageFromDB = UploadPhoto;
-               }
-                   console.dir(data.file);
-                                 
-            if(data.companyName != null) this.fillExpArr(data, expArr);
-            if(data.institutName != null) this.fillEducArr(data, educArr);
-            if(data.langName != null)  this.fillLangArr(data, langArr);
-            if (data.courseName != null)this.fillCoursArr(data, coursArr);               
-            if (data.phoneCompany != null)this.fillRecomendArr(data, recomendArr);             
-          
+                let recomendArr = [];
+
+                if (data.file) {
+                    let fileFromDB = new Buffer.from(data.file).toString("base64");
+                    this.imageFromDB = "data:image/png;base64," + fileFromDB;
+                }
+                else {
+                    this.imageFromDB = UploadPhoto;
+                }
+                console.dir(data.file);
+
+                if (data.companyName != null) this.fillExpArr(data, expArr);
+                if (data.institutName != null) this.fillEducArr(data, educArr);
+                if (data.langName != null) this.fillLangArr(data, langArr);
+                if (data.courseName != null) this.fillCoursArr(data, coursArr);
+                if (data.phoneCompany != null) this.fillRecomendArr(data, recomendArr);
+
                 this.expArray = expArr;
                 this.educArray = educArr;
-                this.langArray = langArr;              
-                this.coursArray = coursArr;             
-                this.recomendationArray = recomendArr;                          
+                this.langArray = langArr;
+                this.coursArray = coursArr;
+                this.recomendationArray = recomendArr;
 
-               if(data.birthOfDate == undefined){ data.birthOfDate=''; }
+                if (data.birthOfDate == undefined) { data.birthOfDate = ''; }
 
                 this.setState({
-                    items: data                    
+                    items: data
                 });
-                console.dir(this.state.items);               
-               
-            //    this.setState(Object.assign(this.state.items,{ currency: this.currencyName}));
-            //    console.dir(this.state.items.currency);
-           
+                console.dir(this.state.items);
             });
     }
 
-    
-    render() {      
+
+    render() {
         if (this.state.items == null) {
             return (
                 <div className="d-flex justify-content-center spin">
                     <div className="spinner-border  text-primary" role="status">
                         <span className="sr-only">Loading...</span>
-                    </div>                    
+                    </div>
                 </div>
             );
         }
         else {
-          
+
             return (
                 <div className="container-fluid mainUserData">
-
                     <div className="container">
                         {/* <!-- First container --> */}
                         <div className="divData col-md-12 mt-5">
@@ -340,7 +333,6 @@ class ExistingUserData extends React.Component {
                                         <legend className="w-auto px-2">
                                             <h3>Основная информация</h3>
                                         </legend>
-
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_userPosition">Желаемая должность:</label>
@@ -352,7 +344,6 @@ class ExistingUserData extends React.Component {
                                                 <input id="id_lastName" type="text" className="form-control" name="id_lastName" value={this.state.items.lastName} onChange={this.setLastName} placeholder="Введите фамилию" />
                                             </div>
                                         </div>
-
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <div className="userPhoto">
@@ -366,7 +357,6 @@ class ExistingUserData extends React.Component {
                                                     </label>
                                                 </div>
                                             </div>
-
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_firstName">Имя:</label>
                                                 <input type="text" className="form-control" id="id_firstName" onChange={this.setFirstName} name="id_firstName" value={this.state.items.firstName} placeholder="Введите имя" />
@@ -437,7 +427,6 @@ class ExistingUserData extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_employment">Занятось:</label>
@@ -501,28 +490,21 @@ class ExistingUserData extends React.Component {
                                             </div>
                                         </div>
                                     </fieldset>
-
                                     {/* <!-- -------ВЛАДЕНИЕ ЯЗЫКАМИ----------- --> */}
                                     <fieldset className="scheduler-border">
                                         <legend className="scheduler-border">
                                             <h3>Владение языками</h3>
                                         </legend>
                                         <ShowLanguage arrayToDisplay={this.langArray} />
-                                        <AddLanguage />
-                                        <div id="langList">
-                                        </div>
                                         <a href="javascript:AddLang()" AddLanguage onClick={this.AddLang}>Добавить</a>
                                     </fieldset>
-
                                     {/* <!-- -------ОБРАЗОВАНИЕ----------- --> */}
                                     <fieldset className="scheduler-border">
                                         <legend className="scheduler-border">
                                             <h3>Образование</h3>
                                         </legend>
                                         <ShowEducation arrayToDisplay={this.educArray} />
-                                        <div id="educationList">
-                                        </div>
-                                        <a href="javascript:this.AddScheduler()" onClick={this.AddScheduler}>Добавить</a>
+                                        <a href="javascript:this.AddEducation()" onClick={this.AddEducation}>Добавить</a>
                                     </fieldset>
 
                                     {/* <!-- -------КУРСЫ ПОВЫШЕНИЯ КВАЛИФИКАЦИИ----------- --> */}
@@ -531,8 +513,6 @@ class ExistingUserData extends React.Component {
                                             <h3>Курсы повышения квалификации</h3>
                                         </legend>
                                         <ShowCourses arrayToDisplay={this.coursArray} />
-                                        <div id="courseList">
-                                        </div>
                                         <a href="javascript:AddCourse()" ShowCourses onClick={this.AddCourse}>Добавить</a>
                                     </fieldset>
 
@@ -542,8 +522,6 @@ class ExistingUserData extends React.Component {
                                             <h3>Опыт работы</h3>
                                         </legend>
                                         < ShowExperience arrayToDisplay={this.expArray} />
-                                        <div id="experienceList">
-                                        </div>
                                         <a href="javascript:AddExperience()" onClick={this.AddExperience}>Добавить</a>
                                     </fieldset>
 
@@ -553,13 +531,8 @@ class ExistingUserData extends React.Component {
                                             <h3>Рекомендации</h3>
                                         </legend>
                                         <ShowRecommending arrayToDisplay={this.recomendationArray} />
-                                        <div id="recommendationList">
-                                        </div>
                                         <a href="javascript:AddRecommendation()" onClick={this.AddRecommendation}>Добавить</a>
                                     </fieldset>
-
-
-
                                     {/* <!-- -------ДОПОЛНИТЕЛЬНАЯ ИНФО----------- --> */}
                                     <fieldset className="scheduler-border">
                                         <legend className="scheduler-border">
