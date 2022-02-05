@@ -77,13 +77,7 @@ const CheckedToNull = (newUserData) => {
                 return 1;
             }
             else return 0;
-        }
-        // let stillWorking = (newUserData) => {
-        //     if (newUserData.id_stillWorking == 'on') {
-        //         return 1;
-        //     }
-        //     else return 0;
-        // }
+        }       
         let availabilityCar = (newUserData) => {
             if (newUserData.id_privatCar == 'on') {
                 return 1;
@@ -95,15 +89,12 @@ const CheckedToNull = (newUserData) => {
                 return 1;
             }
             else return 0;
-        }
-       // let driveLicense = getInfoTodrivLicense(newUserData);
+        }      
     
         let infoUserChecked = {
             relocation: relocate(newUserData),
             businessTrip: businessTrip(newUserData),
-            children: haveChildren(newUserData),
-           // stillWorking: stillWorking(newUserData),
-          //  drivLicense: driveLicense,
+            children: haveChildren(newUserData),          
             privateCar: availabilityCar(newUserData),
             army: army(newUserData)
         };

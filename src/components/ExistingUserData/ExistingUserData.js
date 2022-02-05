@@ -1,13 +1,11 @@
 import React from 'react';
-import axios from 'axios';
+//import axios from 'axios';
 import '../ExistingUserData/ExistingUserData.css';
 import ShowExperience from '../../Server/ShowExperience';
 import ShowEducation from '../../Server/ShowEducation';
 import ShowLanguage from '../../Server/ShowLanguage';
 import ShowCourses from '../../Server/ShowCourses';
-import AddLanguage from '../../Server/AddLanguage';
 import ShowRecommending from '../../Server/ShowRecommending';
-import { Switch } from 'react-router';
 import UploadPhoto from '../../images/uploadPhoto.jpg';
 //import photo from '../../Server/uploads/b7d665163bafa75592e3ee515be4a021';
 
@@ -91,7 +89,7 @@ class ExistingUserData extends React.Component {
 
         for (let i = 0; i < data.courseName.length; i++) {
             if (data.courseName[i] != null && data.organization[i] != null) {
-                var objCourses = {};
+                let objCourses = {};
 
                 objCourses.courseName = data.courseName[i];
                 objCourses.organization = data.organization[i];
@@ -105,7 +103,7 @@ class ExistingUserData extends React.Component {
 
         for (let i = 0; i < data.phoneCompany.length; i++) {
             if (data.phoneCompany[i] != null) {
-                var objRecomendation = {};
+                let objRecomendation = {};
                 objRecomendation.personRecommending = data.personRecommending[i];
                 objRecomendation.company = data.company[i]; 
                 if (data.emailCompany == null || data.emailCompany == 'null') {objRecomendation.emailCompany = "";}                 
@@ -120,7 +118,7 @@ class ExistingUserData extends React.Component {
         for (let i = 0; i < data.langName.length; i++) {
 
             if (data.langName[i] != null && data.level[i] != null) {
-                var objLanguage = {};
+                let objLanguage = {};
 
                 objLanguage.langName = data.langName[i];
                 objLanguage.level = data.level[i];
@@ -134,7 +132,7 @@ class ExistingUserData extends React.Component {
         if (data.institutName != null) {
             for (let i = 0; i < data.institutName.length; i++) {
                 if (data.institutName[i] != null && data.specialty[i] != null) {
-                    var objEducation = {};
+                    let objEducation = {};
 
                     objEducation.institutName = data.institutName[i];
                     objEducation.levelEducation = data.levelEducation[i];
@@ -153,7 +151,7 @@ class ExistingUserData extends React.Component {
         if (data.companyName != null) {
             for (let i = 0; i < data.companyName.length; i++) {
                 if (data.companyName[i] != null && data.positionWork[i] != null) {
-                    var objExperience = {};
+                    let objExperience = {};
 
                     objExperience.startWork = data.startWork[i];
                     objExperience.endWork = data.endWork[i];
@@ -208,11 +206,11 @@ class ExistingUserData extends React.Component {
 
     onFileSelected(event) {
         ////загрузка картинки на форму
-        var selectedFile = event.target.files[0];
+        let selectedFile = event.target.files[0];
 
-        var reader = new FileReader();
+        let reader = new FileReader();
 
-        var imgtag = document.getElementById("myimage");
+        let imgtag = document.getElementById("myimage");
         imgtag.title = selectedFile.name;
 
         reader.onload = function (event) {
@@ -269,7 +267,7 @@ class ExistingUserData extends React.Component {
         fetch(this.API_ADDRESS)
             .then((response) => response.json())
             .then((data) => {
-                console.log("DATA ::::::::::::::::::::  " + data.drivLicense.driverLicenseA1);
+              //  console.log("DATA ::::::::::::::::::::  " + data.drivLicense.driverLicenseA1);
 
                 let expArr = [];
                 let educArr = [];

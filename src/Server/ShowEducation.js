@@ -9,18 +9,18 @@ class ShowEducation extends React.Component {
 
       DeleteEducation(e)
       {                
-        var educationDetails = document.getElementById(e.target.parentNode.id);              
+        let educationDetails = document.getElementById(e.target.parentNode.id);              
         educationDetails.parentNode.removeChild(educationDetails);
       }     
 
     render() {
         
-    var id_institutName="id_institutName";    
-    var id_levelEducation="id_levelEducation"; 
-    var id_faculty="id_faculty";  
-    var id_specialty="id_specialty";  
-    var id_ending="id_ending";    
-    var count=0;
+    let id_institutName="id_institutName";    
+    let id_levelEducation="id_levelEducation"; 
+    let id_faculty="id_faculty";  
+    let id_specialty="id_specialty";  
+    let id_ending="id_ending";    
+    let count=0;
 
     let { arrayToDisplay} = this.props;      
    

@@ -8,7 +8,7 @@ class ShowExperience extends React.Component {
         this.setStillWorking = this.setStillWorking.bind(this);
     }
     DeleteExperience(e) {
-        var expDetails = document.getElementById(e.target.parentNode.id);
+        let expDetails = document.getElementById(e.target.parentNode.id);
         expDetails.parentNode.removeChild(expDetails);
     }
     setStillWorking(e){
@@ -21,13 +21,13 @@ class ShowExperience extends React.Component {
 
     render() {
 
-        var id_startWork = "id_startWork";
-        var id_endWork = "id_endWork";
-        var id_stillWorking = "id_stillWorking";
-        var id_positionWork = "id_positionWork";
-        var id_companyName = "id_companyName";
-        var id_jobDuties_1 = "id_jobDuties_1";
-        var count = 0;
+        let id_startWork = "id_startWork";
+        let id_endWork = "id_endWork";
+        let id_stillWorking = "id_stillWorking";
+        let id_positionWork = "id_positionWork";
+        let id_companyName = "id_companyName";
+        let id_jobDuties_1 = "id_jobDuties_1";
+        let count = 0;
 
         let { arrayToDisplay } = this.props;
 

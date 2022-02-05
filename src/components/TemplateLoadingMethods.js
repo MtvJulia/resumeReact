@@ -1,5 +1,5 @@
 const  getDriverLicense = (data) => {
-    var stringDataDrivLicense = "";
+    let stringDataDrivLicense = "";
     if (data.drivLicense.driverLicenseA == 1) stringDataDrivLicense += "A, ";
     if (data.drivLicense.driverLicenseA1 == 1) stringDataDrivLicense += "A1, ";
     if (data.drivLicense.driverLicenseB == 1) stringDataDrivLicense += "B, ";
@@ -15,7 +15,7 @@ const  getDriverLicense = (data) => {
 }
 
 const getMaritalStatus=(data)=> {
-    var maritalStatusString = "";
+    let maritalStatusString = "";
     switch (data.maritalStatus) {
         case 1:
             {
@@ -47,7 +47,7 @@ const getMaritalStatus=(data)=> {
 }
 
 const getDesiredSalary = (data) => {
-    var currency = "";
+    let currency = "";
 
     currency += data.desiredSalary;
     switch (data.currency) {
@@ -91,7 +91,7 @@ const getDesiredSalary = (data) => {
     return currency;
 }
 const getEmployment = (data) => {
-    var employmentStr = "";
+    let employmentStr = "";
     switch (data.employment) {
         case 1: {
             employmentStr += "Полная занятость";
@@ -156,7 +156,7 @@ const getArmyData=(data)=> {
 
 const getLanguages=(data)=> {
 
-    var langDataArr = [];
+    let langDataArr = [];
     for (let i = 0; i < data.langName.length; i++) {
         let strDataLangToArr = "";
 
@@ -291,13 +291,13 @@ const getLanguages=(data)=> {
 
 }
 const calculateAge=(birthday)=> { // birthday is a date
-    var ageDifMs = Date.now() - Date.parse(birthday);
-    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+    let ageDifMs = Date.now() - Date.parse(birthday);
+    let ageDate = new Date(ageDifMs); // miliseconds from epoch
     return Math.abs(ageDate.getUTCFullYear() - 1970);
 }
 
 const getCourses = (data)=> {
-    var coursesArr = [];
+    let coursesArr = [];
     if (data.courseName != '' && data.courseName != null) {
         let count = 0;
         if (Array.isArray(data.courseName)) {
@@ -327,7 +327,7 @@ const getCourses = (data)=> {
 }
 const getEducation=(data)=> {
 
-    var educationArr = [];
+    let educationArr = [];
     if (data.institutName != '' && data.institutName != null) {
         let count = 0;
         if (Array.isArray(data.institutName)) {
@@ -488,7 +488,7 @@ const getExperience=(data)=> {
 }
 
 const getRecomendingArr=(data)=> {
-    var recomendingArr = [];
+    let recomendingArr = [];
     if (data.phoneCompany != '' && data.phoneCompany != null) {
         let count = 0;
         if (Array.isArray(data.phoneCompany)) {

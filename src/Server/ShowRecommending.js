@@ -9,17 +9,17 @@ class ShowRecommending extends React.Component {
       
       DeleteRecommending(e)
       {
-        var recomendingDetails = document.getElementById(e.target.parentNode.id);              
+        let recomendingDetails = document.getElementById(e.target.parentNode.id);              
         recomendingDetails.parentNode.removeChild(recomendingDetails);
       }    
 
       render() {
         
-        var id_personRecommending="id_personRecommending";    
-        var id_company="id_company";  
-        var id_emailCompany="id_emailCompany";  
-        var id_phoneCompany="id_phoneCompany";        
-        var count=0;
+        let id_personRecommending="id_personRecommending";    
+        let id_company="id_company";  
+        let id_emailCompany="id_emailCompany";  
+        let id_phoneCompany="id_phoneCompany";        
+        let count=0;
     
         let { arrayToDisplay} = this.props;              
         

@@ -8,15 +8,15 @@ class ShowCourses extends React.Component {
     }
 
     DeleteCourse(e) {
-        var courseDetails = document.getElementById(e.target.parentNode.id);       
+        let courseDetails = document.getElementById(e.target.parentNode.id);       
         courseDetails.parentNode.removeChild(courseDetails);
     }
     render() {
 
-        var id_courseName = "id_courseName";
-        var id_organization = "id_organization";
-        var id_endingCourse = "id_endingCourse";
-        var count = 0;
+        let id_courseName = "id_courseName";
+        let id_organization = "id_organization";
+        let id_endingCourse = "id_endingCourse";
+        let count = 0;
 
         let { arrayToDisplay } = this.props;
         console.dir(this.props);

@@ -29,13 +29,12 @@ const addDriverLicenseToDB = (newUserData, dbConnection) => {
 
 }
 const addLanguageToDB = (newUserData, dbConnection) => {
+
     if (newUserData.id_langName != undefined && newUserData.id_langName != '' && newUserData.id_langName != null) {
 
         // Data new user from db or update user.
-
         //// lang name a number  
         if (newUserData.id_langName.length > 0) {
-
             for (i = 0; i < newUserData.id_langName.length; i++) {
                 if (newUserData.id_langName[i] != '' && newUserData.id_level[i] != "") {
                     let queryLang = ` INSERT INTO user_language(userID,fk_langName,fk_languag_proficiency_levelID)

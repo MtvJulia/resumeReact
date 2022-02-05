@@ -2,26 +2,24 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const pdf = require('html-pdf');
 const cors = require('cors');
-const path = require('path');// модуль для парсинга пути
+//const path = require('path');// модуль для парсинга пути
 const mysql = require('mysql');
 const fs = require("fs");
-const { Blob, Buffer } = require('buffer');
-const { Switch } = require('react-router');
+//const { Blob, Buffer } = require('buffer');
+//const { Switch } = require('react-router');
 const { connString } = require("./ConnectionModule");
 const { CheckedToNull, getCheckedInfo } = require("./CheckedModule");
 const {fillDriverLicense,addDriverLicenseToDB,addLanguageToDB,addCoursesToDB,addRecomendingToDB, addEducationToDB,addExpirienceToDB} = require("./AddDataToDBModule");
-const {  getUserData } = require("./GetToPostModule");
+const {  getUserData, getFileValue } = require("./GetToPostModule");
 const multer = require('multer');
 const bcrypt = require('bcrypt'); // import the Library. 
 
 
 
 const saltRounds = 10; // The number of rounds for encrypt the passwords. 
-
-
 const server = express();
 
-var storage = multer.diskStorage({
+const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         // the file is saved to here
         cb(null, '/Nata/ItStep/React/git_resume/resumeReact/src/Server/uploads')
@@ -31,17 +29,12 @@ var storage = multer.diskStorage({
         cb(null, file.originalname)
     }
 })
-var upload = multer({ storage: storage })
 
-
-var hashPassword = "";
-var duplicateFlag = false;
-var userIDFromDB = 0;
-var foundUserID = 0; //найденный пользователь при входе уже зарегистрированного пользователя
-var foundUser = {};
-var getToRegistrationFlag = false;
-var newUser = {};
-var userData = {
+let checkedUserFlag = false ;
+let newUser={};
+const upload = multer({ storage: storage });
+const foundUser={};
+const userDataEmptyObject = {
     userID: 0,
     userLogin: "",
     firstName: "",
@@ -93,19 +86,15 @@ var userData = {
 
 
 server.use(express.static(__dirname + '/public'));
-// server.use(bodyParser.json()); 
-
 server.use(bodyParser.json({limit: '50mb'}));
 server.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-
-
-//server.use(bodyParser.urlencoded({ extended: false }));
 server.use(cors());
 server.engine('html', require('ejs').renderFile);
 server.set('view engine', 'html');
 server.set('views', __dirname);
-const pdfTemplate1 = require('./documents/tmp1');
 
+
+//const pdfTemplate1 = require('./documents/tmp1');
 const SERVER_PORT = 55555;
 const HTTP_OK = 200;
 const dbConnection = mysql.createConnection(connString);
@@ -118,31 +107,23 @@ dbConnection.connect((err) => {
     else console.log("Connected to MySQL");
 });
 
-function strToObj(str){
-    var obj = {};
-    if(str&&typeof str ==='string'){
-        var objStr = str.match(/\{(.)+\}/g);
-        eval("obj ="+objStr);
-    }
-    return obj
- }
 
-server.post('/create-pdf', (req, res) => {
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    console.log("111111111111111111111111111111111");
-        console.log(JSON.stringify(req.body));
-     pdf.create(pdfTemplate1(req.body), {}).toFile('result.pdf', (err) => {
-        if(err) {
-            res.send(Promise.reject());
-        }
+// server.post('/create-pdf', (req, res) => {
+//     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+//     console.log("111111111111111111111111111111111");
+//         console.log(JSON.stringify(req.body));
+//      pdf.create(pdfTemplate1(req.body), {}).toFile('result.pdf', (err) => {
+//         if(err) {
+//             res.send(Promise.reject());
+//         }
                
-        res.send(Promise.resolve());
-    });
-});
+//         res.send(Promise.resolve());
+//     });
+// });
 
-server.get('/fetch-pdf', (req, res) => {
-    res.sendFile(`${__dirname}/result.pdf`)
-})
+// server.get('/fetch-pdf', (req, res) => {
+//     res.sendFile(`${__dirname}/result.pdf`)
+// })
 
 const requestToDbCUDUserData = (query, dbConnection, newUserData, res, callback = (res, newUserData, dbConnection) => {
 
@@ -158,11 +139,12 @@ const requestToDbCUDUserData = (query, dbConnection, newUserData, res, callback 
     ////-----insert or update user data to db
     dbConnection.query(query, (err, result) => {
 
-        if (err) console.log(err.message);
-        if (newUserData.userID == undefined || newUserData.userID == null || newUserData.userID == "" || newUserData.userID == 0) newUserData.userID = result.insertId;
-
-        ////-----insert or update all user data with id
-        callback(res, newUserData, dbConnection);
+        if (err) console.log(err.message);      
+       if(result)
+       {
+            ////-----insert or update all user data with id
+           callback(res, newUserData, dbConnection);
+       }       
     });
 }
 
@@ -175,135 +157,104 @@ const requestToDbGET = (query, dbConnection, res) => {
     });
 }
 
+const newUserRegistration=(newUser,foundUser,callback=(hashPassword,foundUser)=>{
+    let queryRegisterUser = ` INSERT INTO user_registration_data(userLogin,userPassword) VALUES(\'${newUser.UserLogin}\',\'${hashPassword}\')`;
+    dbConnection.query(queryRegisterUser, (err, result) => {
+        if (err) throw err;       
+        foundUser.userID  = result.insertId;                      
+    });
+})=>{
+  ////hash+ salt
+ let hashPassword="";
+  bcrypt.genSalt(saltRounds, function (err, salt) {
+    bcrypt.hash(newUser.Password, salt, function (err, hash) {
+         hashPassword = hash;        
+        callback(hashPassword,foundUser);
+    });
+});
+};
 
 ////---------------------SERVER.GET------------------------
 
 server.get("/", (req, res) => {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    let query = "SELECT * FROM users_info";
+    let query = "SELECT * FROM user_registration_data";
     requestToDbGET(query, dbConnection, res);
 });
 
 server.get("/login", function (request, res) {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    let query = "SELECT * FROM users_info";
+    let query = "SELECT * FROM user_registration_data";
     requestToDbGET(query, dbConnection, res);
 });
 
 server.get("/register", function (request, res) {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    let query = "SELECT * FROM users_info";
+    let query = "SELECT * FROM user_registration_data";
     requestToDbGET(query, dbConnection, res);
 });
 
-
 server.get("/existinguserdata", (req, res) => {
-    userData = {userID: 0,  userLogin: "", firstName: "", lastName: "", middleName: "", birthOfDate: "", phone: "",  email: "", сityOfResidence: "", nationality: "",   position: "",
-    privateСar: 0,  army: 0, hobby: "", personalQualities: "", professionalSkills: "",relocate: 0,desiredSalary: 0,children: 0, businessTrip: 0, image: [], employment: "",schedule: "",
-    maritalStatus: "",education: "",
-    currency: "",drivLicense: { driverLicenseA1: 0, driverLicenseA: 0, driverLicenseB1: 0, driverLicenseB: 0, driverLicenseC1: 0, driverLicenseC: 0, driverLicenseD1: 0, driverLicenseD: 0, driverLicenseT: 0 },
-    courseName: [],organization: [],endingCourse: [],company: [],personRecommending: [],emailCompany: [],phoneCompany: [],langName: [], level: [],institutName: [],levelEducation: [],
-    faculty: [],specialty: [],ending: [],companyName: [],positionWork: [],jobDuties: [],startWork: [], endWork: [],stillWorking: [] }; 
+    let getUsData = JSON.parse( JSON.stringify( userDataEmptyObject )) ;     
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    let result = getUserData(res, userData, dbConnection, foundUserID, fs);
+    let result = getUserData(res, getUsData, dbConnection, foundUser.userID, fs,checkedUserFlag);
+    console.log(checkedUserFlag);
     if (result == false) {
-        res.json(userData);
+        res.json(getUsData);
         res.end();
     }
 });
 server.get("/tmp1", (req, res) => {
-    userData = {userID: 0,  userLogin: "", firstName: "", lastName: "", middleName: "", birthOfDate: "", phone: "",  email: "", сityOfResidence: "", nationality: "",   position: "",
-        privateСar: 0,  army: 0, hobby: "", personalQualities: "", professionalSkills: "",relocate: 0,desiredSalary: 0,children: 0, businessTrip: 0, image: [], employment: "",schedule: "",
-        maritalStatus: "",education: "",
-        currency: "",drivLicense: { driverLicenseA1: 0, driverLicenseA: 0, driverLicenseB1: 0, driverLicenseB: 0, driverLicenseC1: 0, driverLicenseC: 0, driverLicenseD1: 0, driverLicenseD: 0, driverLicenseT: 0 },
-        courseName: [],organization: [],endingCourse: [],company: [],personRecommending: [],emailCompany: [],phoneCompany: [],langName: [], level: [],institutName: [],levelEducation: [],
-        faculty: [],specialty: [],ending: [],companyName: [],positionWork: [],jobDuties: [],startWork: [], endWork: [],stillWorking: [] };  
-
+    let userDataTMP1 = JSON.parse( JSON.stringify( userDataEmptyObject )) ;    
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    let result = getUserData(res, userData, dbConnection, foundUserID, fs);
-   
+    let result = getUserData(res, userDataTMP1, dbConnection, foundUser.userID, fs,checkedUserFlag);   
     if (result == false) {
-        res.json(userData);
+        res.json(userDataTMP1);
         res.end();
     }
 });
 server.get("/tmp2", (req, res) => {
-    userData = {userID: 0,  userLogin: "", firstName: "", lastName: "", middleName: "", birthOfDate: "", phone: "",  email: "", сityOfResidence: "", nationality: "",   position: "",
-        privateСar: 0,  army: 0, hobby: "", personalQualities: "", professionalSkills: "",relocate: 0,desiredSalary: 0,children: 0, businessTrip: 0, image: [], employment: "",schedule: "",
-        maritalStatus: "",education: "",
-        currency: "",drivLicense: { driverLicenseA1: 0, driverLicenseA: 0, driverLicenseB1: 0, driverLicenseB: 0, driverLicenseC1: 0, driverLicenseC: 0, driverLicenseD1: 0, driverLicenseD: 0, driverLicenseT: 0 },
-        courseName: [],organization: [],endingCourse: [],company: [],personRecommending: [],emailCompany: [],phoneCompany: [],langName: [], level: [],institutName: [],levelEducation: [],
-        faculty: [],specialty: [],ending: [],companyName: [],positionWork: [],jobDuties: [],startWork: [], endWork: [],stillWorking: [] };  
-
+    let userDataTMP2 =JSON.parse( JSON.stringify( userDataEmptyObject )) ;
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    let result = getUserData(res, userData, dbConnection, foundUserID, fs);
-   
+    let result = getUserData(res, userDataTMP2, dbConnection, foundUser.userID, fs,checkedUserFlag);   
     if (result == false) {
-        res.json(userData);
+        res.json(userDataTMP2);
         res.end();
     }
 });
 server.get("/tmp3", (req, res) => {
-    userData = {userID: 0,  userLogin: "", firstName: "", lastName: "", middleName: "", birthOfDate: "", phone: "",  email: "", сityOfResidence: "", nationality: "",   position: "",
-        privateСar: 0,  army: 0, hobby: "", personalQualities: "", professionalSkills: "",relocate: 0,desiredSalary: 0,children: 0, businessTrip: 0, image: [], employment: "",schedule: "",
-        maritalStatus: "",education: "",
-        currency: "",drivLicense: { driverLicenseA1: 0, driverLicenseA: 0, driverLicenseB1: 0, driverLicenseB: 0, driverLicenseC1: 0, driverLicenseC: 0, driverLicenseD1: 0, driverLicenseD: 0, driverLicenseT: 0 },
-        courseName: [],organization: [],endingCourse: [],company: [],personRecommending: [],emailCompany: [],phoneCompany: [],langName: [], level: [],institutName: [],levelEducation: [],
-        faculty: [],specialty: [],ending: [],companyName: [],positionWork: [],jobDuties: [],startWork: [], endWork: [],stillWorking: [] };  
-
+    let userDataTMP3 = JSON.parse( JSON.stringify( userDataEmptyObject )) ;    
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    let result = getUserData(res, userData, dbConnection, foundUserID, fs);
-   
+    let result = getUserData(res, userDataTMP3, dbConnection, foundUser.userID, fs,checkedUserFlag);   
     if (result == false) {
-        res.json(userData);
+        res.json(userDataTMP3);
         res.end();
     }
 });
 server.get("/tmp4", (req, res) => {
-    userData = {userID: 0,  userLogin: "", firstName: "", lastName: "", middleName: "", birthOfDate: "", phone: "",  email: "", сityOfResidence: "", nationality: "",   position: "",
-        privateСar: 0,  army: 0, hobby: "", personalQualities: "", professionalSkills: "",relocate: 0,desiredSalary: 0,children: 0, businessTrip: 0, image: [], employment: "",schedule: "",
-        maritalStatus: "",education: "",
-        currency: "",drivLicense: { driverLicenseA1: 0, driverLicenseA: 0, driverLicenseB1: 0, driverLicenseB: 0, driverLicenseC1: 0, driverLicenseC: 0, driverLicenseD1: 0, driverLicenseD: 0, driverLicenseT: 0 },
-        courseName: [],organization: [],endingCourse: [],company: [],personRecommending: [],emailCompany: [],phoneCompany: [],langName: [], level: [],institutName: [],levelEducation: [],
-        faculty: [],specialty: [],ending: [],companyName: [],positionWork: [],jobDuties: [],startWork: [], endWork: [],stillWorking: [] };  
-
+    let userDataTMP4 = JSON.parse( JSON.stringify( userDataEmptyObject )) ;   
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    let result = getUserData(res, userData, dbConnection, foundUserID, fs);
-   
+    let result = getUserData(res, userDataTMP4, dbConnection,foundUser.userID, fs,checkedUserFlag);   
     if (result == false) {
-        res.json(userData);
+        res.json(userDataTMP4);
         res.end();
     }
 });
 server.get("/tmp5", (req, res) => {
-    userData = {userID: 0,  userLogin: "", firstName: "", lastName: "", middleName: "", birthOfDate: "", phone: "",  email: "", сityOfResidence: "", nationality: "",   position: "",
-        privateСar: 0,  army: 0, hobby: "", personalQualities: "", professionalSkills: "",relocate: 0,desiredSalary: 0,children: 0, businessTrip: 0, image: [], employment: "",schedule: "",
-        maritalStatus: "",education: "",
-        currency: "",drivLicense: { driverLicenseA1: 0, driverLicenseA: 0, driverLicenseB1: 0, driverLicenseB: 0, driverLicenseC1: 0, driverLicenseC: 0, driverLicenseD1: 0, driverLicenseD: 0, driverLicenseT: 0 },
-        courseName: [],organization: [],endingCourse: [],company: [],personRecommending: [],emailCompany: [],phoneCompany: [],langName: [], level: [],institutName: [],levelEducation: [],
-        faculty: [],specialty: [],ending: [],companyName: [],positionWork: [],jobDuties: [],startWork: [], endWork: [],stillWorking: [] };  
-
+    let userDataTMP5 = JSON.parse( JSON.stringify( userDataEmptyObject )) ;     
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    let result = getUserData(res, userData, dbConnection, foundUserID, fs);
-   
+    let result = getUserData(res, userDataTMP5, dbConnection, foundUser.userID, fs,checkedUserFlag);   
     if (result == false) {
-        res.json(userData);
+        res.json(userDataTMP5);
         res.end();
     }
 });
 server.get("/tmp6", (req, res) => {
-    userData = {userID: 0,  userLogin: "", firstName: "", lastName: "", middleName: "", birthOfDate: "", phone: "",  email: "", сityOfResidence: "", nationality: "",   position: "",
-        privateСar: 0,  army: 0, hobby: "", personalQualities: "", professionalSkills: "",relocate: 0,desiredSalary: 0,children: 0, businessTrip: 0, image: [], employment: "",schedule: "",
-        maritalStatus: "",education: "",
-        currency: "",drivLicense: { driverLicenseA1: 0, driverLicenseA: 0, driverLicenseB1: 0, driverLicenseB: 0, driverLicenseC1: 0, driverLicenseC: 0, driverLicenseD1: 0, driverLicenseD: 0, driverLicenseT: 0 },
-        courseName: [],organization: [],endingCourse: [],company: [],personRecommending: [],emailCompany: [],phoneCompany: [],langName: [], level: [],institutName: [],levelEducation: [],
-        faculty: [],specialty: [],ending: [],companyName: [],positionWork: [],jobDuties: [],startWork: [], endWork: [],stillWorking: [] };  
-
+    let userDataTMP6 = JSON.parse( JSON.stringify( userDataEmptyObject )) ;   
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    let result = getUserData(res, userData, dbConnection, foundUserID, fs);
-   
+    let result = getUserData(res, userDataTMP6, dbConnection, foundUser.userID, fs,checkedUserFlag);   
     if (result == false) {
-        res.json(userData);
+        res.json(userDataTMP6);
         res.end();
     }
 });
@@ -311,36 +262,35 @@ server.get("/tmp6", (req, res) => {
 ////----------------SERVER.POST--------------------------------------
 server.post("/login", function (request, response) {
     response.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    foundUserID = 0;
-    var foundFlag = false;
+   
+    let foundFlag = false;  
+    let userPass = request.body.Password;
 
-    var userLog = request.body.UserLogin;
-    var userPass = request.body.Password;
-
-    let query = `SELECT * FROM resume_db.users_info WHERE userLogin = '${request.body.UserLogin}'`;
-
-    console.log("QUERY : " + query);
+    let query = `SELECT * FROM resume_db.user_registration_data WHERE userLogin = '${request.body.UserLogin}'`;
+    
     // query database for user's password
     dbConnection.query(query, (err, result) => {
         if (err) throw err;
         if (result) {
-            var hash = result[0];
-            console.log(hash.userPassword);
-
+            let hash = result[0];         
             // compare hash and password
             bcrypt.compare(userPass, hash.userPassword, function (err, result) {
-                if (err) console.log(err.message);
-                console.log("LOGIN RESULT ::: " + result);
-                console.log("USER HASH + USER LOGIN ::: " + hash.userPassword, userLog);
-                if (result) {
-                    console.log(`User login : ${hash.userLogin} password : ${hash.userPassword} have ID :${hash.userID}`);
-                    foundFlag = true;
-                    foundUserID = hash.userID;
-                    foundUser.UserID = hash.userID;
-                    foundUser.UserLogin = hash.userLogin;
-                    foundUser.UserPassword = hash.userPassword;
-                    console.log("FOUND USER ::: " + foundUser);
-                        
+                if (err) console.log(err.message);                
+                if (result) {                  
+                    foundFlag = true;                    
+                    foundUser.userID = hash.userID;
+                    foundUser.userLogin = hash.userLogin;
+                    foundUser.userPassword = hash.userPassword;                  
+                    let queryCheckedUser = `SELECT * FROM resume_db.user_info WHERE userID = ${foundUser.userID}`;
+        
+                    // query database for user  login
+                    dbConnection.query(queryCheckedUser, (err, result) => {
+                        if (err) throw err;                       
+                        if(result[0])
+                        {
+                            checkedUserFlag = true;                            
+                        }   
+                    });
                     return response.redirect("http://localhost:3000/existinguserdata");
                 }
                 else {
@@ -348,6 +298,8 @@ server.post("/login", function (request, response) {
                     if (foundFlag === false) {
                         console.log(`User login : ${request.body.UserLogin} password : ${request.body.Password} NOT FOUND , Go to regestration!!!`);
                         ////переход на регистрацию сделать правильно!!!!!!!
+                        //// На страницу  , где выбор вход(логин ) или регистрация
+
                         return response.redirect('http://localhost:3000/registration');
                     }
                 }
@@ -359,39 +311,28 @@ server.post("/login", function (request, response) {
 
 
 server.post("/registration", function (request, response) {
-
+  
     response.header("Access-Control-Allow-Origin", "http://localhost:3000");
 
     if (request.body.Password === request.body.RepeatPassword) {
        
         //// Go to registration form
         //Login and password new user
-        newUser = request.body;
-        console.log(newUser);
-        ////hash+ salt
-        bcrypt.genSalt(saltRounds, function (err, salt) {
-            bcrypt.hash(newUser.Password, salt, function (err, hash) {
-                hashPassword = hash;
-                console.log(hashPassword);
-            });
-        });
-        //console.log("HASH PASSWORD ::: " + hashPassword);
+         newUser = request.body;  
 
-        let query = `SELECT * FROM resume_db.users_info WHERE userLogin = '${newUser.UserLogin}'`;
+        let query = `SELECT * FROM resume_db.user_registration_data WHERE userLogin = '${newUser.UserLogin}'`;
         
         // query database for user  login
         dbConnection.query(query, (err, result) => {
             if (err) throw err;
-            var userDataFromDB = result[0];
+            let userDataFromDB = result[0];            
 
-            if (userDataFromDB) {
-                duplicateFlag = true;
-                let objJSON1 = { "result": "Пользователь с данным логином уже зарегистрирован, придумайте новый логин !" };
+            if (userDataFromDB) {               
+               //// &&&&&&&&&&&&&&&&& let objJSON1 = { "result": "Пользователь с данным логином уже зарегистрирован, придумайте новый логин !" }; ??????????????????????
                 return response.redirect("http://localhost:3000/registration");
             }
-            else {
-                duplicateFlag = false;
-                console.log("duplicateFlag === false");
+            else {                
+                newUserRegistration(newUser,foundUser);              
                 return response.redirect("http://localhost:3000/existinguserdata");
             }
         });
@@ -403,14 +344,24 @@ server.post("/registration", function (request, response) {
 
 
 //////////////////////////////////////////////ExistingUserData POST/////////////////////////////////////////////////////////////////////
-
+// const getFileValue=(fileToDB,req)=>{
+//     console.log(fileToDB,req);
+// if(req.file!= undefined&&fileToDB!= null)
+// {
+//     return `, image=\'${fileToDB}\'`;
+// }
+// else if(req.file!= undefined&&fileToDB == null)
+// {
+//     return `, image=${fileToDB}`;
+// }
+// }
 
 server.post("/existinguserdata", upload.single('fupload'), function (req, res) {
 
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    console.log("REQUEST ::: " + req);
-    var newFileNameToDb;
-    console.log("REQUEST FILE ::: " + req.file);
+    
+    let newFileNameToDb;
+    
     if (req.file) {
         const fileName = req.file.originalname;
         newFileNameToDb = Date.now() + "_" + fileName;
@@ -423,13 +374,15 @@ server.post("/existinguserdata", upload.single('fupload'), function (req, res) {
     }
 
     console.log("---------updateUser----------------------------------------");
-
-    console.log(foundUser);
-
+    console.log("checkedUserFlag  UPDATE :::::::::::: ");
+    console.log(checkedUserFlag);
+    console.log(foundUser);  
     console.log("---------updateUser-end--------------------------------------");
+
     ////--------------------- NEW USER AFTER REGESTRATION --------------------------------------------
-    if (foundUser.UserLogin == undefined) {
+    
         let newUserData = req.body;
+        newUserData.userID = foundUser.userID;        
         if (newUserData) {
 
             let userDataChecked = getCheckedInfo(newUserData);
@@ -440,64 +393,27 @@ server.post("/existinguserdata", upload.single('fupload'), function (req, res) {
             if (newFileNameToDb) {
                 fileToDB = newFileNameToDb;
             }
-            let query = `INSERT INTO users_info (userLogin,userPassword,firstName,lastName,middleName,birthOfDate,phone,email,сityOfResidence,nationality,position,privateСar,
+            
+            let query = `INSERT INTO user_info (userID,firstName,lastName,middleName,birthOfDate,phone,email,сityOfResidence,nationality,position,privateСar,
             army,hobby,personalQualities,professionalSkills,relocate,desiredSalary,children,businessTrip,fk_employmentID,fk_scheduleID,
             fk_marital_statusID,fk_level_of_educationID,fk_currencyID,image) 
     
-            VALUES ( \'${newUser.UserLogin}\', \'${hashPassword}\', \'${newUserData.id_firstName}\', \'${newUserData.id_lastName}\', ${checkToNull.id_middleName}, 
+            VALUES ( ${foundUser.userID}, \'${newUserData.id_firstName}\', \'${newUserData.id_lastName}\', ${checkToNull.id_middleName}, 
     \'${newUserData.id_birthOfDate}\',\'${newUserData.id_phone}\', \'${newUserData.id_email}\', \'${newUserData.id_cityOfResidence}\', ${checkToNull.id_nationality},
     \'${newUserData.id_userPosition}\', ${userDataChecked.privateCar}, ${userDataChecked.army}, ${checkToNull.id_hobby}, ${checkToNull.id_personalQualities},${checkToNull.id_professionalSkills},
      ${userDataChecked.relocation}, ${checkToNull.id_desiredSalary},${userDataChecked.children},  ${userDataChecked.businessTrip},\'${newUserData.id_employment}\', 
-    \'${newUserData.id_schedule}\', \'${newUserData.id_maritalStatus}\',  \'${newUserData.id_education}\',\'${newUserData.id_currency}\',\'${fileToDB}\' )`;
+    \'${newUserData.id_schedule}\', \'${newUserData.id_maritalStatus}\',  \'${newUserData.id_education}\',\'${newUserData.id_currency}\',\'${fileToDB}\' )
 
-            requestToDbCUDUserData(query, dbConnection, res, newUserData);
+    ON DUPLICATE KEY UPDATE firstName=\'${newUserData.id_firstName}\',lastName=\'${newUserData.id_lastName}\',middleName= ${checkToNull.id_middleName},
+    birthOfDate=\'${newUserData.id_birthOfDate}\', phone=\'${newUserData.id_phone}\',email=\'${newUserData.id_email}\',сityOfResidence=\'${newUserData.id_cityOfResidence}\',
+    nationality=${checkToNull.id_nationality},position=\'${newUserData.id_userPosition}\',privateСar=${userDataChecked.privateCar},army= ${userDataChecked.army},
+    hobby= ${checkToNull.id_hobby},personalQualities=${checkToNull.id_personalQualities},professionalSkills=${checkToNull.id_professionalSkills}, relocate= ${userDataChecked.relocation},
+    desiredSalary= ${checkToNull.id_desiredSalary}, children=${userDataChecked.children},businessTrip=${userDataChecked.businessTrip},fk_employmentID=\'${newUserData.id_employment}\',fk_scheduleID=\'${newUserData.id_schedule}\',
+    fk_marital_statusID=\'${newUserData.id_maritalStatus}\',fk_level_of_educationID=\'${newUserData.id_education}\', fk_currencyID =\'${newUserData.id_currency}\' ${ req.file!= undefined?getFileValue(fileToDB,req):""}`;
+
+           requestToDbCUDUserData(query, dbConnection, newUserData, res);
         }
-        return res.redirect("http://localhost:3000/tmps");
-      //  res.end();
-    }
-    ////------------------------------UPDATE USER AFTER LOGIN ----------------------------------
-    else {
-        let updateUserData = req.body;
-        console.log(updateUserData);
-        updateUserData.userID = foundUser.UserID;
-        if (updateUserData) {
-
-            let userDataChecked = getCheckedInfo(updateUserData);
-
-            let checkToNull = CheckedToNull(updateUserData);
-
-            if (req.file == undefined)//если загруженное фото уже есть
-            {
-                let query = `UPDATE users_info SET  firstName=\'${updateUserData.id_firstName}\',lastName=\'${updateUserData.id_lastName}\',middleName= ${checkToNull.id_middleName},
-   birthOfDate=\'${updateUserData.id_birthOfDate}\', phone=\'${updateUserData.id_phone}\',email=\'${updateUserData.id_email}\',сityOfResidence=\'${updateUserData.id_cityOfResidence}\',
-   nationality=${checkToNull.id_nationality},position=\'${updateUserData.id_userPosition}\',privateСar=${userDataChecked.privateCar},army= ${userDataChecked.army},
-   hobby= ${checkToNull.id_hobby},personalQualities=${checkToNull.id_personalQualities},professionalSkills=${checkToNull.id_professionalSkills}, relocate= ${userDataChecked.relocation},
-   desiredSalary= ${checkToNull.id_desiredSalary}, children=${userDataChecked.children},businessTrip=${userDataChecked.businessTrip},fk_employmentID=\'${updateUserData.id_employment}\',fk_scheduleID=\'${updateUserData.id_schedule}\',
-   fk_marital_statusID=\'${updateUserData.id_maritalStatus}\',fk_level_of_educationID=\'${updateUserData.id_education}\', fk_currencyID =\'${updateUserData.id_currency}\' WHERE UserID=\'${foundUser.UserID}\'`;
-
-                console.log("************************** " + updateUserData.userID);
-                requestToDbCUDUserData(query, dbConnection, updateUserData, res);
-            }
-            else {
-                let fileToDB = null;
-                if (newFileNameToDb) {
-                    fileToDB = newFileNameToDb;
-                }
-
-                let query = `UPDATE users_info SET  firstName=\'${updateUserData.id_firstName}\',lastName=\'${updateUserData.id_lastName}\',middleName= ${checkToNull.id_middleName},
-                birthOfDate=\'${updateUserData.id_birthOfDate}\', phone=\'${updateUserData.id_phone}\',email=\'${updateUserData.id_email}\',сityOfResidence=\'${updateUserData.id_cityOfResidence}\',
-                nationality=${checkToNull.id_nationality},position=\'${updateUserData.id_userPosition}\',privateСar=${userDataChecked.privateCar},army= ${userDataChecked.army},
-                hobby= ${checkToNull.id_hobby},personalQualities=${checkToNull.id_personalQualities},professionalSkills=${checkToNull.id_professionalSkills}, relocate= ${userDataChecked.relocation},
-                desiredSalary= ${checkToNull.id_desiredSalary}, children=${userDataChecked.children},businessTrip=${userDataChecked.businessTrip},fk_employmentID=\'${updateUserData.id_employment}\',fk_scheduleID=\'${updateUserData.id_schedule}\',
-                fk_marital_statusID=\'${updateUserData.id_maritalStatus}\',fk_level_of_educationID=\'${updateUserData.id_education}\', fk_currencyID =\'${updateUserData.id_currency}\', image=\'${fileToDB}\' WHERE UserID=\'${foundUser.UserID}\'`;
-
-                requestToDbCUDUserData(query, dbConnection, updateUserData, res);
-            }
-        }
-        return res.redirect("http://localhost:3000/tmps");
-      // res.end();
-    }
-   
+        return res.redirect("http://localhost:3000/tmps"); 
 });
 
 const startupCallback = function () {

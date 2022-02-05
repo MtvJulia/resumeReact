@@ -8,15 +8,15 @@ class ShowLanguage extends React.Component {
     }
 
     DeleteLang(e) {          
-        var langDetails = document.getElementById(e.target.parentNode.id);              
+        let langDetails = document.getElementById(e.target.parentNode.id);              
         langDetails.parentNode.removeChild(langDetails);
     }
 
     render() {
 
-        var id_langName = "id_langName";
-        var id_level = "id_level";
-        var count = 0;
+        let id_langName = "id_langName";
+        let id_level = "id_level";
+        let count = 0;
         let { arrayToDisplay } = this.props;
        
             return (
