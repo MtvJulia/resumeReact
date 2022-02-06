@@ -16,7 +16,8 @@
 }
 
 #photoResume {
-    width: 300px;
+    width: 400px;
+    padding-top: 50px;
 }
 
 .header-title {
@@ -24,10 +25,11 @@
     font-weight: bold;
 }
 
-#second-container,
 #fourth-container,
-#sixth-container {
-    margin: 70px 0 20px 0;
+#sixth-container,
+#eighth-container,
+#twelfth-container {
+    margin: 90px 0 20px 0;
 }
 
 .img-tips {
@@ -45,11 +47,7 @@
 }
 
 .img-template {
-<<<<<<< HEAD
-    width: 35vw;
-=======
     width: 20vw;
->>>>>>> 0918056963aaf72b528281e019af0dcb74250afc
     padding: 10px;
 }
 

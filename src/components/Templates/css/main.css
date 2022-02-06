@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 @import url('Templates.css');
->>>>>>> 0918056963aaf72b528281e019af0dcb74250afc
 @import url('Template1.css');
 @import url('Template2.css');
 @import url('Template3.css');
@@ -103,10 +100,7 @@
     background-color: black;    /* Цвет линии */
     color: black;    /* Цвет линии для IE6-7 */
     height: 2px;    /* Толщина линии */
-<<<<<<< HEAD
-=======
     -webkit-print-color-adjust: exact;
->>>>>>> 0918056963aaf72b528281e019af0dcb74250afc
 }
 
 .line { 

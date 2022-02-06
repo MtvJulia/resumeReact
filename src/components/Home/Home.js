@@ -15,6 +15,7 @@ import template1 from '../../images/template1.png';
 import template2 from '../../images/template2.png';
 import template3 from '../../images/template3.png';
 import template4 from '../../images/template4.png';
+import tempHome from '../../images/temphome.png';
 
 class Home extends React.Component {
 
@@ -58,16 +59,18 @@ class Home extends React.Component {
             return (
                 <div className="container-fluid" id='container-main' >
                     <div className='container' >
+
                         {/* first container */}
                         <div className='row align-items-center justify-content-evenly' id='first-container'>
                             <div className='col col-md-6 col-12'>
-                                <div className="header-title">Создайте резюме в онлайн конструкторе</div>
+                                <div><h2>Создайте резюме в онлайн конструкторе</h2></div>
                                 <div>
                                     <p>Увеличьте шансы получить работу, создав свое профессиональное резюме в онлайн конструкторе всего за 15 минут.</p>
+                                    <p><a className="btn btn-primary btn-lg" href="/login" role="button">Создать резюме</a></p>
                                 </div>
                             </div>
                             <div className='col col-md-6 col-12' >
-                                <img src={template3} alt='photo' id='photoResume'></img>
+                                <img src={tempHome} alt='photo' id='photoResume'></img>
                             </div>
                         </div>
 
@@ -117,21 +120,6 @@ class Home extends React.Component {
 
                         {/* fifth container */}
                         <div className='d-flex flex-wrap justify-content-center' id='fifth-container'>
-<<<<<<< HEAD
-                            
-                                <img className='img-template' src={mainPhoto} alt='template'></img>
-                            
-                                <img className='img-template' src={mainPhoto} alt='template'></img>
-                           
-                                <img className='img-template' src={mainPhoto} alt='template'></img>
-                            
-                                <img className='img-template' src={mainPhoto} alt='template'></img>
-                            
-                                <img className='img-template' src={mainPhoto} alt='template'></img>
-                            
-                                <img className='img-template' src={mainPhoto} alt='template'></img>
-                            
-=======
 
                             <img className='img-template' src={template1} alt='template'></img>
 
@@ -145,7 +133,10 @@ class Home extends React.Component {
 
                             <img className='img-template' src={template4} alt='template'></img>
 
->>>>>>> 0918056963aaf72b528281e019af0dcb74250afc
+                        </div>
+
+                        <div className='d-flex justify-content-center pt-3'>
+                            <p><a className="btn btn-primary btn-lg" href="/login" role="button">Создать резюме</a></p>
                         </div>
 
                         {/* sixth container */}
@@ -154,19 +145,7 @@ class Home extends React.Component {
                         </div>
 
                         {/* seventh container */}
-<<<<<<< HEAD
-                        {/* <div className='row justify-content-center'>
-                            
-                            <div className='col header-tips '>
-                                <div className="text-center">Заполняете резюме online в удобной форме</div>
-                            </div>
-                            <div className='col header-tips'>
-                                <div className="text-center">Выбираете хорошо подходящий Вам шаблон</div>
-                            </div>
-                            <div className='col header-tips'>
-                                <div className="text-center">Скачиваете или размещаете online свое резюме</div>
-=======
-                        <div className="md-stepper-horizontal orange">
+                        <div className="md-stepper-horizontal">
                             <div className="md-step ">
                                 <div className="md-step-circle"><span>1</span></div>
                                 <div className="md-step-title">Заполняете резюме online в форме</div>
@@ -181,34 +160,52 @@ class Home extends React.Component {
                             </div>
                             <div className="md-step ">
                                 <div className="md-step-circle"><span>3</span></div>
-                                <div className="md-step-title">Скачиваете или распечатывайте свое резюме</div>
-                                <div className="md-step-bar-left"></div>
-                                <div className="md-step-bar-right"></div>
->>>>>>> 0918056963aaf72b528281e019af0dcb74250afc
-                            </div>
-                        </div> */}
-
-                        <div className="md-stepper-horizontal orange">
-                            <div className="md-step ">
-                                <div className="md-step-circle"><span>1</span></div>
-                                <div className="md-step-title">Заполняете резюме online в форме</div>
+                                <div className="md-step-title">Скачивайте и распечатывайте свое резюме</div>
                                 <div className="md-step-bar-left"></div>
                                 <div className="md-step-bar-right"></div>
                             </div>
-                            <div className="md-step ">
-                                <div className="md-step-circle"><span>2</span></div>
-                                <div className="md-step-title">Выбираете подходящий Вам шаблон</div>
-                                <div className="md-step-bar-left"></div>
-                                <div className="md-step-bar-right"></div>
-                            </div>
-                            <div className="md-step ">
-                                <div className="md-step-circle"><span>3</span></div>
-                                <div className="md-step-title">Скачиваете или размещаете online свое резюме</div>
-                                <div className="md-step-bar-left"></div>
-                                <div className="md-step-bar-right"></div>
-                            </div>                            
                         </div>
 
+                        {/* eighth container */}
+                        <div className='d-flex flex-row-reverse' id='eighth-container'>
+                            <div className='col-6 '>
+                                <div className=''><h2>Скачивайте и распечатывайте свое резюме</h2></div>
+                                <p>Возможность скачать ваше резюме в самом распространённом формате PDF, сохранить или оправить резюме работодателю по электронной почте.</p>
+                            </div>
+
+                        </div>
+
+                        {/* ninth container */}
+                        <div className='d-flex flex-row' id='ninth-container'>
+                            <div className='col-6'>
+                                <div className=''><h2>Скачивайте и распечатывайте свое резюме</h2></div>
+                                <p>Возможность скачать ваше резюме в самом распространённом формате PDF, сохранить или оправить резюме работодателю по электронной почте.</p>
+                            </div>
+
+                        </div>
+
+                        {/* tenth container */}
+                        <div className='d-flex flex-row-reverse' id='tenth-container'>
+                            <div className='col-6 '>
+                                <div className=''><h2>Скачивайте и распечатывайте свое резюме</h2></div>
+                                <p>Возможность скачать ваше резюме в самом распространённом формате PDF, сохранить или оправить резюме работодателю по электронной почте.</p>
+                            </div>
+
+                        </div>
+
+                        {/* eleventh container */}
+                        <div className='d-flex flex-row' id='eleventh-container'>
+                            <div className='col-6'>
+                                <div className=''><h2>Скачивайте и распечатывайте свое резюме</h2></div>
+                                <p>Возможность скачать ваше резюме в самом распространённом формате PDF, сохранить или оправить резюме работодателю по электронной почте.</p>
+                            </div>
+
+                        </div>
+
+                        <div className='d-flex justify-content-center' id='twelfth-container'>
+                            <p><a className="btn btn-primary btn-lg" href="/login" role="button">Создать резюме</a></p>
+                        </div>
+                        
                     </div>
                 </div>
             );

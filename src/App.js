@@ -8,19 +8,16 @@ import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
 import UserData from './components/UserData/UserData';
 import ExistingUserData from './components/ExistingUserData/ExistingUserData';
-<<<<<<< HEAD
-import Templates from './components/Templates/Templates';
-=======
 
 import Templates from './components/Templates/Templates';
 import Template1 from './components/Templates/Template1';
 import Template2 from './components/Templates/Template2';
 import Template3 from './components/Templates/Template3';
 import Template4 from './components/Templates/Template4';
->>>>>>> 0918056963aaf72b528281e019af0dcb74250afc
 
 import './App.css';
 import logoPhoto from './images/logoResume.png';
+import avatar from './images/avatar.png';
 
 
 class App extends React.Component {
@@ -48,23 +45,25 @@ class App extends React.Component {
                   <li className="nav-item"><a className="nav-link" href="/services">Как составить резюме</a></li>
                   <li className="nav-item"><a className="nav-link" href="/about">О нас</a></li>
                   <li className="nav-item"><a className="nav-link" href="/tmps">tmps</a></li>
-<<<<<<< HEAD
-=======
-                  <li className="nav-item"><a className="nav-link" href="/tmp1">tmp1</a></li>
+                  {/* <li className="nav-item"><a className="nav-link" href="/tmp1">tmp1</a></li>
                   <li className="nav-item"><a className="nav-link" href="/tmp2">tmp2</a></li>
                   <li className="nav-item"><a className="nav-link" href="/tmp3">tmp3</a></li>
-                  <li className="nav-item"><a className="nav-link" href="/tmp4">tmp4</a></li>
->>>>>>> 0918056963aaf72b528281e019af0dcb74250afc
+                  <li className="nav-item"><a className="nav-link" href="/tmp4">tmp4</a></li> */}
                   <li className="nav-item"><a className="nav-link" href="http://localhost:3000/existinguserdata">News</a></li>
                 </ul>
 
-                <ul className="nav ">
+                <ul className="nav " >
                   <li><Link to="/login" className="btn btn-primary">Вход</Link></li>
                   <li><Link to="/registration" className="btn btn-primary">Регистрация</Link></li>
                 </ul>
+                
+                <ul className="nav align-items-center" >
+                  <li><img src={avatar} className="rounded-circle my-1" width="80px" alt="user" /></li>
+                  <li><Link to="/home" className="btn btn-primary  exit-btn">Выход</Link></li>
+                </ul>
+
               </div>
             </div>
-
           </nav>
 
           <div className="container-fluid" id="conteiner-component">
@@ -77,16 +76,26 @@ class App extends React.Component {
             <Route path="/userdata" component={UserData} />
             <Route path="/existinguserdata" component={ExistingUserData} />
             <Route path="/tmps" component={Templates} />
-<<<<<<< HEAD
-=======
             <Route path="/tmp1" component={Template1} />
             <Route path="/tmp2" component={Template2} />
             <Route path="/tmp3" component={Template3} />
             <Route path="/tmp4" component={Template4} />
->>>>>>> 0918056963aaf72b528281e019af0dcb74250afc
           </div>
 
         </BrowserRouter>
+
+        <footer className="page-footer font-small blue static-bottom">
+          <div className="footer-copyright text-center py-3 ">
+            <ul className="list-inline text-center py-3">
+              <li className="list-inline-item"><a href="/">Home</a></li>
+              <li className="list-inline-item"><a href="/services">Services</a></li>
+              <li className="list-inline-item"><a href="/about">About</a></li>
+              <li className="list-inline-item"><a href="#">Terms</a></li>
+              <li className="list-inline-item"><a href="#">Privacy Policy</a></li>
+            </ul>
+            <p className="copyright">ResumeOnline © 2022</p>
+          </div>
+        </footer>
 
       </div>
     );

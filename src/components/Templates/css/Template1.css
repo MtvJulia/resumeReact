@@ -1,10 +1,7 @@
 #left-container-t1 {
     background-color: #edd9b4;    
     min-width: min-content;
-<<<<<<< HEAD
-=======
     -webkit-print-color-adjust: exact;
->>>>>>> 0918056963aaf72b528281e019af0dcb74250afc
 }
 
 .box-t1 {
@@ -12,8 +9,5 @@
     width: 100%;
     background-color: #fdf5e5;    
     border-color: #e9ecef !important;
-<<<<<<< HEAD
-=======
     -webkit-print-color-adjust: exact;
->>>>>>> 0918056963aaf72b528281e019af0dcb74250afc
 }
