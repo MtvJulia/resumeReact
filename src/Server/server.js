@@ -136,7 +136,7 @@ const requestToDbGET = (query, dbConnection, res) => {
 
     dbConnection.query(query, (err, result) => {
         if (err) console.log(err.message);
-        res.json(result);      
+        res.json(result);
         res.end();
     });
 }
@@ -299,7 +299,7 @@ server.post("/registration", function (request, response) {
     response.header("Access-Control-Allow-Origin", "http://localhost:3000");
 
     if (request.body.Password === request.body.RepeatPassword) {
-       
+
         //// Go to registration form
         //Login and password new user
          newUser = request.body;  

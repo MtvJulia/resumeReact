@@ -43,6 +43,11 @@ a{
   padding: 0 auto;
 }
 
+.exit-btn{
+  height: auto;
+  /* align-items: center; */
+}
+
 #logo-photo{
   height: 40px; 
 }
@@ -55,4 +60,8 @@ a{
 
 #conteiner-component{
   padding: 0px;
+}
+
+footer {
+  /* background-color: #E0E0E0; */
 }
