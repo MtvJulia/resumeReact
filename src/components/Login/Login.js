@@ -83,11 +83,11 @@ class Login extends React.Component {
 
                                     <div className="mb-3">
                                         <input type="text" className="form-control" id="userlogin" aria-describedby="emailHelp"
-                                            placeholder="Введите логин" onChange={this.setLogin} />
+                                            placeholder="Введите логин" name="UserLogin" onChange={this.setLogin} />
                                     </div>
 
                                     <div className="mb-3">
-                                        <input type="password" className="form-control" id="pwd" placeholder="Введите пароль" onChange={this.setPassword} />
+                                        <input type="password" className="form-control" id="pwd" placeholder="Введите пароль" name="Password" onChange={this.setPassword} />
                                     </div>
 
                                     <div className="text-center"><button type="submit" className="btn btn-color px-5 mb-5 w-100">Вход</button></div>
