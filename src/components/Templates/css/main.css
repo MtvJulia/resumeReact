@@ -1,0 +1,112 @@
+@import url('Templates.css');
+@import url('Template1.css');
+@import url('Template2.css');
+@import url('Template3.css');
+@import url('Template4.css');
+@import url('Template5.css');
+@import url('Template6.css');
+
+/* div{
+    border: 1px solid black;
+} */
+
+/* xs - устройства (до 576px) */
+/* CSS для ширины, которая меньше 575px (включительно) */
+@media(max-width: 576px) {
+    .col {
+        padding: 0px;
+        /* background-color: rgb(42, 165, 48); */
+    }
+}
+
+/* sm-устройства (больше или равно 576px) */
+@media (min-width: 576px) {
+
+    /* CSS для: 576px <= ширины <= 767px */
+    .col {
+        padding: 0px 10px;
+    }
+}
+
+/* md-устройства (больше или равно 768px) */
+@media (min-width: 768px) {
+    /* CSS для: 768px <= ширины <= 991px */
+
+}
+
+/* lg-устройства (больше или равно 992px) */
+@media (min-width: 992px) {
+    /* CSS для: 992px <= ширины <= 1119px */
+}
+
+/* xl-устройства (больше или равно 1200px) */
+@media (min-width: 1200px) {
+    /* CSS для: ширины >= 1200px */
+}
+
+.container-sm{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+}
+
+.container-t {
+    flex-wrap: nowrap;
+}
+
+#avatar {
+    padding: 30px 0px;
+    max-width: 200px;
+}
+
+#full-name {
+    margin-left: 5px;
+}
+
+.name-text {
+    word-wrap: break-word;
+    font-size: 26px;
+    padding: 0px 5px 0 0;
+    margin: 0px;
+    font-weight: 700;
+}
+
+.header-text {
+    font-size: 20px;
+    padding: 10px 5px;
+    font-weight: 600;
+}
+
+.main-text {
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.icon-item {
+    width: 15px;
+    height: 15px;
+    margin: 0px 5px 3px 5px;
+}
+
+.years {
+    white-space: nowrap;
+    margin-left: 25px;
+}
+
+.long-text {    
+    word-wrap: break-word;
+}
+
+.hr2 {
+    border: none;   /* Убираем границу */
+    background-color: black;    /* Цвет линии */
+    color: black;    /* Цвет линии для IE6-7 */
+    height: 2px;    /* Толщина линии */
+    -webkit-print-color-adjust: exact;
+}
+
+.line { 
+    border-left: 2px solid #ccc; /* Параметры линии */ 
+    margin-left: 20px; /* Отступ слева */
+    padding-left: 10px; /* Расстояние от линии до текста */    
+}

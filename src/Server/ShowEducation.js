@@ -56,13 +56,13 @@ class ShowEducation extends React.Component {
                                             <select className="form-control" id={id_levelEducation+count} defaultValue={item.levelEducation} name="id_levelEducation" ref={this.input}>
                                                 <option disabled>Выберите уровень</option>
                                                 <option selected></option>
-                                                <option>Высшее</option>
-                                                <option>Бакалавр</option>
-                                                <option>Магистр</option>
-                                                <option>Специалист</option>
-                                                <option>Кандидат наук</option>
-                                                <option>Доктор наук</option>
-                                                <option>Неполное высшее</option>
+                                                <option value ="6">Высшее</option>
+                                                <option value ="7">Бакалавр</option>
+                                                <option value ="8">Магистр</option>
+                                                <option value ="9">Специалист</option>
+                                                <option value ="10">Кандидат наук</option>
+                                                <option value ="11">Доктор наук</option>
+                                                <option value ="12">Неполное высшее</option>
                                             </select>
                                         </div>
                                     </div>
@@ -105,13 +105,13 @@ class ShowEducation extends React.Component {
                             <select className="form-control" id="id_levelEducation"  name="id_levelEducation"defaultValue ="" ref={this.input}>
                                 <option disabled>Выберите уровень</option>
                                 <option selected></option>
-                                <option>Высшее</option>
-                                <option>Бакалавр</option>
-                                <option>Магистр</option>
-                                <option>Специалист</option>
-                                <option>Кандидат наук</option>
-                                <option>Доктор наук</option>
-                                <option>Неполное высшее</option>
+                                <option value ="6">Высшее</option>
+                                <option value ="7">Бакалавр</option>
+                                                <option value ="8">Магистр</option>
+                                                <option value ="9">Специалист</option>
+                                                <option value ="10">Кандидат наук</option>
+                                                <option value ="11">Доктор наук</option>
+                                                <option value ="12">Неполное высшее</option>
                             </select>
                         </div>
                     </div>
@@ -142,7 +142,7 @@ class ShowEducation extends React.Component {
     else {
         return (            
             <div>
-                <details id="langDetails" open>
+                <details id="educationDatailsClear" open>
                 <summary>Mесто учебы</summary>
                     <div className="row">
                         <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -155,13 +155,13 @@ class ShowEducation extends React.Component {
                             <select className="form-control" id="id_levelEducation"  name="id_levelEducation"defaultValue ="" ref={this.input}>
                                 <option disabled>Выберите уровень</option>
                                 <option selected></option>
-                                <option>Высшее</option>
-                                <option>Бакалавр</option>
-                                <option>Магистр</option>
-                                <option>Специалист</option>
-                                <option>Кандидат наук</option>
-                                <option>Доктор наук</option>
-                                <option>Неполное высшее</option>
+                                                <option value ="6">Высшее</option>
+                                                <option value ="7">Бакалавр</option>
+                                                <option value ="8">Магистр</option>
+                                                <option value ="9">Специалист</option>
+                                                <option value ="10">Кандидат наук</option>
+                                                <option value ="11">Доктор наук</option>
+                                                <option value ="12">Неполное высшее</option>
                             </select>
                         </div>
                     </div>

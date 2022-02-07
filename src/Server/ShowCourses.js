@@ -102,7 +102,7 @@ class ShowCourses extends React.Component {
         else {
             return (            
                 <div>
-                    <details id="courseDetails" open>
+                    <details id="courseDetailsClear" open>
                         <summary>Курс</summary>
                 <div className="row">
                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">

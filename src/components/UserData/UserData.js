@@ -109,12 +109,14 @@ class UserData extends React.Component {
 
         this.setState(Object.assign(this.state.users, { image: array, loaded: 0 }));
 
+<<<<<<< HEAD
         // // console.log(arr);
         // console.log(selectedFile);
 
+=======
+        console.log(selectedFile);
+>>>>>>> 5dd2165c73327dd1ddef403b1d0bba54ac5e04b3
     }
-
-
 
     componentDidMount() {
         //Встроенный метод для GET (и только) запросов
@@ -131,7 +133,11 @@ class UserData extends React.Component {
     render() {
         if (this.state.users == null) {
             return (
-                <div className="spinner-border text-muted">Loading...</div>
+                <div className="d-flex justify-content-center spin">
+                    <div className="spinner-border  text-primary" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>                    
+                </div>
             );
         }
         else {
@@ -142,7 +148,7 @@ class UserData extends React.Component {
                         {/* <!-- First container --> */}
                         <div className="divData ">
                             <div>
-                                <form action="http://localhost:55555/userdata" method="POST">
+                                <form action="http://localhost:55555/userdata" method="POST" encType="multipart/form-data">
 
                                     {/* <!-- -------ОСНОВНАЯ ИНФО----------- --> */}
                                     <fieldset className="form-group p-3">
@@ -169,9 +175,8 @@ class UserData extends React.Component {
                                                         <img className="avatar" id="myimage"  alt="Нажмите для выбора файла" src={UploadPhoto}/>
                                                         <input                                                        
                                                          accept="image/*"
-                                                         type="file"
-                                                         id="id_imgUpl"                                                      
-                                                         name="fupload"   hidden    
+                                                         type="file"                                                                                                               
+                                                         name="fupload"     
                                                          onChange = {this.onFileSelected}
                                                           />
                                                     </label>
@@ -517,14 +522,7 @@ class UserData extends React.Component {
                                                     <input type="text" className="form-control" id="id_company" name="id_company"
                                                         placeholder="Компания, должность" />
                                                 </div>
-                                            </div>
-                                            <div className="row">
-                                                <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                    <label for="id_emailCompany">Электронная почта:</label>
-                                                    <input type="email" className="form-control" id="id_emailCompany" name="id_emailCompany"
-                                                        placeholder="address@site.com" />
-                                                </div>
-                                            </div>
+                                            </div>                                           
                                             <div className="row">
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <label for="id_emailCompany">Электронная почта:</label>

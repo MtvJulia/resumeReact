@@ -1,0 +1,24 @@
+#left-container-t5 {
+    background-color: #E2D8CE;    
+    min-width: min-content;
+    -webkit-print-color-adjust: exact;
+}
+
+.box-t5 {
+    display: inline-block;
+    width: 100%;
+    background-color: #363740;   
+    color: white; 
+    border-color: #e9ecef !important;
+    -webkit-print-color-adjust: exact;
+    /* margin: 15px 0; */
+}
+
+.mark-t5{
+    background-color: #c9dcbb;
+    -webkit-print-color-adjust: exact;
+}
+
+.ttt{
+    background-color: #6E5160;
+}

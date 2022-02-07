@@ -1,240 +1,273 @@
-const getFkValue = (newUserData) =>{
+const { response } = require("express");
+var userDataFromPromis = {
+connection:null,
+filestream:null,
+userdata:{},
+result:null};
 
-    let fkValue={};
-
-    if(newUserData.id_employment!="")
-    {
-        switch(newUserData.id_employment)
-        {
-          case "Полная занятость":{
-            fkValue.id_employment = 1;
-              break;
-          }
-          case "Частичная занятость":{
-            fkValue.id_employment = 2;
-              break;
-          }
-          case "Проектная работа":{
-            fkValue.id_employment = 3;
-              break;
-          }
-          case "Волонтерство":{
-            fkValue.id_employment = 4;
-              break;
-          }
-          case "Стажировка":{
-            fkValue.id_employment = 5;
-              break;
-          }
-        } 
-    }
-    
-    if(newUserData.id_schedule!="")
-    {
-        switch(newUserData.id_schedule)
-        {
-          case "Полный день":{
-            fkValue.id_schedule = 1;
-              break;
-          }
-          case "Сменный график":{
-            fkValue.id_schedule = 2;
-              break;
-          }
-          case "Гибкий график":{
-            fkValue.id_schedule = 3;
-              break;
-          }
-          case "Удаленная работа":{
-            fkValue.id_schedule = 4;
-              break;
-          }
-          case "Вахтовый метод":{
-            fkValue.id_schedule = 5;
-              break;
-          }
-        } 
-    }
-    if(newUserData.id_maritalStatus!="")
-    {
-        switch(newUserData.id_maritalStatus)
-        {
-          case "Замужем":{
-            fkValue.id_maritalStatus = 1;
-              break;
-          }
-          case "Не замужем":{
-            fkValue.id_maritalStatus = 2;
-              break;
-          }
-          case "Женат":{
-            fkValue.id_maritalStatus = 3;
-              break;
-          }
-          case "Не женат":{
-            fkValue.id_maritalStatus = 4;
-              break;
-          }          
-        } 
-    }
-    if(newUserData.id_education!="")
-    {
-        switch(newUserData.id_education)
-        {
-          case "Общее среднее образование":{
-            fkValue.id_education = 1;
-              break;
-          }
-          case "Профессионально-техническое образование":{
-            fkValue.id_education = 2;
-              break;
-          }
-          case "Высшее образования":{
-            fkValue.id_education = 3;
-              break;
-          }
-          case "Аспирантура":{
-            fkValue.id_education= 4;
-              break;
-          }
-          case "Докторантура":{
-            fkValue.id_education = 5;
-              break;
-          }
-        } 
-    }
-    if(newUserData.id_currency!="")
-    {
-        switch(newUserData.id_currency)
-        {
-          case "₴ - гривна":{
-            fkValue.id_currency = 1;
-              break;
-          } 
-          case "$ - доллар":{
-            fkValue.id_currency = 2;
-              break;
-          }
-          case "€ - евро":{
-            fkValue.id_currency = 3;
-              break;
-          }
-          case "₽ - рубль":{
-            fkValue.id_currency = 4;
-              break;
-          }
-          case "£ - фунты":{
-            fkValue.id_currency= 5;
-              break;
-          }
-          case "¥ - юань":{
-            fkValue.id_currency = 6;
-              break;
-          }
-          case "другая валюта":{
-            fkValue.id_currency = 7;
-              break;
-          }
-        } 
-    }   
-return fkValue;
-
-}
-
-const getEndData = (newUserData) => {
-
-    let endWork = '';
-    
-     if(newUserData.id_endWork == ''&& newUserData.id_stillWorking == 'on'){
-
-        endWork = null;
-        return endWork;
-    }
-    else if(newUserData.id_endWork == ''&& newUserData.id_stillWorking == '')
-    {
-        endWork = new Date().toISOString().substr(0, 10).toString()+"~";
-    }
-    else if(newUserData.id_endWork.length > 1 && (newUserData.id_endWork[0].length > 1||newUserData.id_endWork[1].length > 1))////////////////////////////////////////!!!!!!!!!!!!!!
-    {
-        for(let i=0;i<newUserData.id_endWork.length;i++)
-        {
-            if(newUserData.id_endWork[i]!="")
-            {
-                endWork += newUserData.id_endWork[i]+"~"; 
-            }
-            else{
-                endWork += "NULL~";  
-            }
-        }
-    }
-
-    return endWork;
-}
-
-const userDataChecking=(userData)=>{
+function getDriverLicenseDataFromDB(userDataFromPromis){
   
-  userData = userData[0];
-  console.log("************************");
-  console.log(userData);
+  return new Promise(function(resolve,reject){
+  
+  let queryCourses = `SELECT * FROM v_user_data_driver_license WHERE userID = ${userDataFromPromis.userdata.userID} `;
 
- 
-  userData.positionWork = changingMultiValuesToArray(userData.positionWork);
-  userData.startWork =  changingMultiValuesToArray(userData.startWork);
-  userData.endWork = changingMultiValuesToArray(userData.endWork);
-  userData.companyName = changingMultiValuesToArray(userData.companyName);
-  userData.jobDuties = changingMultiValuesToArray(userData.jobDuties);
-  userData.driverLicense = changingMultiValuesToArray(userData.driverLicense);
-  userData.courseName = changingMultiValuesToArray(userData.courseName);
-  userData.organization = changingMultiValuesToArray(userData.organization);
-  userData.endingCourse = changingMultiValuesToArray(userData.endingCourse);
-  userData.institutName = changingMultiValuesToArray(userData.institutName);
-  userData.levelEducation = changingMultiValuesToArray(userData.levelEducation);
-  userData.faculty = changingMultiValuesToArray(userData.faculty);
-  userData.specialty = changingMultiValuesToArray(userData.specialty);
-  userData.ending =  changingMultiValuesToArray(userData.ending);
-  userData.langName = changingMultiValuesToArray(userData.langName);
-  userData.level = changingMultiValuesToArray(userData.level);
-  userData.personRecommending = changingMultiValuesToArray(userData.personRecommending);
-  userData.company = changingMultiValuesToArray(userData.company);
-  userData.emailCompany = changingMultiValuesToArray(userData.emailCompany);
-  userData.phoneCompany = changingMultiValuesToArray(userData.phoneCompany);
+  userDataFromPromis.connection.query(queryCourses, (err, result) => {
+    if (err) reject(console.log(err.message));
+    if (result) {
+      if (Array.isArray(result)) {
+        result.forEach(item => {
+        
+          switch (item.driverLicenseName) {
+            case 'A1':
+              {
+                userDataFromPromis.userdata.drivLicense.driverLicenseA1 =1;
+                break;
+              }
+            case 'A':
+              {
+                userDataFromPromis.userdata.drivLicense.driverLicenseA =1;
+                break;
+              }
+            case 'B1':
+              {
+                userDataFromPromis.userdata.drivLicense.driverLicenseB1 =1;
+                break;
+              }
+            case 'B':
+              {
+                userDataFromPromis.userdata.drivLicense.driverLicenseB =1;
+                break;
+              }
+            case 'C1':
+              {
+                userDataFromPromis.userdata.drivLicense.driverLicenseC1 =1;
+                break;
+              }
+            case 'C':
+              {
+                userDataFromPromis.userdata.drivLicense.driverLicenseC =1;
+                break;
+              }
+            case 'D1':
+              {
+                userDataFromPromis.userdata.drivLicense.driverLicenseD1 =1;
+                break;
+              }
+            case 'D':
+              {
+                userDataFromPromis.userdata.drivLicense.driverLicenseD =1;
+                break;
+              }
+            case 'T':
+              {
+                userDataFromPromis.userdata.drivLicense.driverLicenseT =1;
+                break;
+              }
+            default:
+              {
+                break;
+              }
+          }
 
-
-console.log("------------NEW-------------");
-console.log(userData);
-    
-}
-
-function changingMultiValuesToArray(userDataValue){
-  if(userDataValue!=null){
-    userDataValue = userDataValue.split("~");
-    if(userDataValue.length > 1){
-      userDataValue.pop();
+        });
+      }    
+      resolve(userDataFromPromis);
     }
-  }
-  return userDataValue;
+  });
+})}
+const getExpirienceDataFromDB = (userDataFromPromis) => {
+  return new Promise(function(resolve,reject){
+  let queryCourses = `SELECT * FROM v_user_data_expirience WHERE userID = ${userDataFromPromis.userdata.userID} `;
+  userDataFromPromis.connection.query(queryCourses, (err, result) => {
+    if (err)reject(console.log(err.message));
+    if (result) {
+     // console.log(result);
+      if (Array.isArray(result)) {
+        result.forEach(item => {
+          userDataFromPromis.userdata.companyName.push(item.companyName);
+          userDataFromPromis.userdata.positionWork.push(item.positionWork);
+          userDataFromPromis.userdata.jobDuties.push(item.jobDuties);
+          userDataFromPromis.userdata.startWork.push(item.startWork);
+          userDataFromPromis.userdata.endWork.push(item.endWork);
+          userDataFromPromis.userdata.stillWorking.push(item.stillWorking);
+        });
+      }
+      resolve(userDataFromPromis);
+    }
+  });
+})
+}
+const getEducationDataFromDB = (userDataFromPromis) => {
+  return new Promise(function(resolve,reject){
+  let queryCourses = `SELECT * FROM user_education WHERE userID = ${userDataFromPromis.userdata.userID} `;
+  userDataFromPromis.connection.query(queryCourses, (err, result) => {
+    if (err)reject(console.log(err.message));
+    if (result) {     
+      if (Array.isArray(result)) {
+        result.forEach(item => {
+          userDataFromPromis.userdata.institutName.push(item.institutName);
+          userDataFromPromis.userdata.faculty.push(item.faculty);
+          userDataFromPromis.userdata.specialty.push(item.specialty);
+          userDataFromPromis.userdata.ending.push(item.ending);
+          userDataFromPromis.userdata.levelEducation.push(item.fk_levelEducation);
+        });
+      }
+      resolve(userDataFromPromis);
+    }
+  });
+})
 }
 
-function  getUserData(res,userData ,dbConnection,foundUserID, callback = (res,userData)=>{ 
-    console.log("I'm here!!!");     
-    res.json(userData);
-    res.end();     
+const getRecomendingDataFromDB = (userDataFromPromis) => {
+  return new Promise(function(resolve,reject){
+  let queryCourses = `SELECT * FROM v_user_data_recomending WHERE userID = ${userDataFromPromis.userdata.userID} `;
+  userDataFromPromis.connection.query(queryCourses, (err, result) => {
+    if (err)reject(console.log(err.message));
+    if (result) {    
+      if (Array.isArray(result)) {
+        result.forEach(item => {
+          userDataFromPromis.userdata.company.push(item.company);
+          userDataFromPromis.userdata.personRecommending.push(item.personRecommending);
+          if(item.emailCompany!=null)userDataFromPromis.userdata.emailCompany.push(item.emailCompany);
+          else{userDataFromPromis.userdata.emailCompany.push("");}
+          userDataFromPromis.userdata.phoneCompany.push(item.phoneCompany);
+        });
+      }
+      resolve(userDataFromPromis);
+    }
+  });
 })
-    {
-    let queryToView = `SELECT * FROM v_getUserData WHERE userID = ${foundUserID} `; 
+}
 
-    dbConnection.query(queryToView, (err, result) => {
-        if (err) console.log(err.message);  
-        if(result) 
-        {
-            userData = result;
-            userDataChecking(userData);
-        }                      
+  
+const getCourseDataFromDB = (userDataFromPromis) => {
+  return new Promise(function(resolve,reject){
+  let queryCourses = `SELECT * FROM v_user_data_course WHERE userID = ${userDataFromPromis.userdata.userID} `;
+  userDataFromPromis.connection.query(queryCourses, (err, result) => {
+    if (err)reject(console.log(err.message));
+    if (result) {
+      console.log(result);
+      if (Array.isArray(result)) {
+        result.forEach(item => {
+          userDataFromPromis.userdata.courseName.push(item.courseName);
+          userDataFromPromis.userdata.organization.push(item.organization);
+          userDataFromPromis.userdata.endingCourse.push(item.endingCourse);
+        });
+      }
+      resolve(userDataFromPromis);
+    }
+  });
+})
+}
 
-        callback(res,userData);
-    });
-    };  
+const getLanguageDataFromDB = (userDataFromPromis) => {
+  return new Promise(function(resolve,reject){
+  let queryCourses = `SELECT * FROM user_language WHERE userID = ${userDataFromPromis.userdata.userID} `;
+  userDataFromPromis.connection.query(queryCourses, (err, result) => {
+    if (err) reject(console.log(err.message));
+    if (result) {     
+      if (Array.isArray(result)) {
+        result.forEach(item => {
+          userDataFromPromis.userdata.langName.push(item.fk_langName);
+          userDataFromPromis.userdata.level.push(item.fk_languag_proficiency_levelID);
+        });
+      }
+      resolve(userDataFromPromis);
+    }
+  });
+})
+}
 
-module.exports.getFkValue = getFkValue;
-module.exports.getEndData = getEndData;
+
+const sendData = (userDataFromPromis,callback=(userDataFromPromis)=>{
+  
+  var userData = userDataFromPromis.userdata; 
+  userDataFromPromis.result.json(userData);
+  userDataFromPromis.result.end();
+ 
+}) => {
+  if (userDataFromPromis.userdata.image != null) {
+    var imageData = userDataFromPromis.userdata.image.toString();
+
+userDataFromPromis.filestream.readFile('uploads/' + imageData, function (error, data) {
+      if (error) {
+        response.statusCode = 404;
+        response.end("Resourse not found!");
+      }
+      else {
+        userDataFromPromis.userdata.file = data;
+        userDataFromPromis.userdata.file.originalname = imageData;        
+        callback(userDataFromPromis);          
+      }
+    });    
+  } 
+};
+
+function getMainUserDataFromDB(dbConnection,userData,foundUserID,fs,res){
+  return new Promise(function(resolve,reject){
+
+    userDataFromPromis.connection = dbConnection;
+    userDataFromPromis.filestream=fs;
+    userDataFromPromis.userdata=userData;
+    userDataFromPromis.result=res;   
+
+let queryToView = `SELECT * FROM users_info WHERE userID = ${foundUserID} `;
+
+userDataFromPromis.connection.query(queryToView, (err, result) => {
+      if (err) reject(console.log(err.message));
+      if (result) {
+        result = result[0];
+        userDataFromPromis.userdata.userID = result.userID;
+        userDataFromPromis.userdata.userLogin = result.userLogin;
+        userDataFromPromis.userdata.firstName = result.firstName;
+        userDataFromPromis.userdata.lastName = result.lastName;
+        userDataFromPromis.userdata.middleName = result.middleName;
+        userDataFromPromis.userdata.birthOfDate = result.birthOfDate;
+        userDataFromPromis.userdata.phone = result.phone;
+        userDataFromPromis.userdata.email = result.email;       
+        userDataFromPromis.userdata.сityOfResidence = result.сityOfResidence;
+        userDataFromPromis.userdata.nationality = result.nationality;
+        userDataFromPromis.userdata.position = result.position;
+        userDataFromPromis.userdata.privateСar = result.privateСar;
+        userDataFromPromis.userdata.army = result.army;
+        userDataFromPromis.userdata.hobby = result.hobby;
+        userDataFromPromis.userdata.personalQualities = result.personalQualities;
+        userDataFromPromis.userdata.professionalSkills = result.professionalSkills;
+        userDataFromPromis.userdata.relocate = result.relocate;
+        userDataFromPromis.userdata.desiredSalary = result.desiredSalary;
+        userDataFromPromis.userdata.children = result.children;
+        userDataFromPromis.userdata.businessTrip = result.businessTrip;
+        userDataFromPromis.userdata.image = result.image;
+        userDataFromPromis.userdata.employment = result.fk_employmentID;
+        userDataFromPromis.userdata.schedule = result.fk_scheduleID;
+        userDataFromPromis.userdata.maritalStatus = result.fk_marital_statusID;
+        userDataFromPromis.userdata.education = result.fk_level_of_educationID;
+        userDataFromPromis.userdata.currency = result.fk_currencyID;               
+  }  
+  resolve(userDataFromPromis);
+});
+  })
+ 
+}
+
+function getUserData(res, userData, dbConnection, foundUserID, fs)    {
+ 
+  if (foundUserID > 0) {    
+    
+    getMainUserDataFromDB(dbConnection,userData,foundUserID,fs,res)    
+       .then(getDriverLicenseDataFromDB)
+       .then(getExpirienceDataFromDB)
+       .then(getEducationDataFromDB)
+       .then(getRecomendingDataFromDB)
+       .then(getCourseDataFromDB)
+       .then(getLanguageDataFromDB)
+       .then(sendData)
+       .catch(err=>console.log(err))
+
+       console.log(userData);
+    return true;
+  }
+  return false;
+}
+
 module.exports.getUserData = getUserData;

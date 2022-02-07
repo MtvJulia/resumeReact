@@ -1,0 +1,30 @@
+
+
+#left-container-t2 {
+    background-color: #060635;    
+    min-width: min-content;
+    -webkit-print-color-adjust: exact;
+}
+
+.txt-white{
+    color: white;
+}
+
+.icon-item-t2 {
+    width: 15px;
+    height: 15px;
+    margin: 0px 5px 3px 5px;
+    filter: invert(1);
+}
+
+.invert{
+    filter: invert(1);
+}
+
+.box-t2 {
+    display: inline-block;
+    width: 100%;
+    background-color: #F0F8FF;    
+    border-color: #e9ecef !important;
+    -webkit-print-color-adjust: exact;
+}
