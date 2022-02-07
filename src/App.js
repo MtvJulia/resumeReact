@@ -6,7 +6,7 @@ import Services from './components/Services/Services';
 import About from './components/About/About';
 import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
-import ExistingUserData from './components/ExistingUserData/ExistingUserData';
+import UserData from './components/UserData/UserData';
 
 import Templates from './components/Templates/Templates';
 import Template1 from './components/Templates/Template1';
@@ -45,8 +45,7 @@ class App extends React.Component {
                   <li className="nav-item"><a className="nav-link" href="/home">Главная</a></li>
                   <li className="nav-item"><a className="nav-link" href="/services">Как составить резюме</a></li>
                   <li className="nav-item"><a className="nav-link" href="/about">О нас</a></li>
-                  <li className="nav-item"><a className="nav-link" href="http://localhost:3000/existinguserdata">News</a></li>
-                  <li className="nav-item"><a className="nav-link" href="http://localhost:3000/userdata">News</a></li>
+                  <li className="nav-item"><a className="nav-link" href="http://localhost:3000/userdata">News</a></li>                
                 </ul>
 
                 <ul className="nav " >
@@ -70,7 +69,7 @@ class App extends React.Component {
             <Route path="/about" component={About} />
             <Route path="/login" component={Login} />
             <Route path="/registration" component={Registration} />            
-            <Route path="/existinguserdata" component={ExistingUserData} />
+            <Route path="/userdata" component={UserData} />
             <Route path="/tmps" component={Templates} />
             <Route path="/tmp1" component={Template1} />
             <Route path="/tmp2" component={Template2} />
