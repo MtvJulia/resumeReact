@@ -254,6 +254,7 @@ server.post("/login", function (request, response) {
     
     // query database for user's password
     dbConnection.query(query, (err, result) => {
+        
         if (err) throw err;
         if (result) {
             let hash = result[0];         
