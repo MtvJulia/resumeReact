@@ -9,8 +9,8 @@ const { Blob, Buffer } = require('buffer');
 const { Switch } = require('react-router');
 const { connString } = require("./ConnectionModule");
 const { CheckedToNull, getCheckedInfo } = require("./CheckedModule");
-const { fillDriverLicense, addDriverLicenseToDB, addLanguageToDB, addCoursesToDB, addRecomendingToDB, addEducationToDB, addExpirienceToDB } = require("./AddDataToDBModule");
-const { getUserData } = require("./GetToPostModule");
+const {fillDriverLicense,addDriverLicenseToDB,addLanguageToDB,addCoursesToDB,addRecomendingToDB, addEducationToDB,addExpirienceToDB} = require("./AddDataToDBModule");
+const {  getUserData, getFileValue } = require("./GetToPostModule");
 const multer = require('multer');
 const bcrypt = require('bcrypt'); // import the Library. 
 
@@ -93,13 +93,8 @@ var userData = {
 
 
 server.use(express.static(__dirname + '/public'));
-// server.use(bodyParser.json()); 
-
-server.use(bodyParser.json({ limit: '50mb' }));
-server.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
-
-
-//server.use(bodyParser.urlencoded({ extended: false }));
+server.use(bodyParser.json({limit: '50mb'}));
+server.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 server.use(cors());
 server.engine('html', require('ejs').renderFile);
 server.set('view engine', 'html');
@@ -118,27 +113,6 @@ dbConnection.connect((err) => {
     else console.log("Connected to MySQL");
 });
 
-function strToObj(str) {
-    var obj = {};
-    if (str && typeof str === 'string') {
-        var objStr = str.match(/\{(.)+\}/g);
-        eval("obj =" + objStr);
-    }
-    return obj
-}
-
-server.post('/create-pdf', (req, res) => {
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    console.log("111111111111111111111111111111111");
-    console.log(JSON.stringify(req.body));
-    pdf.create(pdfTemplate1(req.body), {}).toFile('result.pdf', (err) => {
-        if (err) {
-            res.send(Promise.reject());
-        }
-
-        res.send(Promise.resolve());
-    });
-});
 
 server.get('/fetch-pdf', (req, res) => {
     res.sendFile(`${__dirname}/result.pdf`)
@@ -203,14 +177,7 @@ server.get("/userdata", function (request, res) {
 });
 
 server.get("/existinguserdata", (req, res) => {
-    userData = {
-        userID: 0, userLogin: "", firstName: "", lastName: "", middleName: "", birthOfDate: "", phone: "", email: "", сityOfResidence: "", nationality: "", position: "",
-        privateСar: 0, army: 0, hobby: "", personalQualities: "", professionalSkills: "", relocate: 0, desiredSalary: 0, children: 0, businessTrip: 0, image: [], employment: "", schedule: "",
-        maritalStatus: "", education: "",
-        currency: "", drivLicense: { driverLicenseA1: 0, driverLicenseA: 0, driverLicenseB1: 0, driverLicenseB: 0, driverLicenseC1: 0, driverLicenseC: 0, driverLicenseD1: 0, driverLicenseD: 0, driverLicenseT: 0 },
-        courseName: [], organization: [], endingCourse: [], company: [], personRecommending: [], emailCompany: [], phoneCompany: [], langName: [], level: [], institutName: [], levelEducation: [],
-        faculty: [], specialty: [], ending: [], companyName: [], positionWork: [], jobDuties: [], startWork: [], endWork: [], stillWorking: []
-    };
+    let getUsData = JSON.parse( JSON.stringify( userDataEmptyObject )) ;     
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     let result = getUserData(res, userData, dbConnection, foundUserID, fs);
     if (result == false) {
@@ -219,108 +186,54 @@ server.get("/existinguserdata", (req, res) => {
     }
 });
 server.get("/tmp1", (req, res) => {
-    userData = {
-        userID: 0, userLogin: "", firstName: "", lastName: "", middleName: "", birthOfDate: "", phone: "", email: "", сityOfResidence: "", nationality: "", position: "",
-        privateСar: 0, army: 0, hobby: "", personalQualities: "", professionalSkills: "", relocate: 0, desiredSalary: 0, children: 0, businessTrip: 0, image: [], employment: "", schedule: "",
-        maritalStatus: "", education: "",
-        currency: "", drivLicense: { driverLicenseA1: 0, driverLicenseA: 0, driverLicenseB1: 0, driverLicenseB: 0, driverLicenseC1: 0, driverLicenseC: 0, driverLicenseD1: 0, driverLicenseD: 0, driverLicenseT: 0 },
-        courseName: [], organization: [], endingCourse: [], company: [], personRecommending: [], emailCompany: [], phoneCompany: [], langName: [], level: [], institutName: [], levelEducation: [],
-        faculty: [], specialty: [], ending: [], companyName: [], positionWork: [], jobDuties: [], startWork: [], endWork: [], stillWorking: []
-    };
-
+    let userDataTMP1 = JSON.parse( JSON.stringify( userDataEmptyObject )) ;    
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    let result = getUserData(res, userData, dbConnection, foundUserID, fs);
-
+    let result = getUserData(res, userDataTMP1, dbConnection, foundUser.userID, fs,checkedUserFlag);   
     if (result == false) {
         res.json(userData);
         res.end();
     }
 });
 server.get("/tmp2", (req, res) => {
-    userData = {
-        userID: 0, userLogin: "", firstName: "", lastName: "", middleName: "", birthOfDate: "", phone: "", email: "", сityOfResidence: "", nationality: "", position: "",
-        privateСar: 0, army: 0, hobby: "", personalQualities: "", professionalSkills: "", relocate: 0, desiredSalary: 0, children: 0, businessTrip: 0, image: [], employment: "", schedule: "",
-        maritalStatus: "", education: "",
-        currency: "", drivLicense: { driverLicenseA1: 0, driverLicenseA: 0, driverLicenseB1: 0, driverLicenseB: 0, driverLicenseC1: 0, driverLicenseC: 0, driverLicenseD1: 0, driverLicenseD: 0, driverLicenseT: 0 },
-        courseName: [], organization: [], endingCourse: [], company: [], personRecommending: [], emailCompany: [], phoneCompany: [], langName: [], level: [], institutName: [], levelEducation: [],
-        faculty: [], specialty: [], ending: [], companyName: [], positionWork: [], jobDuties: [], startWork: [], endWork: [], stillWorking: []
-    };
-
+    let userDataTMP2 =JSON.parse( JSON.stringify( userDataEmptyObject )) ;
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    let result = getUserData(res, userData, dbConnection, foundUserID, fs);
-
+    let result = getUserData(res, userDataTMP2, dbConnection, foundUser.userID, fs,checkedUserFlag);   
     if (result == false) {
         res.json(userData);
         res.end();
     }
 });
 server.get("/tmp3", (req, res) => {
-    userData = {
-        userID: 0, userLogin: "", firstName: "", lastName: "", middleName: "", birthOfDate: "", phone: "", email: "", сityOfResidence: "", nationality: "", position: "",
-        privateСar: 0, army: 0, hobby: "", personalQualities: "", professionalSkills: "", relocate: 0, desiredSalary: 0, children: 0, businessTrip: 0, image: [], employment: "", schedule: "",
-        maritalStatus: "", education: "",
-        currency: "", drivLicense: { driverLicenseA1: 0, driverLicenseA: 0, driverLicenseB1: 0, driverLicenseB: 0, driverLicenseC1: 0, driverLicenseC: 0, driverLicenseD1: 0, driverLicenseD: 0, driverLicenseT: 0 },
-        courseName: [], organization: [], endingCourse: [], company: [], personRecommending: [], emailCompany: [], phoneCompany: [], langName: [], level: [], institutName: [], levelEducation: [],
-        faculty: [], specialty: [], ending: [], companyName: [], positionWork: [], jobDuties: [], startWork: [], endWork: [], stillWorking: []
-    };
-
+    let userDataTMP3 = JSON.parse( JSON.stringify( userDataEmptyObject )) ;    
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    let result = getUserData(res, userData, dbConnection, foundUserID, fs);
-
+    let result = getUserData(res, userDataTMP3, dbConnection, foundUser.userID, fs,checkedUserFlag);   
     if (result == false) {
         res.json(userData);
         res.end();
     }
 });
 server.get("/tmp4", (req, res) => {
-    userData = {
-        userID: 0, userLogin: "", firstName: "", lastName: "", middleName: "", birthOfDate: "", phone: "", email: "", сityOfResidence: "", nationality: "", position: "",
-        privateСar: 0, army: 0, hobby: "", personalQualities: "", professionalSkills: "", relocate: 0, desiredSalary: 0, children: 0, businessTrip: 0, image: [], employment: "", schedule: "",
-        maritalStatus: "", education: "",
-        currency: "", drivLicense: { driverLicenseA1: 0, driverLicenseA: 0, driverLicenseB1: 0, driverLicenseB: 0, driverLicenseC1: 0, driverLicenseC: 0, driverLicenseD1: 0, driverLicenseD: 0, driverLicenseT: 0 },
-        courseName: [], organization: [], endingCourse: [], company: [], personRecommending: [], emailCompany: [], phoneCompany: [], langName: [], level: [], institutName: [], levelEducation: [],
-        faculty: [], specialty: [], ending: [], companyName: [], positionWork: [], jobDuties: [], startWork: [], endWork: [], stillWorking: []
-    };
-
+    let userDataTMP4 = JSON.parse( JSON.stringify( userDataEmptyObject )) ;   
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    let result = getUserData(res, userData, dbConnection, foundUserID, fs);
-
+    let result = getUserData(res, userDataTMP4, dbConnection,foundUser.userID, fs,checkedUserFlag);   
     if (result == false) {
         res.json(userData);
         res.end();
     }
 });
 server.get("/tmp5", (req, res) => {
-    userData = {
-        userID: 0, userLogin: "", firstName: "", lastName: "", middleName: "", birthOfDate: "", phone: "", email: "", сityOfResidence: "", nationality: "", position: "",
-        privateСar: 0, army: 0, hobby: "", personalQualities: "", professionalSkills: "", relocate: 0, desiredSalary: 0, children: 0, businessTrip: 0, image: [], employment: "", schedule: "",
-        maritalStatus: "", education: "",
-        currency: "", drivLicense: { driverLicenseA1: 0, driverLicenseA: 0, driverLicenseB1: 0, driverLicenseB: 0, driverLicenseC1: 0, driverLicenseC: 0, driverLicenseD1: 0, driverLicenseD: 0, driverLicenseT: 0 },
-        courseName: [], organization: [], endingCourse: [], company: [], personRecommending: [], emailCompany: [], phoneCompany: [], langName: [], level: [], institutName: [], levelEducation: [],
-        faculty: [], specialty: [], ending: [], companyName: [], positionWork: [], jobDuties: [], startWork: [], endWork: [], stillWorking: []
-    };
-
+    let userDataTMP5 = JSON.parse( JSON.stringify( userDataEmptyObject )) ;     
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    let result = getUserData(res, userData, dbConnection, foundUserID, fs);
-
+    let result = getUserData(res, userDataTMP5, dbConnection, foundUser.userID, fs,checkedUserFlag);   
     if (result == false) {
         res.json(userData);
         res.end();
     }
 });
 server.get("/tmp6", (req, res) => {
-    userData = {
-        userID: 0, userLogin: "", firstName: "", lastName: "", middleName: "", birthOfDate: "", phone: "", email: "", сityOfResidence: "", nationality: "", position: "",
-        privateСar: 0, army: 0, hobby: "", personalQualities: "", professionalSkills: "", relocate: 0, desiredSalary: 0, children: 0, businessTrip: 0, image: [], employment: "", schedule: "",
-        maritalStatus: "", education: "",
-        currency: "", drivLicense: { driverLicenseA1: 0, driverLicenseA: 0, driverLicenseB1: 0, driverLicenseB: 0, driverLicenseC1: 0, driverLicenseC: 0, driverLicenseD1: 0, driverLicenseD: 0, driverLicenseT: 0 },
-        courseName: [], organization: [], endingCourse: [], company: [], personRecommending: [], emailCompany: [], phoneCompany: [], langName: [], level: [], institutName: [], levelEducation: [],
-        faculty: [], specialty: [], ending: [], companyName: [], positionWork: [], jobDuties: [], startWork: [], endWork: [], stillWorking: []
-    };
-
+    let userDataTMP6 = JSON.parse( JSON.stringify( userDataEmptyObject )) ;   
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    let result = getUserData(res, userData, dbConnection, foundUserID, fs);
-
+    let result = getUserData(res, userDataTMP6, dbConnection, foundUser.userID, fs,checkedUserFlag);   
     if (result == false) {
         res.json(userData);
         res.end();
@@ -341,6 +254,7 @@ server.post("/login", function (request, response) {
     console.log("QUERY : " + query);
     // query database for user's password
     dbConnection.query(query, (err, result) => {
+        
         if (err) throw err;
         if (result) {
             var hash = result[0];
@@ -348,18 +262,22 @@ server.post("/login", function (request, response) {
 
             // compare hash and password
             bcrypt.compare(userPass, hash.userPassword, function (err, result) {
-                if (err) console.log(err.message);
-                console.log("LOGIN RESULT ::: " + result);
-                console.log("USER HASH + USER LOGIN ::: " + hash.userPassword, userLog);
-                if (result) {
-                    console.log(`User login : ${hash.userLogin} password : ${hash.userPassword} have ID :${hash.userID}`);
-                    foundFlag = true;
-                    foundUserID = hash.userID;
-                    foundUser.UserID = hash.userID;
-                    foundUser.UserLogin = hash.userLogin;
-                    foundUser.UserPassword = hash.userPassword;
-                    console.log("FOUND USER ::: " + foundUser);
-
+                if (err) console.log(err.message);                
+                if (result) {                  
+                    foundFlag = true;                    
+                    foundUser.userID = hash.userID;
+                    foundUser.userLogin = hash.userLogin;
+                    foundUser.userPassword = hash.userPassword;                  
+                    let queryCheckedUser = `SELECT * FROM resume_db.user_info WHERE userID = ${foundUser.userID}`;
+        
+                    // query database for user  login
+                    dbConnection.query(queryCheckedUser, (err, result) => {
+                        if (err) throw err;                       
+                        if(result[0])
+                        {
+                            checkedUserFlag = true;                            
+                        }   
+                    });
                     return response.redirect("http://localhost:3000/existinguserdata");
                 }
                 else {
@@ -396,8 +314,8 @@ server.post("/registration", function (request, response) {
         });
         //console.log("HASH PASSWORD ::: " + hashPassword);
 
-        let query = `SELECT * FROM resume_db.users_info WHERE userLogin = '${newUser.UserLogin}'`;
-
+        let query = `SELECT * FROM resume_db.user_registration_data WHERE userLogin = '${newUser.UserLogin}'`;
+        
         // query database for user  login
         dbConnection.query(query, (err, result) => {
             if (err) throw err;
@@ -467,56 +385,19 @@ server.post("/existinguserdata", upload.single('fupload'), function (req, res) {
     \'${newUserData.id_birthOfDate}\',\'${newUserData.id_phone}\', \'${newUserData.id_email}\', \'${newUserData.id_cityOfResidence}\', ${checkToNull.id_nationality},
     \'${newUserData.id_userPosition}\', ${userDataChecked.privateCar}, ${userDataChecked.army}, ${checkToNull.id_hobby}, ${checkToNull.id_personalQualities},${checkToNull.id_professionalSkills},
      ${userDataChecked.relocation}, ${checkToNull.id_desiredSalary},${userDataChecked.children},  ${userDataChecked.businessTrip},\'${newUserData.id_employment}\', 
-    \'${newUserData.id_schedule}\', \'${newUserData.id_maritalStatus}\',  \'${newUserData.id_education}\',\'${newUserData.id_currency}\',\'${fileToDB}\' )`;
+    \'${newUserData.id_schedule}\', \'${newUserData.id_maritalStatus}\',  \'${newUserData.id_education}\',\'${newUserData.id_currency}\',\'${fileToDB}\' )
 
-            requestToDbCUDUserData(query, dbConnection, res, newUserData);
-        }
-        return res.redirect("http://localhost:3000/tmps");
-        //  res.end();
-    }
-    ////------------------------------UPDATE USER AFTER LOGIN ----------------------------------
-    else {
-        let updateUserData = req.body;
-        console.log(updateUserData);
-        updateUserData.userID = foundUser.UserID;
-        if (updateUserData) {
-
-            let userDataChecked = getCheckedInfo(updateUserData);
-
-            let checkToNull = CheckedToNull(updateUserData);
-
-            if (req.file == undefined)//если загруженное фото уже есть
-            {
-                let query = `UPDATE users_info SET  firstName=\'${updateUserData.id_firstName}\',lastName=\'${updateUserData.id_lastName}\',middleName= ${checkToNull.id_middleName},
-   birthOfDate=\'${updateUserData.id_birthOfDate}\', phone=\'${updateUserData.id_phone}\',email=\'${updateUserData.id_email}\',сityOfResidence=\'${updateUserData.id_cityOfResidence}\',
-   nationality=${checkToNull.id_nationality},position=\'${updateUserData.id_userPosition}\',privateСar=${userDataChecked.privateCar},army= ${userDataChecked.army},
-   hobby= ${checkToNull.id_hobby},personalQualities=${checkToNull.id_personalQualities},professionalSkills=${checkToNull.id_professionalSkills}, relocate= ${userDataChecked.relocation},
-   desiredSalary= ${checkToNull.id_desiredSalary}, children=${userDataChecked.children},businessTrip=${userDataChecked.businessTrip},fk_employmentID=\'${updateUserData.id_employment}\',fk_scheduleID=\'${updateUserData.id_schedule}\',
-   fk_marital_statusID=\'${updateUserData.id_maritalStatus}\',fk_level_of_educationID=\'${updateUserData.id_education}\', fk_currencyID =\'${updateUserData.id_currency}\' WHERE UserID=\'${foundUser.UserID}\'`;
-
-                console.log("************************** " + updateUserData.userID);
-                requestToDbCUDUserData(query, dbConnection, updateUserData, res);
-            }
-            else {
-                let fileToDB = null;
-                if (newFileNameToDb) {
-                    fileToDB = newFileNameToDb;
-                }
-
-                let query = `UPDATE users_info SET  firstName=\'${updateUserData.id_firstName}\',lastName=\'${updateUserData.id_lastName}\',middleName= ${checkToNull.id_middleName},
-                birthOfDate=\'${updateUserData.id_birthOfDate}\', phone=\'${updateUserData.id_phone}\',email=\'${updateUserData.id_email}\',сityOfResidence=\'${updateUserData.id_cityOfResidence}\',
-                nationality=${checkToNull.id_nationality},position=\'${updateUserData.id_userPosition}\',privateСar=${userDataChecked.privateCar},army= ${userDataChecked.army},
-                hobby= ${checkToNull.id_hobby},personalQualities=${checkToNull.id_personalQualities},professionalSkills=${checkToNull.id_professionalSkills}, relocate= ${userDataChecked.relocation},
-                desiredSalary= ${checkToNull.id_desiredSalary}, children=${userDataChecked.children},businessTrip=${userDataChecked.businessTrip},fk_employmentID=\'${updateUserData.id_employment}\',fk_scheduleID=\'${updateUserData.id_schedule}\',
-                fk_marital_statusID=\'${updateUserData.id_maritalStatus}\',fk_level_of_educationID=\'${updateUserData.id_education}\', fk_currencyID =\'${updateUserData.id_currency}\', image=\'${fileToDB}\' WHERE UserID=\'${foundUser.UserID}\'`;
+    ON DUPLICATE KEY UPDATE firstName=\'${newUserData.id_firstName}\',lastName=\'${newUserData.id_lastName}\',middleName= ${checkToNull.id_middleName},
+    birthOfDate=\'${newUserData.id_birthOfDate}\', phone=\'${newUserData.id_phone}\',email=\'${newUserData.id_email}\',сityOfResidence=\'${newUserData.id_cityOfResidence}\',
+    nationality=${checkToNull.id_nationality},position=\'${newUserData.id_userPosition}\',privateСar=${userDataChecked.privateCar},army= ${userDataChecked.army},
+    hobby= ${checkToNull.id_hobby},personalQualities=${checkToNull.id_personalQualities},professionalSkills=${checkToNull.id_professionalSkills}, relocate= ${userDataChecked.relocation},
+    desiredSalary= ${checkToNull.id_desiredSalary}, children=${userDataChecked.children},businessTrip=${userDataChecked.businessTrip},fk_employmentID=\'${newUserData.id_employment}\',fk_scheduleID=\'${newUserData.id_schedule}\',
+    fk_marital_statusID=\'${newUserData.id_maritalStatus}\',fk_level_of_educationID=\'${newUserData.id_education}\', fk_currencyID =\'${newUserData.id_currency}\' ${ req.file!= undefined?getFileValue(fileToDB,req):""}`;
 
                 requestToDbCUDUserData(query, dbConnection, updateUserData, res);
             }
         }
-        return res.redirect("http://localhost:3000/tmps");
-        // res.end();
-    }
-
+        return res.redirect("http://localhost:3000/tmps"); 
 });
 
 const startupCallback = function () {
