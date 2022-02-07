@@ -70,18 +70,18 @@ class Template1 extends React.Component {
 
 
 
-    pdfDocument() {
-        const input = document.getElementById('divToPDF');
-        html2canvas(input)
-          .then((canvas) => {          
-              console.dir(canvas);
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF();
-             pdf.addImage(imgData, 'JPEG', 0, 0);
-          //  pdf.output('dataurlnewwindow');
-            pdf.save("download.pdf");
-          });          
-      }
+    // pdfDocument() {
+    //     const input = document.getElementById('divToPDF');
+    //     html2canvas(input)
+    //       .then((canvas) => {          
+    //           console.dir(canvas);
+    //         const imgData = canvas.toDataURL('image/png');
+    //         const pdf = new jsPDF();
+    //          pdf.addImage(imgData, 'JPEG', 0, 0);
+    //       //  pdf.output('dataurlnewwindow');
+    //         pdf.save("download.pdf");
+    //       });          
+    //   }
 
 
     componentDidMount() {

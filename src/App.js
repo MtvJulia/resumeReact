@@ -6,8 +6,7 @@ import Services from './components/Services/Services';
 import About from './components/About/About';
 import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
-// import UserData from './components/UserData/UserData';
-import ExistingUserData from './components/ExistingUserData/ExistingUserData';
+import UserData from './components/UserData/UserData';
 
 import Templates from './components/Templates/Templates';
 import Template1 from './components/Templates/Template1';
@@ -46,14 +45,7 @@ class App extends React.Component {
                   <li className="nav-item"><a className="nav-link" href="/home">Главная</a></li>
                   <li className="nav-item"><a className="nav-link" href="/services">Как составить резюме</a></li>
                   <li className="nav-item"><a className="nav-link" href="/about">О нас</a></li>
-                  {/* <li className="nav-item"><a className="nav-link" href="/tmps">tmps</a></li>
-                  <li className="nav-item"><a className="nav-link" href="/tmp1">tmp1</a></li>
-                  <li className="nav-item"><a className="nav-link" href="/tmp2">tmp2</a></li>
-                  <li className="nav-item"><a className="nav-link" href="/tmp3">tmp3</a></li>
-                  <li className="nav-item"><a className="nav-link" href="/tmp4">tmp4</a></li>
-                  <li className="nav-item"><a className="nav-link" href="/tmp5">tmp5</a></li>
-                  <li className="nav-item"><a className="nav-link" href="/tmp6">tmp6</a></li>
-                  <li className="nav-item"><a className="nav-link" href="http://localhost:3000/existinguserdata">News</a></li> */}
+                  <li className="nav-item"><a className="nav-link" href="http://localhost:3000/userdata">News</a></li>                
                 </ul>
 
                 <ul className="nav " >
@@ -76,9 +68,8 @@ class App extends React.Component {
             <Route path="/services" component={Services} />
             <Route path="/about" component={About} />
             <Route path="/login" component={Login} />
-            <Route path="/registration" component={Registration} />
-            {/* <Route path="/userdata" component={UserData} /> */}
-            <Route path="/existinguserdata" component={ExistingUserData} />
+            <Route path="/registration" component={Registration} />            
+            <Route path="/userdata" component={UserData} />
             <Route path="/tmps" component={Templates} />
             <Route path="/tmp1" component={Template1} />
             <Route path="/tmp2" component={Template2} />

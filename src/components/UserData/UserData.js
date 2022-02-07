@@ -1,23 +1,23 @@
 import React from 'react';
 //import axios from 'axios';
-import '../ExistingUserData/ExistingUserData.css';
-import ShowExperience from '../../Server/ShowExperience';
-import ShowEducation from '../../Server/ShowEducation';
-import ShowLanguage from '../../Server/ShowLanguage';
-import ShowCourses from '../../Server/ShowCourses';
-import ShowRecommending from '../../Server/ShowRecommending';
+import '../UserData/UserData.css';
+import ShowExperience from '../../ShowModules/ShowExperience';
+import ShowEducation from '../../ShowModules/ShowEducation';
+import ShowLanguage from '../../ShowModules/ShowLanguage';
+import ShowCourses from '../../ShowModules/ShowCourses';
+import ShowRecommending from '../../ShowModules/ShowRecommending';
 import UploadPhoto from '../../images/uploadPhoto.jpg';
 //import photo from '../../Server/uploads/b7d665163bafa75592e3ee515be4a021';
 
 
-class ExistingUserData extends React.Component {
+class UserData extends React.Component {
     constructor(props) {
         super(props);
         //Начальное состояние состояния (state)
         this.state = {
             items: null
         }
-        this.API_ADDRESS = "http://localhost:55555/existinguserdata";
+        this.API_ADDRESS = "http://localhost:55555/userdata";
         this.API_ADDRESS_FILE = "http://localhost:55555/file";
 
         this.expArray = [];
@@ -324,7 +324,7 @@ class ExistingUserData extends React.Component {
                         {/* <!-- First container --> */}
                         <div className="divData col-md-12 mt-5">
                             <div>
-                                <form action="http://localhost:55555/existinguserdata" method="POST" encType="multipart/form-data">
+                                <form action="http://localhost:55555/userdata" method="POST" encType="multipart/form-data">
 
                                     {/* <!-- -------ОСНОВНАЯ ИНФО----------- --> */}
                                     <fieldset className="form-group p-3">
@@ -624,4 +624,4 @@ class ExistingUserData extends React.Component {
         }
     };
 }
-export default ExistingUserData;
+export default UserData;
