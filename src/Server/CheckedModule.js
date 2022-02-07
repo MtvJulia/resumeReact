@@ -55,41 +55,7 @@ const CheckedToNull = (newUserData) => {
         return objChecked;
     
     }
-
-
-    // const getInfoTodrivLicense = (newUserData) => {
-
-    //     let drivarLiscense = "";
-    //     if (newUserData.id_driverLicenseA1 == 'on') {
-    //         drivarLiscense += "A1~";
-    //     }
-    //     if (newUserData.id_driverLicenseA == 'on') {
-    //         drivarLiscense += "A~";
-    //     }
-    //     if (newUserData.id_driverLicenseB1 == 'on') {
-    //         drivarLiscense += "B1~";
-    //     }
-    //     if (newUserData.id_driverLicenseB == 'on') {
-    //         drivarLiscense += "B~";
-    //     }
-    //     if (newUserData.id_driverLicenseC1 == 'on') {
-    //         drivarLiscense += "C1~";
-    //     }
-    //     if (newUserData.id_driverLicenseC == 'on') {
-    //         drivarLiscense += "C~";
-    //     }
-    //     if (newUserData.id_driverLicenseD1 == 'on') {
-    //         drivarLiscense += "D1~";
-    //     }
-    //     if (newUserData.id_driverLicenseD == 'on') {
-    //         drivarLiscense += "D~";
-    //     }
-    //     if (newUserData.id_driverLicenseT == 'on') {
-    //         drivarLiscense += "T~";
-    //     }
-    //     return drivarLiscense;
-    // }
-
+   
 
     const getCheckedInfo = (newUserData) => {
 
@@ -111,13 +77,7 @@ const CheckedToNull = (newUserData) => {
                 return 1;
             }
             else return 0;
-        }
-        // let stillWorking = (newUserData) => {
-        //     if (newUserData.id_stillWorking == 'on') {
-        //         return 1;
-        //     }
-        //     else return 0;
-        // }
+        }       
         let availabilityCar = (newUserData) => {
             if (newUserData.id_privatCar == 'on') {
                 return 1;
@@ -129,15 +89,12 @@ const CheckedToNull = (newUserData) => {
                 return 1;
             }
             else return 0;
-        }
-       // let driveLicense = getInfoTodrivLicense(newUserData);
+        }      
     
         let infoUserChecked = {
             relocation: relocate(newUserData),
             businessTrip: businessTrip(newUserData),
-            children: haveChildren(newUserData),
-           // stillWorking: stillWorking(newUserData),
-          //  drivLicense: driveLicense,
+            children: haveChildren(newUserData),          
             privateCar: availabilityCar(newUserData),
             army: army(newUserData)
         };

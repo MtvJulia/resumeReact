@@ -11,6 +11,11 @@ import templates from '../../images/templates.png';
 import cloud from '../../images/cloud.png';
 import online from '../../images/online.png';
 
+import template1 from '../../images/template1.png';
+import template2 from '../../images/template2.png';
+import template3 from '../../images/template3.png';
+import template4 from '../../images/template4.png';
+
 class Home extends React.Component {
 
     constructor(props) {
@@ -62,18 +67,18 @@ class Home extends React.Component {
                                 </div>
                             </div>
                             <div className='col col-md-6 col-12' >
-                                <img src={mainPhoto} alt='photo' id='photoResume'></img>
+                                <img src={template3} alt='photo' id='photoResume'></img>
                             </div>
                         </div>
 
                         {/* second container */}
                         <div className='row justify-content-center' id='second-container'>
-                            <h2>Создайте свое резюме здесь</h2>
+                            <h2>Создайте свое резюме</h2>
                         </div>
 
                         {/* third container */}
                         <div className='row' id='third-container'>
-                            <div className='col col-12 col-md-6 col-xl-4 '>
+                            <div className='col col-12 col-md-6 col-xl-4'>
                                 <img className='img-tips' src={search} alt='search'></img>
                                 <div className='header-tips'>Больше шансов получить работу</div>
                                 <div className='text-tips'>Репрезентативное резюме выделит Вас среди других кандидатов, что повысит вероятность приглашения на собеседование.</div>
@@ -100,36 +105,31 @@ class Home extends React.Component {
                             </div>
                             <div className='col col-12 col-md-6 col-xl-4 '>
                                 <img className='img-tips ' src={online} alt='online'></img>
-                                <div className='header-tips'>Разместить Online</div>
-                                <div className='text-tips'>Открывайте online доступ к Вашему резюме online, отправляйте прямую ссылку будущим работодателям.</div>
+                                <div className='header-tips'>Распечатать и сохранить</div>
+                                <div className='text-tips'>Распечатывайте свое резюме или сохраняйте его в PDF формате.</div>
                             </div>
                         </div>
 
                         {/* fourth container */}
                         <div className='row justify-content-center' id='fourth-container'>
-                            <h2>Выберите шаблон резюме</h2>
+                            <h2>Варианты шаблонов резюме</h2>
                         </div>
 
                         {/* fifth container */}
-                        <div className='row row-cols-3 justify-content-between' id='fifth container'>
-                            <div className='col'>
-                                <img className='img-template' src={mainPhoto} alt='template'></img>
-                            </div>
-                            <div className='col'>
-                                <img className='img-template' src={mainPhoto} alt='template'></img>
-                            </div>
-                            <div className='col'>
-                                <img className='img-template' src={mainPhoto} alt='template'></img>
-                            </div>
-                            <div className='col'>
-                                <img className='img-template' src={mainPhoto} alt='template'></img>
-                            </div>
-                            <div className='col'>
-                                <img className='img-template' src={mainPhoto} alt='template'></img>
-                            </div>
-                            <div className='col'>
-                                <img className='img-template' src={mainPhoto} alt='template'></img>
-                            </div>
+                        <div className='d-flex flex-wrap justify-content-center' id='fifth-container'>
+
+                            <img className='img-template' src={template1} alt='template'></img>
+
+                            <img className='img-template' src={template2} alt='template'></img>
+
+                            <img className='img-template' src={template3} alt='template'></img>
+
+                            <img className='img-template' src={template4} alt='template'></img>
+
+                            <img className='img-template' src={template4} alt='template'></img>
+
+                            <img className='img-template' src={template4} alt='template'></img>
+
                         </div>
 
                         {/* sixth container */}
@@ -138,18 +138,27 @@ class Home extends React.Component {
                         </div>
 
                         {/* seventh container */}
-                        <div className='row justify-content-center'>
-                            
-                            <div className='col header-tips '>
-                                <div className="text-center">Заполняете резюме online в удобной форме</div>
+                        <div className="md-stepper-horizontal orange">
+                            <div className="md-step ">
+                                <div className="md-step-circle"><span>1</span></div>
+                                <div className="md-step-title">Заполняете резюме online в форме</div>
+                                <div className="md-step-bar-left"></div>
+                                <div className="md-step-bar-right"></div>
                             </div>
-                            <div className='col header-tips'>
-                                <div className="text-center">Выбираете хорошо подходящий Вам шаблон</div>
+                            <div className="md-step ">
+                                <div className="md-step-circle"><span>2</span></div>
+                                <div className="md-step-title">Выбираете подходящий Вам шаблон</div>
+                                <div className="md-step-bar-left"></div>
+                                <div className="md-step-bar-right"></div>
                             </div>
-                            <div className='col header-tips'>
-                                <div className="text-center">Скачиваете или размещаете online свое резюме</div>
+                            <div className="md-step ">
+                                <div className="md-step-circle"><span>3</span></div>
+                                <div className="md-step-title">Скачиваете или распечатывайте свое резюме</div>
+                                <div className="md-step-bar-left"></div>
+                                <div className="md-step-bar-right"></div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             );
