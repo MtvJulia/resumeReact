@@ -240,11 +240,11 @@ class Template3 extends React.Component {
                                             <div className="mb-1 text-capitalize">{value.personRecommending}</div>
                                             <div className="d-flex "><img className="icon-item-t3" src={phone} alt="phone" />{value.phoneCompany}</div>
                                             <div className="d-flex long-text mb-2"><img className="icon-item-t3" src={email} alt="email" />{value.emailCompany}</div>
-                                          
+
                                         </div>
                                     </div>
                                 );
-                            })}                            
+                            })}
                         </div>
 
                         <hr className='hr2'></hr>
@@ -263,147 +263,150 @@ class Template3 extends React.Component {
                             <div className="mb-1 pl-4 long-text" >{this.state.userData.hobby}</div>
                         </div>
                     </div>
+
+
                     <PrintComponents trigger={<button>Print</button>} >
                         {/* template 3 */}
-                    <div className="container-sm border " id="main-container-t3" >
-                        <div className="media align-items-center">
-                            <div className="media-body ">
-                                <div className='row justify-content-center m-0'>
-                                    <div className='mr-3 text-capitalize text-break name-text-t3'>{this.state.userData.lastName}</div>
-                                    <div className='mr-3 text-capitalize text-break name-text-t3'>{this.state.userData.firstName}</div>
-                                    <div className='mr-3 text-capitalize text-break name-text-t3'>{this.state.userData.middleName}</div>
+                        <div className="container-sm border " id="main-container-t3" >
+                            <div className="media align-items-center">
+                                <div className="media-body ">
+                                    <div className='row justify-content-center m-0'>
+                                        <div className='mr-3 text-capitalize text-break name-text-t3'>{this.state.userData.lastName}</div>
+                                        <div className='mr-3 text-capitalize text-break name-text-t3'>{this.state.userData.firstName}</div>
+                                        <div className='mr-3 text-capitalize text-break name-text-t3'>{this.state.userData.middleName}</div>
+                                    </div>
+                                    <div className='row justify-content-center m-0 header-text'><h2>{this.state.userData.position + " , " + this.age + " лет"}</h2></div>
+                                    <div className='row justify-content-center m-0 header-text'>ожидаемая заработная плата: {this.salaryStr}</div>
                                 </div>
-                                <div className='row justify-content-center m-0 header-text'><h2>{this.state.userData.position + " , " + this.age + " лет"}</h2></div>
-                                <div className='row justify-content-center m-0 header-text'>ожидаемая заработная плата: {this.salaryStr}</div>
+                                <div className="media-right">
+                                    <img className="media-object" id="avatar" src={this.imageFromDB} alt="avatar" />
+                                </div>
                             </div>
-                            <div className="media-right">
-                                <img className="media-object" id="avatar" src={this.imageFromDB} alt="avatar" />
-                            </div>
-                        </div>
 
-                        <hr className='hr2'></hr>
+                            <hr className='hr2'></hr>
 
-                        <div className='header-text m-0'>Контакты</div>
+                            <div className='header-text m-0'>Контакты</div>
 
-                        <div className='row justify-content-around'>
-                            <div className="d-flex text-capitalize"><img className="icon-item-t3" src={location} alt="location" />{this.state.userData.сityOfResidence}</div>
-                            <div className="d-flex "><img className="icon-item-t3" src={phone} alt="phone" />{this.state.userData.phone}</div>
-                            <div className="d-flex long-text "><img className="icon-item-t3" src={email} alt="email" />{this.state.userData.email}</div>
-                        </div>
+                            <div className='row justify-content-around'>
+                                <div className="d-flex text-capitalize"><img className="icon-item-t3" src={location} alt="location" />{this.state.userData.сityOfResidence}</div>
+                                <div className="d-flex "><img className="icon-item-t3" src={phone} alt="phone" />{this.state.userData.phone}</div>
+                                <div className="d-flex long-text "><img className="icon-item-t3" src={email} alt="email" />{this.state.userData.email}</div>
+                            </div>
 
-                        <hr className='hr2'></hr>
+                            <hr className='hr2'></hr>
 
-                        <div className='row user-info-t3'>
-                            <div className="col text-nowrap header-text" >Водительские права
-                                <div className="col main-text">{this.driverLicenseStr}</div>
+                            <div className='row user-info-t3'>
+                                <div className="col text-nowrap header-text" >Водительские права
+                                    <div className="col main-text">{this.driverLicenseStr}</div>
+                                </div>
+                                <div className="col header-text">Гражданство
+                                    <div className="col main-text">{this.state.userData.nationality}</div>
+                                </div>
                             </div>
-                            <div className="col header-text">Гражданство
-                                <div className="col main-text">{this.state.userData.nationality}</div>
+                            <div className='row user-info-t3'>
+                                <div className="col header-text">Занятость
+                                    <div className="col main-text">{this.employmentStr}</div>
+                                </div>
+                                <div className="col text-nowrap header-text">Семейное положение
+                                    <div className="col main-text">{this.maritalStatusStr}</div>
+                                </div>
                             </div>
-                        </div>
-                        <div className='row user-info-t3'>
-                            <div className="col header-text">Занятость
-                                <div className="col main-text">{this.employmentStr}</div>
+                            <div className='row user-info-t3'>
+                                <div className="col header-text">Языки
+                                    {this.state.languagesArr.map(function (value, i) { return (<div className="col main-text" key={'val-' + i}>{value}</div>); })}
+                                </div>
+                                <div className="col header-text">{this.army}
+                                </div>
                             </div>
-                            <div className="col text-nowrap header-text">Семейное положение
-                                <div className="col main-text">{this.maritalStatusStr}</div>
-                            </div>
-                        </div>
-                        <div className='row user-info-t3'>
-                            <div className="col header-text">Языки
-                                {this.state.languagesArr.map(function (value, i) { return (<div className="col main-text" key={'val-' + i}>{value}</div>); })}
-                            </div>
-                            <div className="col header-text">{this.army}
-                            </div>
-                        </div>
 
-                        <hr className='hr2'></hr>
+                            <hr className='hr2'></hr>
 
-                        <div className='row justify-content-start header-text m-0'>Опыт работы</div>
-                        <div className="list-group ">
-                            {this.state.experienceArr.map(function (value, i) {
-                                return (
-                                    <div key={'val-' + i}>
-                                        <div className="d-flex w-100 justify-content-between">
-                                            <h5 className="mb-1">{value.companyName}</h5>
-                                            <h5 className="mb-1 years">{value.startWork + " - " + value.endWork}</h5>
+                            <div className='row justify-content-start header-text m-0'>Опыт работы</div>
+                            <div className="list-group ">
+                                {this.state.experienceArr.map(function (value, i) {
+                                    return (
+                                        <div key={'val-' + i}>
+                                            <div className="d-flex w-100 justify-content-between">
+                                                <h5 className="mb-1">{value.companyName}</h5>
+                                                <h5 className="mb-1 years">{value.startWork + " - " + value.endWork}</h5>
+                                            </div>
+                                            <p className="mb-1" >{value.positionWork}</p>
+                                            <small>{value.jobDuties}</small>
                                         </div>
-                                        <p className="mb-1" >{value.positionWork}</p>
-                                        <small>{value.jobDuties}</small>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                        <hr className='hr2'></hr>
-                        <div className='row justify-content-start header-text m-0'>Образование</div>
-                        <div className="list-group ">
-                            {this.state.educationArr.map(function (value, i) {
-                                return (
-                                    <div key={'val-' + i}>
-                                        <div className="d-flex w-100 justify-content-between">
-                                            <h5 className="mb-1 pl-4">{value.institutName}</h5>
-                                            <h5 className="mb-1 pr-4 years">{value.ending}</h5>
+                                    );
+                                })}
+                            </div>
+                            <hr className='hr2'></hr>
+                            <div className='row justify-content-start header-text m-0'>Образование</div>
+                            <div className="list-group ">
+                                {this.state.educationArr.map(function (value, i) {
+                                    return (
+                                        <div key={'val-' + i}>
+                                            <div className="d-flex w-100 justify-content-between">
+                                                <h5 className="mb-1 pl-4">{value.institutName}</h5>
+                                                <h5 className="mb-1 pr-4 years">{value.ending}</h5>
+                                            </div>
+                                            <p className="mb-1 pl-4" >{value.faculty}</p>
+                                            <small className='pl-4 mb-2'>{value.specialty + " , " + value.levelEducation}</small>
                                         </div>
-                                        <p className="mb-1 pl-4" >{value.faculty}</p>
-                                        <small className='pl-4 mb-2'>{value.specialty + " , " + value.levelEducation}</small>
-                                    </div>
-                                );
-                            })}
-                        </div>
+                                    );
+                                })}
+                            </div>
 
-                        <hr className='hr2'></hr>
-                        <div className='row justify-content-start header-text m-0'>Курсы</div>
-                        <div className="list-group ">
-                            {this.state.coursesArr.map(function (value, i) {
-                                return (
-                                    <div key={'val-' + i}>
-                                        <div className="d-flex w-100 justify-content-between">
-                                            <h5 className="mb-1 pl-4">{value.organization}</h5>
-                                            <h5 className="mb-1 pr-4 years">{value.endingCourse}</h5>
+                            <hr className='hr2'></hr>
+                            <div className='row justify-content-start header-text m-0'>Курсы</div>
+                            <div className="list-group ">
+                                {this.state.coursesArr.map(function (value, i) {
+                                    return (
+                                        <div key={'val-' + i}>
+                                            <div className="d-flex w-100 justify-content-between">
+                                                <h5 className="mb-1 pl-4">{value.organization}</h5>
+                                                <h5 className="mb-1 pr-4 years">{value.endingCourse}</h5>
+                                            </div>
+                                            <p className="mb-2 pl-4" >{value.courseName}</p>
                                         </div>
-                                        <p className="mb-2 pl-4" >{value.courseName}</p>
-                                    </div>
-                                );
-                            })}
-                        </div>
+                                    );
+                                })}
+                            </div>
 
-                        <hr className='hr2'></hr>
-                        <div className='row justify-content-start header-text m-0'>Рекомендации</div>
-                        <div className="list-group">
-                            {this.state.recomendingArr.map(function (value, i) {
-                                return (
-                                    <div key={'val-' + i}>
-                                        <div className="d-flex w-100 justify-content-between">
-                                            <h5 className="mb-1 pl-4">{value.company}</h5>
-                                        </div>
-                                        <div className='row ml-4 justify-content-start'>
-                                            <div className="mb-1 text-capitalize">{value.personRecommending}</div>
-                                            <div className="d-flex "><img className="icon-item-t3" src={phone} alt="phone" />{value.phoneCompany}</div>
-                                            <div className="d-flex long-text mb-2"><img className="icon-item-t3" src={email} alt="email" />{value.emailCompany}</div>
-                                          
-                                        </div>
-                                    </div>
-                                );
-                            })}                            
-                        </div>
+                            <hr className='hr2'></hr>
+                            <div className='row justify-content-start header-text m-0'>Рекомендации</div>
+                            <div className="list-group">
+                                {this.state.recomendingArr.map(function (value, i) {
+                                    return (
+                                        <div key={'val-' + i}>
+                                            <div className="d-flex w-100 justify-content-between">
+                                                <h5 className="mb-1 pl-4">{value.company}</h5>
+                                            </div>
+                                            <div className='row ml-4 justify-content-start'>
+                                                <div className="mb-1 text-capitalize">{value.personRecommending}</div>
+                                                <div className="d-flex "><img className="icon-item-t3" src={phone} alt="phone" />{value.phoneCompany}</div>
+                                                <div className="d-flex long-text mb-2"><img className="icon-item-t3" src={email} alt="email" />{value.emailCompany}</div>
 
-                        <hr className='hr2'></hr>
-                        <div className='row justify-content-start header-text m-0'>Профессиональные навыки</div>
-                        <div className="list-group ">
-                            <div className="mb-1 pl-4 long-text" >{this.state.userData.professionalSkills} </div>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+
+                            <hr className='hr2'></hr>
+                            <div className='row justify-content-start header-text m-0'>Профессиональные навыки</div>
+                            <div className="list-group ">
+                                <div className="mb-1 pl-4 long-text" >{this.state.userData.professionalSkills} </div>
+                            </div>
+                            <hr className='hr2'></hr>
+                            <div className='row justify-content-start header-text m-0'>Личные качества</div>
+                            <div className="list-group ">
+                                <div className="mb-1 pl-4 long-text" >{this.state.userData.personalQualities}</div>
+                            </div>
+                            <hr className='hr2'></hr>
+                            <div className='row justify-content-start header-text m-0'>Хобби</div>
+                            <div className="list-group ">
+                                <div className="mb-1 pl-4 long-text" >{this.state.userData.hobby}</div>
+                            </div>
                         </div>
-                        <hr className='hr2'></hr>
-                        <div className='row justify-content-start header-text m-0'>Личные качества</div>
-                        <div className="list-group ">
-                            <div className="mb-1 pl-4 long-text" >{this.state.userData.personalQualities}</div>
-                        </div>
-                        <hr className='hr2'></hr>
-                        <div className='row justify-content-start header-text m-0'>Хобби</div>
-                        <div className="list-group ">
-                            <div className="mb-1 pl-4 long-text" >{this.state.userData.hobby}</div>
-                        </div>
-                    </div>
                     </PrintComponents>
+                    
                     <div> <button onClick={this.createAndDownloadPdf}>Download PDF</button> </div>
                 </div >
             );
