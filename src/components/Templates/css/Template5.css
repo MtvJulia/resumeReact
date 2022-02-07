@@ -21,4 +21,5 @@
 
 .ttt{
     background-color: #6E5160;
+    -webkit-print-color-adjust: exact;
 }
