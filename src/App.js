@@ -6,8 +6,8 @@ import Services from './components/Services/Services';
 import About from './components/About/About';
 import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
-// import UserData from './components/UserData/UserData';
-import ExistingUserData from './components/ExistingUserData/ExistingUserData';
+import UserData from './components/UserData/UserData';
+// import ExistingUserData from './components/ExistingUserData/ExistingUserData';
 
 import Templates from './components/Templates/Templates';
 import Template1 from './components/Templates/Template1';
@@ -77,8 +77,8 @@ class App extends React.Component {
             <Route path="/about" component={About} />
             <Route path="/login" component={Login} />
             <Route path="/registration" component={Registration} />
-            {/* <Route path="/userdata" component={UserData} /> */}
-            <Route path="/existinguserdata" component={ExistingUserData} />
+            <Route path="/userdata" component={UserData} />
+            {/* <Route path="/existinguserdata" component={ExistingUserData} /> */}
             <Route path="/tmps" component={Templates} />
             <Route path="/tmp1" component={Template1} />
             <Route path="/tmp2" component={Template2} />
