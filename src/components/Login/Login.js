@@ -82,12 +82,12 @@ class Login extends React.Component {
                                     </div>
 
                                     <div className="mb-3">
-                                        <input type="text" className="form-control" id="userlogin"name="UserLogin" aria-describedby="emailHelp"
+                                        <input type="text" className="form-control" id="userlogin" name="UserLogin" aria-describedby="emailHelp"
                                             placeholder="Введите логин" onChange={this.setLogin} />
                                     </div>
 
                                     <div className="mb-3">
-                                        <input type="password" className="form-control" id="pwd"name="Password" placeholder="Введите пароль" onChange={this.setPassword} />
+                                        <input type="password" className="form-control" id="pwd" name="Password" placeholder="Введите пароль" onChange={this.setPassword} />
                                     </div>
 
                                     <div className="text-center"><button type="submit" className="btn btn-color px-5 mb-5 w-100">Вход</button></div>
