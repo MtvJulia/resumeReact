@@ -9,6 +9,7 @@ import AddLanguage from '../../Server/AddLanguage';
 import ShowRecommending from '../../Server/ShowRecommending';
 import { Switch } from 'react-router';
 import UploadPhoto from '../../images/uploadPhoto.jpg';
+// import UserData from '../UserData/UserData';
 //import photo from '../../Server/uploads/b7d665163bafa75592e3ee515be4a021';
 
 
