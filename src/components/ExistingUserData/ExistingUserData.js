@@ -1,11 +1,11 @@
 import React from 'react';
 //import axios from 'axios';
 import '../ExistingUserData/ExistingUserData.css';
-import ShowExperience from '../../Server/ShowExperience';
-import ShowEducation from '../../Server/ShowEducation';
-import ShowLanguage from '../../Server/ShowLanguage';
-import ShowCourses from '../../Server/ShowCourses';
-import ShowRecommending from '../../Server/ShowRecommending';
+import ShowExperience from '../../ShowModules/ShowExperience';
+import ShowEducation from '../../ShowModules/ShowEducation';
+import ShowLanguage from '../../ShowModules/ShowLanguage';
+import ShowCourses from '../../ShowModules/ShowCourses';
+import ShowRecommending from '../../ShowModules/ShowRecommending';
 import UploadPhoto from '../../images/uploadPhoto.jpg';
 //import photo from '../../Server/uploads/b7d665163bafa75592e3ee515be4a021';
 
