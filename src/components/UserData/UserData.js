@@ -109,13 +109,7 @@ class UserData extends React.Component {
 
         this.setState(Object.assign(this.state.users, { image: array, loaded: 0 }));
 
-<<<<<<< HEAD
-        // // console.log(arr);
-        // console.log(selectedFile);
-
-=======
         console.log(selectedFile);
->>>>>>> 5dd2165c73327dd1ddef403b1d0bba54ac5e04b3
     }
 
     componentDidMount() {

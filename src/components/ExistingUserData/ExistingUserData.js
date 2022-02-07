@@ -209,92 +209,14 @@ class ExistingUserData extends React.Component {
 
 
     onFileSelected(event) {
-<<<<<<< HEAD
-        // var selectedFile = event.target.files[0];
-        // var reader = new FileReader();
-      
-        // var imgtag = document.getElementById("myimage");
-        // imgtag.title = selectedFile.name;       
-      
-        // reader.onload = function(event) {
-        //   imgtag.src = event.target.result;
-        // };  
-        // if(imgtag) {  
-        // reader.readAsDataURL(selectedFile);}
-
-        // this.setState(Object.assign(this.state.items,{image:event.target.files[0],
-        //     loaded: 0}));          
-       
-        // console.log(selectedFile);
-
-        // console.log(this.state.users);    
-
-        var selectedFile = event.target.files[0];
-
-        var reader = new FileReader();
-        var reader2 = new FileReader();
-
-        var array;
-
-        var arr = reader.readAsArrayBuffer(selectedFile);
-
-        reader.onload = function(event) {
-            array = new Uint8Array(event.target.result);
-            const fileByteArray = [];
-            for (let i = 0; i < array.length; i++) {
-               fileByteArray.push(array[i]);
-            }
-            console.log(array); // here it is
-        }
-=======
         ////загрузка картинки на форму
         var selectedFile = event.target.files[0];
 
         var reader = new FileReader();
->>>>>>> 5dd2165c73327dd1ddef403b1d0bba54ac5e04b3
 
         var imgtag = document.getElementById("myimage");
         imgtag.title = selectedFile.name;
 
-<<<<<<< HEAD
-        reader2.onload = function (event) {
-            imgtag.src = event.target.result;
-        };
-
-        if (imgtag) {
-            reader2.readAsDataURL(selectedFile);
-        }
-
-        this.setState(Object.assign(this.state.users, { image: array, loaded: 0 }));
-      }
-
-    setFirstName(event){ this.setState(Object.assign(this.state.items,{ firstName:event.target.value})); }
-    setPositions(event){ this.setState(Object.assign(this.state.items,{ position:event.target.value})); }  
-    setLastName(event){ this.setState(Object.assign(this.state.items,{ lastName:event.target.value})); } 
-    setMiddleName(event){ this.setState(Object.assign(this.state.items,{ middleName:event.target.value})); }
-    setBirthOfDate(event){ this.setState(Object.assign(this.state.items,{ birthOfDate:event.target.value})); }
-    setCityOfResidence(event){ this.setState(Object.assign(this.state.items,{сityOfResidence:event.target.value})); }
-    setPhone(event){ this.setState(Object.assign(this.state.items,{ phone:event.target.value})); }
-    setEmail(event){ this.setState(Object.assign(this.state.items,{ email:event.target.value})); }
-    setNationality(event){ this.setState(Object.assign(this.state.items,{ nationality:event.target.value})); }
-    setDesiredSalary(event){ this.setState(Object.assign(this.state.items,{ desiredSalary:event.target.value})); }
-    setCurrencyName(event){ this.setState(Object.assign(this.state.items,{ currencyName:event.target.value})); }
-    setEmployment(event){ this.setState(Object.assign(this.state.items,{ employment:event.target.value})); }
-    setSchedule(event){ this.setState(Object.assign(this.state.items,{ schedule:event.target.value})); }
-    setBusinessTrip(event){ this.setState(Object.assign(this.state.items,{ businessTrip:event.target.checked})); }
-    setRelocate(event){ this.setState(Object.assign(this.state.items,{ relocate:event.target.checked})); }
-    setMaritalStatus(event){ this.setState(Object.assign(this.state.items,{ maritalStatus:event.target.value})); }
-    setChildren(event){ this.setState(Object.assign(this.state.items,{ children:event.target.checked})); }
-    setEducation(event){ this.setState(Object.assign(this.state.items,{ education:event.target.value})); }  
-    setPrivateСar(event){ this.setState(Object.assign(this.state.items,{ privateСar: event.target.checked})); }
-    setArmy(event){ this.setState(Object.assign(this.state.items,{ army:event.target.checked})); }
-    setHobby(event){ this.setState(Object.assign(this.state.items,{ hobby:event.target.value})); }
-    setPersonalQualities(event){ this.setState(Object.assign(this.state.items,{ personalQualities:event.target.value})); }
-    setProfessionalSkills(event){ this.setState(Object.assign(this.state.items,{ professionalSkills:event.target.value})); }
-    
-    
-   
-=======
         reader.onload = function (event) {
             imgtag.src = event.target.result;
         };
@@ -340,7 +262,6 @@ class ExistingUserData extends React.Component {
     setDriveLicenseD1(event) { if (this.state.items.drivLicense != undefined) { this.setState(Object.assign(this.state.items.drivLicense, { driverLicensD1: event.target.checked })); } }
     setDriveLicenseD(event) { if (this.state.items.drivLicense != undefined) { this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseD: event.target.checked })); } }
     setDriveLicenseT(event) { if (this.state.items.drivLicense != undefined) { this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseT: event.target.checked })); } }
->>>>>>> 5dd2165c73327dd1ddef403b1d0bba54ac5e04b3
 
 
 
