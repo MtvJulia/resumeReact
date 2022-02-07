@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 
 import './css/main.css';
 
@@ -7,7 +6,8 @@ import template1 from '../../images/template1.png';
 import template2 from '../../images/template2.png';
 import template3 from '../../images/template3.png';
 import template4 from '../../images/template4.png';
-
+import template5 from '../../images/template5.png';
+import template6 from '../../images/template6.png';
 
 class Templates extends React.Component {
 
@@ -64,8 +64,8 @@ class Templates extends React.Component {
                         <a href="http://localhost:3000/tmp2"><img className='img-template' src={template2} alt='template'></img></a>  
                         <a href="http://localhost:3000/tmp3"><img className='img-template' src={template3} alt='template'></img></a> 
                         <a href="http://localhost:3000/tmp4"><img className='img-template' src={template4} alt='template'></img></a> 
-                        <a href="http://localhost:3000/tmp5"><img className='img-template' src={template4} alt='template'></img></a> 
-                        <a href="http://localhost:3000/tmp6"><img className='img-template' src={template4} alt='template'></img></a>                    
+                        <a href="http://localhost:3000/tmp5"><img className='img-template' src={template5} alt='template'></img></a> 
+                        <a href="http://localhost:3000/tmp6"><img className='img-template' src={template6} alt='template'></img></a>                    
                                                                       
                         </div>                        
 

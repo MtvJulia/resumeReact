@@ -43,16 +43,9 @@ class Services extends React.Component {
         }
         else {
             return (
-                <div className="container">
-                    <nav className="nav nav-inverse">
-                        <div className="container-fluid">
-                            <div className="nav-header">
-                            </div>
-                           
-                        </div>
-                    </nav>
+                <div className="container">                  
 
-                    <div className="container">
+                    <div className="container main">
 
                         <h1>Services</h1>
                         
