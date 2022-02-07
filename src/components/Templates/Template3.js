@@ -45,23 +45,23 @@ class Template3 extends React.Component {
 
     }
 
-    createAndDownloadPdf = () => {
+    // createAndDownloadPdf = () => {
 
-        const options = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            data: this.state,
-            url: 'http://localhost:55555/create-pdf'
-        };
+    //     const options = {
+    //         method: 'POST',
+    //         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    //         data: this.state,
+    //         url: 'http://localhost:55555/create-pdf'
+    //     };
 
-        axios(options)
-            .then(() => axios.get('http://localhost:55555/fetch-pdf', { responseType: 'blob' }))
-            .then((res) => {
-                const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
+    //     axios(options)
+    //         .then(() => axios.get('http://localhost:55555/fetch-pdf', { responseType: 'blob' }))
+    //         .then((res) => {
+    //             const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
 
-                saveAs(pdfBlob, 'newPdf.pdf');
-            })
-    }
+    //             saveAs(pdfBlob, 'newPdf.pdf');
+    //         })
+    // }
 
     componentDidMount() {
 

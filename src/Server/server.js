@@ -108,22 +108,6 @@ dbConnection.connect((err) => {
 });
 
 
-// server.post('/create-pdf', (req, res) => {
-//     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-//     console.log("111111111111111111111111111111111");
-//         console.log(JSON.stringify(req.body));
-//      pdf.create(pdfTemplate1(req.body), {}).toFile('result.pdf', (err) => {
-//         if(err) {
-//             res.send(Promise.reject());
-//         }
-               
-//         res.send(Promise.resolve());
-//     });
-// });
-
-// server.get('/fetch-pdf', (req, res) => {
-//     res.sendFile(`${__dirname}/result.pdf`)
-// })
 
 const requestToDbCUDUserData = (query, dbConnection, newUserData, res, callback = (res, newUserData, dbConnection) => {
 
@@ -344,17 +328,6 @@ server.post("/registration", function (request, response) {
 
 
 //////////////////////////////////////////////ExistingUserData POST/////////////////////////////////////////////////////////////////////
-// const getFileValue=(fileToDB,req)=>{
-//     console.log(fileToDB,req);
-// if(req.file!= undefined&&fileToDB!= null)
-// {
-//     return `, image=\'${fileToDB}\'`;
-// }
-// else if(req.file!= undefined&&fileToDB == null)
-// {
-//     return `, image=${fileToDB}`;
-// }
-// }
 
 server.post("/existinguserdata", upload.single('fupload'), function (req, res) {
 
