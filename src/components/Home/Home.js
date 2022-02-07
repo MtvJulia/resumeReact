@@ -15,6 +15,8 @@ import template1 from '../../images/template1.png';
 import template2 from '../../images/template2.png';
 import template3 from '../../images/template3.png';
 import template4 from '../../images/template4.png';
+import template5 from '../../images/template5.png';
+import template6 from '../../images/template6.png';
 import tempHome from '../../images/temphome.png';
 
 class Home extends React.Component {
@@ -129,9 +131,9 @@ class Home extends React.Component {
 
                             <img className='img-template' src={template4} alt='template'></img>
 
-                            <img className='img-template' src={template4} alt='template'></img>
+                            <img className='img-template' src={template5} alt='template'></img>
 
-                            <img className='img-template' src={template4} alt='template'></img>
+                            <img className='img-template' src={template6} alt='template'></img>
 
                         </div>
 

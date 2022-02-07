@@ -14,6 +14,8 @@ import Template1 from './components/Templates/Template1';
 import Template2 from './components/Templates/Template2';
 import Template3 from './components/Templates/Template3';
 import Template4 from './components/Templates/Template4';
+import Template5 from './components/Templates/Template5';
+import Template6 from './components/Templates/Template6';
 
 import './App.css';
 import logoPhoto from './images/logoResume.png';
@@ -44,12 +46,14 @@ class App extends React.Component {
                   <li className="nav-item"><a className="nav-link" href="/home">Главная</a></li>
                   <li className="nav-item"><a className="nav-link" href="/services">Как составить резюме</a></li>
                   <li className="nav-item"><a className="nav-link" href="/about">О нас</a></li>
-                  <li className="nav-item"><a className="nav-link" href="/tmps">tmps</a></li>
-                  {/* <li className="nav-item"><a className="nav-link" href="/tmp1">tmp1</a></li>
+                  {/* <li className="nav-item"><a className="nav-link" href="/tmps">tmps</a></li>
+                  <li className="nav-item"><a className="nav-link" href="/tmp1">tmp1</a></li>
                   <li className="nav-item"><a className="nav-link" href="/tmp2">tmp2</a></li>
                   <li className="nav-item"><a className="nav-link" href="/tmp3">tmp3</a></li>
-                  <li className="nav-item"><a className="nav-link" href="/tmp4">tmp4</a></li> */}
-                  <li className="nav-item"><a className="nav-link" href="http://localhost:3000/existinguserdata">News</a></li>
+                  <li className="nav-item"><a className="nav-link" href="/tmp4">tmp4</a></li>
+                  <li className="nav-item"><a className="nav-link" href="/tmp5">tmp5</a></li>
+                  <li className="nav-item"><a className="nav-link" href="/tmp6">tmp6</a></li>
+                  <li className="nav-item"><a className="nav-link" href="http://localhost:3000/existinguserdata">News</a></li> */}
                 </ul>
 
                 <ul className="nav " >
@@ -80,6 +84,8 @@ class App extends React.Component {
             <Route path="/tmp2" component={Template2} />
             <Route path="/tmp3" component={Template3} />
             <Route path="/tmp4" component={Template4} />
+            <Route path="/tmp5" component={Template5} />
+            <Route path="/tmp6" component={Template6} />
           </div>
 
         </BrowserRouter>
