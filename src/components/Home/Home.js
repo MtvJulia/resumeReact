@@ -141,7 +141,8 @@ class Home extends React.Component {
                             <p><a className="btn btn-primary btn-lg" href="/login" role="button">Создать резюме</a></p>
                         </div>
 
-                        {/* sixth container */}
+                        <div className='container-fluid bg-dark'>
+                            {/* sixth container */}
                         <div className='row justify-content-center' id='sixth-container'>
                             <h2>Как это работает?</h2>
                         </div>
@@ -167,12 +168,16 @@ class Home extends React.Component {
                                 <div className="md-step-bar-right"></div>
                             </div>
                         </div>
+                        </div>
+
+                        
 
                         {/* eighth container */}
                         <div className='d-flex flex-row-reverse' id='eighth-container'>
                             <div className='col-6 '>
-                                <div className=''><h2>Скачивайте и распечатывайте свое резюме</h2></div>
-                                <p>Возможность скачать ваше резюме в самом распространённом формате PDF, сохранить или оправить резюме работодателю по электронной почте.</p>
+                                <div className=''><h2>Сэкономьте время</h2></div>
+                                <p>Профессиональное резюме можно создать всего за несколько минут.
+                                    Это очень удобный и полезный сервис для каждого, кто ищет работу.</p>
                             </div>
 
                         </div>
@@ -180,8 +185,9 @@ class Home extends React.Component {
                         {/* ninth container */}
                         <div className='d-flex flex-row' id='ninth-container'>
                             <div className='col-6'>
-                                <div className=''><h2>Скачивайте и распечатывайте свое резюме</h2></div>
-                                <p>Возможность скачать ваше резюме в самом распространённом формате PDF, сохранить или оправить резюме работодателю по электронной почте.</p>
+                                <div className=''><h2>Легкий и удобный в обслуживании</h2></div>
+                                <p>Конструктор Резюме очень простой и легкий в обслуживании,
+                                    не требует никаких дополнительных знаний из области графики или скачивания программ.</p>
                             </div>
 
                         </div>
@@ -189,8 +195,9 @@ class Home extends React.Component {
                         {/* tenth container */}
                         <div className='d-flex flex-row-reverse' id='tenth-container'>
                             <div className='col-6 '>
-                                <div className=''><h2>Скачивайте и распечатывайте свое резюме</h2></div>
-                                <p>Возможность скачать ваше резюме в самом распространённом формате PDF, сохранить или оправить резюме работодателю по электронной почте.</p>
+                                <div className=''><h2>Выбирайте среди множества стилей резюме</h2></div>
+                                <p>Выбирайте один из доступных графических шаблонов,
+                                    благодаря чему Ваше резюме будет подходить по стилю к должности и фирме</p>
                             </div>
 
                         </div>
@@ -199,7 +206,8 @@ class Home extends React.Component {
                         <div className='d-flex flex-row' id='eleventh-container'>
                             <div className='col-6'>
                                 <div className=''><h2>Скачивайте и распечатывайте свое резюме</h2></div>
-                                <p>Возможность скачать ваше резюме в самом распространённом формате PDF, сохранить или оправить резюме работодателю по электронной почте.</p>
+                                <p>Возможность скачать ваше резюме в самом распространённом формате PDF,
+                                    сохранить или оправить резюме работодателю по электронной почте.</p>
                             </div>
 
                         </div>
@@ -207,7 +215,7 @@ class Home extends React.Component {
                         <div className='d-flex justify-content-center' id='twelfth-container'>
                             <p><a className="btn btn-primary btn-lg" href="/login" role="button">Создать резюме</a></p>
                         </div>
-                        
+
                     </div>
                 </div>
             );
