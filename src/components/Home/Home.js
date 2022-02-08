@@ -10,6 +10,7 @@ import quickly from '../../images/quickly.png';
 import templates from '../../images/templates.png';
 import cloud from '../../images/cloud.png';
 import online from '../../images/online.png';
+import {API_BASE_ADDRESS} from '../../ConstantModule';
 
 import template1 from '../../images/template1.png';
 import template2 from '../../images/template2.png';
@@ -24,22 +25,17 @@ class Home extends React.Component {
     constructor(props) {
 
         super(props);
-
-        //Начальное состояние состояния (state)
+        
         this.state = {
             users: null
-        }
-
-        this.API_BASE_ADDRESS = "http://localhost:55555";
+        }       
     }
 
     componentDidMount() {
-
-        //Встроенный метод для GET (и только) запросов
-        fetch(this.API_BASE_ADDRESS)
+        
+        fetch(API_BASE_ADDRESS)
             .then((response) => response.json())
-            .then((data) => {
-                // console.log(data);
+            .then((data) => {                
                 this.setState({
                     items: data
                 });
