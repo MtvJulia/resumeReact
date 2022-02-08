@@ -9,7 +9,7 @@ import avatar from '../../images/avatar.png';
 import location from '../../images/location.png';
 import phone from '../../images/phone.png';
 import email from '../../images/email.png';
-
+import {API_ADDRESS_TMP3} from "../../ConstantModule";
 import { getDriverLicense, getRecomendingArr, getExperience, getEducation, calculateAge, getCourses, getLanguages, getArmyData, getEmployment, getDesiredSalary, getMaritalStatus } from "../TemplateLoadingMethods";
 
 class Template3 extends React.Component {
@@ -17,8 +17,6 @@ class Template3 extends React.Component {
     constructor(props) {
 
         super(props);
-
-        //Начальное состояние состояния (state)
         this.state = {
             userData: null,
             languagesArr: null,
@@ -27,7 +25,6 @@ class Template3 extends React.Component {
             experienceArr: null,
             recomendingArr: null
         }
-
         this.nameUserData = "";
         this.driverLicenseStr = "";
         this.maritalStatusStr = "";
@@ -38,10 +35,7 @@ class Template3 extends React.Component {
         this.educatArr = [];
         this.experArr = [];
         this.recomendArr = [];
-        this.age = 0;
-
-
-        this.API_ADDRESS = "http://localhost:55555/tmp3";
+        this.age = 0;      
 
     }
 
@@ -63,10 +57,8 @@ class Template3 extends React.Component {
     //         })
     // }
 
-    componentDidMount() {
-
-        //Встроенный метод для GET (и только) запросов
-        fetch(this.API_ADDRESS)
+    componentDidMount() {       
+        fetch(API_ADDRESS_TMP3)
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
@@ -91,8 +83,6 @@ class Template3 extends React.Component {
                 this.educatArr = getEducation(data);
                 this.experArr = getExperience(data);
                 this.recomendArr = getRecomendingArr(data);
-
-
                 this.setState({
                     userData: data,
                     languagesArr: this.languagesArr,
@@ -101,11 +91,7 @@ class Template3 extends React.Component {
                     experienceArr: this.experArr,
                     recomendingArr: this.recomendArr
                 });
-
-
                 console.dir(this.state.userData);
-
-
             });
     }
 

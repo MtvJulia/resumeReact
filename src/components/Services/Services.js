@@ -2,25 +2,21 @@ import React from 'react';
 import axios from 'axios';
 
 import './Services.css';
+import{API_BASE_ADDRESS} from'../../ConstantModule';
 
 class Services extends React.Component {
 
     constructor(props) {
 
         super(props);
-
-        //Начальное состояние состояния (state)
+       
         this.state = {
             users: null
-        }
-
-        this.API_BASE_ADDRESS = "http://localhost:55555";
+        }       
     }
 
-    componentDidMount() {
-
-        //Встроенный метод для GET (и только) запросов
-        fetch(this.API_BASE_ADDRESS)
+    componentDidMount() {        
+        fetch(API_BASE_ADDRESS)
             .then((response) => response.json())
             .then((data) => {
                // console.log(data);
