@@ -65,3 +65,6 @@ a{
 footer {
   /* background-color: #E0E0E0; */
 }
+.errorColor{
+  color:crimson;
+}

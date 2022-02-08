@@ -14,16 +14,14 @@ import avatar from '../../images/avatar.png';
 import location from '../../images/location.png';
 import phone from '../../images/phone.png';
 import email from '../../images/email.png';
-
+import {API_ADDRESS_TMP1} from '../../ConstantModule';
 import { getDriverLicense, getRecomendingArr, getExperience, getEducation, calculateAge, getCourses, getLanguages, getArmyData, getEmployment, getDesiredSalary, getMaritalStatus } from "../TemplateLoadingMethods";
 
 class Template1 extends React.Component {
 
     constructor(props) {
 
-        super(props);
-
-        //Начальное состояние состояния (state)
+        super(props);        
         this.state = {
             userData: null,
             languagesArr: null,
@@ -43,11 +41,7 @@ class Template1 extends React.Component {
         this.educatArr = [];
         this.experArr = [];
         this.recomendArr = [];
-        this.age = 0;
-
-
-        this.API_ADDRESS = "http://localhost:55555/tmp1";
-
+        this.age = 0;     
     }
     
     // createAndDownloadPdf = () => {
@@ -87,7 +81,7 @@ class Template1 extends React.Component {
     componentDidMount() {
 
         //Встроенный метод для GET (и только) запросов
-        fetch(this.API_ADDRESS)
+        fetch(API_ADDRESS_TMP1)
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
@@ -195,9 +189,6 @@ class Template1 extends React.Component {
                                 </div>
 
                                 <div className="col header-text">{this.army}</div>
-
-
-
                             </div>
 
                             {/* right-container */}

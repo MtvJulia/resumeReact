@@ -9,16 +9,13 @@ import avatar from '../../images/avatar.png';
 import location from '../../images/location.png';
 import phone from '../../images/phone.png';
 import email from '../../images/email.png';
-
+import {API_ADDRESS_TMP6} from "../../ConstantModule";
 import { getDriverLicense, getRecomendingArr, getExperience, getEducation, calculateAge, getCourses, getLanguages, getArmyData, getEmployment, getDesiredSalary, getMaritalStatus } from "../TemplateLoadingMethods";
 
 class Template6 extends React.Component {
 
     constructor(props) {
-
-        super(props);
-
-        //Начальное состояние состояния (state)
+        super(props);  
         this.state = {
             userData: null,
             languagesArr: null,
@@ -27,7 +24,6 @@ class Template6 extends React.Component {
             experienceArr: null,
             recomendingArr: null
         }
-
         this.nameUserData = "";
         this.driverLicenseStr = "";
         this.maritalStatusStr = "";
@@ -39,34 +35,28 @@ class Template6 extends React.Component {
         this.experArr = [];
         this.recomendArr = [];
         this.age = 0;
-
-
-        this.API_ADDRESS = "http://localhost:55555/tmp4";
-
     }
 
-    createAndDownloadPdf = () => {
+    // createAndDownloadPdf = () => {
 
-        const options = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            data: this.state,
-            url: 'http://localhost:55555/create-pdf'
-        };
+    //     const options = {
+    //         method: 'POST',
+    //         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    //         data: this.state,
+    //         url: 'http://localhost:55555/create-pdf'
+    //     };
 
-        axios(options)
-            .then(() => axios.get('http://localhost:55555/fetch-pdf', { responseType: 'blob' }))
-            .then((res) => {
-                const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
+    //     axios(options)
+    //         .then(() => axios.get('http://localhost:55555/fetch-pdf', { responseType: 'blob' }))
+    //         .then((res) => {
+    //             const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
 
-                saveAs(pdfBlob, 'newPdf.pdf');
-            })
-    }
+    //             saveAs(pdfBlob, 'newPdf.pdf');
+    //         })
+    // }
 
     componentDidMount() {
-
-        //Встроенный метод для GET (и только) запросов
-        fetch(this.API_ADDRESS)
+        fetch(API_ADDRESS_TMP6)
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
@@ -91,8 +81,6 @@ class Template6 extends React.Component {
                 this.educatArr = getEducation(data);
                 this.experArr = getExperience(data);
                 this.recomendArr = getRecomendingArr(data);
-
-
                 this.setState({
                     userData: data,
                     languagesArr: this.languagesArr,
@@ -101,11 +89,7 @@ class Template6 extends React.Component {
                     experienceArr: this.experArr,
                     recomendingArr: this.recomendArr
                 });
-
-
                 console.dir(this.state.userData);
-
-
             });
     }
 
