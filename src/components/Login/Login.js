@@ -16,7 +16,7 @@ class Login extends React.Component {
             users: null
         }
 
-        this.API_BASE_ADDRESS = "http://localhost:55555";
+        this.API_BASE_ADDRESS = "http://localhost:55555/login";
     }
 
     componentDidMount() {
@@ -24,17 +24,17 @@ class Login extends React.Component {
         //Встроенный метод для GET (и только) запросов
         fetch(this.API_BASE_ADDRESS)
             .then((response) => response.json())
-            .then((data) => {
-                // console.log(data);
+            .then((data) => {                
                 this.setState({
-                    items: data
+                    users: data
                 });
+            console.log(this.state.users.errorlogin);
             });
     }
 
     render() {
 
-        if (this.state.items == null) {
+        if (this.state.users == null) {
             return (
                 <div className="d-flex justify-content-center spin">
                     <div className="spinner-border  text-primary" role="status">
@@ -94,6 +94,8 @@ class Login extends React.Component {
                                     <div id="emailHelp" className="form-text text-center mb-5 text-dark">Не зарегистрирован?
                                         <a href="/registration" className="text-dark fw-bold"> Создай аккаунт</a>
                                     </div>
+
+                                    <div  className = "errorColor">{this.state.users.errorlogin}  </div>
                                 </form>
                             </div>
 

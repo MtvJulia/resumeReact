@@ -29,14 +29,14 @@ class Registration extends React.Component {
             .then((data) => {
                 // console.log(data);
                 this.setState({
-                    items: data
+                    users: data
                 });
             });
     }
 
     render() {
 
-        if (this.state.items == null) {
+        if (this.state.users == null) {
             return (
                 <div className="d-flex justify-content-center spin">
                     <div className="spinner-border  text-primary" role="status">
@@ -104,7 +104,7 @@ class Registration extends React.Component {
                                         <button type="submit" className="btn btn-color px-5 mb-5 w-100">Регистрация</button></div>
                                 </form>
                             </div>
-
+                            <div  className = "errorColor">{this.state.users.errorregister}  </div>
                         </div>
                     </div>
                 </div>
