@@ -8,12 +8,8 @@ import {API_ADDRESS_REGISTER} from '../../ConstantModule';
 
 class Registration extends React.Component {
 
-
-
     constructor(props) {
-
         super(props);
-
         this.state = {
             users: null
         }     
