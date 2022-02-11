@@ -231,7 +231,7 @@ class Template5 extends React.Component {
                         </div>
                     </div>
 
-                    <PrintComponents trigger={<button>Print</button>} >
+                    <PrintComponents trigger={<button className="btn btn-primary btn-lg">Распечатать и сохранить в PDF</button>} >
                         {/* template 5 */}
                         <div className="container-sm" id="main-container-t5" >
                             <div className="row container-t">

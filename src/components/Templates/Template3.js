@@ -229,7 +229,7 @@ class Template3 extends React.Component {
                             <div className="mb-1 pl-4 long-text" >{this.state.userData.hobby}</div>
                         </div>
                     </div>
-                    <PrintComponents trigger={<button>Print</button>} >
+                    <PrintComponents trigger={<button className="btn btn-primary btn-lg">Распечатать и сохранить в PDF</button>} >
                         {/* template 3 */}
                     <div className="container-sm border " id="main-container-t3" >
                         <div className="media align-items-center">

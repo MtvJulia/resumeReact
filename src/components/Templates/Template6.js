@@ -232,7 +232,7 @@ class Template6 extends React.Component {
                         </div>
                     </div >
 
-                    <PrintComponents trigger={<button>Print</button>} >
+                    <PrintComponents trigger={<button className="btn btn-primary btn-lg">Распечатать и сохранить в PDF</button>} >
                         {/* template 6 */}
                         <div className="container-sm border " id="main-container-t6" >
                             <div className="media align-items-center tttt">

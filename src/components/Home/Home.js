@@ -1,14 +1,12 @@
 import React from 'react';
 import './Home.css';
 
-import mainPhoto from '../../images/dance2.jpg';
 import search from '../../images/search.png';
 import page from '../../images/page.png';
 import quickly from '../../images/quickly.png';
 import templates from '../../images/templates.png';
 import cloud from '../../images/cloud.png';
 import online from '../../images/online.png';
-import {API_BASE_ADDRESS} from '../../ConstantModule';
 
 import template1 from '../../images/template1.png';
 import template2 from '../../images/template2.png';
@@ -19,39 +17,9 @@ import template6 from '../../images/template6.png';
 import tempHome from '../../images/temphome.png';
 
 class Home extends React.Component {
-
-    constructor(props) {
-
-        super(props);
-        
-        this.state = {
-            users: null
-        }       
-    }
-
-    componentDidMount() {
-        
-        fetch(API_BASE_ADDRESS)
-            .then((response) => response.json())
-            .then((data) => {                
-                this.setState({
-                    items: data
-                });
-            });
-    }
-
+ 
     render() {
-
-        if (this.state.items == null) {
-            return (
-                <div className="d-flex justify-content-center spin">
-                    <div className="spinner-border  text-primary" role="status">
-                        <span className="sr-only">Loading...</span>
-                    </div>
-                </div>
-            );
-        }
-        else {
+      
             return (
                 <div className="container-fluid" id='container-main' >
                     <div className='container' >
@@ -204,8 +172,7 @@ class Home extends React.Component {
                         
                     </div>
                 </div>
-            );
-        }
+            );        
     };
 }
 export default Home;
