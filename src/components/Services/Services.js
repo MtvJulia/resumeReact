@@ -1,48 +1,16 @@
 import React from 'react';
-import axios from 'axios';
 
 import './Services.css';
-import { API_BASE_ADDRESS } from '../../ConstantModule';
 
 import books from '../../images/services/books.jpeg'
 import docs from '../../images/services/docs.jpg'
 import resume from '../../images/services/resume.jpg'
 import sobesedovanie from '../../images/services/sobesedov.jpg'
 
-class Services extends React.Component {
-
-    constructor(props) {
-
-        super(props);
-
-        this.state = {
-            users: null
-        }
-    }
-
-    componentDidMount() {
-        fetch(API_BASE_ADDRESS)
-            .then((response) => response.json())
-            .then((data) => {
-                // console.log(data);
-                this.setState({
-                    items: data
-                });
-            });
-    }
+class Services extends React.Component {      
 
     render() {
-
-        if (this.state.items == null) {
-            return (
-                <div className="d-flex justify-content-center spin">
-                    <div className="spinner-border  text-primary" role="status">
-                        <span className="sr-only">Loading...</span>
-                    </div>
-                </div>
-            );
-        }
-        else {
+        
             return (
                 <div className="container">
 
@@ -116,5 +84,5 @@ class Services extends React.Component {
             );
         }
     };
-}
+
 export default Services;

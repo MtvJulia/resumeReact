@@ -1,5 +1,5 @@
 import React from 'react';
-//import axios from 'axios';
+
 import '../UserData/UserData.css';
 import ShowExperience from '../../ShowModules/ShowExperience';
 import ShowEducation from '../../ShowModules/ShowEducation';
@@ -390,7 +390,7 @@ class UserData extends React.Component {
                                         </legend>
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <label for="id_nationality">Национальность:</label>
+                                                <label for="id_nationality">Гражданство:</label>
                                                 <input type="text" className="form-control" id="id_nationality" name="id_nationality" value={this.state.items.nationality} onChange={this.setNationality}
                                                     placeholder="Введите национальность" />
                                             </div>
