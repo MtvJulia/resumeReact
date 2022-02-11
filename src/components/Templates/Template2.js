@@ -7,14 +7,14 @@ import avatar from '../../images/avatar.png';
 import location from '../../images/location.png';
 import phone from '../../images/phone.png';
 import email from '../../images/email.png';
-import {API_ADDRESS_TMP2} from '../../ConstantModule';
+import { API_ADDRESS_TMP2 } from '../../ConstantModule';
 import { getDriverLicense, getRecomendingArr, getExperience, getEducation, calculateAge, getCourses, getLanguages, getArmyData, getEmployment, getDesiredSalary, getMaritalStatus } from "../TemplateLoadingMethods";
 
 class Template2 extends React.Component {
 
     constructor(props) {
 
-        super(props);       
+        super(props);
         this.state = {
             userData: null,
             languagesArr: null,
@@ -34,9 +34,9 @@ class Template2 extends React.Component {
         this.educatArr = [];
         this.experArr = [];
         this.recomendArr = [];
-        this.age = 0;       
+        this.age = 0;
 
-    }   
+    }
 
     componentDidMount() {
         fetch(API_ADDRESS_TMP2)
@@ -232,7 +232,10 @@ class Template2 extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <PrintComponents trigger={<button className="btn btn-primary btn-lg">Распечатать и сохранить в PDF</button>} >
+                    <PrintComponents trigger={
+                        <div className='d-flex justify-content-center'>
+                            <button className="btn btn-primary btn-lg">Распечатать и сохранить в PDF</button>
+                        </div>} >
                         {/* template 2 */}
                         <div className="container-sm" id="main-container-t2" >
                             <div className="row container-t">
@@ -373,7 +376,7 @@ class Template2 extends React.Component {
                                 </div>
                             </div>
                         </div>
-                    </PrintComponents>                    
+                    </PrintComponents>
                 </div >
             );
         }

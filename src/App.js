@@ -17,6 +17,7 @@ import Template5 from './components/Templates/Template5';
 import Template6 from './components/Templates/Template6';
 
 import Page1 from './components/Pages/Page1';
+import Page2 from './components/Pages/Page2';
 
 import './App.css';
 import logoPhoto from './images/logoResume.png';
@@ -81,6 +82,7 @@ class App extends React.Component {
             <Route path="/tmp6" component={Template6} />
 
             <Route path="/kak-opisat'-opyt-raboty-v-rezyume" component={Page1} />
+            <Route path="/Navyki-dlya-vashego-rezyume:-kakie-ukazyvat'-v-2022-godu" component={Page2} />
 
 
           </div>

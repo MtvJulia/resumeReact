@@ -53,8 +53,8 @@ class Registration extends React.Component {
                                     </div>
 
                                     <div className="mb-3">
-                                        <input type="text" className="form-control" id="userlogin" aria-describedby="emailHelp"
-                                            placeholder="Введите логин" name="UserLogin" />
+                                        <input type="email" className="form-control" id="userlogin" aria-describedby="emailHelp"
+                                            placeholder="Введите e-mail" name="UserLogin" />
                                         <div className="errorColor">{this.state.users.errorregister}</div>
                                     </div>
                                     <div className="mb-3">
@@ -67,7 +67,6 @@ class Registration extends React.Component {
                                         <button type="submit" className="btn btn-color px-5 mb-5 w-100">Регистрация</button></div>
                                 </form>
                             </div>
-
                         </div>
                     </div>
                 </div>

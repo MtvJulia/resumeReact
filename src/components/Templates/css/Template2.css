@@ -1,10 +1,10 @@
 #left-container-t2 {
-    background-color: #060635;    
+    background-color: #060635;
     min-width: min-content;
     -webkit-print-color-adjust: exact;
 }
 
-.txt-white{
+.txt-white {
     color: white;
 }
 
@@ -15,14 +15,14 @@
     filter: invert(1);
 }
 
-.invert{
+.invert {
     filter: invert(1);
 }
 
 .box-t2 {
     display: inline-block;
     width: 100%;
-    background-color: #F0F8FF;    
+    background-color: #F0F8FF;
     border-color: #e9ecef !important;
     -webkit-print-color-adjust: exact;
 }

@@ -3,14 +3,14 @@
 }
 
 .gradient{
-    background: linear-gradient(to right, rgb(223, 223, 223), rgb(253, 253, 253)); 
-     
+    background: linear-gradient(to right, rgb(223, 223, 223), rgb(253, 253, 253));      
 }
 
-.gradient,
+
 .card-main{
-    margin: 50px 0;
-    
+    margin: 50px 0 20px 0;    
+    padding-bottom: 20px;
+    background-image: url('../../images/fon.jpg');      
 }
 
 .card-link{
@@ -32,3 +32,35 @@
   box-shadow: 0 0 0 2px white, 0 0 0 4px #3A2F28;
 }
 
+figure {
+  width: 100%;
+  /* Ширина области */
+  height: 300px;
+  /* Высота области */
+  margin: 0;
+  /* Обнуляем отступы */
+  overflow: hidden;
+  /* Прячем всё за пределами */
+  min-width: 600px;
+  /* Минимальная ширина */
+}
+
+figure img {
+  width: 100%;
+  /* Ширина изображений */
+  margin: -20% 0 0 0;
+  /* Сдвигаем вверх */
+}
+
+.head-text{
+  margin: 50px 0 30px 0;
+}
+
+
+.card-header{
+  background-color: rgb(128, 164, 206);
+}
+
+.card{
+  margin-bottom: 40px;
+}

@@ -7,13 +7,13 @@ import avatar from '../../images/avatar.png';
 import location from '../../images/location.png';
 import phone from '../../images/phone.png';
 import email from '../../images/email.png';
-import {API_ADDRESS_TMP6} from "../../ConstantModule";
+import { API_ADDRESS_TMP6 } from "../../ConstantModule";
 import { getDriverLicense, getRecomendingArr, getExperience, getEducation, calculateAge, getCourses, getLanguages, getArmyData, getEmployment, getDesiredSalary, getMaritalStatus } from "../TemplateLoadingMethods";
 
 class Template6 extends React.Component {
 
     constructor(props) {
-        super(props);  
+        super(props);
         this.state = {
             userData: null,
             languagesArr: null,
@@ -232,7 +232,10 @@ class Template6 extends React.Component {
                         </div>
                     </div >
 
-                    <PrintComponents trigger={<button className="btn btn-primary btn-lg">Распечатать и сохранить в PDF</button>} >
+                    <PrintComponents trigger={
+                        <div className='d-flex justify-content-center'>
+                            <button className="btn btn-primary btn-lg">Распечатать и сохранить в PDF</button>
+                        </div>} >
                         {/* template 6 */}
                         <div className="container-sm border " id="main-container-t6" >
                             <div className="media align-items-center tttt">
@@ -376,7 +379,7 @@ class Template6 extends React.Component {
                                 </div>
                             </div>
                         </div >
-                    </PrintComponents>                  
+                    </PrintComponents>
                 </div >
             );
         }
