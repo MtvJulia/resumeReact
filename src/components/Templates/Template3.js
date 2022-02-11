@@ -1,6 +1,4 @@
 import React from 'react';
-import axios from 'axios';
-import { saveAs } from 'file-saver';
 import PrintComponents from "react-print-components";
 
 import './css/main.css';
@@ -37,25 +35,7 @@ class Template3 extends React.Component {
         this.recomendArr = [];
         this.age = 0;      
 
-    }
-
-    // createAndDownloadPdf = () => {
-
-    //     const options = {
-    //         method: 'POST',
-    //         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    //         data: this.state,
-    //         url: 'http://localhost:55555/create-pdf'
-    //     };
-
-    //     axios(options)
-    //         .then(() => axios.get('http://localhost:55555/fetch-pdf', { responseType: 'blob' }))
-    //         .then((res) => {
-    //             const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
-
-    //             saveAs(pdfBlob, 'newPdf.pdf');
-    //         })
-    // }
+    }    
 
     componentDidMount() {       
         fetch(API_ADDRESS_TMP3)
@@ -389,8 +369,7 @@ class Template3 extends React.Component {
                             <div className="mb-1 pl-4 long-text" >{this.state.userData.hobby}</div>
                         </div>
                     </div>
-                    </PrintComponents>
-                    <div> <button onClick={this.createAndDownloadPdf}>Download PDF</button> </div>
+                    </PrintComponents>                   
                 </div >
             );
         }

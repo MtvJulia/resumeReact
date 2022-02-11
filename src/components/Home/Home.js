@@ -1,6 +1,4 @@
 import React from 'react';
-import axios from 'axios';
-
 import './Home.css';
 
 import mainPhoto from '../../images/dance2.jpg';

@@ -1,6 +1,4 @@
 import React from 'react';
-import axios from 'axios';
-
 import './Login.css';
 import iconForForm from '../../images/user.png';
 import {API_ADDRESS_LOGIN} from '../../ConstantModule';
