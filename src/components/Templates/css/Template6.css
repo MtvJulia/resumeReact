@@ -1,27 +1,27 @@
 #left-container-t6 {
-    background-color: #fff;    
+    background-color: #fff;
     min-width: min-content;
     -webkit-print-color-adjust: exact;
 }
 
-#right-container-t6{
+#right-container-t6 {
     background-color: #EFEFEF;
 }
 
 .box-t6 {
     display: inline-block;
     width: 100%;
-    background-color: #EFEFEF;    
+    background-color: #EFEFEF;
     border-color: #e9ecef !important;
     -webkit-print-color-adjust: exact;
 }
 
-.mark-t6{
+.mark-t6 {
     background-color: #c9dcbb;
     -webkit-print-color-adjust: exact;
 }
 
-.tttt{
+.tttt {
     background-color: #395B74;
     color: #EBF1F2;
     -webkit-print-color-adjust: exact;

@@ -596,7 +596,7 @@ class UserData extends React.Component {
                                         </div>
                                     </fieldset>
                                     <div class="d-flex justify-content-center mt-3">
-                                        <button type="submit" className="btn btn-primary btn-lg mb-5" id="sbmResume">Перейти к шаблонам</button>
+                                        <button type="submit" className="btn btn-primary btn-lg mb-5" id="sbmResume">Сохранить и перейти к шаблонам</button>
 
                                     </div>
 

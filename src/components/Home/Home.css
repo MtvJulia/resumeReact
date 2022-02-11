@@ -2,10 +2,6 @@
     border: 1px solid black;
 } */
 
-.spin {
-    margin-top: 20vw;
-}
-
 #container-main {
     background-color: #F8F8FA;
 }
@@ -56,8 +52,6 @@
     display: table;
     width: 100%;
     margin: 0 auto;
-    /* background-color:#FFFFFF; */
-    /* box-shadow: 0 3px 8px -6px rgba(0,0,0,.50); */
 }
 
 .md-stepper-horizontal .md-step {
@@ -97,7 +91,6 @@
 .md-stepper-horizontal .md-step .md-step-title,
 .md-stepper-horizontal .md-step .md-step-optional {
     text-align: center;
-    /* color:rgba(0,0,0,.26); */
 }
 
 .md-stepper-horizontal .md-step .md-step-title {

@@ -1,5 +1,5 @@
 #left-container-t4 {
-    background-color: #e0f5d0;    
+    background-color: #e0f5d0;
     min-width: min-content;
     -webkit-print-color-adjust: exact;
 }
@@ -7,12 +7,12 @@
 .box-t4 {
     display: inline-block;
     width: 100%;
-    background-color: #effae7;    
+    background-color: #effae7;
     border-color: #e9ecef !important;
     -webkit-print-color-adjust: exact;
 }
 
-.mark-t4{
+.mark-t4 {
     background-color: #c9dcbb;
     -webkit-print-color-adjust: exact;
 }

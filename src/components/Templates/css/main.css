@@ -44,7 +44,7 @@
     /* CSS для: ширины >= 1200px */
 }
 
-.container-sm{
+.container-sm {
     margin-top: 30px;
     margin-bottom: 30px;
     padding-bottom: 20px;
@@ -93,20 +93,27 @@
     margin-left: 25px;
 }
 
-.long-text {    
+.long-text {
     word-wrap: break-word;
 }
 
 .hr2 {
-    border: none;   /* Убираем границу */
-    background-color: black;    /* Цвет линии */
-    color: black;    /* Цвет линии для IE6-7 */
-    height: 2px;    /* Толщина линии */
+    border: none;
+    /* Убираем границу */
+    background-color: black;
+    /* Цвет линии */
+    color: black;
+    /* Цвет линии для IE6-7 */
+    height: 2px;
+    /* Толщина линии */
     -webkit-print-color-adjust: exact;
 }
 
-.line { 
-    border-left: 2px solid #ccc; /* Параметры линии */ 
-    margin-left: 20px; /* Отступ слева */
-    padding-left: 10px; /* Расстояние от линии до текста */    
+.line {
+    border-left: 2px solid #ccc;
+    /* Параметры линии */
+    margin-left: 20px;
+    /* Отступ слева */
+    padding-left: 10px;
+    /* Расстояние от линии до текста */
 }
