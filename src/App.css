@@ -62,9 +62,7 @@ a{
   padding: 0px;
 }
 
-footer {
-  /* background-color: #E0E0E0; */
-}
 .errorColor{
   color:crimson;
+  padding-left: 10px;
 }

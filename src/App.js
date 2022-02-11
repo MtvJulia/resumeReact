@@ -16,6 +16,8 @@ import Template4 from './components/Templates/Template4';
 import Template5 from './components/Templates/Template5';
 import Template6 from './components/Templates/Template6';
 
+import Page1 from './components/Pages/Page1';
+
 import './App.css';
 import logoPhoto from './images/logoResume.png';
 import avatar from './images/avatar.png';
@@ -43,17 +45,17 @@ class App extends React.Component {
                     </a>
                   </li>
                   <li className="nav-item"><a className="nav-link" href="/home">Главная</a></li>
-                  <li className="nav-item"><a className="nav-link" href="/services">Как составить резюме</a></li>
+                  <li className="nav-item"><a className="nav-link" href="/services">Карьерные советы</a></li>
                   <li className="nav-item"><a className="nav-link" href="/about">О нас</a></li>
-                  <li className="nav-item"><a className="nav-link" href="http://localhost:3000/userdata">News</a></li>                
+                  {/* <li className="nav-item"><a className="nav-link" href="http://localhost:3000/userdata">News</a></li>                 */}
                 </ul>
 
-                <ul className="nav " >
+                <ul className="nav" id='guestStatus' >
                   <li><Link to="/login" className="btn btn-primary">Вход</Link></li>
                   <li><Link to="/registration" className="btn btn-primary">Регистрация</Link></li>
                 </ul>
                 
-                <ul className="nav align-items-center" >
+                <ul className="nav align-items-center" id='userStatus' hidden>
                   <li><img src={avatar} className="rounded-circle my-1" width="80px" alt="user" /></li>
                   <li><Link to="/home" className="btn btn-primary  exit-btn">Выход</Link></li>
                 </ul>
@@ -77,6 +79,10 @@ class App extends React.Component {
             <Route path="/tmp4" component={Template4} />
             <Route path="/tmp5" component={Template5} />
             <Route path="/tmp6" component={Template6} />
+
+            <Route path="/kak-opisat'-opyt-raboty-v-rezyume" component={Page1} />
+
+
           </div>
 
         </BrowserRouter>

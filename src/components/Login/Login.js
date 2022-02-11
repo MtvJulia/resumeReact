@@ -45,13 +45,14 @@ class Login extends React.Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-6 offset-md-3">
-                            <h1 className="text-center text-dark mt-5">Вход</h1>
+                            <h1 className="text-center text-dark mt-5">Авторизация</h1>
                             <div className="card my-5">
                                 <form className="card-body cardbody-color p-lg-5" action={API_ADDRESS_LOGIN} method="POST">
 
                                     <div className="text-center">
                                         <img src={iconForForm} className="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
                                             width="200px" alt="profile" />
+                                             <div  className = "errorColor">{this.state.users.errorlogin}  </div>
                                     </div>
 
                                     <div className="mb-3">
@@ -68,7 +69,7 @@ class Login extends React.Component {
                                         <a href="/registration" className="text-dark fw-bold"> Создай аккаунт</a>
                                     </div>
 
-                                    <div  className = "errorColor">{this.state.users.errorlogin}  </div>
+                                   
                                 </form>
                             </div>
 

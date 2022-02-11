@@ -3,7 +3,7 @@ import axios from 'axios';
 import '../../../src/App.css';
 
 import iconForForm from '../../images/user.png';
-import {API_ADDRESS_REGISTER} from '../../ConstantModule';
+import { API_ADDRESS_REGISTER } from '../../ConstantModule';
 
 
 class Registration extends React.Component {
@@ -12,15 +12,15 @@ class Registration extends React.Component {
         super(props);
         this.state = {
             users: null
-        }     
+        }
     }
 
     componentDidMount() {
-        
+
         fetch(API_ADDRESS_REGISTER)
             .then((response) => response.json())
             .then((data) => {
-               
+
                 this.setState({
                     users: data
                 });
@@ -39,7 +39,7 @@ class Registration extends React.Component {
             );
         }
         else {
-            return (               
+            return (
 
                 <div className="container">
                     <div className="row">
@@ -56,6 +56,7 @@ class Registration extends React.Component {
                                     <div className="mb-3">
                                         <input type="text" className="form-control" id="userlogin" aria-describedby="emailHelp"
                                             placeholder="Введите логин" name="UserLogin" />
+                                        <div className="errorColor">{this.state.users.errorregister}</div>
                                     </div>
                                     <div className="mb-3">
                                         <input type="password" className="form-control" id="pwd" placeholder="Введите пароль" name="Password" />
@@ -67,7 +68,7 @@ class Registration extends React.Component {
                                         <button type="submit" className="btn btn-color px-5 mb-5 w-100">Регистрация</button></div>
                                 </form>
                             </div>
-                            <div  className = "errorColor">{this.state.users.errorregister}  </div>
+
                         </div>
                     </div>
                 </div>

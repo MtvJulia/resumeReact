@@ -10,7 +10,7 @@ import quickly from '../../images/quickly.png';
 import templates from '../../images/templates.png';
 import cloud from '../../images/cloud.png';
 import online from '../../images/online.png';
-import {API_BASE_ADDRESS} from '../../ConstantModule';
+import { API_BASE_ADDRESS } from '../../ConstantModule';
 
 import template1 from '../../images/template1.png';
 import template2 from '../../images/template2.png';
@@ -25,17 +25,17 @@ class Home extends React.Component {
     constructor(props) {
 
         super(props);
-        
+
         this.state = {
             users: null
-        }       
+        }
     }
 
     componentDidMount() {
-        
+
         fetch(API_BASE_ADDRESS)
             .then((response) => response.json())
-            .then((data) => {                
+            .then((data) => {
                 this.setState({
                     items: data
                 });
@@ -117,7 +117,7 @@ class Home extends React.Component {
                         </div>
 
                         {/* fifth container */}
-                        <div className='d-flex flex-wrap justify-content-center' id='fifth-container'>
+                        <div className='d-flex flex-wrap justify-content-center' id='fifth-container'>                           
 
                             <img className='img-template' src={template1} alt='template'></img>
 
@@ -137,8 +137,8 @@ class Home extends React.Component {
                             <p><a className="btn btn-primary btn-lg" href="/login" role="button">Создать резюме</a></p>
                         </div>
 
-                        <div className='container-fluid bg-dark'>
-                            {/* sixth container */}
+
+                        {/* sixth container */}
                         <div className='row justify-content-center' id='sixth-container'>
                             <h2>Как это работает?</h2>
                         </div>
@@ -164,9 +164,6 @@ class Home extends React.Component {
                                 <div className="md-step-bar-right"></div>
                             </div>
                         </div>
-                        </div>
-
-                        
 
                         {/* eighth container */}
                         <div className='d-flex flex-row-reverse' id='eighth-container'>
@@ -182,7 +179,7 @@ class Home extends React.Component {
                         <div className='d-flex flex-row' id='ninth-container'>
                             <div className='col-6'>
                                 <div className=''><h2>Легкий и удобный в обслуживании</h2></div>
-                                <p>Конструктор Резюме очень простой и легкий в обслуживании,
+                                <p>Конструктор Резюме очень простой и легкий в использовании,
                                     не требует никаких дополнительных знаний из области графики или скачивания программ.</p>
                             </div>
 
@@ -193,7 +190,7 @@ class Home extends React.Component {
                             <div className='col-6 '>
                                 <div className=''><h2>Выбирайте среди множества стилей резюме</h2></div>
                                 <p>Выбирайте один из доступных графических шаблонов,
-                                    благодаря чему Ваше резюме будет подходить по стилю к должности и фирме</p>
+                                    благодаря чему Ваше резюме будет выделяться среди конкурентов.</p>
                             </div>
 
                         </div>
@@ -203,7 +200,7 @@ class Home extends React.Component {
                             <div className='col-6'>
                                 <div className=''><h2>Скачивайте и распечатывайте свое резюме</h2></div>
                                 <p>Возможность скачать ваше резюме в самом распространённом формате PDF,
-                                    сохранить или оправить резюме работодателю по электронной почте.</p>
+                                    сохранить и отправить резюме работодателю по электронной почте.</p>
                             </div>
 
                         </div>
