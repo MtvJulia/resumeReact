@@ -1,14 +1,7 @@
 import React from 'react';
-import axios from 'axios';
-import { saveAs } from 'file-saver';
 import PrintComponents from "react-print-components";
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
-import ReactDOMServer from "react-dom/server";
-import pdf from 'html-pdf';
 
 import './css/main.css';
-
 
 import avatar from '../../images/avatar.png';
 import location from '../../images/location.png';
@@ -43,41 +36,7 @@ class Template1 extends React.Component {
         this.recomendArr = [];
         this.age = 0;     
     }
-    
-    // createAndDownloadPdf = () => {
-
-    //     const options = {
-    //         method: 'POST',
-    //         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    //         data: this.state,
-    //         url: 'http://localhost:55555/create-pdf'
-    //     };
-
-    //     axios(options)
-    //         .then(() => axios.get('http://localhost:55555/fetch-pdf', { responseType: 'blob' }))
-    //         .then((res) => {
-    //             const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
-
-    //             saveAs(pdfBlob, 'newPdf.pdf');
-    //         })
-    // }
-
-
-
-    // pdfDocument() {
-    //     const input = document.getElementById('divToPDF');
-    //     html2canvas(input)
-    //       .then((canvas) => {          
-    //           console.dir(canvas);
-    //         const imgData = canvas.toDataURL('image/png');
-    //         const pdf = new jsPDF();
-    //          pdf.addImage(imgData, 'JPEG', 0, 0);
-    //       //  pdf.output('dataurlnewwindow');
-    //         pdf.save("download.pdf");
-    //       });          
-    //   }
-
-
+       
     componentDidMount() {
 
         //Встроенный метод для GET (и только) запросов
@@ -143,7 +102,7 @@ class Template1 extends React.Component {
                     <div className="container-sm" id="main-container-t1" >
                         <div className="row container-t" id="divToPDF">
                             {/* left-container */}
-                            <div className="col col-2" id="left-container-t1">
+                            <div className="col col-4" id="left-container-t1">
                                 <img id="avatar" src={this.imageFromDB} className="rounded mx-auto d-block" alt="avatar" />
                                 <div className="row justify-content-start" id='full-name'>
                                     <div className="mr-3 text-capitalize text-break name-text">{this.state.userData.lastName}</div>
@@ -285,7 +244,7 @@ class Template1 extends React.Component {
                             </div>
                         </div>                       
                     </div>
-                    <PrintComponents trigger={<button>Print</button>} >
+                    <PrintComponents trigger={<button className="btn btn-primary btn-lg">Распечатать и сохранить в PDF</button>} >
                          {/* template 1 */}                         
                        <div className="container-sm" id="main-container-t1" >
                         <div className="row container-t">
@@ -435,11 +394,7 @@ class Template1 extends React.Component {
                             </div>
                         </div>                       
                     </div>
-                        </PrintComponents>
-                        <div> <button onClick={this.createAndDownloadPdf}>Download PDF</button> </div>
-                        <button onClick={this. pdfDocument}>TO PDF</button>  
-                      
-   
+                        </PrintComponents>                          
                 </div >
             );
         }

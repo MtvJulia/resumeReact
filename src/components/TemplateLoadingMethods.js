@@ -500,7 +500,7 @@ const getRecomendingArr=(data)=> {
             for (let i = 0; i < data.phoneCompany.length; i++) {
                 let recomendingItem = {};
                 recomendingItem.personRecommending = data.personRecommending[i];
-                recomendingItem.organcompanyization = data.company[i];
+                recomendingItem.company = data.company[i];
                 recomendingItem.emailCompany = data.emailCompany[i];
                 recomendingItem.phoneCompany = data.phoneCompany[i];
                 recomendingArr.push(recomendingItem);
