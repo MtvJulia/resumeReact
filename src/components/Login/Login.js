@@ -53,7 +53,7 @@ class Login extends React.Component {
                                     </div>
 
                                     <div className="mb-3">
-                                        <input type="text" className="form-control" id="userlogin" name="UserLogin" aria-describedby="emailHelp"
+                                        <input type="email" className="form-control" id="userlogin" name="UserLogin" aria-describedby="emailHelp"
                                             placeholder="Введите логин" onChange={this.setLogin} />
                                     </div>
 

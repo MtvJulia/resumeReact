@@ -53,7 +53,7 @@ class Registration extends React.Component {
                                     </div>
 
                                     <div className="mb-3">
-                                        <input type="text" className="form-control" id="userlogin" aria-describedby="emailHelp"
+                                        <input type="email" className="form-control" id="userlogin" aria-describedby="emailHelp"
                                             placeholder="Введите логин" name="UserLogin" />
                                     </div>
                                     <div className="mb-3">
