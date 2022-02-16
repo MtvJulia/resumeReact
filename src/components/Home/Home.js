@@ -25,7 +25,7 @@ class Home extends React.Component {
                 <div className='container' >
 
                     {/* first container */}
-                    <div className='row align-items-center justify-content-evenly' id='first-container'>
+                    <div className='row align-items-center justify-content-center' id='first-container'>
                         <div className='col col-md-6 col-12'>
                             <div><h2>Создайте резюме в онлайн конструкторе</h2></div>
                             <div>

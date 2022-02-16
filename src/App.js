@@ -89,7 +89,7 @@ class App extends React.Component {
 
         </BrowserRouter>
 
-        <footer className="page-footer font-small blue static-bottom">
+        {/* <footer className="page-footer font-small blue static-bottom">
           <div className="footer-copyright text-center py-3 ">
             <ul className="list-inline text-center py-3">
               <li className="list-inline-item"><a href="/">Home</a></li>
@@ -100,7 +100,7 @@ class App extends React.Component {
             </ul>
             <p className="copyright">ResumeOnline © 2022</p>
           </div>
-        </footer>
+        </footer> */}
 
       </div>
     );

@@ -28,6 +28,10 @@
     margin: 90px 0 20px 0;
 }
 
+.row h2{
+    width: auto;
+}
+
 .img-tips {
     margin: 20px 0px 10px 120px;
     width: 60px;
@@ -42,10 +46,10 @@
     font-size: 14px;
 }
 
-.img-template {
+/* .img-template {
     width: 20vw;
     padding: 10px;
-}
+} */
 
 /* seventh container */
 .md-stepper-horizontal {
