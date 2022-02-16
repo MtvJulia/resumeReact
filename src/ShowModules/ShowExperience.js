@@ -48,7 +48,7 @@ class ShowExperience extends React.Component {
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                                 <label for="id_startWork">Начало работы:</label>
-                                                <input type="date" className="form-control" id={id_startWork + count} name="id_startWork" defaultValue={item.startWork.substr(0, 10)} ref={this.input} />
+                                                <input type="date" className="form-control"required id={id_startWork + count} name="id_startWork" defaultValue={item.startWork.substr(0, 10)} ref={this.input} />
                                             </div>
                                             <div className="form-group col-12 col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                                 <label for="id_endWork">Конец работы:</label>
@@ -64,19 +64,19 @@ class ShowExperience extends React.Component {
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_positionWork">Должность:</label>
-                                                <input type="text" className="form-control" id={id_positionWork + count} name="id_positionWork" defaultValue={item.positionWork}
+                                                <input type="text" className="form-control"required id={id_positionWork + count} name="id_positionWork" defaultValue={item.positionWork}
                                                     placeholder="Должность" ref={this.input} />
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_companyName">Название компании:</label>
-                                                <input type="text" className="form-control" id={id_companyName + count} name="id_companyName" defaultValue={item.companyName}
+                                                <input type="text" className="form-control"required id={id_companyName + count} name="id_companyName" defaultValue={item.companyName}
                                                     placeholder="Название компании" ref={this.input} />
                                             </div>
                                         </div>
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <label for="id_jobDuties_1">Обязанности:</label>
-                                                <textarea className="form-control" id={id_jobDuties_1 + count} name="id_jobDuties" defaultValue={item.jobDuties} ref={this.input}></textarea>
+                                                <textarea className="form-control"required id={id_jobDuties_1 + count} name="id_jobDuties" defaultValue={item.jobDuties} ref={this.input}></textarea>
                                             </div>
                                         </div>
                                     </details>

@@ -38,21 +38,21 @@ class ShowCourses extends React.Component {
                                                 <label for="id_courseName">Курс:</label>
                                                 <input type="text" className="form-control"
                                                     id={id_courseName + count}
-                                                    name="id_courseName" placeholder="Название курса"
+                                                    name="id_courseName"required placeholder="Название курса"
                                                     defaultValue={item.courseName}
                                                     ref={this.input}
                                                 />
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_organization">Проводившая организация:</label>
-                                                <input type="text" className="form-control" id={id_organization + count} name="id_organization" defaultValue={item.organization}
+                                                <input type="text" className="form-control" id={id_organization + count}required name="id_organization" defaultValue={item.organization}
                                                     ref={this.input} placeholder="Проводившая организация" />
                                             </div>
                                         </div>
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_endingCourse">Год окончания:</label>
-                                                <input type="date" className="form-control" id={id_endingCourse + count} name="id_endingCourse" defaultValue={item.endingCourse} ref={this.input} />
+                                                <input type="date" className="form-control"required id={id_endingCourse + count} name="id_endingCourse" defaultValue={item.endingCourse} ref={this.input} />
                                             </div>
                                         </div>
                                     </details>

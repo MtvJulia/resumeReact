@@ -37,7 +37,7 @@ class ShowEducation extends React.Component {
                                     <div className="row">
                                         <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                             <label for="id_institutName">Наименование учебного заведения:</label>
-                                            <input type="text" className="form-control" id={id_institutName+count} defaultValue={item.institutName} name="id_institutName"
+                                            <input type="text" className="form-control"required id={id_institutName+count} defaultValue={item.institutName} name="id_institutName"
                                                 placeholder="Введите наименование учебного заведения" ref={this.input} />
                                         </div>
                                         <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -58,19 +58,19 @@ class ShowEducation extends React.Component {
                                     <div className="row">
                                         <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                             <label for="id_faculty">Факультет:</label>
-                                            <input type="text" className="form-control" id={id_faculty+count} name="id_faculty" defaultValue={item.faculty}
+                                            <input type="text" className="form-control"required id={id_faculty+count} name="id_faculty" defaultValue={item.faculty}
                                                 placeholder="Введите факультет"ref={this.input} />
                                         </div>
                                         <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                             <label for="id_specialty">Специальность:</label>
-                                            <input type="text" className="form-control" id={id_specialty+count} name="id_specialty" defaultValue={item.specialty}
+                                            <input type="text" className="form-control"required id={id_specialty+count} name="id_specialty" defaultValue={item.specialty}
                                                 placeholder="Введите специальность"ref={this.input} />
                                         </div>
                                     </div>
                                     <div className="row">
                                         <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                             <label for="id_ending">Год окончания:</label>
-                                            <input type="date" className="form-control" id={id_ending+count} name="id_ending" defaultValue={item.ending} ref={this.input}/>
+                                            <input type="date" className="form-control"required id={id_ending+count} name="id_ending" defaultValue={item.ending} ref={this.input}/>
                                         </div>
                                     </div>
                                 </details>                                                                  

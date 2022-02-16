@@ -53,15 +53,15 @@ class Registration extends React.Component {
                                     </div>
 
                                     <div className="mb-3">
-                                        <input type="email" className="form-control" id="userlogin" aria-describedby="emailHelp"
+                                        <input type="email" className="form-control"required id="userlogin" aria-describedby="emailHelp"
                                             placeholder="Введите e-mail" name="UserLogin" />
                                         <div className="errorColor">{this.state.users.errorregister}</div>
                                     </div>
                                     <div className="mb-3">
-                                        <input type="password" className="form-control" id="pwd" placeholder="Введите пароль" name="Password" />
+                                        <input type="password" className="form-control"required id="pwd" placeholder="Введите пароль" name="Password" />
                                     </div>
                                     <div className="mb-3">
-                                        <input type="password" className="form-control" id="pwdRep" placeholder="Повторите пароль" name="RepeatPassword" />
+                                        <input type="password" className="form-control" requiredid="pwdRep" placeholder="Повторите пароль" name="RepeatPassword" />
                                     </div>
                                     <div className="text-center">
                                         <button type="submit" className="btn btn-color px-5 mb-5 w-100">Регистрация</button></div>

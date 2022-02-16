@@ -38,11 +38,11 @@ class ShowRecommending extends React.Component {
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_personRecommending">ФИО рекомендующего:</label>
-                                                <input type="text" className="form-control" id={id_personRecommending+count} defaultValue={item.personRecommending} ref={this.input} name="id_personRecommending" placeholder="ФИО рекомендующего" />
+                                                <input type="text"required className="form-control" id={id_personRecommending+count} defaultValue={item.personRecommending} ref={this.input} name="id_personRecommending" placeholder="ФИО рекомендующего" />
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_company">Компания, должность:</label>
-                                                <input type="text" className="form-control" id={id_company+count} defaultValue={item.company} name="id_company" placeholder="Компания, должность"ref={this.input} />
+                                                <input type="text"required className="form-control" id={id_company+count} defaultValue={item.company} name="id_company" placeholder="Компания, должность"ref={this.input} />
                                             </div>
                                         </div>
     
@@ -53,7 +53,7 @@ class ShowRecommending extends React.Component {
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <label for="id_phoneCompany">Телефон:</label>
-                                                <input type="text" className="form-control" id={id_phoneCompany+count} defaultValue={item.phoneCompany} name="id_phoneCompany" placeholder="+380661234567"ref={this.input} />
+                                                <input type="text"required className="form-control" id={id_phoneCompany+count} defaultValue={item.phoneCompany} name="id_phoneCompany" placeholder="+380661234567"ref={this.input} />
                                             </div>
                                         </div>
                                     </details>                                 

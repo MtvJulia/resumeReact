@@ -3,10 +3,11 @@ import React from 'react';
 class ShowLanguage extends React.Component {
 
     constructor(props) {
-        super(props)
-        this.input = React.createRef();        
-    }
+        super(props)       
+        this.input = React.createRef();                     
+    } 
 
+   
     DeleteLang(e) {          
         let langDetails = document.getElementById(e.target.parentNode.id);              
         langDetails.parentNode.removeChild(langDetails);
@@ -34,7 +35,7 @@ class ShowLanguage extends React.Component {
                                             <div className="row">
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <label for="id_langName">Язык:</label>
-                                                    <select className="form-control" id={id_langName + count} name="id_langName"
+                                                    <select className="form-control" id={id_langName + count}  name="id_langName"
                                                         defaultValue={item.langName}
                                                         ref={this.input}
                                                     >
@@ -59,7 +60,7 @@ class ShowLanguage extends React.Component {
                                                 </div>
                                                 <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                     <label for="id_level">Уровень владения:</label>
-                                                    <select className="form-control" id={id_level + count} name="id_level"
+                                                    <select className="form-control" id={id_level + count}  name="id_level"
                                                         defaultValue={item.level}
                                                         ref={this.input}>
                                                         <option value="" disabled selected hidden>Выберите уровень</option>
