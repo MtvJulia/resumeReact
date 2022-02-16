@@ -28,7 +28,7 @@ class UserData extends React.Component {
         this.count = 0;
         this.countLang = 100;
         this.imageFromDB = "";
-        //--------------------------------------------------------
+        //-------------------------------------------
 
         // this.changeData = this.changeData.bind(this);
         this.fillExpArr = this.fillExpArr.bind(this);
@@ -74,7 +74,8 @@ class UserData extends React.Component {
         this.setDriveLicenseD1 = this.setDriveLicenseD1.bind(this);
         this.setDriveLicenseD = this.setDriveLicenseD.bind(this);
         this.setDriveLicenseT = this.setDriveLicenseT.bind(this);
-        this.setStillWorking = this.setStillWorking.bind(this);
+      //  this.setStillWorking = this.setStillWorking.bind(this);
+       this.clearLocalStorage = this.clearLocalStorage.bind(this);
     }
 
     fillCoursArr(data, coursArr) {
@@ -162,7 +163,7 @@ class UserData extends React.Component {
 
         this.langArray.push({ langName: "", level: "" });
         this.setState(Object.assign(this.state.items, { langName: this.langArray.langName }));
-        this.setState(Object.assign(this.state.items, { level: this.langArray.level }));
+        this.setState(Object.assign(this.state.items, { level: this.langArray.level }));        
     }
     AddEducation() {
         this.educArray.push({ institutName: "", levelEducation: "", faculty: "", specialty: "", ending: "" });
@@ -195,7 +196,11 @@ class UserData extends React.Component {
         this.setState(Object.assign(this.state.items, { phoneCompany: this.recomendationArray.phoneCompany }));
     }
 
+    clearLocalStorage=()=>{
 
+        localStorage.clear();
+
+    }
     onFileSelected(event) {
         ////загрузка картинки на форму
         let selectedFile = event.target.files[0];
@@ -207,50 +212,146 @@ class UserData extends React.Component {
 
         reader.onload = function (event) {
             imgtag.src = event.target.result;
+            localStorage.setItem('image',event.target.result) ;
         };
         if (imgtag) {
             reader.readAsDataURL(selectedFile);
         }
 
         this.setState(Object.assign(this.state.items, { image: event.target.files[0], loaded: 0 }));
+        
 
         console.log(selectedFile);
-
+       
     }
-
-    setFirstName(event) { this.setState(Object.assign(this.state.items, { firstName: event.target.value })); }
-    setPositions(event) { this.setState(Object.assign(this.state.items, { position: event.target.value })); }
-    setLastName(event) { this.setState(Object.assign(this.state.items, { lastName: event.target.value })); }
-    setMiddleName(event) { this.setState(Object.assign(this.state.items, { middleName: event.target.value })); }
-    setBirthOfDate(event) { this.setState(Object.assign(this.state.items, { birthOfDate: event.target.value })); }
-    setCityOfResidence(event) { this.setState(Object.assign(this.state.items, { сityOfResidence: event.target.value })); }
-    setPhone(event) { this.setState(Object.assign(this.state.items, { phone: event.target.value })); }
-    setEmail(event) { this.setState(Object.assign(this.state.items, { email: event.target.value })); }
-    setNationality(event) { this.setState(Object.assign(this.state.items, { nationality: event.target.value })); }
-    setDesiredSalary(event) { this.setState(Object.assign(this.state.items, { desiredSalary: event.target.value })); }
-    setCurrencyName(event) { this.setState(Object.assign(this.state.items, { currency: event.target.value })); }
-    setEmployment(event) { this.setState(Object.assign(this.state.items, { employment: event.target.value })); }
-    setSchedule(event) { this.setState(Object.assign(this.state.items, { schedule: event.target.value })); }
-    setBusinessTrip(event) { this.setState(Object.assign(this.state.items, { businessTrip: event.target.checked })); }
-    setRelocate(event) { this.setState(Object.assign(this.state.items, { relocate: event.target.checked })); }
-    setMaritalStatus(event) { this.setState(Object.assign(this.state.items, { maritalStatus: event.target.value })); }
-    setChildren(event) { this.setState(Object.assign(this.state.items, { children: event.target.checked })); }
-    setEducation(event) { this.setState(Object.assign(this.state.items, { education: event.target.value })); }
-    setPrivateСar(event) { this.setState(Object.assign(this.state.items, { privateСar: event.target.checked })); }
-    setArmy(event) { this.setState(Object.assign(this.state.items, { army: event.target.checked })); }
-    setHobby(event) { this.setState(Object.assign(this.state.items, { hobby: event.target.value })); }
-    setPersonalQualities(event) { this.setState(Object.assign(this.state.items, { personalQualities: event.target.value })); }
-    setProfessionalSkills(event) { this.setState(Object.assign(this.state.items, { professionalSkills: event.target.value })); }
-    setStillWorking(event) { this.setState(Object.assign(this.state.items, { stillWorking: event.target.checked })); }
-    setDriveLicenseA1(event) { if (this.state.items.drivLicense != undefined) { this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseA1: event.target.checked })); } }
-    setDriveLicenseA(event) { if (this.state.items.drivLicense != undefined) { this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseA: event.target.checked })); } }
-    setDriveLicenseB1(event) { if (this.state.items.drivLicense != undefined) { this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseB1: event.target.checked })); } }
-    setDriveLicenseB(event) { if (this.state.items.drivLicense != undefined) { this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseB: event.target.checked })); } }
-    setDriveLicenseC1(event) { if (this.state.items.drivLicense != undefined) { this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseC1: event.target.checked })); } }
-    setDriveLicenseC(event) { if (this.state.items.drivLicense != undefined) { this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseC: event.target.checked })); } }
-    setDriveLicenseD1(event) { if (this.state.items.drivLicense != undefined) { this.setState(Object.assign(this.state.items.drivLicense, { driverLicensD1: event.target.checked })); } }
-    setDriveLicenseD(event) { if (this.state.items.drivLicense != undefined) { this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseD: event.target.checked })); } }
-    setDriveLicenseT(event) { if (this.state.items.drivLicense != undefined) { this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseT: event.target.checked })); } }
+    setFirstName(event) {
+         this.setState(Object.assign(this.state.items, { firstName: event.target.value }));                                     
+         localStorage.setItem('firstName',this.state.items.firstName ) ;              
+         }
+    setPositions(event) {
+         this.setState(Object.assign(this.state.items, { position: event.target.value })); 
+         localStorage.setItem('position',this.state.items.position ) ;       
+        }
+    setLastName(event) {
+         this.setState(Object.assign(this.state.items, { lastName: event.target.value }));
+         localStorage.setItem('lastName',this.state.items.lastName ) ;
+        }
+    setMiddleName(event) {
+         this.setState(Object.assign(this.state.items, { middleName: event.target.value }));
+         localStorage.setItem('middleName',this.state.items.middleName ) ;
+        }
+    setBirthOfDate(event) {
+         this.setState(Object.assign(this.state.items, { birthOfDate: event.target.value }));
+         localStorage.setItem('birthOfDate',this.state.items.birthOfDate!==null?this.state.items.birthOfDate:"" ) ;
+        }
+    setCityOfResidence(event) { 
+        this.setState(Object.assign(this.state.items, { сityOfResidence: event.target.value })); 
+        localStorage.setItem('сityOfResidence',this.state.items.сityOfResidence ) ;
+    }
+    setPhone(event) {
+         this.setState(Object.assign(this.state.items, { phone: event.target.value })); 
+         localStorage.setItem('phone',this.state.items.phone) ;
+        }
+    setEmail(event) {
+         this.setState(Object.assign(this.state.items, { email: event.target.value }));
+         localStorage.setItem('email',this.state.items.email) ;
+        }
+    setNationality(event) { 
+        this.setState(Object.assign(this.state.items, { nationality: event.target.value }));
+        localStorage.setItem('nationality',this.state.items.nationality) ;
+    }
+    setDesiredSalary(event) { 
+        this.setState(Object.assign(this.state.items, { desiredSalary: event.target.value })); 
+        localStorage.setItem('desiredSalary',this.state.items.desiredSalary) ;    
+    }
+    setCurrencyName(event) {
+         this.setState(Object.assign(this.state.items, { currency: event.target.value }));
+         localStorage.setItem('currency',this.state.items.currency) ; 
+         }
+    setEmployment(event) { 
+        this.setState(Object.assign(this.state.items, { employment: event.target.value }));
+        localStorage.setItem('employment',this.state.items.employment) ;
+     }
+    setSchedule(event) {
+         this.setState(Object.assign(this.state.items, { schedule: event.target.value }));
+         localStorage.setItem('schedule',this.state.items.schedule) ;
+        }
+    setBusinessTrip(event) {
+         this.setState(Object.assign(this.state.items, { businessTrip: event.target.checked }));
+         localStorage.setItem('businessTrip',this.state.items.businessTrip) ;
+        }
+    setRelocate(event) {
+         this.setState(Object.assign(this.state.items, { relocate: event.target.checked })); 
+         localStorage.setItem('relocate',this.state.items.relocate) ;
+        }
+    setMaritalStatus(event) {
+         this.setState(Object.assign(this.state.items, { maritalStatus: event.target.value }));
+         localStorage.setItem('maritalStatus',this.state.items.maritalStatus) ;
+        }
+    setChildren(event) {
+         this.setState(Object.assign(this.state.items, { children: event.target.checked }));
+         localStorage.setItem('children',this.state.items.children) ;
+        }
+    setEducation(event) {
+         this.setState(Object.assign(this.state.items, { education: event.target.value }));
+         localStorage.setItem('education',this.state.items.education) ;
+        }
+    setPrivateСar(event) {
+         this.setState(Object.assign(this.state.items, { privateСar: event.target.checked })); 
+         localStorage.setItem('privateСar',this.state.items.privateСar) ;
+        }
+    setArmy(event) {
+         this.setState(Object.assign(this.state.items, { army: event.target.checked }));
+         localStorage.setItem('army',this.state.items.army) ;
+        }
+    setHobby(event) { 
+        this.setState(Object.assign(this.state.items, { hobby: event.target.value }));
+        localStorage.setItem('hobby',this.state.items.hobby) ;
+    }
+    setPersonalQualities(event) {
+         this.setState(Object.assign(this.state.items, { personalQualities: event.target.value }));
+         localStorage.setItem('personalQualities',this.state.items.personalQualities) ;        
+        }
+    setProfessionalSkills(event) {
+         this.setState(Object.assign(this.state.items, { professionalSkills: event.target.value })); 
+         localStorage.setItem('professionalSkills',this.state.items.professionalSkills) ;
+        }    
+    setDriveLicenseA1(event) { if (this.state.items.drivLicense != undefined) { 
+        this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseA1: event.target.checked }));
+        localStorage.setItem('driverLicenseA1',this.state.items.drivLicense.driverLicenseA1) ;
+    } }
+    setDriveLicenseA(event) { if (this.state.items.drivLicense != undefined) {
+         this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseA: event.target.checked })); 
+         localStorage.setItem('driverLicenseA',this.state.items.drivLicense.driverLicenseA) ;
+        } }
+    setDriveLicenseB1(event) { if (this.state.items.drivLicense != undefined) { 
+        this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseB1: event.target.checked }));
+        localStorage.setItem('driverLicenseB1',this.state.items.drivLicense.driverLicenseB1) ;
+} }
+    setDriveLicenseB(event) { if (this.state.items.drivLicense != undefined) {
+         this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseB: event.target.checked })); 
+         localStorage.setItem('driverLicenseB',this.state.items.drivLicense.driverLicenseB) ;
+        } }
+    setDriveLicenseC1(event) { if (this.state.items.drivLicense != undefined) { 
+        this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseC1: event.target.checked })); 
+        localStorage.setItem('driverLicenseC1',this.state.items.drivLicense.driverLicenseC1) ;    
+    } }
+    setDriveLicenseC(event) { if (this.state.items.drivLicense != undefined) {
+         this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseC: event.target.checked }));
+    localStorage.setItem('driverLicenseC',this.state.items.drivLicense.driverLicenseC) ;
+ } }
+    setDriveLicenseD1(event) { if (this.state.items.drivLicense != undefined) {
+         this.setState(Object.assign(this.state.items.drivLicense, { driverLicensD1: event.target.checked }));
+         localStorage.setItem('driverLicensD1',this.state.items.drivLicense.driverLicensD1) ;
+        } }
+    setDriveLicenseD(event) { if (this.state.items.drivLicense != undefined) { 
+        this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseD: event.target.checked }));
+        localStorage.setItem('driverLicenseD',this.state.items.drivLicense.driverLicenseD) ;    
+    } }
+    setDriveLicenseT(event) { if (this.state.items.drivLicense != undefined) {
+         this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseT: event.target.checked })); 
+         localStorage.setItem('driverLicenseT',this.state.items.drivLicense.driverLicenseT) ;
+        } }
 
 
     componentDidMount() {
@@ -285,11 +386,55 @@ class UserData extends React.Component {
                 this.coursArray = coursArr;
                 this.recomendationArray = recomendArr;
 
-                if (data.birthOfDate == undefined) { data.birthOfDate = ''; }
+                if (data.birthOfDate == undefined) { data.birthOfDate = ''; }             
 
                 this.setState({
                     items: data
                 });
+
+                if(data.firstName=="" )
+                {                              
+               this.setState(Object.assign(this.state.items, {firstName: localStorage.getItem('firstName') }));
+               this.setState(Object.assign(this.state.items, {lastName: localStorage.getItem('lastName') }));
+               this.setState(Object.assign(this.state.items, {middleName: localStorage.getItem('middleName') }));
+               this.setState(Object.assign(this.state.items, {position: localStorage.getItem('position') }));
+               this.setState(Object.assign(this.state.items, {birthOfDate:localStorage.getItem('birthOfDate')!==null?localStorage.getItem('birthOfDate'):"" }));
+               this.setState(Object.assign(this.state.items, {сityOfResidence: localStorage.getItem('сityOfResidence') }));
+               this.setState(Object.assign(this.state.items, {phone: localStorage.getItem('phone') }));
+               this.setState(Object.assign(this.state.items, {email: localStorage.getItem('email') }));
+               this.setState(Object.assign(this.state.items, {nationality: localStorage.getItem('nationality') }));
+               this.setState(Object.assign(this.state.items, {desiredSalary: localStorage.getItem('desiredSalary') }));
+               this.setState(Object.assign(this.state.items, {currency: localStorage.getItem('currency') }));
+               this.setState(Object.assign(this.state.items, {employment: localStorage.getItem('employment') }));
+               this.setState(Object.assign(this.state.items, {schedule: localStorage.getItem('schedule') }));
+               this.setState(Object.assign(this.state.items, {businessTrip: localStorage.getItem('businessTrip') }));
+               this.setState(Object.assign(this.state.items, {relocate: localStorage.getItem('relocate') }));
+               this.setState(Object.assign(this.state.items, {maritalStatus: localStorage.getItem('maritalStatus') }));
+               this.setState(Object.assign(this.state.items, {children: localStorage.getItem('children') }));
+               this.setState(Object.assign(this.state.items, {education: localStorage.getItem('education') }));
+               this.setState(Object.assign(this.state.items, {privateСar: localStorage.getItem('privateСar') }));
+               this.setState(Object.assign(this.state.items, {army: localStorage.getItem('army') }));
+               this.setState(Object.assign(this.state.items, {hobby: localStorage.getItem('hobby') }));
+               this.setState(Object.assign(this.state.items, {personalQualities: localStorage.getItem('personalQualities') }));
+               this.setState(Object.assign(this.state.items, {professionalSkills: localStorage.getItem('professionalSkills') }));
+               this.setState(Object.assign(this.state.items.drivLicense, {driverLicenseA1: localStorage.getItem('driverLicenseA1') }));
+               this.setState(Object.assign(this.state.items.drivLicense, {driverLicenseA: localStorage.getItem('driverLicenseA') }));
+               this.setState(Object.assign(this.state.items.drivLicense, {driverLicenseB: localStorage.getItem('driverLicenseB') }));
+               this.setState(Object.assign(this.state.items.drivLicense, {driverLicenseB1: localStorage.getItem('driverLicenseB1') }));
+               this.setState(Object.assign(this.state.items.drivLicense, {driverLicenseC: localStorage.getItem('driverLicenseC') }));
+               this.setState(Object.assign(this.state.items.drivLicense, {driverLicenseC1: localStorage.getItem('driverLicenseC1') }));
+               this.setState(Object.assign(this.state.items.drivLicense, {driverLicenseD: localStorage.getItem('driverLicenseD') }));
+               this.setState(Object.assign(this.state.items.drivLicense, {driverLicenseD1: localStorage.getItem('driverLicenseD1') }));
+               this.setState(Object.assign(this.state.items.drivLicense, {driverLicenseT: localStorage.getItem('driverLicenseT') }));               
+               this.setState(Object.assign(this.state.items, {image: localStorage.getItem('image') }));             
+              
+              if(this.state.items.image!= null)
+               {
+                let img = document.getElementById('myimage');
+                img.src = localStorage.getItem('image');
+                }    
+            }
+
                 console.dir(this.state.items);
             });
     }
@@ -311,6 +456,7 @@ class UserData extends React.Component {
                 <div className="container-fluid mainUserData">
                     <div className="container">
                         {/* <!-- First container --> */}
+                        <button type="button" className="btn btn-primary btn-lg mb-5" id="btnExit" onClick={this.clearLocalStorage}>Выйти и очистить local storage</button>
                         <div className="divData col-md-12 mt-5">
                             <div>
                                 <form action={API_ADDRESS_USER_DATA} method="POST" encType="multipart/form-data">
@@ -398,7 +544,7 @@ class UserData extends React.Component {
                                                 <label htmlFor="id_desiredSalary" className="form-label">Желаемая зарплата:</label>
 
                                                 <div className="input-group mb-2">
-                                                    <input type="number" className="form-control" id="id_desiredSalary" name="id_desiredSalary" value={this.state.items.desiredSalary} onChange={this.setDesiredSalary} placeholder="0"
+                                                    <input type="number" className="form-control" id="id_desiredSalary"required name="id_desiredSalary" value={this.state.items.desiredSalary} onChange={this.setDesiredSalary} placeholder="0"
                                                         step="1" min="0" />
                                                     <div className="input-group-append">
                                                         <select className="form-select" id="id_currency" name="id_currency" onChange={this.setCurrencyName} value={this.state.items.currency}>
