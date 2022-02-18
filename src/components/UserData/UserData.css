@@ -1,16 +1,12 @@
 .divData {
-  background-color: rgb(246, 252, 255);
-  /* font-size: 14px; */
+  background-color: rgb(246, 252, 255);  
 }
 
-.mainUserData {
-  /* background-color: bisque; */
-  /* background-image: url("./images/dance2.jpg"); */
+.mainUserData {  
   background-size: cover;
   background-repeat: no-repeat;
   margin: 0 auto;
-  width: 70%;
-  height: 800px;
+  width: 70%; 
 }
 
 #idDelete {
@@ -57,10 +53,6 @@ fieldset {
 
 /* ---------details------------ */
 
-/* details {
-  border-top: 1px solid rgb(179, 171, 171);
-  margin: 20px 0;
-} */
 details {
   border-bottom: 1px solid rgb(179, 171, 171);
   padding: 5px 0;
@@ -86,8 +78,7 @@ details summary::-webkit-details-marker {
 
 details summary {
   width: 100%;
-  padding: 0.5rem 0;
-  /* border-top: 1px solid rgb(179, 171, 171); */
+  padding: 0.5rem 0;  
   position: relative;
   cursor: pointer;
   font-size: 18px;

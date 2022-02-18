@@ -42,14 +42,13 @@ class Templates extends React.Component {
         }
         else {
             return (
-                <div className="container-fluid" id='container-main' >
+                <div className="container-fluid" >
                     <div className='container' >  
-
-                        <div className='row justify-content-center'>
-                            <h2 className='my-5'>Выберите шаблон резюме</h2>
+                        <div className='row justify-content-center header-block'>
+                            <h2>Выберите шаблон резюме</h2>
                         </div>
                        
-                        <div className='d-flex flex-wrap justify-content-center'>
+                        <div className='d-flex flex-wrap justify-content-center block-bottom'>
 
                         <a href={API_REDIRECT_TMP1}><img className='img-template' src={template1}  alt='template'></img></a>  
                         <a href={API_REDIRECT_TMP2}><img className='img-template' src={template2} alt='template'></img></a>  

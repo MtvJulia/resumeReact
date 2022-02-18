@@ -1,55 +1,49 @@
-/* * {
-  border: 1px solid red !important;
-} */
-
-#mainApp{  
-  padding: 0px;  
-  /* background-color: bisque;  */
-     
-}
-
-#navbar-collapse{
+#navbar-content {
   flex-direction: row;
   justify-content: center;
   align-items: center;
   margin: 24px 0px;
-  
 }
 
-.links-nav{
+.links-nav {
   margin-right: 100px;
 }
 
-.nav-item{
-  font-size: 20px;    
+.nav-item {
+  font-size: 24px;
+  padding-top: 12px;
 }
 
-.navbar{
+.navbar {
   padding: 0px;
-  background-color: rgb(255, 255, 255);
+  background-color: #fff;
   /* фиксирует меню */
-  position: relative;   
-  display: flex;   
-  /* border: 1px solid black; */
+  position: relative;
+  display: flex;  
 }
 
-li{
-  margin: 1px 15px;
+li {
+  margin: 1px 15px; 
 }
 
-a{
-  color: rgb(0, 0, 0);
+footer a {
+  color: #fff;
   height: 100%;
   padding: 0 auto;
 }
 
-.exit-btn{
+footer a:hover{
+  /* color: #FFE051; */
+  color: var(--color-yellow);
+}
+
+.exit-btn {
   height: auto;
   /* align-items: center; */
 }
 
-#logo-photo{
-  height: 40px; 
+#logo-photo {
+  height: 60px;
 }
 
 .btn-primary {
@@ -58,16 +52,22 @@ a{
   border-color: #2e6da4;
 }
 
-#conteiner-component{
-  padding: 0px;
-  min-height: 600px;
+.btn-yellow {
+  color: #000;
+  background-color: var(--color-yellow);
+  border-color: #000000;
 }
 
-.errorColor{
-  color:crimson;
+#conteiner-components {
+  padding: 0px;
+  min-height: 600px;  
+}
+
+.errorColor {
+  color: crimson;
   padding-left: 10px;
 }
 
-
-
-
+footer {
+  background: #706f6f;
+}

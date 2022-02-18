@@ -26,11 +26,11 @@ class ShowLanguage extends React.Component {
                         count++;
 
                         return (
-                            <div>
-                                <details id={"langDetails" + count} open>
+                            <div key={"langDetails" + count}>
+                                <details id={"langDetails" + count}  open>
 
                                     <summary>Язык
-                                        <a className='btn-add-del' id={"idDeleteLang" + count} href="javascript:DeleteLang(e)" 
+                                        <a className='btn-add-del' id={"idDeleteLang" + count}  
                                         name="delete" onClick={this.DeleteLang} >Удалить</a>
                                     </summary>
 
@@ -41,7 +41,7 @@ class ShowLanguage extends React.Component {
                                                 defaultValue={item.langName}
                                                 ref={this.input}
                                             >
-                                                <option value="" disabled selected hidden>Выберите язык</option>
+                                                <option value="" disabled hidden>Выберите язык</option>
                                                 <option value="1">Украинский</option>
                                                 <option value="2">Русский</option>
                                                 <option value="3">Английский</option>
@@ -65,7 +65,7 @@ class ShowLanguage extends React.Component {
                                             <select className="form-select" id={id_level + count} name="id_level"
                                                 defaultValue={item.level}
                                                 ref={this.input}>
-                                                <option value="" disabled selected hidden>Выберите уровень</option>
+                                                <option value="" disabled hidden>Выберите уровень</option>
                                                 <option value="1">A1 - начальный</option>
                                                 <option value="2">A2 - базовый</option>
                                                 <option value="3">B1 - средний</option>

@@ -233,7 +233,7 @@ class Template5 extends React.Component {
 
                     <PrintComponents trigger={
                         <div className='d-flex justify-content-center'>
-                            <button className="btn btn-primary btn-lg">Распечатать и сохранить в PDF</button>
+                            <button className="btn btn-primary btn-lg btn-save">Распечатать и сохранить в PDF</button>
                         </div>} >
                         {/* template 5 */}
                         <div className="container-sm" id="main-container-t5" >

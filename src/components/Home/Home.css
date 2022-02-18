@@ -1,14 +1,28 @@
 /* div{
     border: 1px solid black;
 } */
+.block-yellow {
+    padding: 0;
+    background: #FFE051;
+}
 
-#container-main {
-    background-color: #F8F8FA;
+.block-white {
+    padding: 0;
+    background: #ffffff;
+}
+
+.block-gray {
+    padding: 0;
+    /* background: #e7e6e6; */
+    background: #706f6f;
 }
 
 #first-container {
-    margin-top: 20px;
-    padding-top: 30px;
+    padding: 50px 50px 5px;
+}
+
+#third-container {
+    padding: 5px 30px 60px;
 }
 
 #photoResume {
@@ -16,19 +30,15 @@
     padding-top: 50px;
 }
 
-.header-title {
-    font-size: 22px;
-    font-weight: bold;
+.header-block {
+    padding: 90px 0 50px;
 }
 
-#fourth-container,
-#sixth-container,
-#eighth-container,
-#twelfth-container {
-    margin: 90px 0 20px 0;
+.block-bottom {
+    padding-bottom: 60px;
 }
 
-.row h2{
+.row h2 {
     width: auto;
 }
 
@@ -46,10 +56,10 @@
     font-size: 14px;
 }
 
-/* .img-template {
-    width: 20vw;
+.img-template {
+    width: 22vw;
     padding: 10px;
-} */
+}
 
 /* seventh container */
 .md-stepper-horizontal {
@@ -107,7 +117,7 @@
     position: absolute;
     top: 36px;
     height: 1px;
-    border-top: 1px solid #DDDDDD;
+    border-top: 1px solid #4d4d4d;
 }
 
 .md-stepper-horizontal .md-step .md-step-bar-right {

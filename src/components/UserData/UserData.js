@@ -455,8 +455,7 @@ class UserData extends React.Component {
             return (
                 <div className="container-fluid mainUserData">
                     <div className="container">
-                        {/* <!-- First container --> */}
-                        <button type="button" className="btn btn-primary btn-lg mb-5" id="btnExit" onClick={this.clearLocalStorage}>Выйти и очистить local storage</button>
+                        {/* <!-- First container --> */}                       
                         <div className="divData col-md-12 mt-5">
                             <div>
                                 <form action={API_ADDRESS_USER_DATA} method="POST" encType="multipart/form-data">
@@ -745,6 +744,7 @@ class UserData extends React.Component {
                                         </div>
                                     </fieldset>
                                     <div className="d-flex justify-content-center btn-sbmResume">
+                                    {/* <button type="button" className="btn btn-primary btn-lg mb-5" id="btnExit" onClick={this.clearLocalStorage}>Выйти и очистить local storage</button> */}
                                         <button type="submit" className="btn btn-primary btn-lg mb-5" id="sbmResume">Сохранить и перейти к шаблонам</button>
                                     </div>
                                 </form>
