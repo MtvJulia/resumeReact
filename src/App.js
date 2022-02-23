@@ -25,6 +25,20 @@ import avatar from './images/avatar.png';
 
 
 class App extends React.Component {
+
+  logout = () => {
+    let login = localStorage.getItem('UserLogin');
+    let pass = localStorage.getItem('Password');
+    let rememberMe = localStorage.getItem('rememberMe');
+    localStorage.clear();
+    document.getElementById("guestStatus").hidden = false;
+    document.getElementById("userStatus").hidden = true;
+    localStorage.setItem('UserLogin', login);
+    localStorage.setItem('Password', pass);
+    localStorage.setItem('rememberMe', rememberMe);
+    localStorage.setItem('isLogin', false);
+  }
+
   render() {
     return (
       <div className="container-fluid p-0">
@@ -38,29 +52,28 @@ class App extends React.Component {
               {/* <!-- Collect the nav links, forms, and other content for toggling --> */}
               <div className="collapse navbar-collapse" id="navbar-content">
 
-                
+
                 <ul className="nav links-nav">
                   {/* navbar-nav */}
                   <li>
-                  <a className="navbar-brand nav-link" href="/">
-                  <img src={logoPhoto} id="logo-photo" alt="" />
-                </a>
+                    <a className="navbar-brand nav-link" href="/">
+                      <img src={logoPhoto} id="logo-photo" alt="" />
+                    </a>
                   </li>
                   <li className="nav-item"><a className="nav-link" href="/home">Главная</a></li>
                   <li className="nav-item"><a className="nav-link" href="/services">Карьерные советы</a></li>
                   <li className="nav-item"><a className="nav-link" href="/about">О нас</a></li>
                 </ul>
 
-                <ul className="nav" id='guestStatus' >
+                <ul className="nav" id='guestStatus' hidden>
                   <li><Link to="/login" className="btn btn-primary">Вход</Link></li>
                   <li><Link to="/registration" className="btn btn-primary">Регистрация</Link></li>
                 </ul>
 
                 <ul className="nav align-items-center" id='userStatus' hidden>
-                  <li><img src={avatar} className="rounded-circle my-1" width="80px" alt="user" /></li>
-                  <li><Link to="/home" className="btn btn-primary  exit-btn">Выход</Link></li>
+                  <li><img src={avatar} id="userAvatar" className="rounded-circle my-1" width="80px" alt="user" /></li>
+                  <li><Link to="/home" className="btn btn-primary exit-btn" onClick={this.logout}>Выход</Link></li>
                 </ul>
-
               </div>
             </div>
           </nav>

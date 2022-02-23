@@ -27,9 +27,11 @@ class Login extends React.Component {
 
     handleFormSubmit = () => {
         const { UserLogin, Password, rememberMe } = this.state;
+        const isLogin = true;
         localStorage.setItem('UserLogin', UserLogin);
         localStorage.setItem('Password', Password);
         localStorage.setItem('rememberMe', rememberMe);
+        localStorage.setItem('isLogin', isLogin);
     };
 
     componentDidMount() {
@@ -83,9 +85,9 @@ class Login extends React.Component {
                                     </div>
                                     <div className="text-center">
                                         <button type="submit" className="btn btn-color px-5 mb-3 w-100">Вход</button>
-                                    </div>                                   
+                                    </div>
                                     <div className="form-check">
-                                        <input className="form-check-input" type="checkbox" id="id_rememberMe" name='rememberMe' checked={this.state.rememberMe} onChange={this.handleChange}/>
+                                        <input className="form-check-input" type="checkbox" id="id_rememberMe" name='rememberMe' checked={this.state.rememberMe} onChange={this.handleChange} />
                                         <label className="form-check-label" htmlFor="id_rememberMe">
                                             Запомнить меня
                                         </label>

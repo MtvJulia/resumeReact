@@ -122,6 +122,11 @@ legend.scheduler-border {
   padding-top: 20px;
 }
 
+#btnExit,
+#sbmResume{
+  margin: 20px;
+}
+
 .spin {
   margin-top: 20vw;
 }

@@ -6,3 +6,22 @@
 .btn-save{
     margin-bottom: 50px;
 }
+
+.card-item-tmps {
+    margin-bottom: 40px;
+    border: none;
+    /* max-width: 325px; */
+    display: inline-block;
+    /* Строчно-блочный элемент */
+    overflow: hidden;
+    /* Скрываем всё за контуром */
+    transition: 0.3s;
+    /* Время эффекта */
+    display: block;
+    /* Убираем небольшой отступ снизу */
+  }
+  
+  .card-item-tmps:hover {
+    transform: scale(1.1);
+    /* Увеличиваем масштаб */
+  }

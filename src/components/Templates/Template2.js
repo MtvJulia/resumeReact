@@ -42,13 +42,15 @@ class Template2 extends React.Component {
         fetch(API_ADDRESS_TMP2)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
+                document.getElementById("guestStatus").hidden = true;
+                document.getElementById("userStatus").hidden = false;
                 if (data.middleName == null) {
                     data.middleName = "";
                 }
                 if (data.file) {
                     let fileFromDB = new Buffer.from(data.file).toString("base64");
                     this.imageFromDB = "data:image/png;base64," + fileFromDB;
+                    document.getElementById("userAvatar").src = this.imageFromDB  ;
                 }
                 else {
                     this.imageFromDB = avatar;
@@ -82,7 +84,7 @@ class Template2 extends React.Component {
         if (this.state.userData == null) {
             return (
                 <div className="d-flex justify-content-center spin">
-                   <div className="spinner-border" role="status">
+                    <div className="spinner-border" role="status">
                         <span className="visually-hidden">Loading...</span>
                     </div>
                 </div>
@@ -98,7 +100,7 @@ class Template2 extends React.Component {
                             {/* left-container */}
                             <div className="col col-4" id="left-container-t2">
                                 <img id="avatar" src={this.imageFromDB} className="rounded mx-auto d-block" alt="avatar" />
-                                <div className="row justify-content-start" id='full-name'>
+                                <div className="d-flex flex-row justify-content-start" id='full-name'>
                                     <div className="mr-3 text-capitalize text-break name-text txt-white">{this.state.userData.lastName}</div>
                                     <div className="mr-3 text-capitalize name-text txt-white">{this.state.userData.firstName}</div>
                                     <div className="mr-3 text-capitalize name-text txt-white">{this.state.userData.middleName}</div>
@@ -242,7 +244,7 @@ class Template2 extends React.Component {
                                 {/* left-container */}
                                 <div className="col col-4" id="left-container-t2">
                                     <img id="avatar" src={this.imageFromDB} className="rounded mx-auto d-block" alt="avatar" />
-                                    <div className="row justify-content-start" id='full-name'>
+                                    <div className="d-flex flex-row justify-content-start" id='full-name'>
                                         <div className="mr-3 text-capitalize text-break name-text txt-white">{this.state.userData.lastName}</div>
                                         <div className="mr-3 text-capitalize name-text txt-white">{this.state.userData.firstName}</div>
                                         <div className="mr-3 text-capitalize name-text txt-white">{this.state.userData.middleName}</div>

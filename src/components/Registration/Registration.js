@@ -19,7 +19,8 @@ class Registration extends React.Component {
         fetch(API_ADDRESS_REGISTER)
             .then((response) => response.json())
             .then((data) => {
-
+                const isLogin = true;
+                localStorage.setItem('isLogin', isLogin);
                 this.setState({
                     users: data
                 });
@@ -53,12 +54,12 @@ class Registration extends React.Component {
                                     </div>
 
                                     <div className="mb-3">
-                                        <input type="email" className="form-control"required id="userlogin" aria-describedby="emailHelp"
+                                        <input type="email" className="form-control" required id="userlogin" aria-describedby="emailHelp"
                                             placeholder="Введите e-mail" name="UserLogin" />
                                         <div className="errorColor">{this.state.users.errorregister}</div>
                                     </div>
                                     <div className="mb-3">
-                                        <input type="password" className="form-control"required id="pwd" placeholder="Введите пароль" name="Password" />
+                                        <input type="password" className="form-control" required id="pwd" placeholder="Введите пароль" name="Password" />
                                     </div>
                                     <div className="mb-3">
                                         <input type="password" className="form-control" requiredid="pwdRep" placeholder="Повторите пароль" name="RepeatPassword" />

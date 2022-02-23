@@ -7,6 +7,19 @@ import cat from '../../images/services/cat.png'
 
 class Page1 extends React.Component {
 
+    componentDidMount() {
+
+        if (localStorage.getItem('isLogin') == null || localStorage.getItem('isLogin') === 'false') {
+            document.getElementById("guestStatus").hidden = false;
+            document.getElementById("userStatus").hidden = true;
+        }
+        if (localStorage.getItem('isLogin') === 'true') {
+            document.getElementById("guestStatus").hidden = true;
+            document.getElementById("userStatus").hidden = false;
+            document.getElementById("userAvatar").src = localStorage.getItem('image');
+        }
+    }
+
     render() {
         return (
             <div className="container-fluid" >

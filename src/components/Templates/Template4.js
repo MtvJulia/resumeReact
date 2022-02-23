@@ -39,13 +39,15 @@ class Template4 extends React.Component {
         fetch(API_ADDRESS_TMP4)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
+                document.getElementById("guestStatus").hidden = true;
+                document.getElementById("userStatus").hidden = false;
                 if (data.middleName == null) {
                     data.middleName = "";
                 }
                 if (data.file) {
                     let fileFromDB = new Buffer.from(data.file).toString("base64");
                     this.imageFromDB = "data:image/png;base64," + fileFromDB;
+                    document.getElementById("userAvatar").src = this.imageFromDB  ;
                 }
                 else {
                     this.imageFromDB = avatar;
@@ -93,31 +95,30 @@ class Template4 extends React.Component {
                         <div className="row container-t">
                             {/* left-container */}
                             <div className="col col-4" id="left-container-t4">
-
-                                <div className="col header-text"><u>Контакты</u></div>
+                                <div className="col header-text">Контакты</div>
                                 <div className="col text-capitalize "><img className="icon-item " src={location} alt="location" />{this.state.userData.сityOfResidence}</div>
                                 <div className="col "><img className="icon-item" src={phone} alt="phone" />{this.state.userData.phone}</div>
                                 <div className="col long-text "><img className="icon-item" src={email} alt="email" />{this.state.userData.email}</div>
 
-                                <div className="col text-nowrap header-text"><u>Водительские права</u>
+                                <div className="col text-nowrap header-text">Водительские права
                                     <div className="col main-text">{this.driverLicenseStr}</div>
                                 </div>
 
-                                <div className="col header-text"><u>Гражданство</u>
+                                <div className="col header-text">Гражданство
                                     <div className="col main-text">{this.state.userData.nationality}</div>
                                 </div>
-                                <div className="col text-nowrap header-text"><u>Семейное положение</u>
+                                <div className="col text-nowrap header-text">Семейное положение
                                     <div className="col main-text">{this.maritalStatusStr}</div>
                                 </div>
-                                <div className="col header-text"><u>Занятость</u>
+                                <div className="col header-text">Занятость
                                     <div className="col main-text">{this.employmentStr}</div>
                                 </div>
-                                <div className="col header-text"><u>Языки</u>
+                                <div className="col header-text">Языки
                                     {this.state.languagesArr.map(function (value, i) { return (<div className="col main-text" key={'val-' + i}>{value}</div>); })}
                                 </div>
-                                <div className="col header-text"><u>{this.army}</u>
+                                <div className="col header-text">{this.army}
                                 </div>
-                                <div className="col header-text"><u>Хобби</u>
+                                <div className="col header-text">Хобби
                                     <div className="col main-text">{this.state.userData.hobby}</div>
                                 </div>
 
@@ -126,20 +127,22 @@ class Template4 extends React.Component {
 
                             {/* right-container */}
                             <div className="col" id="right-container">
-                                <div className="media align-items-center border">
-                                    <div className="media-body ">
-                                        <div className='row justify-content-center m-0 mark-t4'>
+                                <div className="d-flex align-items-center justify-content-center border">
+                                    <div className="flex-shrink-0">
+                                        <div className='d-flex flex-fill align-items-center align-content-center justify-content-center m-0 mark-t4'>
                                             <div className='mr-3 text-capitalize text-break name-text'>{this.state.userData.lastName}</div>
                                             <div className='mr-3 text-capitalize text-break name-text'>{this.state.userData.firstName}</div>
                                             <div className='mr-3 text-capitalize text-break name-text'>{this.state.userData.middleName}</div>
                                         </div>
-                                        <div className='row justify-content-center m-0 header-text'>{this.state.userData.position}, {this.age} лет</div>
-                                        <div className='row justify-content-center m-0 main-text'>желаемая заработная плата: {this.salaryStr}</div>
+                                        <div className='d-flex justify-content-center m-0 header-text'>{this.state.userData.position}, {this.age} лет</div>
+                                        <div className='d-flex justify-content-center m-0 main-text'>желаемая заработная плата: {this.salaryStr}</div>
                                     </div>
                                     <div className="media-right">
                                         <img className="media-object" id="avatar" src={this.imageFromDB} alt="avatar" />
                                     </div>
                                 </div>
+
+
                                 <div className="col header-text border box-t4">Опыт работы </div>
                                 <div className="list-group ">
                                     {this.state.experienceArr.map(function (value, i) {
@@ -229,31 +232,30 @@ class Template4 extends React.Component {
                             <div className="row container-t">
                                 {/* left-container */}
                                 <div className="col col-4" id="left-container-t4">
-
-                                    <div className="col header-text"><u>Контакты</u></div>
+                                    <div className="col header-text">Контакты</div>
                                     <div className="col text-capitalize "><img className="icon-item " src={location} alt="location" />{this.state.userData.сityOfResidence}</div>
                                     <div className="col "><img className="icon-item" src={phone} alt="phone" />{this.state.userData.phone}</div>
                                     <div className="col long-text "><img className="icon-item" src={email} alt="email" />{this.state.userData.email}</div>
 
-                                    <div className="col text-nowrap header-text"><u>Водительские права</u>
+                                    <div className="col text-nowrap header-text">Водительские права
                                         <div className="col main-text">{this.driverLicenseStr}</div>
                                     </div>
 
-                                    <div className="col header-text"><u>Гражданство</u>
+                                    <div className="col header-text">Гражданство
                                         <div className="col main-text">{this.state.userData.nationality}</div>
                                     </div>
-                                    <div className="col text-nowrap header-text"><u>Семейное положение</u>
+                                    <div className="col text-nowrap header-text">Семейное положение
                                         <div className="col main-text">{this.maritalStatusStr}</div>
                                     </div>
-                                    <div className="col header-text"><u>Занятость</u>
+                                    <div className="col header-text">Занятость
                                         <div className="col main-text">{this.employmentStr}</div>
                                     </div>
-                                    <div className="col header-text"><u>Языки</u>
+                                    <div className="col header-text">Языки
                                         {this.state.languagesArr.map(function (value, i) { return (<div className="col main-text" key={'val-' + i}>{value}</div>); })}
                                     </div>
-                                    <div className="col header-text"><u>{this.army}</u>
+                                    <div className="col header-text">{this.army}
                                     </div>
-                                    <div className="col header-text"><u>Хобби</u>
+                                    <div className="col header-text">Хобби
                                         <div className="col main-text">{this.state.userData.hobby}</div>
                                     </div>
 
@@ -262,9 +264,9 @@ class Template4 extends React.Component {
 
                                 {/* right-container */}
                                 <div className="col" id="right-container">
-                                    <div className="media align-items-center border">
-                                        <div className="media-body ">
-                                            <div className='row justify-content-center m-0 mark-t4'>
+                                    <div className="d-flex align-items-center justify-content-center border">
+                                        <div className="flex-shrink-0">
+                                            <div className='d-flex flex-row justify-content-center m-0 mark-t4'>
                                                 <div className='mr-3 text-capitalize text-break name-text'>{this.state.userData.lastName}</div>
                                                 <div className='mr-3 text-capitalize text-break name-text'>{this.state.userData.firstName}</div>
                                                 <div className='mr-3 text-capitalize text-break name-text'>{this.state.userData.middleName}</div>
