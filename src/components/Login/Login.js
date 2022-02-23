@@ -34,18 +34,6 @@ class Login extends React.Component {
         localStorage.setItem('isLogin', isLogin);
     };
 
-<<<<<<< HEAD
-      handleFormSubmit = ( ) => {          
-        const { UserLogin, Password,rememberMe } = this.state;
-        const isLogin = true;                
-        localStorage.setItem('UserLogin', UserLogin ) ;
-        localStorage.setItem('Password', Password ) ;
-        localStorage.setItem('rememberMe', rememberMe ) ;
-        localStorage.setItem('isLogin', isLogin ) ;
-      } ;   
-    
-=======
->>>>>>> 69bcfdfb772c0f8511f3ab92ffc329dfbb0091a8
     componentDidMount() {
 
         fetch(API_ADDRESS_LOGIN)

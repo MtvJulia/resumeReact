@@ -19,13 +19,8 @@ class Registration extends React.Component {
         fetch(API_ADDRESS_REGISTER)
             .then((response) => response.json())
             .then((data) => {
-<<<<<<< HEAD
-                const isLogin = true;             
-                localStorage.setItem('isLogin', isLogin ) ;
-=======
                 const isLogin = true;
                 localStorage.setItem('isLogin', isLogin);
->>>>>>> 69bcfdfb772c0f8511f3ab92ffc329dfbb0091a8
                 this.setState({
                     users: data
                 });

@@ -18,20 +18,6 @@ import tempHome from '../../images/temphome.png';
 
 class Home extends React.Component {
 
-<<<<<<< HEAD
-    componentDidMount() {   
-
-   if( localStorage.getItem('isLogin')==null||localStorage.getItem('isLogin')==='false'){     
-    document.getElementById("guestStatus").hidden = false;
-    document.getElementById("userStatus").hidden = true;
-   }
-    if(localStorage.getItem('isLogin')==='true'){   
-    document.getElementById("guestStatus").hidden = true;
-    document.getElementById("userStatus").hidden = false;
-   }                              
-}      
-   
-=======
     componentDidMount() {
 
         if (localStorage.getItem('isLogin') == null || localStorage.getItem('isLogin') === 'false') {
@@ -44,7 +30,6 @@ class Home extends React.Component {
             document.getElementById("userAvatar").src = localStorage.getItem('image');
         }
     }
->>>>>>> 69bcfdfb772c0f8511f3ab92ffc329dfbb0091a8
 
     render() {
 

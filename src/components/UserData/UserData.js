@@ -74,13 +74,8 @@ class UserData extends React.Component {
         this.setDriveLicenseD1 = this.setDriveLicenseD1.bind(this);
         this.setDriveLicenseD = this.setDriveLicenseD.bind(this);
         this.setDriveLicenseT = this.setDriveLicenseT.bind(this);
-<<<<<<< HEAD
-      //  this.setStillWorking = this.setStillWorking.bind(this);
-     
-=======
         //  this.setStillWorking = this.setStillWorking.bind(this);
         
->>>>>>> 69bcfdfb772c0f8511f3ab92ffc329dfbb0091a8
     }
 
     fillCoursArr(data, coursArr) {
@@ -200,10 +195,6 @@ class UserData extends React.Component {
         this.setState(Object.assign(this.state.items, { emailCompany: this.recomendationArray.emailCompany }));
         this.setState(Object.assign(this.state.items, { phoneCompany: this.recomendationArray.phoneCompany }));
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> 69bcfdfb772c0f8511f3ab92ffc329dfbb0091a8
     
     onFileSelected(event) {
         ////загрузка картинки на форму
@@ -379,18 +370,11 @@ class UserData extends React.Component {
     componentDidMount() {
         fetch(API_ADDRESS_USER_DATA)
             .then((response) => response.json())
-<<<<<<< HEAD
-            .then((data) => {      
-                document.getElementById("guestStatus").hidden = true;
-                document.getElementById("userStatus").hidden = false;
-                
-=======
             .then((data) => {
 
                 document.getElementById("guestStatus").hidden = true;
                 document.getElementById("userStatus").hidden = false;
 
->>>>>>> 69bcfdfb772c0f8511f3ab92ffc329dfbb0091a8
                 let expArr = [];
                 let educArr = [];
                 let langArr = [];
@@ -400,12 +384,8 @@ class UserData extends React.Component {
                 if (data.file) {
                     let fileFromDB = new Buffer.from(data.file).toString("base64");
                     this.imageFromDB = "data:image/png;base64," + fileFromDB;
-<<<<<<< HEAD
-                    document.getElementById("userAvatar").src = this.imageFromDB  ;
-=======
                     document.getElementById("userAvatar").src = this.imageFromDB;
                     localStorage.setItem('image',this.imageFromDB);
->>>>>>> 69bcfdfb772c0f8511f3ab92ffc329dfbb0091a8
                 }
                 else {
                     this.imageFromDB = UploadPhoto;
@@ -425,55 +405,6 @@ class UserData extends React.Component {
                 this.recomendationArray = recomendArr;
 
                 if (data.birthOfDate == undefined) { data.birthOfDate = ''; }
-<<<<<<< HEAD
-                
-                    this.setState({
-                        items: data
-                    });
-                       
-                if(data.firstName=="" )
-                {                              
-               this.setState(Object.assign(this.state.items, {firstName: localStorage.getItem('firstName') }));
-               this.setState(Object.assign(this.state.items, {lastName: localStorage.getItem('lastName') }));
-               this.setState(Object.assign(this.state.items, {middleName: localStorage.getItem('middleName') }));
-               this.setState(Object.assign(this.state.items, {position: localStorage.getItem('position') }));
-               this.setState(Object.assign(this.state.items, {birthOfDate:localStorage.getItem('birthOfDate')!==null?localStorage.getItem('birthOfDate'):"" }));
-               this.setState(Object.assign(this.state.items, {сityOfResidence: localStorage.getItem('сityOfResidence') }));
-               this.setState(Object.assign(this.state.items, {phone: localStorage.getItem('phone') }));
-               this.setState(Object.assign(this.state.items, {email: localStorage.getItem('email') }));
-               this.setState(Object.assign(this.state.items, {nationality: localStorage.getItem('nationality') }));
-               this.setState(Object.assign(this.state.items, {desiredSalary: localStorage.getItem('desiredSalary') }));
-               this.setState(Object.assign(this.state.items, {currency: localStorage.getItem('currency') }));
-               this.setState(Object.assign(this.state.items, {employment: localStorage.getItem('employment') }));
-               this.setState(Object.assign(this.state.items, {schedule: localStorage.getItem('schedule') }));
-               this.setState(Object.assign(this.state.items, {businessTrip: localStorage.getItem('businessTrip') }));
-               this.setState(Object.assign(this.state.items, {relocate: localStorage.getItem('relocate') }));
-               this.setState(Object.assign(this.state.items, {maritalStatus: localStorage.getItem('maritalStatus') }));
-               this.setState(Object.assign(this.state.items, {children: localStorage.getItem('children') }));
-               this.setState(Object.assign(this.state.items, {education: localStorage.getItem('education') }));
-               this.setState(Object.assign(this.state.items, {privateСar: localStorage.getItem('privateСar') }));
-               this.setState(Object.assign(this.state.items, {army: localStorage.getItem('army') }));
-               this.setState(Object.assign(this.state.items, {hobby: localStorage.getItem('hobby') }));
-               this.setState(Object.assign(this.state.items, {personalQualities: localStorage.getItem('personalQualities') }));
-               this.setState(Object.assign(this.state.items, {professionalSkills: localStorage.getItem('professionalSkills') }));
-               this.setState(Object.assign(this.state.items.drivLicense, {driverLicenseA1: localStorage.getItem('driverLicenseA1') }));
-               this.setState(Object.assign(this.state.items.drivLicense, {driverLicenseA: localStorage.getItem('driverLicenseA') }));
-               this.setState(Object.assign(this.state.items.drivLicense, {driverLicenseB: localStorage.getItem('driverLicenseB') }));
-               this.setState(Object.assign(this.state.items.drivLicense, {driverLicenseB1: localStorage.getItem('driverLicenseB1') }));
-               this.setState(Object.assign(this.state.items.drivLicense, {driverLicenseC: localStorage.getItem('driverLicenseC') }));
-               this.setState(Object.assign(this.state.items.drivLicense, {driverLicenseC1: localStorage.getItem('driverLicenseC1') }));
-               this.setState(Object.assign(this.state.items.drivLicense, {driverLicenseD: localStorage.getItem('driverLicenseD') }));
-               this.setState(Object.assign(this.state.items.drivLicense, {driverLicenseD1: localStorage.getItem('driverLicenseD1') }));
-               this.setState(Object.assign(this.state.items.drivLicense, {driverLicenseT: localStorage.getItem('driverLicenseT') }));               
-               this.setState(Object.assign(this.state.items, {image: localStorage.getItem('image') }));             
-              
-              if(this.state.items.image!= null)
-               {
-                let img = document.getElementById('myimage');
-                img.src = localStorage.getItem('image');
-                }    
-            }      
-=======
 
                 this.setState({
                     items: data
@@ -520,7 +451,6 @@ class UserData extends React.Component {
                     }
                 }
 
->>>>>>> 69bcfdfb772c0f8511f3ab92ffc329dfbb0091a8
                 console.dir(this.state.items);
             });
     }
@@ -542,10 +472,6 @@ class UserData extends React.Component {
                 <div className="container-fluid mainUserData">
                     <div className="container">
                         {/* <!-- First container --> */}
-<<<<<<< HEAD
-                        {/* <button type="button" className="btn btn-primary btn-lg mb-5" id="btnExit" onClick={this.clearLocalStorage}>Выйти и очистить local storage</button> */}
-=======
->>>>>>> 69bcfdfb772c0f8511f3ab92ffc329dfbb0091a8
                         <div className="divData col-md-12 mt-5">
                             <div>
                                 <form action={API_ADDRESS_USER_DATA} method="POST" encType="multipart/form-data">
@@ -832,18 +758,10 @@ class UserData extends React.Component {
                                                 <textarea className="form-control" id="id_professionalSkills" name="id_professionalSkills" value={this.state.items.professionalSkills} onChange={this.setProfessionalSkills}></textarea>
                                             </div>
                                         </div>
-<<<<<<< HEAD
-                                    </fieldset>  
-                                    <div class="d-flex justify-content-center mt-3">
-                                        <button type="submit" className="btn btn-primary btn-lg mb-5" id="sbmResume">Сохранить и перейти к шаблонам</button>
-
-                                    </div>                                 
-=======
                                     </fieldset>
                                     <div className="d-flex justify-content-center btn-sbmResume">                                        
                                         <button type="submit" className="btn btn-primary btn-lg mb-5" id="sbmResume">Сохранить и перейти к шаблонам</button>
                                     </div>
->>>>>>> 69bcfdfb772c0f8511f3ab92ffc329dfbb0091a8
                                 </form>
                             </div>
                         </div>

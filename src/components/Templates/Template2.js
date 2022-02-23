@@ -44,10 +44,6 @@ class Template2 extends React.Component {
             .then((data) => {
                 document.getElementById("guestStatus").hidden = true;
                 document.getElementById("userStatus").hidden = false;
-<<<<<<< HEAD
-                console.log(data);
-=======
->>>>>>> 69bcfdfb772c0f8511f3ab92ffc329dfbb0091a8
                 if (data.middleName == null) {
                     data.middleName = "";
                 }

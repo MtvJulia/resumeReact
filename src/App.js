@@ -24,22 +24,6 @@ import logoPhoto from './images/logoResume.png';
 import avatar from './images/avatar.png';
 
 
-<<<<<<< HEAD
-class App extends React.Component { 
-
-logout=()=>{
-  let login = localStorage.getItem('UserLogin');
-  let pass = localStorage.getItem('Password');
-  let rememberMe = localStorage.getItem('rememberMe');
-  localStorage.clear();
-  document.getElementById("guestStatus").hidden = false;
-  document.getElementById("userStatus").hidden = true;
-  localStorage.setItem('UserLogin', login);
-  localStorage.setItem('Password', pass);
-  localStorage.setItem('rememberMe', rememberMe);
-  localStorage.setItem('isLogin', false ) ;
-}
-=======
 class App extends React.Component {
 
   logout = () => {
@@ -54,7 +38,6 @@ class App extends React.Component {
     localStorage.setItem('rememberMe', rememberMe);
     localStorage.setItem('isLogin', false);
   }
->>>>>>> 69bcfdfb772c0f8511f3ab92ffc329dfbb0091a8
 
   render() {
     return (
@@ -82,16 +65,6 @@ class App extends React.Component {
                   <li className="nav-item"><a className="nav-link" href="/about">О нас</a></li>
                 </ul>
 
-<<<<<<< HEAD
-                <ul className="nav" id='guestStatus' hidden >
-                  <li><Link to="/login"  className="btn btn-primary">Вход</Link></li>
-                  <li><Link to="/registration" className="btn btn-primary">Регистрация</Link></li>
-                </ul>
-                
-                <ul className="nav align-items-center" id='userStatus' hidden >
-                  <li><img src={avatar} id = "userAvatar"  className="rounded-circle my-1" width="80px" alt="user" /></li>
-                  <li><Link to="/home" id='logout' onClick={this.logout} className="btn btn-primary  exit-btn">Выход</Link></li>
-=======
                 <ul className="nav" id='guestStatus' hidden>
                   <li><Link to="/login" className="btn btn-primary">Вход</Link></li>
                   <li><Link to="/registration" className="btn btn-primary">Регистрация</Link></li>
@@ -100,7 +73,6 @@ class App extends React.Component {
                 <ul className="nav align-items-center" id='userStatus' hidden>
                   <li><img src={avatar} id="userAvatar" className="rounded-circle my-1" width="80px" alt="user" /></li>
                   <li><Link to="/home" className="btn btn-primary exit-btn" onClick={this.logout}>Выход</Link></li>
->>>>>>> 69bcfdfb772c0f8511f3ab92ffc329dfbb0091a8
                 </ul>
               </div>
             </div>

@@ -3,19 +3,6 @@ import './About.css';
 
 class About extends React.Component {
 
-<<<<<<< HEAD
-    componentDidMount() {  
-
-        if( localStorage.getItem('isLogin')==null||localStorage.getItem('isLogin')==='false'){     
-         document.getElementById("guestStatus").hidden = false;
-         document.getElementById("userStatus").hidden = true;
-        }
-         if(localStorage.getItem('isLogin')==='true'){   
-         document.getElementById("guestStatus").hidden = true;
-         document.getElementById("userStatus").hidden = false;
-        }                              
-     }     
-=======
     componentDidMount() {
 
         if (localStorage.getItem('isLogin') == null || localStorage.getItem('isLogin') === 'false') {
@@ -29,7 +16,6 @@ class About extends React.Component {
         }
     }
 
->>>>>>> 69bcfdfb772c0f8511f3ab92ffc329dfbb0091a8
     render() {
 
         return (

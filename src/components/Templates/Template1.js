@@ -43,10 +43,6 @@ class Template1 extends React.Component {
         fetch(API_ADDRESS_TMP1)
             .then((response) => response.json())
             .then((data) => {
-<<<<<<< HEAD
-                console.log(data);
-=======
->>>>>>> 69bcfdfb772c0f8511f3ab92ffc329dfbb0091a8
                 document.getElementById("guestStatus").hidden = true;
                 document.getElementById("userStatus").hidden = false;
                 if (data.middleName == null) {

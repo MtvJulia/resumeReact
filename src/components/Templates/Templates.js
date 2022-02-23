@@ -21,18 +21,11 @@ class Templates extends React.Component {
     componentDidMount() {
         fetch(API_BASE_ADDRESS)
             .then((response) => response.json())
-<<<<<<< HEAD
-            .then((data) => {
-                document.getElementById("guestStatus").hidden = true;
-                document.getElementById("userStatus").hidden = false;
-                // console.log(data);
-=======
             .then((data) => {                
                 document.getElementById("guestStatus").hidden = true;
                 document.getElementById("userStatus").hidden = false;
                 console.log(localStorage.getItem('image'));
                 document.getElementById("userAvatar").src = localStorage.getItem('image');
->>>>>>> 69bcfdfb772c0f8511f3ab92ffc329dfbb0091a8
                 this.setState({
                     items: data
                 });
