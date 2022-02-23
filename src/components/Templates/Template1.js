@@ -44,6 +44,8 @@ class Template1 extends React.Component {
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
+                document.getElementById("guestStatus").hidden = true;
+                document.getElementById("userStatus").hidden = false;
                 if (data.middleName == null) {
                     data.middleName = "";
                 }

@@ -75,7 +75,7 @@ class UserData extends React.Component {
         this.setDriveLicenseD = this.setDriveLicenseD.bind(this);
         this.setDriveLicenseT = this.setDriveLicenseT.bind(this);
       //  this.setStillWorking = this.setStillWorking.bind(this);
-       this.clearLocalStorage = this.clearLocalStorage.bind(this);
+     
     }
 
     fillCoursArr(data, coursArr) {
@@ -196,11 +196,7 @@ class UserData extends React.Component {
         this.setState(Object.assign(this.state.items, { phoneCompany: this.recomendationArray.phoneCompany }));
     }
 
-    clearLocalStorage=()=>{
-
-        localStorage.clear();
-
-    }
+    
     onFileSelected(event) {
         ////загрузка картинки на форму
         let selectedFile = event.target.files[0];
@@ -357,8 +353,10 @@ class UserData extends React.Component {
     componentDidMount() {
         fetch(API_ADDRESS_USER_DATA)
             .then((response) => response.json())
-            .then((data) => {           
-
+            .then((data) => {      
+                document.getElementById("guestStatus").hidden = true;
+                document.getElementById("userStatus").hidden = false;
+                
                 let expArr = [];
                 let educArr = [];
                 let langArr = [];
@@ -368,6 +366,7 @@ class UserData extends React.Component {
                 if (data.file) {
                     let fileFromDB = new Buffer.from(data.file).toString("base64");
                     this.imageFromDB = "data:image/png;base64," + fileFromDB;
+                    document.getElementById("userAvatar").src = this.imageFromDB  ;
                 }
                 else {
                     this.imageFromDB = UploadPhoto;
@@ -386,12 +385,12 @@ class UserData extends React.Component {
                 this.coursArray = coursArr;
                 this.recomendationArray = recomendArr;
 
-                if (data.birthOfDate == undefined) { data.birthOfDate = ''; }             
-
-                this.setState({
-                    items: data
-                });
-
+                if (data.birthOfDate == undefined) { data.birthOfDate = ''; }
+                
+                    this.setState({
+                        items: data
+                    });
+                       
                 if(data.firstName=="" )
                 {                              
                this.setState(Object.assign(this.state.items, {firstName: localStorage.getItem('firstName') }));
@@ -433,8 +432,7 @@ class UserData extends React.Component {
                 let img = document.getElementById('myimage');
                 img.src = localStorage.getItem('image');
                 }    
-            }
-
+            }      
                 console.dir(this.state.items);
             });
     }
@@ -456,7 +454,7 @@ class UserData extends React.Component {
                 <div className="container-fluid mainUserData">
                     <div className="container">
                         {/* <!-- First container --> */}
-                        <button type="button" className="btn btn-primary btn-lg mb-5" id="btnExit" onClick={this.clearLocalStorage}>Выйти и очистить local storage</button>
+                        {/* <button type="button" className="btn btn-primary btn-lg mb-5" id="btnExit" onClick={this.clearLocalStorage}>Выйти и очистить local storage</button> */}
                         <div className="divData col-md-12 mt-5">
                             <div>
                                 <form action={API_ADDRESS_USER_DATA} method="POST" encType="multipart/form-data">
@@ -740,12 +738,11 @@ class UserData extends React.Component {
                                                 <textarea className="form-control" id="id_professionalSkills" name="id_professionalSkills" value={this.state.items.professionalSkills} onChange={this.setProfessionalSkills}></textarea>
                                             </div>
                                         </div>
-                                    </fieldset>
+                                    </fieldset>  
                                     <div class="d-flex justify-content-center mt-3">
                                         <button type="submit" className="btn btn-primary btn-lg mb-5" id="sbmResume">Сохранить и перейти к шаблонам</button>
 
-                                    </div>
-
+                                    </div>                                 
                                 </form>
                             </div>
                         </div>

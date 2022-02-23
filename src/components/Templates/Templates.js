@@ -22,6 +22,8 @@ class Templates extends React.Component {
         fetch(API_BASE_ADDRESS)
             .then((response) => response.json())
             .then((data) => {
+                document.getElementById("guestStatus").hidden = true;
+                document.getElementById("userStatus").hidden = false;
                 // console.log(data);
                 this.setState({
                     items: data

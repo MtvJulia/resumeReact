@@ -24,7 +24,21 @@ import logoPhoto from './images/logoResume.png';
 import avatar from './images/avatar.png';
 
 
-class App extends React.Component {
+class App extends React.Component { 
+
+logout=()=>{
+  let login = localStorage.getItem('UserLogin');
+  let pass = localStorage.getItem('Password');
+  let rememberMe = localStorage.getItem('rememberMe');
+  localStorage.clear();
+  document.getElementById("guestStatus").hidden = false;
+  document.getElementById("userStatus").hidden = true;
+  localStorage.setItem('UserLogin', login);
+  localStorage.setItem('Password', pass);
+  localStorage.setItem('rememberMe', rememberMe);
+  localStorage.setItem('isLogin', false ) ;
+}
+
   render() {
     return (
       <div className="container-fluid" id="mainApp" >
@@ -51,14 +65,14 @@ class App extends React.Component {
                   {/* <li className="nav-item"><a className="nav-link" href="http://localhost:3000/userdata">News</a></li>                 */}
                 </ul>
 
-                <ul className="nav" id='guestStatus' >
-                  <li><Link to="/login" className="btn btn-primary">Вход</Link></li>
+                <ul className="nav" id='guestStatus' hidden >
+                  <li><Link to="/login"  className="btn btn-primary">Вход</Link></li>
                   <li><Link to="/registration" className="btn btn-primary">Регистрация</Link></li>
                 </ul>
                 
-                <ul className="nav align-items-center" id='userStatus' hidden>
-                  <li><img src={avatar} className="rounded-circle my-1" width="80px" alt="user" /></li>
-                  <li><Link to="/home" className="btn btn-primary  exit-btn">Выход</Link></li>
+                <ul className="nav align-items-center" id='userStatus' hidden >
+                  <li><img src={avatar} id = "userAvatar"  className="rounded-circle my-1" width="80px" alt="user" /></li>
+                  <li><Link to="/home" id='logout' onClick={this.logout} className="btn btn-primary  exit-btn">Выход</Link></li>
                 </ul>
 
               </div>
