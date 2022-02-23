@@ -24,6 +24,7 @@ import logoPhoto from './images/logoResume.png';
 import avatar from './images/avatar.png';
 
 
+<<<<<<< HEAD
 class App extends React.Component { 
 
 logout=()=>{
@@ -38,10 +39,26 @@ logout=()=>{
   localStorage.setItem('rememberMe', rememberMe);
   localStorage.setItem('isLogin', false ) ;
 }
+=======
+class App extends React.Component {
+
+  logout = () => {
+    let login = localStorage.getItem('UserLogin');
+    let pass = localStorage.getItem('Password');
+    let rememberMe = localStorage.getItem('rememberMe');
+    localStorage.clear();
+    document.getElementById("guestStatus").hidden = false;
+    document.getElementById("userStatus").hidden = true;
+    localStorage.setItem('UserLogin', login);
+    localStorage.setItem('Password', pass);
+    localStorage.setItem('rememberMe', rememberMe);
+    localStorage.setItem('isLogin', false);
+  }
+>>>>>>> 69bcfdfb772c0f8511f3ab92ffc329dfbb0091a8
 
   render() {
     return (
-      <div className="container-fluid" id="mainApp" >
+      <div className="container-fluid p-0">
 
         <BrowserRouter>
           {/* <!-- navbar --> */}
@@ -50,7 +67,8 @@ logout=()=>{
             <div className="container-fluid">
 
               {/* <!-- Collect the nav links, forms, and other content for toggling --> */}
-              <div className="collapse navbar-collapse" id="navbar-collapse">
+              <div className="collapse navbar-collapse" id="navbar-content">
+
 
                 <ul className="nav links-nav">
                   {/* navbar-nav */}
@@ -62,9 +80,9 @@ logout=()=>{
                   <li className="nav-item"><a className="nav-link" href="/home">Главная</a></li>
                   <li className="nav-item"><a className="nav-link" href="/services">Карьерные советы</a></li>
                   <li className="nav-item"><a className="nav-link" href="/about">О нас</a></li>
-                  {/* <li className="nav-item"><a className="nav-link" href="http://localhost:3000/userdata">News</a></li>                 */}
                 </ul>
 
+<<<<<<< HEAD
                 <ul className="nav" id='guestStatus' hidden >
                   <li><Link to="/login"  className="btn btn-primary">Вход</Link></li>
                   <li><Link to="/registration" className="btn btn-primary">Регистрация</Link></li>
@@ -73,19 +91,28 @@ logout=()=>{
                 <ul className="nav align-items-center" id='userStatus' hidden >
                   <li><img src={avatar} id = "userAvatar"  className="rounded-circle my-1" width="80px" alt="user" /></li>
                   <li><Link to="/home" id='logout' onClick={this.logout} className="btn btn-primary  exit-btn">Выход</Link></li>
+=======
+                <ul className="nav" id='guestStatus' hidden>
+                  <li><Link to="/login" className="btn btn-primary">Вход</Link></li>
+                  <li><Link to="/registration" className="btn btn-primary">Регистрация</Link></li>
                 </ul>
 
+                <ul className="nav align-items-center" id='userStatus' hidden>
+                  <li><img src={avatar} id="userAvatar" className="rounded-circle my-1" width="80px" alt="user" /></li>
+                  <li><Link to="/home" className="btn btn-primary exit-btn" onClick={this.logout}>Выход</Link></li>
+>>>>>>> 69bcfdfb772c0f8511f3ab92ffc329dfbb0091a8
+                </ul>
               </div>
             </div>
           </nav>
 
-          <div className="container-fluid" id="conteiner-component">
+          <div className="container-fluid" id="conteiner-components">
             <Route path='/' exact={true} component={Home} />
             <Route path="/home" component={Home} />
             <Route path="/services" component={Services} />
             <Route path="/about" component={About} />
             <Route path="/login" component={Login} />
-            <Route path="/registration" component={Registration} />            
+            <Route path="/registration" component={Registration} />
             <Route path="/userdata" component={UserData} />
             <Route path="/tmps" component={Templates} />
             <Route path="/tmp1" component={Template1} />
@@ -97,22 +124,20 @@ logout=()=>{
 
             <Route path="/kak-opisat'-opyt-raboty-v-rezyume" component={Page1} />
             <Route path="/Navyki-dlya-vashego-rezyume:-kakie-ukazyvat'-v-2022-godu" component={Page2} />
-
-
           </div>
 
         </BrowserRouter>
 
-        <footer className="page-footer font-small blue static-bottom">
+        <footer className="page-footer font-small static-bottom">
           <div className="footer-copyright text-center py-3 ">
             <ul className="list-inline text-center py-3">
-              <li className="list-inline-item"><a href="/">Home</a></li>
-              <li className="list-inline-item"><a href="/services">Services</a></li>
-              <li className="list-inline-item"><a href="/about">About</a></li>
-              <li className="list-inline-item"><a href="#">Terms</a></li>
-              <li className="list-inline-item"><a href="#">Privacy Policy</a></li>
+              <li className="list-inline-item"><a href="/">Домой</a></li>
+              <li className="list-inline-item"><a href="/services">Карьерные советы</a></li>
+              <li className="list-inline-item"><a href="/about">О нас</a></li>
+              {/* <li className="list-inline-item"><a href="#">Terms</a></li> */}
+              {/* <li className="list-inline-item"><a href="#">Privacy Policy</a></li> */}
             </ul>
-            <p className="copyright">ResumeOnline © 2022</p>
+            <p className="copyright text-white">ResumeOnline © 2022</p>
           </div>
         </footer>
 

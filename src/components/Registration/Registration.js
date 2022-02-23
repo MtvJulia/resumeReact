@@ -19,8 +19,13 @@ class Registration extends React.Component {
         fetch(API_ADDRESS_REGISTER)
             .then((response) => response.json())
             .then((data) => {
+<<<<<<< HEAD
                 const isLogin = true;             
                 localStorage.setItem('isLogin', isLogin ) ;
+=======
+                const isLogin = true;
+                localStorage.setItem('isLogin', isLogin);
+>>>>>>> 69bcfdfb772c0f8511f3ab92ffc329dfbb0091a8
                 this.setState({
                     users: data
                 });
@@ -32,8 +37,8 @@ class Registration extends React.Component {
         if (this.state.users == null) {
             return (
                 <div className="d-flex justify-content-center spin">
-                    <div className="spinner-border  text-primary" role="status">
-                        <span className="sr-only">Loading...</span>
+                    <div className="spinner-border" role="status">
+                        <span className="visually-hidden">Loading...</span>
                     </div>
                 </div>
             );
@@ -54,12 +59,12 @@ class Registration extends React.Component {
                                     </div>
 
                                     <div className="mb-3">
-                                        <input type="email" className="form-control"required id="userlogin" aria-describedby="emailHelp"
+                                        <input type="email" className="form-control" required id="userlogin" aria-describedby="emailHelp"
                                             placeholder="Введите e-mail" name="UserLogin" />
                                         <div className="errorColor">{this.state.users.errorregister}</div>
                                     </div>
                                     <div className="mb-3">
-                                        <input type="password" className="form-control"required id="pwd" placeholder="Введите пароль" name="Password" />
+                                        <input type="password" className="form-control" required id="pwd" placeholder="Введите пароль" name="Password" />
                                     </div>
                                     <div className="mb-3">
                                         <input type="password" className="form-control" requiredid="pwdRep" placeholder="Повторите пароль" name="RepeatPassword" />

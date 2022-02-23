@@ -9,7 +9,7 @@ class ShowRecommending extends React.Component {
       
       DeleteRecommending(e)
       {
-        let recomendingDetails = document.getElementById(e.target.parentNode.id);              
+        let recomendingDetails = document.getElementById(e.target.parentNode.parentNode.id);              
         recomendingDetails.parentNode.removeChild(recomendingDetails);
       }    
 
@@ -32,28 +32,30 @@ class ShowRecommending extends React.Component {
                                 return (                                    
                                     <div>                                   
                                         <details id="recommendationDetails" open>
-                                        <a id={"idDeleteRecommending" + count} href="javascript:DeleteRecommending(e)" name="delete" onClick={this.DeleteRecommending} >Удалить  </a>
-                                        <summary>Рекомендации</summary>
+                                        
+                                        <summary>Рекомендации
+                                        <a className='btn-add-del' id={"idDeleteRecommending" + count} href="javascript:DeleteRecommending(e)" name="delete" onClick={this.DeleteRecommending} >Удалить</a>
+                                        </summary>
     
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <label for="id_personRecommending">ФИО рекомендующего:</label>
-                                                <input type="text"required className="form-control" id={id_personRecommending+count} defaultValue={item.personRecommending} ref={this.input} name="id_personRecommending" placeholder="ФИО рекомендующего" />
+                                                <label className="form-label" htmlFor="id_personRecommending">ФИО рекомендующего:</label>
+                                                <input className="form-control" type="text" id={id_personRecommending+count} defaultValue={item.personRecommending} ref={this.input} name="id_personRecommending" placeholder="ФИО рекомендующего" />
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <label for="id_company">Компания, должность:</label>
-                                                <input type="text"required className="form-control" id={id_company+count} defaultValue={item.company} name="id_company" placeholder="Компания, должность"ref={this.input} />
+                                                <label className="form-label" htmlFor="id_company">Компания, должность:</label>
+                                                <input className="form-control" type="text" id={id_company+count} defaultValue={item.company} name="id_company" placeholder="Компания, должность"ref={this.input} />
                                             </div>
                                         </div>
     
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <label for="id_emailCompany">Электронная почта:</label>
-                                                <input type="email" className="form-control" id={id_emailCompany+count} defaultValue={item.emailCompany} name="id_emailCompany" placeholder="address@site.com" ref={this.input}/>
+                                                <label className="form-label" htmlFor="id_emailCompany">Электронная почта:</label>
+                                                <input className="form-control" type="email" id={id_emailCompany+count} defaultValue={item.emailCompany} name="id_emailCompany" placeholder="address@site.com" ref={this.input}/>
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <label for="id_phoneCompany">Телефон:</label>
-                                                <input type="text"required className="form-control" id={id_phoneCompany+count} defaultValue={item.phoneCompany} name="id_phoneCompany" placeholder="+380661234567"ref={this.input} />
+                                                <label className="form-label" htmlFor="id_phoneCompany">Телефон:</label>
+                                                <input className="form-control" type="text" id={id_phoneCompany+count} defaultValue={item.phoneCompany} name="id_phoneCompany" placeholder="+380661234567"ref={this.input} />
                                             </div>
                                         </div>
                                     </details>                                 

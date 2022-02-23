@@ -7,14 +7,14 @@ import ShowLanguage from '../../ShowModules/ShowLanguage';
 import ShowCourses from '../../ShowModules/ShowCourses';
 import ShowRecommending from '../../ShowModules/ShowRecommending';
 import UploadPhoto from '../../images/uploadPhoto.jpg';
-import {API_ADDRESS_USER_DATA}from"../../ConstantModule";
+import { API_ADDRESS_USER_DATA } from "../../ConstantModule";
 
 class UserData extends React.Component {
     constructor(props) {
-        super(props);       
+        super(props);
         this.state = {
             items: null
-        }      
+        }
         this.expArray = [];
         this.educArray = [];
         this.langArray = [];
@@ -74,8 +74,13 @@ class UserData extends React.Component {
         this.setDriveLicenseD1 = this.setDriveLicenseD1.bind(this);
         this.setDriveLicenseD = this.setDriveLicenseD.bind(this);
         this.setDriveLicenseT = this.setDriveLicenseT.bind(this);
+<<<<<<< HEAD
       //  this.setStillWorking = this.setStillWorking.bind(this);
      
+=======
+        //  this.setStillWorking = this.setStillWorking.bind(this);
+        
+>>>>>>> 69bcfdfb772c0f8511f3ab92ffc329dfbb0091a8
     }
 
     fillCoursArr(data, coursArr) {
@@ -98,11 +103,11 @@ class UserData extends React.Component {
             if (data.phoneCompany[i] != null) {
                 let objRecomendation = {};
                 objRecomendation.personRecommending = data.personRecommending[i];
-                objRecomendation.company = data.company[i]; 
-                if (data.emailCompany == null || data.emailCompany == 'null') {objRecomendation.emailCompany = "";}                 
-                else {objRecomendation.emailCompany = data.emailCompany[i];}             
+                objRecomendation.company = data.company[i];
+                if (data.emailCompany == null || data.emailCompany == 'null') { objRecomendation.emailCompany = ""; }
+                else { objRecomendation.emailCompany = data.emailCompany[i]; }
                 objRecomendation.phoneCompany = data.phoneCompany[i];
-                recomendArr.push(objRecomendation);              
+                recomendArr.push(objRecomendation);
             }
         }
     }
@@ -163,7 +168,7 @@ class UserData extends React.Component {
 
         this.langArray.push({ langName: "", level: "" });
         this.setState(Object.assign(this.state.items, { langName: this.langArray.langName }));
-        this.setState(Object.assign(this.state.items, { level: this.langArray.level }));        
+        this.setState(Object.assign(this.state.items, { level: this.langArray.level }));
     }
     AddEducation() {
         this.educArray.push({ institutName: "", levelEducation: "", faculty: "", specialty: "", ending: "" });
@@ -195,7 +200,10 @@ class UserData extends React.Component {
         this.setState(Object.assign(this.state.items, { emailCompany: this.recomendationArray.emailCompany }));
         this.setState(Object.assign(this.state.items, { phoneCompany: this.recomendationArray.phoneCompany }));
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 69bcfdfb772c0f8511f3ab92ffc329dfbb0091a8
     
     onFileSelected(event) {
         ////загрузка картинки на форму
@@ -208,155 +216,181 @@ class UserData extends React.Component {
 
         reader.onload = function (event) {
             imgtag.src = event.target.result;
-            localStorage.setItem('image',event.target.result) ;
+            localStorage.setItem('image', event.target.result);
         };
         if (imgtag) {
             reader.readAsDataURL(selectedFile);
         }
 
         this.setState(Object.assign(this.state.items, { image: event.target.files[0], loaded: 0 }));
-        
+
 
         console.log(selectedFile);
-       
+
     }
     setFirstName(event) {
-         this.setState(Object.assign(this.state.items, { firstName: event.target.value }));                                     
-         localStorage.setItem('firstName',this.state.items.firstName ) ;              
-         }
+        this.setState(Object.assign(this.state.items, { firstName: event.target.value }));
+        localStorage.setItem('firstName', this.state.items.firstName);
+    }
     setPositions(event) {
-         this.setState(Object.assign(this.state.items, { position: event.target.value })); 
-         localStorage.setItem('position',this.state.items.position ) ;       
-        }
+        this.setState(Object.assign(this.state.items, { position: event.target.value }));
+        localStorage.setItem('position', this.state.items.position);
+    }
     setLastName(event) {
-         this.setState(Object.assign(this.state.items, { lastName: event.target.value }));
-         localStorage.setItem('lastName',this.state.items.lastName ) ;
-        }
+        this.setState(Object.assign(this.state.items, { lastName: event.target.value }));
+        localStorage.setItem('lastName', this.state.items.lastName);
+    }
     setMiddleName(event) {
-         this.setState(Object.assign(this.state.items, { middleName: event.target.value }));
-         localStorage.setItem('middleName',this.state.items.middleName ) ;
-        }
+        this.setState(Object.assign(this.state.items, { middleName: event.target.value }));
+        localStorage.setItem('middleName', this.state.items.middleName);
+    }
     setBirthOfDate(event) {
-         this.setState(Object.assign(this.state.items, { birthOfDate: event.target.value }));
-         localStorage.setItem('birthOfDate',this.state.items.birthOfDate!==null?this.state.items.birthOfDate:"" ) ;
-        }
-    setCityOfResidence(event) { 
-        this.setState(Object.assign(this.state.items, { сityOfResidence: event.target.value })); 
-        localStorage.setItem('сityOfResidence',this.state.items.сityOfResidence ) ;
+        this.setState(Object.assign(this.state.items, { birthOfDate: event.target.value }));
+        localStorage.setItem('birthOfDate', this.state.items.birthOfDate !== null ? this.state.items.birthOfDate : "");
+    }
+    setCityOfResidence(event) {
+        this.setState(Object.assign(this.state.items, { сityOfResidence: event.target.value }));
+        localStorage.setItem('сityOfResidence', this.state.items.сityOfResidence);
     }
     setPhone(event) {
-         this.setState(Object.assign(this.state.items, { phone: event.target.value })); 
-         localStorage.setItem('phone',this.state.items.phone) ;
-        }
-    setEmail(event) {
-         this.setState(Object.assign(this.state.items, { email: event.target.value }));
-         localStorage.setItem('email',this.state.items.email) ;
-        }
-    setNationality(event) { 
-        this.setState(Object.assign(this.state.items, { nationality: event.target.value }));
-        localStorage.setItem('nationality',this.state.items.nationality) ;
+        this.setState(Object.assign(this.state.items, { phone: event.target.value }));
+        localStorage.setItem('phone', this.state.items.phone);
     }
-    setDesiredSalary(event) { 
-        this.setState(Object.assign(this.state.items, { desiredSalary: event.target.value })); 
-        localStorage.setItem('desiredSalary',this.state.items.desiredSalary) ;    
+    setEmail(event) {
+        this.setState(Object.assign(this.state.items, { email: event.target.value }));
+        localStorage.setItem('email', this.state.items.email);
+    }
+    setNationality(event) {
+        this.setState(Object.assign(this.state.items, { nationality: event.target.value }));
+        localStorage.setItem('nationality', this.state.items.nationality);
+    }
+    setDesiredSalary(event) {
+        this.setState(Object.assign(this.state.items, { desiredSalary: event.target.value }));
+        localStorage.setItem('desiredSalary', this.state.items.desiredSalary);
     }
     setCurrencyName(event) {
-         this.setState(Object.assign(this.state.items, { currency: event.target.value }));
-         localStorage.setItem('currency',this.state.items.currency) ; 
-         }
-    setEmployment(event) { 
+        this.setState(Object.assign(this.state.items, { currency: event.target.value }));
+        localStorage.setItem('currency', this.state.items.currency);
+    }
+    setEmployment(event) {
         this.setState(Object.assign(this.state.items, { employment: event.target.value }));
-        localStorage.setItem('employment',this.state.items.employment) ;
-     }
+        localStorage.setItem('employment', this.state.items.employment);
+    }
     setSchedule(event) {
-         this.setState(Object.assign(this.state.items, { schedule: event.target.value }));
-         localStorage.setItem('schedule',this.state.items.schedule) ;
-        }
+        this.setState(Object.assign(this.state.items, { schedule: event.target.value }));
+        localStorage.setItem('schedule', this.state.items.schedule);
+    }
     setBusinessTrip(event) {
-         this.setState(Object.assign(this.state.items, { businessTrip: event.target.checked }));
-         localStorage.setItem('businessTrip',this.state.items.businessTrip) ;
-        }
+        this.setState(Object.assign(this.state.items, { businessTrip: event.target.checked }));
+        localStorage.setItem('businessTrip', this.state.items.businessTrip);
+    }
     setRelocate(event) {
-         this.setState(Object.assign(this.state.items, { relocate: event.target.checked })); 
-         localStorage.setItem('relocate',this.state.items.relocate) ;
-        }
+        this.setState(Object.assign(this.state.items, { relocate: event.target.checked }));
+        localStorage.setItem('relocate', this.state.items.relocate);
+    }
     setMaritalStatus(event) {
-         this.setState(Object.assign(this.state.items, { maritalStatus: event.target.value }));
-         localStorage.setItem('maritalStatus',this.state.items.maritalStatus) ;
-        }
+        this.setState(Object.assign(this.state.items, { maritalStatus: event.target.value }));
+        localStorage.setItem('maritalStatus', this.state.items.maritalStatus);
+    }
     setChildren(event) {
-         this.setState(Object.assign(this.state.items, { children: event.target.checked }));
-         localStorage.setItem('children',this.state.items.children) ;
-        }
+        this.setState(Object.assign(this.state.items, { children: event.target.checked }));
+        localStorage.setItem('children', this.state.items.children);
+    }
     setEducation(event) {
-         this.setState(Object.assign(this.state.items, { education: event.target.value }));
-         localStorage.setItem('education',this.state.items.education) ;
-        }
+        this.setState(Object.assign(this.state.items, { education: event.target.value }));
+        localStorage.setItem('education', this.state.items.education);
+    }
     setPrivateСar(event) {
-         this.setState(Object.assign(this.state.items, { privateСar: event.target.checked })); 
-         localStorage.setItem('privateСar',this.state.items.privateСar) ;
-        }
+        this.setState(Object.assign(this.state.items, { privateСar: event.target.checked }));
+        localStorage.setItem('privateСar', this.state.items.privateСar);
+    }
     setArmy(event) {
-         this.setState(Object.assign(this.state.items, { army: event.target.checked }));
-         localStorage.setItem('army',this.state.items.army) ;
-        }
-    setHobby(event) { 
+        this.setState(Object.assign(this.state.items, { army: event.target.checked }));
+        localStorage.setItem('army', this.state.items.army);
+    }
+    setHobby(event) {
         this.setState(Object.assign(this.state.items, { hobby: event.target.value }));
-        localStorage.setItem('hobby',this.state.items.hobby) ;
+        localStorage.setItem('hobby', this.state.items.hobby);
     }
     setPersonalQualities(event) {
-         this.setState(Object.assign(this.state.items, { personalQualities: event.target.value }));
-         localStorage.setItem('personalQualities',this.state.items.personalQualities) ;        
-        }
+        this.setState(Object.assign(this.state.items, { personalQualities: event.target.value }));
+        localStorage.setItem('personalQualities', this.state.items.personalQualities);
+    }
     setProfessionalSkills(event) {
-         this.setState(Object.assign(this.state.items, { professionalSkills: event.target.value })); 
-         localStorage.setItem('professionalSkills',this.state.items.professionalSkills) ;
-        }    
-    setDriveLicenseA1(event) { if (this.state.items.drivLicense != undefined) { 
-        this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseA1: event.target.checked }));
-        localStorage.setItem('driverLicenseA1',this.state.items.drivLicense.driverLicenseA1) ;
-    } }
-    setDriveLicenseA(event) { if (this.state.items.drivLicense != undefined) {
-         this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseA: event.target.checked })); 
-         localStorage.setItem('driverLicenseA',this.state.items.drivLicense.driverLicenseA) ;
-        } }
-    setDriveLicenseB1(event) { if (this.state.items.drivLicense != undefined) { 
-        this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseB1: event.target.checked }));
-        localStorage.setItem('driverLicenseB1',this.state.items.drivLicense.driverLicenseB1) ;
-} }
-    setDriveLicenseB(event) { if (this.state.items.drivLicense != undefined) {
-         this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseB: event.target.checked })); 
-         localStorage.setItem('driverLicenseB',this.state.items.drivLicense.driverLicenseB) ;
-        } }
-    setDriveLicenseC1(event) { if (this.state.items.drivLicense != undefined) { 
-        this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseC1: event.target.checked })); 
-        localStorage.setItem('driverLicenseC1',this.state.items.drivLicense.driverLicenseC1) ;    
-    } }
-    setDriveLicenseC(event) { if (this.state.items.drivLicense != undefined) {
-         this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseC: event.target.checked }));
-    localStorage.setItem('driverLicenseC',this.state.items.drivLicense.driverLicenseC) ;
- } }
-    setDriveLicenseD1(event) { if (this.state.items.drivLicense != undefined) {
-         this.setState(Object.assign(this.state.items.drivLicense, { driverLicensD1: event.target.checked }));
-         localStorage.setItem('driverLicensD1',this.state.items.drivLicense.driverLicensD1) ;
-        } }
-    setDriveLicenseD(event) { if (this.state.items.drivLicense != undefined) { 
-        this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseD: event.target.checked }));
-        localStorage.setItem('driverLicenseD',this.state.items.drivLicense.driverLicenseD) ;    
-    } }
-    setDriveLicenseT(event) { if (this.state.items.drivLicense != undefined) {
-         this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseT: event.target.checked })); 
-         localStorage.setItem('driverLicenseT',this.state.items.drivLicense.driverLicenseT) ;
-        } }
+        this.setState(Object.assign(this.state.items, { professionalSkills: event.target.value }));
+        localStorage.setItem('professionalSkills', this.state.items.professionalSkills);
+    }
+    setDriveLicenseA1(event) {
+        if (this.state.items.drivLicense != undefined) {
+            this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseA1: event.target.checked }));
+            localStorage.setItem('driverLicenseA1', this.state.items.drivLicense.driverLicenseA1);
+        }
+    }
+    setDriveLicenseA(event) {
+        if (this.state.items.drivLicense != undefined) {
+            this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseA: event.target.checked }));
+            localStorage.setItem('driverLicenseA', this.state.items.drivLicense.driverLicenseA);
+        }
+    }
+    setDriveLicenseB1(event) {
+        if (this.state.items.drivLicense != undefined) {
+            this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseB1: event.target.checked }));
+            localStorage.setItem('driverLicenseB1', this.state.items.drivLicense.driverLicenseB1);
+        }
+    }
+    setDriveLicenseB(event) {
+        if (this.state.items.drivLicense != undefined) {
+            this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseB: event.target.checked }));
+            localStorage.setItem('driverLicenseB', this.state.items.drivLicense.driverLicenseB);
+        }
+    }
+    setDriveLicenseC1(event) {
+        if (this.state.items.drivLicense != undefined) {
+            this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseC1: event.target.checked }));
+            localStorage.setItem('driverLicenseC1', this.state.items.drivLicense.driverLicenseC1);
+        }
+    }
+    setDriveLicenseC(event) {
+        if (this.state.items.drivLicense != undefined) {
+            this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseC: event.target.checked }));
+            localStorage.setItem('driverLicenseC', this.state.items.drivLicense.driverLicenseC);
+        }
+    }
+    setDriveLicenseD1(event) {
+        if (this.state.items.drivLicense != undefined) {
+            this.setState(Object.assign(this.state.items.drivLicense, { driverLicensD1: event.target.checked }));
+            localStorage.setItem('driverLicensD1', this.state.items.drivLicense.driverLicensD1);
+        }
+    }
+    setDriveLicenseD(event) {
+        if (this.state.items.drivLicense != undefined) {
+            this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseD: event.target.checked }));
+            localStorage.setItem('driverLicenseD', this.state.items.drivLicense.driverLicenseD);
+        }
+    }
+    setDriveLicenseT(event) {
+        if (this.state.items.drivLicense != undefined) {
+            this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseT: event.target.checked }));
+            localStorage.setItem('driverLicenseT', this.state.items.drivLicense.driverLicenseT);
+        }
+    }
 
 
     componentDidMount() {
         fetch(API_ADDRESS_USER_DATA)
             .then((response) => response.json())
+<<<<<<< HEAD
             .then((data) => {      
                 document.getElementById("guestStatus").hidden = true;
                 document.getElementById("userStatus").hidden = false;
                 
+=======
+            .then((data) => {
+
+                document.getElementById("guestStatus").hidden = true;
+                document.getElementById("userStatus").hidden = false;
+
+>>>>>>> 69bcfdfb772c0f8511f3ab92ffc329dfbb0091a8
                 let expArr = [];
                 let educArr = [];
                 let langArr = [];
@@ -366,7 +400,12 @@ class UserData extends React.Component {
                 if (data.file) {
                     let fileFromDB = new Buffer.from(data.file).toString("base64");
                     this.imageFromDB = "data:image/png;base64," + fileFromDB;
+<<<<<<< HEAD
                     document.getElementById("userAvatar").src = this.imageFromDB  ;
+=======
+                    document.getElementById("userAvatar").src = this.imageFromDB;
+                    localStorage.setItem('image',this.imageFromDB);
+>>>>>>> 69bcfdfb772c0f8511f3ab92ffc329dfbb0091a8
                 }
                 else {
                     this.imageFromDB = UploadPhoto;
@@ -386,6 +425,7 @@ class UserData extends React.Component {
                 this.recomendationArray = recomendArr;
 
                 if (data.birthOfDate == undefined) { data.birthOfDate = ''; }
+<<<<<<< HEAD
                 
                     this.setState({
                         items: data
@@ -433,6 +473,54 @@ class UserData extends React.Component {
                 img.src = localStorage.getItem('image');
                 }    
             }      
+=======
+
+                this.setState({
+                    items: data
+                });
+
+                if (data.firstName == "") {
+                    this.setState(Object.assign(this.state.items, { firstName: localStorage.getItem('firstName') }));
+                    this.setState(Object.assign(this.state.items, { lastName: localStorage.getItem('lastName') }));
+                    this.setState(Object.assign(this.state.items, { middleName: localStorage.getItem('middleName') }));
+                    this.setState(Object.assign(this.state.items, { position: localStorage.getItem('position') }));
+                    this.setState(Object.assign(this.state.items, { birthOfDate: localStorage.getItem('birthOfDate') !== null ? localStorage.getItem('birthOfDate') : "" }));
+                    this.setState(Object.assign(this.state.items, { сityOfResidence: localStorage.getItem('сityOfResidence') }));
+                    this.setState(Object.assign(this.state.items, { phone: localStorage.getItem('phone') }));
+                    this.setState(Object.assign(this.state.items, { email: localStorage.getItem('email') }));
+                    this.setState(Object.assign(this.state.items, { nationality: localStorage.getItem('nationality') }));
+                    this.setState(Object.assign(this.state.items, { desiredSalary: localStorage.getItem('desiredSalary') }));
+                    this.setState(Object.assign(this.state.items, { currency: localStorage.getItem('currency') }));
+                    this.setState(Object.assign(this.state.items, { employment: localStorage.getItem('employment') }));
+                    this.setState(Object.assign(this.state.items, { schedule: localStorage.getItem('schedule') }));
+                    this.setState(Object.assign(this.state.items, { businessTrip: localStorage.getItem('businessTrip') }));
+                    this.setState(Object.assign(this.state.items, { relocate: localStorage.getItem('relocate') }));
+                    this.setState(Object.assign(this.state.items, { maritalStatus: localStorage.getItem('maritalStatus') }));
+                    this.setState(Object.assign(this.state.items, { children: localStorage.getItem('children') }));
+                    this.setState(Object.assign(this.state.items, { education: localStorage.getItem('education') }));
+                    this.setState(Object.assign(this.state.items, { privateСar: localStorage.getItem('privateСar') }));
+                    this.setState(Object.assign(this.state.items, { army: localStorage.getItem('army') }));
+                    this.setState(Object.assign(this.state.items, { hobby: localStorage.getItem('hobby') }));
+                    this.setState(Object.assign(this.state.items, { personalQualities: localStorage.getItem('personalQualities') }));
+                    this.setState(Object.assign(this.state.items, { professionalSkills: localStorage.getItem('professionalSkills') }));
+                    this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseA1: localStorage.getItem('driverLicenseA1') }));
+                    this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseA: localStorage.getItem('driverLicenseA') }));
+                    this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseB: localStorage.getItem('driverLicenseB') }));
+                    this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseB1: localStorage.getItem('driverLicenseB1') }));
+                    this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseC: localStorage.getItem('driverLicenseC') }));
+                    this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseC1: localStorage.getItem('driverLicenseC1') }));
+                    this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseD: localStorage.getItem('driverLicenseD') }));
+                    this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseD1: localStorage.getItem('driverLicenseD1') }));
+                    this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseT: localStorage.getItem('driverLicenseT') }));
+                    this.setState(Object.assign(this.state.items, { image: localStorage.getItem('image') }));
+
+                    if (this.state.items.image != null) {
+                        let img = document.getElementById('myimage');
+                        img.src = localStorage.getItem('image');
+                    }
+                }
+
+>>>>>>> 69bcfdfb772c0f8511f3ab92ffc329dfbb0091a8
                 console.dir(this.state.items);
             });
     }
@@ -442,8 +530,8 @@ class UserData extends React.Component {
         if (this.state.items == null) {
             return (
                 <div className="d-flex justify-content-center spin">
-                    <div className="spinner-border  text-primary" role="status">
-                        <span className="sr-only">Loading...</span>
+                    <div className="spinner-border" role="status">
+                        <span className="visually-hidden">Loading...</span>
                     </div>
                 </div>
             );
@@ -454,44 +542,47 @@ class UserData extends React.Component {
                 <div className="container-fluid mainUserData">
                     <div className="container">
                         {/* <!-- First container --> */}
+<<<<<<< HEAD
                         {/* <button type="button" className="btn btn-primary btn-lg mb-5" id="btnExit" onClick={this.clearLocalStorage}>Выйти и очистить local storage</button> */}
+=======
+>>>>>>> 69bcfdfb772c0f8511f3ab92ffc329dfbb0091a8
                         <div className="divData col-md-12 mt-5">
                             <div>
                                 <form action={API_ADDRESS_USER_DATA} method="POST" encType="multipart/form-data">
 
                                     {/* <!-- -------ОСНОВНАЯ ИНФО----------- --> */}
                                     <fieldset className="form-group p-3">
-                                        <legend className="w-auto px-2">
+                                        <legend className="float-none w-auto px-2">
                                             <h3>Основная информация</h3>
                                         </legend>
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <label for="id_userPosition">Желаемая должность:</label>
-                                                <input id="id_userPosition" type="text"required className="form-control" value={this.state.items.position} onChange={this.setPositions} name="id_userPosition"
+                                                <label htmlFor="id_userPosition" className="form-label">Желаемая должность*:</label>
+                                                <input id="id_userPosition" type="text" className="form-control" value={this.state.items.position} onChange={this.setPositions} name="id_userPosition"
                                                     placeholder="Введите должность" />
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <label for="id_lastName">Фамилия:</label>
-                                                <input id="id_lastName" type="text"required className="form-control" name="id_lastName" value={this.state.items.lastName} onChange={this.setLastName} placeholder="Введите фамилию" />
+                                                <label htmlFor="id_lastName" className="form-label">Фамилия:</label>
+                                                <input id="id_lastName" type="text" className="form-control" name="id_lastName" value={this.state.items.lastName} onChange={this.setLastName} placeholder="Введите фамилию" />
                                             </div>
                                         </div>
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                 <div className="userPhoto">
-                                                    <label>
+                                                    <label className="form-label">
                                                         <img className="avatar" src={this.imageFromDB} alt="Нажмите для выбора файла" id="myimage" />
-                                                        <input
+                                                        <input className='pl-2'
                                                             accept="image/*"
                                                             type="file"
                                                             name="fupload"
-                                                            onChange={this.onFileSelected} />
+                                                            onChange={this.onFileSelected} hidden />
                                                     </label>
                                                 </div>
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <label for="id_firstName">Имя:</label>
-                                                <input type="text" className="form-control" id="id_firstName"required onChange={this.setFirstName} name="id_firstName" value={this.state.items.firstName} placeholder="Введите имя" />
-                                                <label for="id_middleName">Отчество:</label>
+                                                <label htmlFor="id_firstName" className="form-label">Имя:</label>
+                                                <input type="text" className="form-control" id="id_firstName" onChange={this.setFirstName} name="id_firstName" value={this.state.items.firstName} placeholder="Введите имя" />
+                                                <label htmlFor="id_middleName" className="form-label">Отчество:</label>
                                                 <input type="text" className="form-control" id="id_middleName" name="id_middleName" value={this.state.items.middleName} onChange={this.setMiddleName}
                                                     placeholder="Введите отчество" />
                                             </div>
@@ -499,53 +590,53 @@ class UserData extends React.Component {
 
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <label for="id_birthOfDate">Дата рождения:</label>
-                                                <input type="date" className="form-control" id="id_birthOfDate"required value={this.state.items.birthOfDate.substr(0, 10)} onChange={this.setBirthOfDate} name="id_birthOfDate" />
+                                                <label htmlFor="id_birthOfDate" className="form-label">Дата рождения:</label>
+                                                <input type="date" className="form-control" id="id_birthOfDate" value={this.state.items.birthOfDate.substr(0, 10)} onChange={this.setBirthOfDate} name="id_birthOfDate" />
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <label for="id_cityOfResidence">Город проживания:</label>
-                                                <input type="text" className="form-control" id="id_cityOfResidence"required name="id_cityOfResidence" value={this.state.items.сityOfResidence} onChange={this.setCityOfResidence}
+                                                <label htmlFor="id_cityOfResidence" className="form-label">Город проживания:</label>
+                                                <input type="text" className="form-control" id="id_cityOfResidence" name="id_cityOfResidence" value={this.state.items.сityOfResidence} onChange={this.setCityOfResidence}
                                                     placeholder="Введите город" />
                                             </div>
                                         </div>
                                     </fieldset>
                                     {/* <!-- -------КОНТАКТЫ----------- --> */}
                                     <fieldset className="scheduler-border">
-                                        <legend className="scheduler-border">
+                                        <legend className="float-none w-auto px-2 scheduler-border">
                                             <h3>Контакты</h3>
                                         </legend>
 
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <label for="id_phone">Телефон:</label>
-                                                <input type="text" className="form-control" id="id_phone" name="id_phone"required value={this.state.items.phone} onChange={this.setPhone} placeholder="+380661234567" />
+                                                <label htmlFor="id_phone" className="form-label">Телефон:</label>
+                                                <input type="text" className="form-control" id="id_phone" name="id_phone" value={this.state.items.phone} onChange={this.setPhone} placeholder="+380661234567" />
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <label for="id_email">Электронная почта:</label>
-                                                <input type="email" className="form-control" id="id_email" name="id_email"required value={this.state.items.email} onChange={this.setEmail}
+                                                <label htmlFor="id_email" className="form-label">Электронная почта:</label>
+                                                <input type="email" className="form-control" id="id_email" name="id_email" value={this.state.items.email} onChange={this.setEmail}
                                                     placeholder="address@site.com" />
                                             </div>
                                         </div>
                                     </fieldset>
                                     {/* <!-- -------ЛИЧНАЯ ИНФО----------- --> */}
                                     <fieldset className="scheduler-border">
-                                        <legend className="scheduler-border">
+                                        <legend className="float-none w-auto px-2 scheduler-border">
                                             <h3>Личная информация</h3>
                                         </legend>
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <label for="id_nationality">Гражданство:</label>
-                                                <input type="text" className="form-control" id="id_nationality"required name="id_nationality" value={this.state.items.nationality} onChange={this.setNationality}
+                                                <label htmlFor="id_nationality" className="form-label">Гражданство:</label>
+                                                <input type="text" className="form-control" id="id_nationality" name="id_nationality" value={this.state.items.nationality} onChange={this.setNationality}
                                                     placeholder="Введите национальность" />
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <label for="id_desiredSalary">Желаемая зарплата:</label>
+                                                <label htmlFor="id_desiredSalary" className="form-label">Желаемая зарплата:</label>
 
                                                 <div className="input-group mb-2">
-                                                    <input type="number" className="form-control" id="id_desiredSalary"required name="id_desiredSalary" value={this.state.items.desiredSalary} onChange={this.setDesiredSalary} placeholder="0"
+                                                    <input type="number" className="form-control" id="id_desiredSalary" required name="id_desiredSalary" value={this.state.items.desiredSalary} onChange={this.setDesiredSalary} placeholder="0"
                                                         step="1" min="0" />
                                                     <div className="input-group-append">
-                                                        <select className="form-control" id="id_currency" name="id_currency" onChange={this.setCurrencyName} value={this.state.items.currency}>
+                                                        <select className="form-select" id="id_currency" name="id_currency" onChange={this.setCurrencyName} value={this.state.items.currency}>
                                                             <option value="1">₴ - гривна</option>
                                                             <option value="2">$ - доллар</option>
                                                             <option value="3">€ - евро</option>
@@ -560,8 +651,8 @@ class UserData extends React.Component {
                                         </div>
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <label for="id_employment">Занятось:</label>
-                                                <select className="form-control" id="id_employment" name="id_employment" placeholder="выбрать" value={this.state.items.employment} onChange={this.setEmployment}>
+                                                <label htmlFor="id_employment" className="form-label">Занятось:</label>
+                                                <select className="form-select" id="id_employment" name="id_employment" placeholder="выбрать" value={this.state.items.employment} onChange={this.setEmployment}>
                                                     <option value="1">Полная занятость</option>
                                                     <option value="2">Частичная занятость</option>
                                                     <option value="3">Проектная работа</option>
@@ -570,8 +661,8 @@ class UserData extends React.Component {
                                                 </select>
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <label for="id_schedule">График работы:</label>
-                                                <select className="form-control" id="id_schedule" name="id_schedule" value={this.state.items.schedule} onChange={this.setSchedule}>
+                                                <label htmlFor="id_schedule" className="form-label">График работы:</label>
+                                                <select className="form-select" id="id_schedule" name="id_schedule" value={this.state.items.schedule} onChange={this.setSchedule}>
                                                     <option value="1">Полный день</option>
                                                     <option value="2">Сменный график</option>
                                                     <option value="3">Гибкий график</option>
@@ -582,36 +673,39 @@ class UserData extends React.Component {
                                         </div>
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_businessTrip" className="custom-control-input" name="id_businessTrip" checked={this.state.items.businessTrip} onChange={this.setBusinessTrip} />
-                                                    <label className="custom-control-label" for="id_businessTrip">Командировки</label>
+                                                <div className="form-check">
+                                                    <input className="form-check-input" type="checkbox" id="id_businessTrip" name="id_businessTrip" checked={this.state.items.businessTrip} onChange={this.setBusinessTrip} />
+                                                    <label className="form-check-label" htmlFor="id_businessTrip">Командировки</label>
                                                 </div>
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_relocate" className="custom-control-input" name="id_relocate" checked={this.state.items.relocate} onChange={this.setRelocate} />
-                                                    <label className="custom-control-label" for="id_relocate">Готовность на переезд</label>
+                                                <div className="form-check">
+                                                    <input className="form-check-input" type="checkbox" id="id_relocate" name="id_relocate" checked={this.state.items.relocate} onChange={this.setRelocate} />
+                                                    <label className="form-check-label" htmlFor="id_relocate">Готовность на переезд</label>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="row">
+                                        <div className="row mt-3">
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <label for="id_maritalStatus">Семейное положение:</label>
-                                                <select className="form-control" id="id_maritalStatus" name="id_maritalStatus" value={this.state.items.maritalStatus} onChange={this.setMaritalStatus} >
+                                                <label htmlFor="id_maritalStatus" className="form-label">Семейное положение:</label>
+                                                <select className="form-select" id="id_maritalStatus" name="id_maritalStatus" value={this.state.items.maritalStatus} onChange={this.setMaritalStatus} >
                                                     <option value="1">Замужем</option>
                                                     <option value="2">Не замужем</option>
                                                     <option value="3">Женат</option>
                                                     <option value="4">Не женат</option>
                                                 </select>
-                                                <div
-                                                    className="custom-control custom-checkbox custom-control-inline ccb-right childrenCheckBox">
+                                                {/* <div className="custom-control custom-checkbox custom-control-inline ccb-right childrenCheckBox">
                                                     <input type="checkbox" id="id_children" className="custom-control-input" name="id_children" checked={this.state.items.children} onChange={this.setChildren} />
-                                                    <label className="custom-control-label" for="id_children">Дети</label>
+                                                    <label className="custom-control-label" htmlFor="id_children">Дети</label>
+                                                </div> */}
+                                                <div className="form-check">
+                                                    <input className="form-check-input" type="checkbox" id="id_children" name="id_children" checked={this.state.items.children} onChange={this.setChildren} />
+                                                    <label className="form-check-label" htmlFor="id_children">Дети</label>
                                                 </div>
                                             </div>
                                             <div className="form-group col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                <label for="id_education">Основное образование:</label>
-                                                <select className="form-control" id="id_education" name="id_education" value={this.state.items.education} onChange={this.setEducation}>
+                                                <label htmlFor="id_education" className="form-label">Основное образование:</label>
+                                                <select className="form-select" id="id_education" name="id_education" value={this.state.items.education} onChange={this.setEducation}>
                                                     <option value="1">Общее среднее образование</option>
                                                     <option value="2">Профессионально-техническое образование</option>
                                                     <option value="3">Высшее образования</option>
@@ -623,132 +717,135 @@ class UserData extends React.Component {
                                     </fieldset>
                                     {/* <!-- -------ВЛАДЕНИЕ ЯЗЫКАМИ----------- --> */}
                                     <fieldset className="scheduler-border">
-                                        <legend className="scheduler-border">
+                                        <legend className="float-none w-auto px-2 scheduler-border">
                                             <h3>Владение языками</h3>
                                         </legend>
                                         <ShowLanguage arrayToDisplay={this.langArray} />
-                                        <a href="javascript:AddLang()" AddLanguage onClick={this.AddLang}>Добавить</a>
+                                        <a className='btn-add-del' href="javascript:AddLang()" AddLanguage onClick={this.AddLang}>Добавить</a>
                                     </fieldset>
                                     {/* <!-- -------ОБРАЗОВАНИЕ----------- --> */}
                                     <fieldset className="scheduler-border">
-                                        <legend className="scheduler-border">
+                                        <legend className="float-none w-auto px-2 scheduler-border">
                                             <h3>Образование</h3>
                                         </legend>
                                         <ShowEducation arrayToDisplay={this.educArray} />
-                                        <a href="javascript:this.AddEducation()" onClick={this.AddEducation}>Добавить</a>
+                                        <a className='btn-add-del' href="javascript:this.AddEducation()" onClick={this.AddEducation}>Добавить</a>
                                     </fieldset>
 
                                     {/* <!-- -------КУРСЫ ПОВЫШЕНИЯ КВАЛИФИКАЦИИ----------- --> */}
-                                    <fieldset className="scheduler-border">
-                                        <legend className="scheduler-border">
+                                    <fieldset className="">
+                                        <legend className="float-none w-auto px-2 ">
                                             <h3>Курсы повышения квалификации</h3>
                                         </legend>
                                         <ShowCourses arrayToDisplay={this.coursArray} />
-                                        <a href="javascript:AddCourse()" ShowCourses onClick={this.AddCourse}>Добавить</a>
+                                        <a className='btn-add-del' href="javascript:AddCourse()" ShowCourses onClick={this.AddCourse}>Добавить</a>
                                     </fieldset>
 
                                     {/* <!-- -------ОПЫТ РАБОТЫ----------- --> */}
                                     <fieldset className="scheduler-border">
-                                        <legend className="scheduler-border">
+                                        <legend className="float-none w-auto px-2 scheduler-border">
                                             <h3>Опыт работы</h3>
                                         </legend>
                                         < ShowExperience arrayToDisplay={this.expArray} />
-                                        <a href="javascript:AddExperience()" onClick={this.AddExperience}>Добавить</a>
+                                        <a className='btn-add-del' href="javascript:AddExperience()" onClick={this.AddExperience}>Добавить</a>
                                     </fieldset>
 
                                     {/* <!-- -------РЕКОМЕНДАЦИИ----------- --> */}
-                                    <fieldset className="scheduler-border">
-                                        <legend className="scheduler-border">
+                                    <fieldset className="border p-2 scheduler-border">
+                                        <legend className="float-none w-auto px-2 float-none w-auto p-2 scheduler-border">
                                             <h3>Рекомендации</h3>
                                         </legend>
                                         <ShowRecommending arrayToDisplay={this.recomendationArray} />
-                                        <a href="javascript:AddRecommendation()" onClick={this.AddRecommendation}>Добавить</a>
+                                        <a className='btn-add-del' href="javascript:AddRecommendation()" onClick={this.AddRecommendation}>Добавить</a>
                                     </fieldset>
                                     {/* <!-- -------ДОПОЛНИТЕЛЬНАЯ ИНФО----------- --> */}
                                     <fieldset className="scheduler-border">
-                                        <legend className="scheduler-border">
+                                        <legend className="float-none w-auto px-2 scheduler-border">
                                             <h3>Дополнительная информация</h3>
                                         </legend>
 
                                         <div className="row">
-                                            <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                <label for="id_driverLicense">Права категории:</label>
-                                                <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseA1" className="custom-control-input" name="id_driverLicenseA1" checked={this.state.items.drivLicense.driverLicenseA1} value="1" onChange={this.setDriveLicenseA1} />
-                                                    <label className="custom-control-label" for="id_driverLicenseA1">A1</label>
+                                            <div className="form-check form-check-inline">
+                                                <label htmlFor="id_driverLicense" className="form-label" id="lbl_driver">Права категории:</label>
+                                                <div className="form-check form-check-inline">
+                                                    <input className="form-check-input" type="checkbox" id="id_driverLicenseA1" name="id_driverLicenseA1" value="1" checked={this.state.items.drivLicense.driverLicenseA1} onChange={this.setDriveLicenseA1} />
+                                                    <label className="form-check-label" htmlFor="id_driverLicenseA1">A1</label>
                                                 </div>
-                                                <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseA" className="custom-control-input" name="id_driverLicenseA" value="2" checked={this.state.items.drivLicense.driverLicenseA} onChange={this.setDriveLicenseA} />
-                                                    <label className="custom-control-label" for="id_driverLicenseA">A</label>
+                                                <div className="form-check form-check-inline">
+                                                    <input className="form-check-input" type="checkbox" id="id_driverLicenseA" name="id_driverLicenseA" value="2" checked={this.state.items.drivLicense.driverLicenseA} onChange={this.setDriveLicenseA} />
+                                                    <label className="form-check-label" htmlFor="id_driverLicenseA">A</label>
                                                 </div>
-                                                <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseB1" className="custom-control-input" name="id_driverLicenseB1" value="3" checked={this.state.items.drivLicense.driverLicenseB1} onChange={this.setDriveLicenseB1} />
-                                                    <label className="custom-control-label" for="id_driverLicenseB1">B1</label>
+                                                <div className="form-check form-check-inline">
+                                                    <input className="form-check-input" type="checkbox" id="id_driverLicenseB1" name="id_driverLicenseB1" value="3" checked={this.state.items.drivLicense.driverLicenseB1} onChange={this.setDriveLicenseB1} />
+                                                    <label className="form-check-label" htmlFor="id_driverLicenseB1">B1</label>
                                                 </div>
-                                                <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseB" className="custom-control-input" name="id_driverLicenseB" value="4" checked={this.state.items.drivLicense.driverLicenseB} onChange={this.setDriveLicenseB} />
-                                                    <label className="custom-control-label" for="id_driverLicenseB">B</label>
+                                                <div className="form-check form-check-inline">
+                                                    <input className="form-check-input" type="checkbox" id="id_driverLicenseB" name="id_driverLicenseB" value="4" checked={this.state.items.drivLicense.driverLicenseB} value="4" onChange={this.setDriveLicenseB} />
+                                                    <label className="form-check-label" htmlFor="id_driverLicenseB">B</label>
                                                 </div>
-                                                <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseC1" className="custom-control-input" name="id_driverLicenseC1" value="5" checked={this.state.items.drivLicense.driverLicenseC1} onChange={this.setDriveLicenseC1} />
-                                                    <label className="custom-control-label" for="id_driverLicenseC1">C1</label>
+                                                <div className="form-check form-check-inline">
+                                                    <input className="form-check-input" type="checkbox" id="id_driverLicenseC1" name="id_driverLicenseC1" value="5" checked={this.state.items.drivLicense.driverLicenseC1} onChange={this.setDriveLicenseC1} />
+                                                    <label className="form-check-label" htmlFor="id_driverLicenseC1">C1</label>
                                                 </div>
-                                                <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseC" className="custom-control-input" name="id_driverLicenseC" value="6" checked={this.state.items.drivLicense.driverLicenseC} onChange={this.setDriveLicenseC} />
-                                                    <label className="custom-control-label" for="id_driverLicenseC">C</label>
+                                                <div className="form-check form-check-inline">
+                                                    <input className="form-check-input" type="checkbox" id="id_driverLicenseC" name="id_driverLicenseC" value="6" checked={this.state.items.drivLicense.driverLicenseC} onChange={this.setDriveLicenseC} />
+                                                    <label className="form-check-label" htmlFor="id_driverLicenseC">C</label>
                                                 </div>
-                                                <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseD1" className="custom-control-input" name="id_driverLicenseD1" value="7" checked={this.state.items.drivLicense.driverLicenseD1} onChange={this.setDriveLicenseD1} />
-                                                    <label className="custom-control-label" for="id_driverLicenseD1">D1</label>
+                                                <div className="form-check form-check-inline">
+                                                    <input className="form-check-input" type="checkbox" id="id_driverLicenseD1" name="id_driverLicenseD1" value="7" checked={this.state.items.drivLicense.driverLicenseD1} onChange={this.setDriveLicenseD1} />
+                                                    <label className="form-check-label" htmlFor="id_driverLicenseD1">D1</label>
                                                 </div>
-                                                <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseD" className="custom-control-input" name="id_driverLicenseD" value="8" checked={this.state.items.drivLicense.driverLicenseD} onChange={this.setDriveLicenseD} />
-                                                    <label className="custom-control-label" for="id_driverLicenseD">D</label>
+                                                <div className="form-check form-check-inline">
+                                                    <input className="form-check-input" type="checkbox" id="id_driverLicenseD" name="id_driverLicenseD" value="8" checked={this.state.items.drivLicense.driverLicenseD} onChange={this.setDriveLicenseD} />
+                                                    <label className="form-check-label" htmlFor="id_driverLicenseD">D</label>
                                                 </div>
-                                                <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_driverLicenseT" className="custom-control-input" name="id_driverLicenseT" value="9" checked={this.state.items.drivLicense.driverLicenseT} onChange={this.setDriveLicenseT} />
-                                                    <label className="custom-control-label" for="id_driverLicenseT">T</label>
+                                                <div className="form-check form-check-inline">
+                                                    <input className="form-check-input" type="checkbox" id="id_driverLicenseT" name="id_driverLicenseT" value="9" checked={this.state.items.drivLicense.driverLicenseT} onChange={this.setDriveLicenseT} />
+                                                    <label className="form-check-label" htmlFor="id_driverLicenseT">T</label>
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div className="row">
                                             <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_privatCar" className="custom-control-input" name="id_privatCar" checked={this.state.items.privateСar} onChange={this.setPrivateСar} />
-                                                    <label className="custom-control-label" for="id_privatCar">Есть личный
-                                                        автомобиль</label>
+                                                <div className="form-check">
+                                                    <input className="form-check-input" type="checkbox" id="id_privatCar" name="id_privatCar" checked={this.state.items.privateСar} onChange={this.setPrivateСar} />
+                                                    <label className="form-check-label" htmlFor="id_privatCar">Есть личный автомобиль</label>
                                                 </div>
                                             </div>
                                             <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                <div className="custom-control custom-checkbox custom-control-inline ccb-right">
-                                                    <input type="checkbox" id="id_army" className="custom-control-input" name="id_army" checked={this.state.items.army} onChange={this.setArmy} />
-                                                    <label className="custom-control-label" for="id_army">Служба в армии</label>
+                                                <div className="form-check">
+                                                    <input className="form-check-input" type="checkbox" id="id_army" name="id_army" checked={this.state.items.army} onChange={this.setArmy} />
+                                                    <label className="form-check-label" htmlFor="id_army">Служба в армии</label>
                                                 </div>
                                             </div>
                                             <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                <label for="id_hobby">Хобби:</label>
+                                                <label htmlFor="id_hobby" className="form-label">Хобби:</label>
                                                 <textarea className="form-control" id="id_hobby" name="id_hobby" value={this.state.items.hobby} onChange={this.setHobby}></textarea>
                                             </div>
                                             <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                <label for="id_personalQualities">Личные качества:</label>
+                                                <label htmlFor="id_personalQualities" className="form-label">Личные качества:</label>
                                                 <textarea className="form-control" id="id_personalQualities" name="id_personalQualities" value={this.state.items.personalQualities} onChange={this.setPersonalQualities}></textarea>
                                             </div>
                                             <div className="form-group col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                <label for="id_professionalSkills">Профессиональные навыки:</label>
+                                                <label htmlFor="id_professionalSkills" className="form-label">Профессиональные навыки:</label>
                                                 <textarea className="form-control" id="id_professionalSkills" name="id_professionalSkills" value={this.state.items.professionalSkills} onChange={this.setProfessionalSkills}></textarea>
                                             </div>
                                         </div>
+<<<<<<< HEAD
                                     </fieldset>  
                                     <div class="d-flex justify-content-center mt-3">
                                         <button type="submit" className="btn btn-primary btn-lg mb-5" id="sbmResume">Сохранить и перейти к шаблонам</button>
 
                                     </div>                                 
+=======
+                                    </fieldset>
+                                    <div className="d-flex justify-content-center btn-sbmResume">                                        
+                                        <button type="submit" className="btn btn-primary btn-lg mb-5" id="sbmResume">Сохранить и перейти к шаблонам</button>
+                                    </div>
+>>>>>>> 69bcfdfb772c0f8511f3ab92ffc329dfbb0091a8
                                 </form>
                             </div>
-                        </div>
-
-
-                        <div>
                         </div>
                     </div>
                 </div>

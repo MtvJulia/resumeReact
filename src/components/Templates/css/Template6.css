@@ -26,3 +26,11 @@
     color: #EBF1F2;
     -webkit-print-color-adjust: exact;
 }
+
+.name-text-t6{
+    word-wrap: break-word;
+    font-size: 40px;
+    padding: 0px 15px 0 0;
+    margin: 0px;
+    font-weight: 700;
+}

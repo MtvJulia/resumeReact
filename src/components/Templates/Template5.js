@@ -39,13 +39,15 @@ class Template5 extends React.Component {
         fetch(API_ADDRESS_TMP5)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
+                document.getElementById("guestStatus").hidden = true;
+                document.getElementById("userStatus").hidden = false;
                 if (data.middleName == null) {
                     data.middleName = "";
                 }
                 if (data.file) {
                     let fileFromDB = new Buffer.from(data.file).toString("base64");
                     this.imageFromDB = "data:image/png;base64," + fileFromDB;
+                    document.getElementById("userAvatar").src = this.imageFromDB  ;
                 }
                 else {
                     this.imageFromDB = avatar;
@@ -78,8 +80,8 @@ class Template5 extends React.Component {
         if (this.state.userData == null) {
             return (
                 <div className="d-flex justify-content-center spin">
-                    <div className="spinner-border  text-primary" role="status">
-                        <span className="sr-only">Loading...</span>
+                    <div className="spinner-border" role="status">
+                        <span className="visually-hidden">Loading...</span>
                     </div>
                 </div>
             );
@@ -89,14 +91,14 @@ class Template5 extends React.Component {
                 <div className="container">
 
                     {/* template 5 */}
-                    <div className="container-sm" id="main-container-t5" >
-                        <div className="row container-t">
+                    <div className="container-sm " id="main-container-t5" >
+                        <div className="row container-t ">
                             {/* left-container */}
-                            <div className="col col-4" id="left-container-t5">
+                            <div className="col col-4  p-3" id="left-container-t5">
                                 <img id="avatar" src={this.imageFromDB} className="rounded mx-auto d-block" alt="avatar" />
                                 <div>
-                                    <div className="col header-text my-3"><u>Контакты</u></div>
-                                    <div className="col text-capitalize "><img className="icon-item " src={location} alt="location" />
+                                    <div className="col header-text mt-3"><u>Контакты</u></div>
+                                    <div className="col text-capitalize  "><img className="icon-item " src={location} alt="location" />
                                         {this.state.userData.сityOfResidence}</div>
                                     <div className="col "><img className="icon-item" src={phone} alt="phone" />
                                         {this.state.userData.phone}</div>
@@ -104,38 +106,38 @@ class Template5 extends React.Component {
                                         {this.state.userData.email}</div>
                                 </div>
                                 <div>
-                                    <div className="col text-nowrap header-text my-3"><u>Водительские права</u></div>
+                                    <div className="col text-nowrap header-text mt-3"><u>Водительские права</u></div>
                                     <div className="col main-text">{this.driverLicenseStr}</div>
                                 </div>
                                 <div>
-                                    <div className="col header-text my-3"><u>Гражданство</u></div>
+                                    <div className="col header-text mt-3"><u>Гражданство</u></div>
                                     <div className="col main-text">{this.state.userData.nationality}</div>
                                 </div>
                                 <div>
-                                    <div className="col text-nowrap header-text my-3"><u>Семейное положение</u></div>
+                                    <div className="col text-nowrap header-text mt-3"><u>Семейное положение</u></div>
                                     <div className="col main-text">{this.maritalStatusStr}</div>
                                 </div>
                                 <div>
-                                    <div className="col header-text my-3"><u>Занятость</u></div>
+                                    <div className="col header-text mt-3"><u>Занятость</u></div>
                                     <div className="col main-text">{this.employmentStr}</div>
                                 </div>
                                 <div>
-                                    <div className="col header-text my-3"><u>Языки</u></div>
+                                    <div className="col header-text mt-3"><u>Языки</u></div>
                                     {this.state.languagesArr.map(function (value, i) { return (<div className="col main-text" key={'val-' + i}>{value}</div>); })}
                                 </div>
                                 <div>
-                                    <div className="col header-text my-3"><u>Хобби</u></div>
+                                    <div className="col header-text mt-3"><u>Хобби</u></div>
                                     <div className="col main-text">{this.state.userData.hobby}</div>
                                 </div>
-                                <div className="col header-text my-3"><u>{this.army}</u></div>
+                                <div className="col header-text mt-3"><u>{this.army}</u></div>
 
                             </div>
 
                             {/* right-container */}
-                            <div className="col" id="right-container">
-                                <div className="media align-items-center border">
-                                    <div className="media-body py-4  box-t5">
-                                        <div className='row justify-content-center m-0'>
+                            <div className="col " id="right-container">
+                                <div className="d-flex align-items-center justify-content-center ">
+                                    <div className="flex-shrink-0 py-4  box-t5">
+                                        <div className='d-flex flex-row justify-content-center m-0'>
                                             <div className='mr-3 text-capitalize text-break name-text'>{this.state.userData.lastName}</div>
                                             <div className='mr-3 text-capitalize text-break name-text'>{this.state.userData.firstName}</div>
                                             <div className='mr-3 text-capitalize text-break name-text'>{this.state.userData.middleName}</div>
@@ -145,11 +147,11 @@ class Template5 extends React.Component {
                                     </div>
 
                                 </div>
-                                <div className="col header-text border box-t5 mt-3">Опыт работы </div>
-                                <div className="list-group ">
+                                <div className="col header-text box-t5 mt-3 ">Опыт работы </div>
+                                <div className="list-group p-3 border">
                                     {this.state.experienceArr.map(function (value, i) {
                                         return (
-                                            <div key={'val-' + i}>
+                                            <div className='mb-3' key={'val-' + i}>
                                                 <div className="d-flex w-100 justify-content-between">
                                                     <h5 className="mb-1">{value.companyName}</h5>
                                                     <h5 className="mb-1 years">{value.startWork + " - " + value.endWork}</h5>
@@ -161,11 +163,11 @@ class Template5 extends React.Component {
                                     })}
                                 </div>
 
-                                <div className="col header-text border box-t5">Образование</div>
-                                <div className="list-group ">
+                                <div className="col header-text box-t5">Образование</div>
+                                <div className="list-group p-3 border">
                                     {this.state.educationArr.map(function (value, i) {
                                         return (
-                                            <div key={'val-' + i}>
+                                            <div className='mb-3' key={'val-' + i}>
                                                 <div className="d-flex w-100 justify-content-between">
                                                     <h5 className="mb-1 pl-4">{value.institutName}</h5>
                                                     <h5 className="mb-1 pr-4 years">{value.ending}</h5>
@@ -177,11 +179,11 @@ class Template5 extends React.Component {
                                     })}
                                 </div>
 
-                                <div className="col header-text border box-t5">Курсы</div>
-                                <div className="list-group ">
+                                <div className="col header-text box-t5">Курсы</div>
+                                <div className="list-group p-3 border">
                                     {this.state.coursesArr.map(function (value, i) {
                                         return (
-                                            <div key={'val-' + i}>
+                                            <div className='mb-3' key={'val-' + i}>
                                                 <div className="d-flex w-100 justify-content-between">
                                                     <h5 className="mb-1 pl-4">{value.organization}</h5>
                                                     <h5 className="mb-1 pr-4 years">{value.endingCourse}</h5>
@@ -192,11 +194,11 @@ class Template5 extends React.Component {
                                     })}
                                 </div>
 
-                                <div className="col header-text border box-t5">Рекомендации</div>
-                                <div className="list-group ">
+                                <div className="col header-text box-t5">Рекомендации</div>
+                                <div className="list-group p-3 border">
                                     {this.state.recomendingArr.map(function (value, i) {
                                         return (
-                                            <div key={'val-' + i}>
+                                            <div className='mb-3' key={'val-' + i}>
                                                 <div className="d-flex w-100 justify-content-between">
                                                     <h5 className="mb-1 pl-4">{value.company}</h5>
                                                 </div>
@@ -211,15 +213,15 @@ class Template5 extends React.Component {
                                     })}
                                 </div>
 
-                                <div className="col header-text border box-t5">Профессиональные навыки</div>
-                                <div className="list-group ">
-                                    <div className="list-group-item ">
+                                <div className="col header-text box-t5">Профессиональные навыки</div>
+                                <div className="list-group border">
+                                    <div className="list-group-item">
                                         <div className="mb-1 pl-4 long-text" >{this.state.userData.professionalSkills} </div>
                                     </div>
                                 </div>
 
-                                <div className="col header-text border box-t5">Личные качества</div>
-                                <div className="list-group ">
+                                <div className="col header-text box-t5">Личные качества</div>
+                                <div className="list-group border">
                                     <div className="list-group-item ">
                                         <p className="mb-1" >
                                             {this.state.userData.personalQualities}
@@ -233,17 +235,17 @@ class Template5 extends React.Component {
 
                     <PrintComponents trigger={
                         <div className='d-flex justify-content-center'>
-                            <button className="btn btn-primary btn-lg">Распечатать и сохранить в PDF</button>
+                            <button className="btn btn-primary btn-lg btn-save">Распечатать и сохранить в PDF</button>
                         </div>} >
                         {/* template 5 */}
-                        <div className="container-sm" id="main-container-t5" >
-                            <div className="row container-t">
+                        <div className="container-sm " id="main-container-t5" >
+                            <div className="row container-t ">
                                 {/* left-container */}
-                                <div className="col col-4" id="left-container-t5">
+                                <div className="col col-4  p-3" id="left-container-t5">
                                     <img id="avatar" src={this.imageFromDB} className="rounded mx-auto d-block" alt="avatar" />
                                     <div>
-                                        <div className="col header-text my-3"><u>Контакты</u></div>
-                                        <div className="col text-capitalize "><img className="icon-item " src={location} alt="location" />
+                                        <div className="col header-text mt-3"><u>Контакты</u></div>
+                                        <div className="col text-capitalize "><img className="icon-item" src={location} alt="location" />
                                             {this.state.userData.сityOfResidence}</div>
                                         <div className="col "><img className="icon-item" src={phone} alt="phone" />
                                             {this.state.userData.phone}</div>
@@ -251,38 +253,38 @@ class Template5 extends React.Component {
                                             {this.state.userData.email}</div>
                                     </div>
                                     <div>
-                                        <div className="col text-nowrap header-text my-3"><u>Водительские права</u></div>
+                                        <div className="col text-nowrap header-text mt-3"><u>Водительские права</u></div>
                                         <div className="col main-text">{this.driverLicenseStr}</div>
                                     </div>
                                     <div>
-                                        <div className="col header-text my-3"><u>Гражданство</u></div>
+                                        <div className="col header-text mt-3"><u>Гражданство</u></div>
                                         <div className="col main-text">{this.state.userData.nationality}</div>
                                     </div>
                                     <div>
-                                        <div className="col text-nowrap header-text my-3"><u>Семейное положение</u></div>
+                                        <div className="col text-nowrap header-text mt-3"><u>Семейное положение</u></div>
                                         <div className="col main-text">{this.maritalStatusStr}</div>
                                     </div>
                                     <div>
-                                        <div className="col header-text my-3"><u>Занятость</u></div>
+                                        <div className="col header-text mt-3"><u>Занятость</u></div>
                                         <div className="col main-text">{this.employmentStr}</div>
                                     </div>
                                     <div>
-                                        <div className="col header-text my-3"><u>Языки</u></div>
+                                        <div className="col header-text mt-3"><u>Языки</u></div>
                                         {this.state.languagesArr.map(function (value, i) { return (<div className="col main-text" key={'val-' + i}>{value}</div>); })}
                                     </div>
                                     <div>
-                                        <div className="col header-text my-3"><u>Хобби</u></div>
+                                        <div className="col header-text mt-3"><u>Хобби</u></div>
                                         <div className="col main-text">{this.state.userData.hobby}</div>
                                     </div>
-                                    <div className="col header-text my-3"><u>{this.army}</u></div>
+                                    <div className="col header-text mt-3"><u>{this.army}</u></div>
 
                                 </div>
 
                                 {/* right-container */}
-                                <div className="col" id="right-container">
-                                    <div className="media align-items-center border">
-                                        <div className="media-body py-4  box-t5">
-                                            <div className='row justify-content-center m-0'>
+                                <div className="col " id="right-container">
+                                    <div className="d-flex align-items-center justify-content-center ">
+                                        <div className="flex-shrink-0 py-4  box-t5">
+                                            <div className='d-flex flex-row justify-content-center m-0'>
                                                 <div className='mr-3 text-capitalize text-break name-text'>{this.state.userData.lastName}</div>
                                                 <div className='mr-3 text-capitalize text-break name-text'>{this.state.userData.firstName}</div>
                                                 <div className='mr-3 text-capitalize text-break name-text'>{this.state.userData.middleName}</div>
@@ -292,11 +294,11 @@ class Template5 extends React.Component {
                                         </div>
 
                                     </div>
-                                    <div className="col header-text border box-t5 mt-3">Опыт работы </div>
-                                    <div className="list-group ">
+                                    <div className="col header-text box-t5 mt-3 ">Опыт работы </div>
+                                    <div className="list-group p-3 border">
                                         {this.state.experienceArr.map(function (value, i) {
                                             return (
-                                                <div key={'val-' + i}>
+                                                <div className='mb-3' key={'val-' + i}>
                                                     <div className="d-flex w-100 justify-content-between">
                                                         <h5 className="mb-1">{value.companyName}</h5>
                                                         <h5 className="mb-1 years">{value.startWork + " - " + value.endWork}</h5>
@@ -308,11 +310,11 @@ class Template5 extends React.Component {
                                         })}
                                     </div>
 
-                                    <div className="col header-text border box-t5">Образование</div>
-                                    <div className="list-group ">
+                                    <div className="col header-text box-t5">Образование</div>
+                                    <div className="list-group p-3 border">
                                         {this.state.educationArr.map(function (value, i) {
                                             return (
-                                                <div key={'val-' + i}>
+                                                <div className='mb-3' key={'val-' + i}>
                                                     <div className="d-flex w-100 justify-content-between">
                                                         <h5 className="mb-1 pl-4">{value.institutName}</h5>
                                                         <h5 className="mb-1 pr-4 years">{value.ending}</h5>
@@ -324,11 +326,11 @@ class Template5 extends React.Component {
                                         })}
                                     </div>
 
-                                    <div className="col header-text border box-t5">Курсы</div>
-                                    <div className="list-group ">
+                                    <div className="col header-text box-t5">Курсы</div>
+                                    <div className="list-group p-3 border">
                                         {this.state.coursesArr.map(function (value, i) {
                                             return (
-                                                <div key={'val-' + i}>
+                                                <div className='mb-3' key={'val-' + i}>
                                                     <div className="d-flex w-100 justify-content-between">
                                                         <h5 className="mb-1 pl-4">{value.organization}</h5>
                                                         <h5 className="mb-1 pr-4 years">{value.endingCourse}</h5>
@@ -339,11 +341,11 @@ class Template5 extends React.Component {
                                         })}
                                     </div>
 
-                                    <div className="col header-text border box-t5">Рекомендации</div>
-                                    <div className="list-group ">
+                                    <div className="col header-text box-t5">Рекомендации</div>
+                                    <div className="list-group p-3 border">
                                         {this.state.recomendingArr.map(function (value, i) {
                                             return (
-                                                <div key={'val-' + i}>
+                                                <div className='mb-3' key={'val-' + i}>
                                                     <div className="d-flex w-100 justify-content-between">
                                                         <h5 className="mb-1 pl-4">{value.company}</h5>
                                                     </div>
@@ -358,15 +360,15 @@ class Template5 extends React.Component {
                                         })}
                                     </div>
 
-                                    <div className="col header-text border box-t5">Профессиональные навыки</div>
-                                    <div className="list-group ">
-                                        <div className="list-group-item ">
+                                    <div className="col header-text box-t5">Профессиональные навыки</div>
+                                    <div className="list-group border">
+                                        <div className="list-group-item">
                                             <div className="mb-1 pl-4 long-text" >{this.state.userData.professionalSkills} </div>
                                         </div>
                                     </div>
 
-                                    <div className="col header-text border box-t5">Личные качества</div>
-                                    <div className="list-group ">
+                                    <div className="col header-text box-t5">Личные качества</div>
+                                    <div className="list-group border">
                                         <div className="list-group-item ">
                                             <p className="mb-1" >
                                                 {this.state.userData.personalQualities}

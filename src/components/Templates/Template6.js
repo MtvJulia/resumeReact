@@ -39,13 +39,15 @@ class Template6 extends React.Component {
         fetch(API_ADDRESS_TMP6)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
+                document.getElementById("guestStatus").hidden = true;
+                document.getElementById("userStatus").hidden = false;
                 if (data.middleName == null) {
                     data.middleName = "";
                 }
                 if (data.file) {
                     let fileFromDB = new Buffer.from(data.file).toString("base64");
                     this.imageFromDB = "data:image/png;base64," + fileFromDB;
+                    document.getElementById("userAvatar").src = this.imageFromDB  ;
                 }
                 else {
                     this.imageFromDB = avatar;
@@ -78,8 +80,8 @@ class Template6 extends React.Component {
         if (this.state.userData == null) {
             return (
                 <div className="d-flex justify-content-center spin">
-                    <div className="spinner-border  text-primary" role="status">
-                        <span className="sr-only">Loading...</span>
+                    <div className="spinner-border" role="status">
+                        <span className="visually-hidden">Loading...</span>
                     </div>
                 </div>
             );
@@ -89,16 +91,16 @@ class Template6 extends React.Component {
                 <div className="container">
 
                     {/* template 6 */}
-                    <div className="container-sm border " id="main-container-t6" >
-                        <div className="media align-items-center tttt">
-                            <div className="media-left ml-4">
+                    <div className="container-sm" id="main-container-t6" >
+                        <div className="d-flex align-items-center justify-content-around tttt">
+                            <div className="flex-shrink-0 ml-4">
                                 <img className="media-object" id="avatar" src={this.imageFromDB} alt="avatar" />
                             </div>
                             <div className="media-body ">
-                                <div className='row justify-content-center m-0'>
-                                    <div className='mr-3 text-capitalize text-break name-text'>{this.state.userData.lastName}</div>
-                                    <div className='mr-3 text-capitalize text-break name-text'>{this.state.userData.firstName}</div>
-                                    <div className='mr-3 text-capitalize text-break name-text'>{this.state.userData.middleName}</div>
+                                <div className='d-flex justify-content-center m-0'>
+                                    <div className='mr-3 text-capitalize text-break name-text-t6'>{this.state.userData.lastName}</div>
+                                    <div className='mr-3 text-capitalize text-break name-text-t6'>{this.state.userData.firstName}</div>
+                                    <div className='mr-3 text-capitalize text-break name-text-t6'>{this.state.userData.middleName}</div>
                                 </div>
                                 <div className='row justify-content-center m-0 header-text'><h2>{this.state.userData.position + " , " + this.age + " лет"}</h2></div>
                                 <div className='row justify-content-center m-0 header-text'>ожидаемая заработная плата: {this.salaryStr}</div>
@@ -234,7 +236,7 @@ class Template6 extends React.Component {
 
                     <PrintComponents trigger={
                         <div className='d-flex justify-content-center'>
-                            <button className="btn btn-primary btn-lg">Распечатать и сохранить в PDF</button>
+                            <button className="btn btn-primary btn-lg btn-save">Распечатать и сохранить в PDF</button>
                         </div>} >
                         {/* template 6 */}
                         <div className="container-sm border " id="main-container-t6" >

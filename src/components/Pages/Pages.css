@@ -1,0 +1,44 @@
+figure {
+  width: 100%;
+  /* Ширина области */
+  height: 300px;
+  /* Высота области */
+  margin: 0;
+  /* Обнуляем отступы */
+  overflow: hidden;
+  /* Прячем всё за пределами */
+  min-width: 600px;
+  /* Минимальная ширина */
+}
+
+figure img {
+  width: 100%;
+  /* Ширина изображений */
+  margin: -20% 0 0 0;
+  /* Сдвигаем вверх */
+}
+
+.head-theme {
+  margin: 50px 0;
+  font-weight: 500;
+  font-size: 48px;  
+}
+
+.head-text {
+  margin: 30px 0;
+  font-weight: 600;
+}
+
+#cat-ad {
+  width: 100px; 
+}
+
+.img-ad {
+  width: fit-content;
+}
+
+.ad {
+  margin: 100px 0;
+  padding: 20px 0;
+  background: var(--color-yellow);
+}

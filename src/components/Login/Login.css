@@ -5,7 +5,11 @@
 .btn-color {
   background-color: #0e1c36;
   color: #fff;
-
+}
+.btn-color:hover {
+  
+  background-color: #0e1c36;
+  color: #FFE051;
 }
 
 .profile-image-pic {
@@ -20,4 +24,9 @@
 
 a {
   text-decoration: none;
+}
+
+#regUser{
+  padding-top: 30px;
+  margin-top: 50px;
 }

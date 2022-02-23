@@ -3,12 +3,26 @@ import React from 'react';
 // import './Page1.css';
 
 import resume from '../../images/services/resume.jpg'
+import cat from '../../images/services/cat.png'
 
 class Page2 extends React.Component {
 
+    componentDidMount() {
+
+        if (localStorage.getItem('isLogin') == null || localStorage.getItem('isLogin') === 'false') {
+            document.getElementById("guestStatus").hidden = false;
+            document.getElementById("userStatus").hidden = true;
+        }
+        if (localStorage.getItem('isLogin') === 'true') {
+            document.getElementById("guestStatus").hidden = true;
+            document.getElementById("userStatus").hidden = false;
+            document.getElementById("userAvatar").src = localStorage.getItem('image');
+        }
+    }
+
     render() {
         return (
-            <div className="container-fluid" id='container-main' >
+            <div className="container-fluid" >
                 <div className='container' >
 
                     <figure>
@@ -16,7 +30,7 @@ class Page2 extends React.Component {
                     </figure>
 
                     <div className='d-flex justify-content-center'>
-                        <h1 className='head-text'>Навыки для вашего резюме: какие указывать в 2022 году</h1>
+                        <h1 className='head-theme'>Навыки для вашего резюме: какие указывать в 2022 году</h1>
                     </div>
 
                     <p>Хотите знать, какие навыки включить в свое резюме? Мы расскажем вам. Мы перечисляем все лучшие навыки
@@ -51,12 +65,12 @@ class Page2 extends React.Component {
                     <p>Лучшие сотрудники обладают как твердыми, так и мягкими навыками. Если ваша цель — стать лучшим кандидатом на какую-либо должность, вам необходимо затронуть обе эти области в своем резюме.</p>
                    
 
-                    <div className="card card-main">
-                        <h5 className="card-header">Создай стильное резюме онлайн</h5>
-                        <div className="card-body">
-                            {/* <h5 className="card-title">Создай стильное резюме онлайн</h5> */}
-                            <p className="card-text">Конструктор резюме с красивыми шаблонами</p>
-                            <a href="/login" className="btn btn-primary">Создать резюме</a>
+                    <div className='container justify-content-center ad'>
+                        <div className='row justify-content-center'>
+                            <div className='col-6 img-ad'><img src={cat} id='cat-ad' /></div>
+                            <div className='col-6 text-ad'><h2 className="card-text">Создай стильное резюме онлайн</h2>
+                                <a href="/login" className="btn btn-primary">Создать резюме</a>
+                            </div>
                         </div>
                     </div>
 

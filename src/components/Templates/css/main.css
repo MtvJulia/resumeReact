@@ -14,8 +14,9 @@
 /* CSS для ширины, которая меньше 575px (включительно) */
 @media(max-width: 576px) {
     .col {
-        padding: 0px;
-        /* background-color: rgb(42, 165, 48); */
+        /* padding: 0px; */
+        margin: 0px;
+        min-width: min-content;
     }
 }
 
@@ -25,6 +26,8 @@
     /* CSS для: 576px <= ширины <= 767px */
     .col {
         padding: 0px 10px;
+        margin: 0px;
+        min-width: min-content;
     }
 }
 
@@ -61,20 +64,23 @@
 
 #full-name {
     margin-left: 5px;
+    flex-wrap: wrap;
 }
 
 .name-text {
     word-wrap: break-word;
-    font-size: 26px;
-    padding: 0px 5px 0 0;
+    font-size: 30px;
+    padding: 0px 15px 0 0;
     margin: 0px;
     font-weight: 700;
 }
 
 .header-text {
-    font-size: 20px;
+    font-size: 24px;
     padding: 10px 5px;
     font-weight: 600;
+   
+  
 }
 
 .main-text {
@@ -83,8 +89,8 @@
 }
 
 .icon-item {
-    width: 15px;
-    height: 15px;
+    width: 18px;
+    height: 18px;
     margin: 0px 5px 3px 5px;
 }
 

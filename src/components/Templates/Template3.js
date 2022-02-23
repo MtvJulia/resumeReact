@@ -43,13 +43,17 @@ class Template3 extends React.Component {
             .then((data) => {
                 document.getElementById("guestStatus").hidden = true;
                 document.getElementById("userStatus").hidden = false;
+<<<<<<< HEAD
                 console.log(data);
+=======
+>>>>>>> 69bcfdfb772c0f8511f3ab92ffc329dfbb0091a8
                 if (data.middleName == null) {
                     data.middleName = "";
                 }
                 if (data.file) {
                     let fileFromDB = new Buffer.from(data.file).toString("base64");
                     this.imageFromDB = "data:image/png;base64," + fileFromDB;
+                    document.getElementById("userAvatar").src = this.imageFromDB  ;
                 }
                 else {
                     this.imageFromDB = avatar;
@@ -82,8 +86,8 @@ class Template3 extends React.Component {
         if (this.state.userData == null) {
             return (
                 <div className="d-flex justify-content-center spin">
-                    <div className="spinner-border  text-primary" role="status">
-                        <span className="sr-only">Loading...</span>
+                    <div className="spinner-border" role="status">
+                        <span className="visually-hidden">Loading...</span>
                     </div>
                 </div>
             );
@@ -93,18 +97,20 @@ class Template3 extends React.Component {
                 <div className="container">
 
                     {/* template 3 */}
-                    <div className="container-sm border " id="main-container-t3" >
-                        <div className="media align-items-center">
-                            <div className="media-body ">
-                                <div className='row justify-content-center m-0'>
-                                    <div className='mr-3 text-capitalize text-break name-text-t3'>{this.state.userData.lastName}</div>
-                                    <div className='mr-3 text-capitalize text-break name-text-t3'>{this.state.userData.firstName}</div>
-                                    <div className='mr-3 text-capitalize text-break name-text-t3'>{this.state.userData.middleName}</div>
+                    <div className="container-sm border p-5" id="main-container-t3" >
+
+                        <div className="d-flex align-content-center flex-wrap justify-content-center">
+                            <div className="flex-shrink-3 ">
+                                <div className="d-flex flex-wrap align-items-center align-content-center justify-content-center">
+                                    <div className="p-2 text-capitalize text-break name-text-t3">{this.state.userData.lastName}</div>
+                                    <div className="p-2 text-capitalize text-break name-text-t3">{this.state.userData.firstName}</div>
+                                    <div className="p-2 text-capitalize text-break name-text-t3">{this.state.userData.middleName}</div>
+
                                 </div>
                                 <div className='row justify-content-center m-0 header-text'><h2>{this.state.userData.position + " , " + this.age + " лет"}</h2></div>
-                                <div className='row justify-content-center m-0 header-text'>ожидаемая заработная плата: {this.salaryStr}</div>
+                                <div className='row justify-content-center align-items-center align-content-center m-0 header-text'>ожидаемая заработная плата: {this.salaryStr}</div>
                             </div>
-                            <div className="media-right">
+                            <div className="media-right ms-5">
                                 <img className="media-object" id="avatar" src={this.imageFromDB} alt="avatar" />
                             </div>
                         </div>
@@ -113,7 +119,7 @@ class Template3 extends React.Component {
 
                         <div className='header-text m-0'>Контакты</div>
 
-                        <div className='row justify-content-around'>
+                        <div className='d-flex flex-row flex-wrap justify-content-around'>
                             <div className="d-flex text-capitalize"><img className="icon-item-t3" src={location} alt="location" />{this.state.userData.сityOfResidence}</div>
                             <div className="d-flex "><img className="icon-item-t3" src={phone} alt="phone" />{this.state.userData.phone}</div>
                             <div className="d-flex long-text "><img className="icon-item-t3" src={email} alt="email" />{this.state.userData.email}</div>
@@ -151,7 +157,7 @@ class Template3 extends React.Component {
                         <div className="list-group ">
                             {this.state.experienceArr.map(function (value, i) {
                                 return (
-                                    <div key={'val-' + i}>
+                                    <div className='mb-3' key={'val-' + i}>
                                         <div className="d-flex w-100 justify-content-between">
                                             <h5 className="mb-1">{value.companyName}</h5>
                                             <h5 className="mb-1 years">{value.startWork + " - " + value.endWork}</h5>
@@ -167,7 +173,7 @@ class Template3 extends React.Component {
                         <div className="list-group ">
                             {this.state.educationArr.map(function (value, i) {
                                 return (
-                                    <div key={'val-' + i}>
+                                    <div className='mb-3' key={'val-' + i}>
                                         <div className="d-flex w-100 justify-content-between">
                                             <h5 className="mb-1 pl-4">{value.institutName}</h5>
                                             <h5 className="mb-1 pr-4 years">{value.ending}</h5>
@@ -184,7 +190,7 @@ class Template3 extends React.Component {
                         <div className="list-group ">
                             {this.state.coursesArr.map(function (value, i) {
                                 return (
-                                    <div key={'val-' + i}>
+                                    <div className='mb-3' key={'val-' + i}>
                                         <div className="d-flex w-100 justify-content-between">
                                             <h5 className="mb-1 pl-4">{value.organization}</h5>
                                             <h5 className="mb-1 pr-4 years">{value.endingCourse}</h5>
@@ -200,11 +206,11 @@ class Template3 extends React.Component {
                         <div className="list-group">
                             {this.state.recomendingArr.map(function (value, i) {
                                 return (
-                                    <div key={'val-' + i}>
+                                    <div className='mb-3' key={'val-' + i}>
                                         <div className="d-flex w-100 justify-content-between">
                                             <h5 className="mb-1 pl-4">{value.company}</h5>
                                         </div>
-                                        <div className='row ml-4 justify-content-start'>
+                                        <div className='d-flex ml-4 justify-content-start'>
                                             <div className="mb-1 text-capitalize">{value.personRecommending}</div>
                                             <div className="d-flex "><img className="icon-item-t3" src={phone} alt="phone" />{value.phoneCompany}</div>
                                             <div className="d-flex long-text mb-2"><img className="icon-item-t3" src={email} alt="email" />{value.emailCompany}</div>
@@ -233,13 +239,13 @@ class Template3 extends React.Component {
                     </div>
                     <PrintComponents trigger={
                         <div className='d-flex justify-content-center'>
-                            <button className="btn btn-primary btn-lg">Распечатать и сохранить в PDF</button>
+                            <button className="btn btn-primary btn-lg btn-save">Распечатать и сохранить в PDF</button>
                         </div>} >
                         {/* template 3 */}
-                        <div className="container-sm border " id="main-container-t3" >
-                            <div className="media align-items-center">
-                                <div className="media-body ">
-                                    <div className='row justify-content-center m-0'>
+                        <div className="container-sm border p-5" id="main-container-t3" >
+                            <div className="d-flex align-items-center justify-content-center">
+                                <div className="flex-shrink-0">
+                                    <div className='d-flex flex-row justify-content-center m-0'>
                                         <div className='mr-3 text-capitalize text-break name-text-t3'>{this.state.userData.lastName}</div>
                                         <div className='mr-3 text-capitalize text-break name-text-t3'>{this.state.userData.firstName}</div>
                                         <div className='mr-3 text-capitalize text-break name-text-t3'>{this.state.userData.middleName}</div>
@@ -247,7 +253,7 @@ class Template3 extends React.Component {
                                     <div className='row justify-content-center m-0 header-text'><h2>{this.state.userData.position + " , " + this.age + " лет"}</h2></div>
                                     <div className='row justify-content-center m-0 header-text'>ожидаемая заработная плата: {this.salaryStr}</div>
                                 </div>
-                                <div className="media-right">
+                                <div className="media-right ms-5">
                                     <img className="media-object" id="avatar" src={this.imageFromDB} alt="avatar" />
                                 </div>
                             </div>
@@ -256,7 +262,7 @@ class Template3 extends React.Component {
 
                             <div className='header-text m-0'>Контакты</div>
 
-                            <div className='row justify-content-around'>
+                            <div className='d-flex justify-content-around'>
                                 <div className="d-flex text-capitalize"><img className="icon-item-t3" src={location} alt="location" />{this.state.userData.сityOfResidence}</div>
                                 <div className="d-flex "><img className="icon-item-t3" src={phone} alt="phone" />{this.state.userData.phone}</div>
                                 <div className="d-flex long-text "><img className="icon-item-t3" src={email} alt="email" />{this.state.userData.email}</div>
@@ -294,7 +300,7 @@ class Template3 extends React.Component {
                             <div className="list-group ">
                                 {this.state.experienceArr.map(function (value, i) {
                                     return (
-                                        <div key={'val-' + i}>
+                                        <div className='mb-3' key={'val-' + i}>
                                             <div className="d-flex w-100 justify-content-between">
                                                 <h5 className="mb-1">{value.companyName}</h5>
                                                 <h5 className="mb-1 years">{value.startWork + " - " + value.endWork}</h5>
@@ -310,7 +316,7 @@ class Template3 extends React.Component {
                             <div className="list-group ">
                                 {this.state.educationArr.map(function (value, i) {
                                     return (
-                                        <div key={'val-' + i}>
+                                        <div className='mb-3' key={'val-' + i}>
                                             <div className="d-flex w-100 justify-content-between">
                                                 <h5 className="mb-1 pl-4">{value.institutName}</h5>
                                                 <h5 className="mb-1 pr-4 years">{value.ending}</h5>
@@ -327,7 +333,7 @@ class Template3 extends React.Component {
                             <div className="list-group ">
                                 {this.state.coursesArr.map(function (value, i) {
                                     return (
-                                        <div key={'val-' + i}>
+                                        <div className='mb-3' key={'val-' + i}>
                                             <div className="d-flex w-100 justify-content-between">
                                                 <h5 className="mb-1 pl-4">{value.organization}</h5>
                                                 <h5 className="mb-1 pr-4 years">{value.endingCourse}</h5>
@@ -343,11 +349,11 @@ class Template3 extends React.Component {
                             <div className="list-group">
                                 {this.state.recomendingArr.map(function (value, i) {
                                     return (
-                                        <div key={'val-' + i}>
+                                        <div className='mb-3' key={'val-' + i}>
                                             <div className="d-flex w-100 justify-content-between">
                                                 <h5 className="mb-1 pl-4">{value.company}</h5>
                                             </div>
-                                            <div className='row ml-4 justify-content-start'>
+                                            <div className='d-flex ml-4 justify-content-start'>
                                                 <div className="mb-1 text-capitalize">{value.personRecommending}</div>
                                                 <div className="d-flex "><img className="icon-item-t3" src={phone} alt="phone" />{value.phoneCompany}</div>
                                                 <div className="d-flex long-text mb-2"><img className="icon-item-t3" src={email} alt="email" />{value.emailCompany}</div>

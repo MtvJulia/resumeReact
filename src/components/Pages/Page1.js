@@ -1,14 +1,28 @@
 import React from 'react';
 
-import './Page1.css';
+import './Pages.css';
 
 import imgMain from '../../images/services/books.jpeg'
+import cat from '../../images/services/cat.png'
 
 class Page1 extends React.Component {
 
+    componentDidMount() {
+
+        if (localStorage.getItem('isLogin') == null || localStorage.getItem('isLogin') === 'false') {
+            document.getElementById("guestStatus").hidden = false;
+            document.getElementById("userStatus").hidden = true;
+        }
+        if (localStorage.getItem('isLogin') === 'true') {
+            document.getElementById("guestStatus").hidden = true;
+            document.getElementById("userStatus").hidden = false;
+            document.getElementById("userAvatar").src = localStorage.getItem('image');
+        }
+    }
+
     render() {
         return (
-            <div className="container-fluid" id='container-main' >
+            <div className="container-fluid" >
                 <div className='container' >
 
                     <figure>
@@ -16,11 +30,11 @@ class Page1 extends React.Component {
                     </figure>
 
                     <div className='d-flex justify-content-center'>
-                        <h1 className='head-text'>Как описать опыт работы в резюме</h1>
+                        <h1 className='head-theme'>Как описать опыт работы в резюме</h1>
                     </div>
 
                     <p>
-                        Опыт работы — это то, что работодатели ценят больше всего, поэтому этот раздел резюме нужно
+                        <b>Опыт работы</b> — это то, что работодатели ценят больше всего, поэтому этот раздел резюме нужно
                         заполнить особенно грамотно. Важно выгодно описать обязанности, упомянуть о достижениях и скрыть
                         слабые места. В статье подробно разобрали каждый пункт раздела «Опыт работы» и постарались
                         добавить достаточно примеров вам в помощь.
@@ -55,12 +69,12 @@ class Page1 extends React.Component {
                         в «раб. над гос.мос.техн.конст-й с АБВГД» :) Оставьте распространенные сокращения типа MS
                         Office вместо Microsoft Office, а остальные расшифруйте.</p>
 
-                    <div className="card card-main">
-                        <h5 className="card-header">Создай стильное резюме онлайн</h5>
-                        <div className="card-body">
-                            {/* <h5 className="card-title">Создай стильное резюме онлайн</h5> */}
-                            <p className="card-text">Конструктор резюме с красивыми шаблонами</p>
-                            <a href="/login" className="btn btn-primary">Создать резюме</a>
+                    <div className='container justify-content-center ad'>
+                        <div className='row justify-content-center'>
+                            <div className='col-6 img-ad'><img src={cat} id='cat-ad' /></div>
+                            <div className='col-6 text-ad'><h2 className="card-text">Создай стильное резюме онлайн</h2>
+                                <a href="/login" className="btn btn-primary">Создать резюме</a>
+                            </div>
                         </div>
                     </div>
 

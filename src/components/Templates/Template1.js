@@ -43,7 +43,10 @@ class Template1 extends React.Component {
         fetch(API_ADDRESS_TMP1)
             .then((response) => response.json())
             .then((data) => {
+<<<<<<< HEAD
                 console.log(data);
+=======
+>>>>>>> 69bcfdfb772c0f8511f3ab92ffc329dfbb0091a8
                 document.getElementById("guestStatus").hidden = true;
                 document.getElementById("userStatus").hidden = false;
                 if (data.middleName == null) {
@@ -52,6 +55,7 @@ class Template1 extends React.Component {
                 if (data.file) {
                     let fileFromDB = new Buffer.from(data.file).toString("base64");
                     this.imageFromDB = "data:image/png;base64," + fileFromDB;
+                    document.getElementById("userAvatar").src = this.imageFromDB  ;
                 }
                 else {
                     this.imageFromDB = avatar;
@@ -90,8 +94,8 @@ class Template1 extends React.Component {
         if (this.state.userData == null) {
             return (
                 <div className="d-flex justify-content-center spin">
-                    <div className="spinner-border  text-primary" role="status">
-                        <span className="sr-only">Loading...</span>
+                    <div className="spinner-border" role="status">
+                        <span className="visually-hidden">Loading...</span>
                     </div>
                 </div>
             );
@@ -106,7 +110,7 @@ class Template1 extends React.Component {
                             {/* left-container */}
                             <div className="col col-4" id="left-container-t1">
                                 <img id="avatar" src={this.imageFromDB} className="rounded mx-auto d-block" alt="avatar" />
-                                <div className="row justify-content-start" id='full-name'>
+                                <div className="d-flex flex-row justify-content-start" id='full-name'>
                                     <div className="mr-3 text-capitalize text-break name-text">{this.state.userData.lastName}</div>
                                     <div className="mr-3 text-capitalize name-text">{this.state.userData.firstName}</div>
                                     <div className="mr-3 text-capitalize name-text">{this.state.userData.middleName}</div>
@@ -248,18 +252,18 @@ class Template1 extends React.Component {
                     </div>
                     <PrintComponents trigger={
                         <div className='d-flex justify-content-center'>
-                            <button className="btn btn-primary btn-lg">Распечатать и сохранить в PDF</button>
+                            <button className="btn btn-primary btn-lg btn-save">Распечатать и сохранить в PDF</button>
                         </div>} >
 
                         {/* template 1 */}
                         <div className="container-sm" id="main-container-t1" >
-                            <div className="row container-t">
+                            <div className="row container-t" id="divToPDF">
                                 {/* left-container */}
                                 <div className="col col-4" id="left-container-t1">
                                     <img id="avatar" src={this.imageFromDB} className="rounded mx-auto d-block" alt="avatar" />
-                                    <div className="row justify-content-start" id='full-name'>
-                                        <div className="mr-3 text-capitalize text-break name-text">{this.state.userData.firstName}</div>
-                                        <div className="mr-3 text-capitalize name-text">{this.state.userData.lastName}</div>
+                                    <div className="d-flex flex-row justify-content-start" id='full-name'>
+                                        <div className="mr-3 text-capitalize text-break name-text">{this.state.userData.lastName}</div>
+                                        <div className="mr-3 text-capitalize name-text">{this.state.userData.firstName}</div>
                                         <div className="mr-3 text-capitalize name-text">{this.state.userData.middleName}</div>
                                     </div>
 
@@ -301,13 +305,10 @@ class Template1 extends React.Component {
                                     </div>
 
                                     <div className="col header-text">{this.army}</div>
-
-
-
                                 </div>
 
                                 {/* right-container */}
-                                <div className="col" id="right-container">
+                                <div className="col col-8" id="right-container">
                                     <div className="col header-text border box-t1">Опыт работы </div>
                                     <div className="list-group ">
                                         {this.state.experienceArr.map(function (value, i) {
