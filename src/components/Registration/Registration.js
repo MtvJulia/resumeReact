@@ -11,16 +11,32 @@ class Registration extends React.Component {
         super(props);
         this.state = {
             users: null
-        }
+        }   
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);    
     }
+
+    handleFormSubmit = () => {
+      
+        const isLogin = true;       
+        localStorage.setItem('isLogin', isLogin);
+    };
 
     componentDidMount() {
 
         fetch(API_ADDRESS_REGISTER)
             .then((response) => response.json())
             .then((data) => {
-                const isLogin = true;
-                localStorage.setItem('isLogin', isLogin);
+                console.log(localStorage);
+                if (localStorage.getItem('isLogin') == null || localStorage.getItem('isLogin') === 'false') {
+                    document.getElementById("guestStatus").hidden = false;
+                    document.getElementById("userStatus").hidden = true;
+                }
+                if (localStorage.getItem('isLogin') === 'true') {
+                    document.getElementById("guestStatus").hidden = true;
+                    document.getElementById("userStatus").hidden = false;
+                    document.getElementById("userAvatar").src = localStorage.getItem('image');
+                }
+               
                 this.setState({
                     users: data
                 });
@@ -46,7 +62,7 @@ class Registration extends React.Component {
                         <div className="col-md-6 offset-md-3">
                             <h1 className="text-center text-dark mt-5">Регистрация нового пользователя</h1>
                             <div className="card my-5">
-                                <form className="card-body cardbody-color p-lg-5" action={API_ADDRESS_REGISTER} method="POST">
+                                <form className="card-body cardbody-color p-lg-5" action={API_ADDRESS_REGISTER} method="POST" onSubmit={this.handleFormSubmit}>
 
                                     <div className="text-center">
                                         <img src={iconForForm} className="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"

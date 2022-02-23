@@ -9,6 +9,7 @@ import ShowRecommending from '../../ShowModules/ShowRecommending';
 import UploadPhoto from '../../images/uploadPhoto.jpg';
 import { API_ADDRESS_USER_DATA } from "../../ConstantModule";
 
+
 class UserData extends React.Component {
     constructor(props) {
         super(props);
@@ -371,7 +372,7 @@ class UserData extends React.Component {
         fetch(API_ADDRESS_USER_DATA)
             .then((response) => response.json())
             .then((data) => {
-
+           if( localStorage.getItem("isLogin")==="true"){          
                 document.getElementById("guestStatus").hidden = true;
                 document.getElementById("userStatus").hidden = false;
 
@@ -450,9 +451,13 @@ class UserData extends React.Component {
                         img.src = localStorage.getItem('image');
                     }
                 }
-
                 console.dir(this.state.items);
-            });
+            }
+            else{
+                window.location.href = "/login" 
+            }
+            });           
+        
     }
 
 

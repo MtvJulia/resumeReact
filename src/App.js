@@ -33,9 +33,15 @@ class App extends React.Component {
     localStorage.clear();
     document.getElementById("guestStatus").hidden = false;
     document.getElementById("userStatus").hidden = true;
-    localStorage.setItem('UserLogin', login);
-    localStorage.setItem('Password', pass);
-    localStorage.setItem('rememberMe', rememberMe);
+    if(rememberMe==='true')
+    {
+      localStorage.setItem('UserLogin', login);
+      localStorage.setItem('Password', pass);
+      localStorage.setItem('rememberMe', rememberMe);
+    }  
+    else{
+      localStorage.setItem('rememberMe', rememberMe);
+    }  
     localStorage.setItem('isLogin', false);
   }
 

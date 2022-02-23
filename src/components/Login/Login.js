@@ -39,7 +39,15 @@ class Login extends React.Component {
         fetch(API_ADDRESS_LOGIN)
             .then((response) => response.json())
             .then((data) => {
-
+                if (localStorage.getItem('isLogin') == null || localStorage.getItem('isLogin') === 'false') {
+                    document.getElementById("guestStatus").hidden = false;
+                    document.getElementById("userStatus").hidden = true;
+                }
+                if (localStorage.getItem('isLogin') === 'true') {
+                    document.getElementById("guestStatus").hidden = true;
+                    document.getElementById("userStatus").hidden = false;
+                    document.getElementById("userAvatar").src = localStorage.getItem('image');
+                }
                 const rememberMe = localStorage.getItem('rememberMe') === 'true';
                 const UserLogin = rememberMe ? localStorage.getItem('UserLogin') : "";
                 const Password = rememberMe ? localStorage.getItem('Password') : "";
