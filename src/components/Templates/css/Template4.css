@@ -2,6 +2,7 @@
     background-color: #e0f5d0;
     min-width: min-content;
     -webkit-print-color-adjust: exact;
+    padding-top: 20px;
 }
 
 .box-t4 {
@@ -13,6 +14,8 @@
 }
 
 .mark-t4 {
+    margin-top: 0px;
     background-color: #c9dcbb;
     -webkit-print-color-adjust: exact;
 }
+

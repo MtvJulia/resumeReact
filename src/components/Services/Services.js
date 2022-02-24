@@ -7,6 +7,10 @@ import docs from '../../images/services/docs.jpg'
 import resume from '../../images/services/resume.jpg'
 import sobesedovanie from '../../images/services/sobesedov.jpg'
 import work from '../../images/services/sobes5.jpg'
+import vakansiy15 from '../../images/services/sobes2.jpeg'
+import questSobes from '../../images/services/sobes3.jpg'
+import introvert from '../../images/services/sobes4.jpg'
+import job from '../../images/services/sobes6.jpg'
 
 import sobes from '../../images/services/sobes.jpeg'
 
@@ -43,6 +47,7 @@ class Services extends React.Component {
                     {/* block for cards */}
                     <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
 
+                        {/* blocks */}
                         <div className="col mb-4">
                             <div className="card card-item h-100 border">
                                 <a className='card-link' href="/kak-opisat'-opyt-raboty-v-rezyume">
@@ -87,6 +92,51 @@ class Services extends React.Component {
                                 </a>
                             </div>
                         </div>
+                        <div className="col mb-4">
+                            <div className="card card-item h-100 border">
+                                <a className='card-link' href="/#">
+                                    <img src={vakansiy15} className="card-img-top" alt="books" />
+                                    <div className="card-body">
+                                        <h5 className="card-title">15 вакансий для начинающих кандидатов без опыта</h5>
+                                        <p className="card-text text-end chapter">Пригодится</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div className="col mb-4">
+                            <div className="card card-item h-100 border">
+                                <a className='card-link' href="/#">
+                                    <img src={questSobes} className="card-img-top" alt="books" />
+                                    <div className="card-body">
+                                        <h5 className="card-title">Как ответить на вопрос «Какие у вас слабые стороны?» на собеседовании</h5>
+                                        <p className="card-text align-text-bottom chapter">Это важно</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div className="col mb-4">
+                            <div className="card card-item h-100 border">
+                                <a className='card-link' href="/#">
+                                    <img src={introvert} className="card-img-top" alt="books" />
+                                    <div className="card-body">
+                                        <h5 className="card-title">Как интроверту выжить на работе</h5>
+                                        <p className="card-text text-end chapter">Не бояться</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div className="col mb-4">
+                            <div className="card card-item h-100 border">
+                                <a className='card-link' href="/#">
+                                    <img src={job} className="card-img-top" alt="books" />
+                                    <div className="card-body">
+                                        <h5 className="card-title">Что делать, чтобы быстро найти работу</h5>
+                                        <p className="card-text align-text-bottom chapter">Это важно</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        
 
                     </div>
                     {/* end block for cards */}

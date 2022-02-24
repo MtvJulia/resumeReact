@@ -47,7 +47,7 @@ class Template5 extends React.Component {
                 if (data.file) {
                     let fileFromDB = new Buffer.from(data.file).toString("base64");
                     this.imageFromDB = "data:image/png;base64," + fileFromDB;
-                    document.getElementById("userAvatar").src = this.imageFromDB  ;
+                    document.getElementById("userAvatar").src = this.imageFromDB;
                 }
                 else {
                     this.imageFromDB = avatar;
@@ -91,7 +91,7 @@ class Template5 extends React.Component {
                 <div className="container">
 
                     {/* template 5 */}
-                    <div className="container-sm " id="main-container-t5" >
+                    <div className="container-sm main-container">
                         <div className="row container-t ">
                             {/* left-container */}
                             <div className="col col-4  p-3" id="left-container-t5">
@@ -151,13 +151,13 @@ class Template5 extends React.Component {
                                 <div className="list-group p-3 border">
                                     {this.state.experienceArr.map(function (value, i) {
                                         return (
-                                            <div className='mb-3' key={'val-' + i}>
+                                            <div className='mb-2' key={'val-' + i}>
                                                 <div className="d-flex w-100 justify-content-between">
                                                     <h5 className="mb-1">{value.companyName}</h5>
                                                     <h5 className="mb-1 years">{value.startWork + " - " + value.endWork}</h5>
                                                 </div>
-                                                <p className="mb-1" >{value.positionWork}</p>
-                                                <small>{value.jobDuties}</small>
+                                                <p className="mb-1 fz-14" >{value.positionWork}</p>
+                                                <p className='mb-1 fz-12'>{value.jobDuties}</p>
                                             </div>
                                         );
                                     })}
@@ -167,13 +167,13 @@ class Template5 extends React.Component {
                                 <div className="list-group p-3 border">
                                     {this.state.educationArr.map(function (value, i) {
                                         return (
-                                            <div className='mb-3' key={'val-' + i}>
+                                            <div className='mb-2' key={'val-' + i}>
                                                 <div className="d-flex w-100 justify-content-between">
                                                     <h5 className="mb-1 pl-4">{value.institutName}</h5>
                                                     <h5 className="mb-1 pr-4 years">{value.ending}</h5>
                                                 </div>
-                                                <p className="mb-1 pl-4" >{value.faculty}</p>
-                                                <small className='pl-4 mb-2'>{value.specialty + " , " + value.levelEducation}</small>
+                                                <p className="mb-1 pl-4 fz-14" >{value.faculty}</p>
+                                                <small className='pl-4 fz-12'>{value.specialty + " , " + value.levelEducation}</small>
                                             </div>
                                         );
                                     })}
@@ -183,12 +183,12 @@ class Template5 extends React.Component {
                                 <div className="list-group p-3 border">
                                     {this.state.coursesArr.map(function (value, i) {
                                         return (
-                                            <div className='mb-3' key={'val-' + i}>
+                                            <div className='mb-1' key={'val-' + i}>
                                                 <div className="d-flex w-100 justify-content-between">
                                                     <h5 className="mb-1 pl-4">{value.organization}</h5>
                                                     <h5 className="mb-1 pr-4 years">{value.endingCourse}</h5>
                                                 </div>
-                                                <p className="mb-2 pl-4" >{value.courseName}</p>
+                                                <p className="pl-4 fz-14" >{value.courseName}</p>
                                             </div>
                                         );
                                     })}
@@ -198,14 +198,14 @@ class Template5 extends React.Component {
                                 <div className="list-group p-3 border">
                                     {this.state.recomendingArr.map(function (value, i) {
                                         return (
-                                            <div className='mb-3' key={'val-' + i}>
+                                            <div className='mb-2' key={'val-' + i}>
                                                 <div className="d-flex w-100 justify-content-between">
                                                     <h5 className="mb-1 pl-4">{value.company}</h5>
                                                 </div>
                                                 <div className='row ml-4 justify-content-start'>
                                                     <div className="mb-1 text-capitalize">{value.personRecommending}</div>
-                                                    <div className="d-flex "><img className="icon-item-t3" src={phone} alt="phone" />{value.phoneCompany}</div>
-                                                    <div className="d-flex long-text mb-2"><img className="icon-item-t3" src={email} alt="email" />{value.emailCompany}</div>
+                                                    <div className="d-flex fz-14"><img className="icon-item-t3" src={phone} alt="phone" />{value.phoneCompany}</div>
+                                                    <div className="d-flex long-text fz-14"><img className="icon-item-t3" src={email} alt="email" />{value.emailCompany}</div>
 
                                                 </div>
                                             </div>
@@ -215,19 +215,19 @@ class Template5 extends React.Component {
 
                                 <div className="col header-text box-t5">Профессиональные навыки</div>
                                 <div className="list-group border">
-                                    <div className="list-group-item">
-                                        <div className="mb-1 pl-4 long-text" >{this.state.userData.professionalSkills} </div>
+                                    <div className="list-group">
+                                        <div className="mb-1 pl-4 long-text fz-14" >{this.state.userData.professionalSkills} </div>
                                     </div>
                                 </div>
 
-                                <div className="col header-text box-t5">Личные качества</div>
-                                <div className="list-group border">
-                                    <div className="list-group-item ">
-                                        <p className="mb-1" >
-                                            {this.state.userData.personalQualities}
-                                        </p>
-                                    </div>
-                                </div>
+                                <div className="col header-text box-t5 ">Личные качества</div>
+
+
+                                <p className="mb-1 fz-14 border" >
+                                    {this.state.userData.personalQualities}
+                                </p>
+
+
 
                             </div>
                         </div>
@@ -238,14 +238,14 @@ class Template5 extends React.Component {
                             <button className="btn btn-primary btn-lg btn-save">Распечатать и сохранить в PDF</button>
                         </div>} >
                         {/* template 5 */}
-                        <div className="container-sm " id="main-container-t5" >
+                        <div className="container-sm main-container">
                             <div className="row container-t ">
                                 {/* left-container */}
                                 <div className="col col-4  p-3" id="left-container-t5">
                                     <img id="avatar" src={this.imageFromDB} className="rounded mx-auto d-block" alt="avatar" />
                                     <div>
                                         <div className="col header-text mt-3"><u>Контакты</u></div>
-                                        <div className="col text-capitalize "><img className="icon-item" src={location} alt="location" />
+                                        <div className="col text-capitalize  "><img className="icon-item " src={location} alt="location" />
                                             {this.state.userData.сityOfResidence}</div>
                                         <div className="col "><img className="icon-item" src={phone} alt="phone" />
                                             {this.state.userData.phone}</div>
@@ -298,13 +298,13 @@ class Template5 extends React.Component {
                                     <div className="list-group p-3 border">
                                         {this.state.experienceArr.map(function (value, i) {
                                             return (
-                                                <div className='mb-3' key={'val-' + i}>
+                                                <div className='mb-2' key={'val-' + i}>
                                                     <div className="d-flex w-100 justify-content-between">
                                                         <h5 className="mb-1">{value.companyName}</h5>
                                                         <h5 className="mb-1 years">{value.startWork + " - " + value.endWork}</h5>
                                                     </div>
-                                                    <p className="mb-1" >{value.positionWork}</p>
-                                                    <small>{value.jobDuties}</small>
+                                                    <p className="mb-1 fz-14" >{value.positionWork}</p>
+                                                    <p className='mb-1 fz-12'>{value.jobDuties}</p>
                                                 </div>
                                             );
                                         })}
@@ -314,13 +314,13 @@ class Template5 extends React.Component {
                                     <div className="list-group p-3 border">
                                         {this.state.educationArr.map(function (value, i) {
                                             return (
-                                                <div className='mb-3' key={'val-' + i}>
+                                                <div className='mb-2' key={'val-' + i}>
                                                     <div className="d-flex w-100 justify-content-between">
                                                         <h5 className="mb-1 pl-4">{value.institutName}</h5>
                                                         <h5 className="mb-1 pr-4 years">{value.ending}</h5>
                                                     </div>
-                                                    <p className="mb-1 pl-4" >{value.faculty}</p>
-                                                    <small className='pl-4 mb-2'>{value.specialty + " , " + value.levelEducation}</small>
+                                                    <p className="mb-1 pl-4 fz-14" >{value.faculty}</p>
+                                                    <small className='pl-4 fz-12'>{value.specialty + " , " + value.levelEducation}</small>
                                                 </div>
                                             );
                                         })}
@@ -330,12 +330,12 @@ class Template5 extends React.Component {
                                     <div className="list-group p-3 border">
                                         {this.state.coursesArr.map(function (value, i) {
                                             return (
-                                                <div className='mb-3' key={'val-' + i}>
+                                                <div className='mb-1' key={'val-' + i}>
                                                     <div className="d-flex w-100 justify-content-between">
                                                         <h5 className="mb-1 pl-4">{value.organization}</h5>
                                                         <h5 className="mb-1 pr-4 years">{value.endingCourse}</h5>
                                                     </div>
-                                                    <p className="mb-2 pl-4" >{value.courseName}</p>
+                                                    <p className="pl-4 fz-14" >{value.courseName}</p>
                                                 </div>
                                             );
                                         })}
@@ -345,14 +345,14 @@ class Template5 extends React.Component {
                                     <div className="list-group p-3 border">
                                         {this.state.recomendingArr.map(function (value, i) {
                                             return (
-                                                <div className='mb-3' key={'val-' + i}>
+                                                <div className='mb-2' key={'val-' + i}>
                                                     <div className="d-flex w-100 justify-content-between">
                                                         <h5 className="mb-1 pl-4">{value.company}</h5>
                                                     </div>
                                                     <div className='row ml-4 justify-content-start'>
                                                         <div className="mb-1 text-capitalize">{value.personRecommending}</div>
-                                                        <div className="d-flex "><img className="icon-item-t3" src={phone} alt="phone" />{value.phoneCompany}</div>
-                                                        <div className="d-flex long-text mb-2"><img className="icon-item-t3" src={email} alt="email" />{value.emailCompany}</div>
+                                                        <div className="d-flex fz-14"><img className="icon-item-t3" src={phone} alt="phone" />{value.phoneCompany}</div>
+                                                        <div className="d-flex long-text fz-14"><img className="icon-item-t3" src={email} alt="email" />{value.emailCompany}</div>
 
                                                     </div>
                                                 </div>
@@ -363,14 +363,14 @@ class Template5 extends React.Component {
                                     <div className="col header-text box-t5">Профессиональные навыки</div>
                                     <div className="list-group border">
                                         <div className="list-group-item">
-                                            <div className="mb-1 pl-4 long-text" >{this.state.userData.professionalSkills} </div>
+                                            <div className="mb-1 pl-4 long-text fz-14" >{this.state.userData.professionalSkills} </div>
                                         </div>
                                     </div>
 
                                     <div className="col header-text box-t5">Личные качества</div>
                                     <div className="list-group border">
                                         <div className="list-group-item ">
-                                            <p className="mb-1" >
+                                            <p className="mb-1 fz-14" >
                                                 {this.state.userData.personalQualities}
                                             </p>
                                         </div>

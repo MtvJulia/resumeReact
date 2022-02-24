@@ -7,7 +7,7 @@ import template2 from '../../images/template2.png';
 import template3 from '../../images/template3.png';
 import template4 from '../../images/template4.png';
 import template5 from '../../images/template5.png';
-import template6 from '../../images/template6.png';
+import template6 from '../../images/tmp6.png';
 
 class Templates extends React.Component {
 

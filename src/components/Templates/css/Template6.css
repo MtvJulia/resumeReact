@@ -1,19 +1,28 @@
 #left-container-t6 {
-    background-color: #fff;
+    background-color: #EBF1F2;
     min-width: min-content;
     -webkit-print-color-adjust: exact;
 }
 
 #right-container-t6 {
-    background-color: #EFEFEF;
+    padding-right: 0px;
 }
 
-.box-t6 {
+/* .box-t6 {
     display: inline-block;
     width: 100%;
     background-color: #EFEFEF;
     border-color: #e9ecef !important;
     -webkit-print-color-adjust: exact;
+} */
+
+.box-t6 {
+    display: inline-block;
+    width: 100%;
+    background-color: #EBF1F2;
+    color: #395B74;
+    border-color: #e9ecef !important;
+    -webkit-print-color-adjust: exact;    
 }
 
 .mark-t6 {
@@ -21,7 +30,7 @@
     -webkit-print-color-adjust: exact;
 }
 
-.tttt {
+.bg-fullname {
     background-color: #395B74;
     color: #EBF1F2;
     -webkit-print-color-adjust: exact;
@@ -34,3 +43,9 @@
     margin: 0px;
     font-weight: 700;
 }
+
+.list-group {
+    background-color: #ffffff;
+    border: none;
+}
+

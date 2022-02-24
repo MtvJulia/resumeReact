@@ -33,9 +33,14 @@ class App extends React.Component {
     localStorage.clear();
     document.getElementById("guestStatus").hidden = false;
     document.getElementById("userStatus").hidden = true;
-    localStorage.setItem('UserLogin', login);
-    localStorage.setItem('Password', pass);
-    localStorage.setItem('rememberMe', rememberMe);
+    if (rememberMe === 'true') {
+      localStorage.setItem('UserLogin', login);
+      localStorage.setItem('Password', pass);
+      localStorage.setItem('rememberMe', rememberMe);
+    }
+    else {
+      localStorage.setItem('rememberMe', rememberMe);
+    }
     localStorage.setItem('isLogin', false);
   }
 
@@ -101,7 +106,7 @@ class App extends React.Component {
         </BrowserRouter>
 
         <footer className="page-footer font-small static-bottom">
-          <div className="footer-copyright text-center py-3 ">
+          <div className="footer-copyright text-center py-3">
             <ul className="list-inline text-center py-3">
               <li className="list-inline-item"><a href="/">Домой</a></li>
               <li className="list-inline-item"><a href="/services">Карьерные советы</a></li>
@@ -112,6 +117,8 @@ class App extends React.Component {
             <p className="copyright text-white">ResumeOnline © 2022</p>
           </div>
         </footer>
+
+
 
       </div>
     );

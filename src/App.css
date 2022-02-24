@@ -26,6 +26,10 @@ li {
   margin: 1px 15px; 
 }
 
+footer{
+  width: 100%;
+}
+
 footer a {
   color: #fff;
   height: 100%;

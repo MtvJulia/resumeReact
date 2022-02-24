@@ -75,7 +75,7 @@ class UserData extends React.Component {
         this.setDriveLicenseD = this.setDriveLicenseD.bind(this);
         this.setDriveLicenseT = this.setDriveLicenseT.bind(this);
         //  this.setStillWorking = this.setStillWorking.bind(this);
-        
+
     }
 
     fillCoursArr(data, coursArr) {
@@ -195,7 +195,7 @@ class UserData extends React.Component {
         this.setState(Object.assign(this.state.items, { emailCompany: this.recomendationArray.emailCompany }));
         this.setState(Object.assign(this.state.items, { phoneCompany: this.recomendationArray.phoneCompany }));
     }
-    
+
     onFileSelected(event) {
         ////загрузка картинки на форму
         let selectedFile = event.target.files[0];
@@ -371,87 +371,91 @@ class UserData extends React.Component {
         fetch(API_ADDRESS_USER_DATA)
             .then((response) => response.json())
             .then((data) => {
+                if (localStorage.getItem("isLogin") === "true") {
+                    document.getElementById("guestStatus").hidden = true;
+                    document.getElementById("userStatus").hidden = false;
 
-                document.getElementById("guestStatus").hidden = true;
-                document.getElementById("userStatus").hidden = false;
+                    let expArr = [];
+                    let educArr = [];
+                    let langArr = [];
+                    let coursArr = [];
+                    let recomendArr = [];
 
-                let expArr = [];
-                let educArr = [];
-                let langArr = [];
-                let coursArr = [];
-                let recomendArr = [];
+                    if (data.file) {
+                        let fileFromDB = new Buffer.from(data.file).toString("base64");
+                        this.imageFromDB = "data:image/png;base64," + fileFromDB;
+                        document.getElementById("userAvatar").src = this.imageFromDB;
+                        localStorage.setItem('image', this.imageFromDB);
+                    }
+                    else {
+                        this.imageFromDB = UploadPhoto;
+                    }
+                    console.dir(data.file);
 
-                if (data.file) {
-                    let fileFromDB = new Buffer.from(data.file).toString("base64");
-                    this.imageFromDB = "data:image/png;base64," + fileFromDB;
-                    document.getElementById("userAvatar").src = this.imageFromDB;
-                    localStorage.setItem('image',this.imageFromDB);
+                    if (data.companyName != null) this.fillExpArr(data, expArr);
+                    if (data.institutName != null) this.fillEducArr(data, educArr);
+                    if (data.langName != null) this.fillLangArr(data, langArr);
+                    if (data.courseName != null) this.fillCoursArr(data, coursArr);
+                    if (data.phoneCompany != null) this.fillRecomendArr(data, recomendArr);
+
+                    this.expArray = expArr;
+                    this.educArray = educArr;
+                    this.langArray = langArr;
+                    this.coursArray = coursArr;
+                    this.recomendationArray = recomendArr;
+
+                    if (data.birthOfDate == undefined) { data.birthOfDate = ''; }
+
+                    this.setState({
+                        items: data
+                    });
+
+                    if (data.firstName == "") {
+                        this.setState(Object.assign(this.state.items, { firstName: localStorage.getItem('firstName') }));
+                        this.setState(Object.assign(this.state.items, { lastName: localStorage.getItem('lastName') }));
+                        this.setState(Object.assign(this.state.items, { middleName: localStorage.getItem('middleName') }));
+                        this.setState(Object.assign(this.state.items, { position: localStorage.getItem('position') }));
+                        this.setState(Object.assign(this.state.items, { birthOfDate: localStorage.getItem('birthOfDate') !== null ? localStorage.getItem('birthOfDate') : "" }));
+                        this.setState(Object.assign(this.state.items, { сityOfResidence: localStorage.getItem('сityOfResidence') }));
+                        this.setState(Object.assign(this.state.items, { phone: localStorage.getItem('phone') }));
+                        this.setState(Object.assign(this.state.items, { email: localStorage.getItem('email') }));
+                        this.setState(Object.assign(this.state.items, { nationality: localStorage.getItem('nationality') }));
+                        this.setState(Object.assign(this.state.items, { desiredSalary: localStorage.getItem('desiredSalary') }));
+                        this.setState(Object.assign(this.state.items, { currency: localStorage.getItem('currency') }));
+                        this.setState(Object.assign(this.state.items, { employment: localStorage.getItem('employment') }));
+                        this.setState(Object.assign(this.state.items, { schedule: localStorage.getItem('schedule') }));
+                        this.setState(Object.assign(this.state.items, { businessTrip: localStorage.getItem('businessTrip') }));
+                        this.setState(Object.assign(this.state.items, { relocate: localStorage.getItem('relocate') }));
+                        this.setState(Object.assign(this.state.items, { maritalStatus: localStorage.getItem('maritalStatus') }));
+                        this.setState(Object.assign(this.state.items, { children: localStorage.getItem('children') }));
+                        this.setState(Object.assign(this.state.items, { education: localStorage.getItem('education') }));
+                        this.setState(Object.assign(this.state.items, { privateСar: localStorage.getItem('privateСar') }));
+                        this.setState(Object.assign(this.state.items, { army: localStorage.getItem('army') }));
+                        this.setState(Object.assign(this.state.items, { hobby: localStorage.getItem('hobby') }));
+                        this.setState(Object.assign(this.state.items, { personalQualities: localStorage.getItem('personalQualities') }));
+                        this.setState(Object.assign(this.state.items, { professionalSkills: localStorage.getItem('professionalSkills') }));
+                        this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseA1: localStorage.getItem('driverLicenseA1') }));
+                        this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseA: localStorage.getItem('driverLicenseA') }));
+                        this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseB: localStorage.getItem('driverLicenseB') }));
+                        this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseB1: localStorage.getItem('driverLicenseB1') }));
+                        this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseC: localStorage.getItem('driverLicenseC') }));
+                        this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseC1: localStorage.getItem('driverLicenseC1') }));
+                        this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseD: localStorage.getItem('driverLicenseD') }));
+                        this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseD1: localStorage.getItem('driverLicenseD1') }));
+                        this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseT: localStorage.getItem('driverLicenseT') }));
+                        this.setState(Object.assign(this.state.items, { image: localStorage.getItem('image') }));
+
+                        if (this.state.items.image != null) {
+                            let img = document.getElementById('myimage');
+                            img.src = localStorage.getItem('image');
+                        }
+                    }
+
+                    console.dir(this.state.items);
                 }
                 else {
-                    this.imageFromDB = UploadPhoto;
+                    window.location.href = "/login"
                 }
-                console.dir(data.file);
-
-                if (data.companyName != null) this.fillExpArr(data, expArr);
-                if (data.institutName != null) this.fillEducArr(data, educArr);
-                if (data.langName != null) this.fillLangArr(data, langArr);
-                if (data.courseName != null) this.fillCoursArr(data, coursArr);
-                if (data.phoneCompany != null) this.fillRecomendArr(data, recomendArr);
-
-                this.expArray = expArr;
-                this.educArray = educArr;
-                this.langArray = langArr;
-                this.coursArray = coursArr;
-                this.recomendationArray = recomendArr;
-
-                if (data.birthOfDate == undefined) { data.birthOfDate = ''; }
-
-                this.setState({
-                    items: data
-                });
-
-                if (data.firstName == "") {
-                    this.setState(Object.assign(this.state.items, { firstName: localStorage.getItem('firstName') }));
-                    this.setState(Object.assign(this.state.items, { lastName: localStorage.getItem('lastName') }));
-                    this.setState(Object.assign(this.state.items, { middleName: localStorage.getItem('middleName') }));
-                    this.setState(Object.assign(this.state.items, { position: localStorage.getItem('position') }));
-                    this.setState(Object.assign(this.state.items, { birthOfDate: localStorage.getItem('birthOfDate') !== null ? localStorage.getItem('birthOfDate') : "" }));
-                    this.setState(Object.assign(this.state.items, { сityOfResidence: localStorage.getItem('сityOfResidence') }));
-                    this.setState(Object.assign(this.state.items, { phone: localStorage.getItem('phone') }));
-                    this.setState(Object.assign(this.state.items, { email: localStorage.getItem('email') }));
-                    this.setState(Object.assign(this.state.items, { nationality: localStorage.getItem('nationality') }));
-                    this.setState(Object.assign(this.state.items, { desiredSalary: localStorage.getItem('desiredSalary') }));
-                    this.setState(Object.assign(this.state.items, { currency: localStorage.getItem('currency') }));
-                    this.setState(Object.assign(this.state.items, { employment: localStorage.getItem('employment') }));
-                    this.setState(Object.assign(this.state.items, { schedule: localStorage.getItem('schedule') }));
-                    this.setState(Object.assign(this.state.items, { businessTrip: localStorage.getItem('businessTrip') }));
-                    this.setState(Object.assign(this.state.items, { relocate: localStorage.getItem('relocate') }));
-                    this.setState(Object.assign(this.state.items, { maritalStatus: localStorage.getItem('maritalStatus') }));
-                    this.setState(Object.assign(this.state.items, { children: localStorage.getItem('children') }));
-                    this.setState(Object.assign(this.state.items, { education: localStorage.getItem('education') }));
-                    this.setState(Object.assign(this.state.items, { privateСar: localStorage.getItem('privateСar') }));
-                    this.setState(Object.assign(this.state.items, { army: localStorage.getItem('army') }));
-                    this.setState(Object.assign(this.state.items, { hobby: localStorage.getItem('hobby') }));
-                    this.setState(Object.assign(this.state.items, { personalQualities: localStorage.getItem('personalQualities') }));
-                    this.setState(Object.assign(this.state.items, { professionalSkills: localStorage.getItem('professionalSkills') }));
-                    this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseA1: localStorage.getItem('driverLicenseA1') }));
-                    this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseA: localStorage.getItem('driverLicenseA') }));
-                    this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseB: localStorage.getItem('driverLicenseB') }));
-                    this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseB1: localStorage.getItem('driverLicenseB1') }));
-                    this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseC: localStorage.getItem('driverLicenseC') }));
-                    this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseC1: localStorage.getItem('driverLicenseC1') }));
-                    this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseD: localStorage.getItem('driverLicenseD') }));
-                    this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseD1: localStorage.getItem('driverLicenseD1') }));
-                    this.setState(Object.assign(this.state.items.drivLicense, { driverLicenseT: localStorage.getItem('driverLicenseT') }));
-                    this.setState(Object.assign(this.state.items, { image: localStorage.getItem('image') }));
-
-                    if (this.state.items.image != null) {
-                        let img = document.getElementById('myimage');
-                        img.src = localStorage.getItem('image');
-                    }
-                }
-
-                console.dir(this.state.items);
             });
     }
 
@@ -759,7 +763,7 @@ class UserData extends React.Component {
                                             </div>
                                         </div>
                                     </fieldset>
-                                    <div className="d-flex justify-content-center btn-sbmResume">                                        
+                                    <div className="d-flex justify-content-center btn-sbmResume">
                                         <button type="submit" className="btn btn-primary btn-lg mb-5" id="sbmResume">Сохранить и перейти к шаблонам</button>
                                     </div>
                                 </form>

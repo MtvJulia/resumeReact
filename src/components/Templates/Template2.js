@@ -50,7 +50,7 @@ class Template2 extends React.Component {
                 if (data.file) {
                     let fileFromDB = new Buffer.from(data.file).toString("base64");
                     this.imageFromDB = "data:image/png;base64," + fileFromDB;
-                    document.getElementById("userAvatar").src = this.imageFromDB  ;
+                    document.getElementById("userAvatar").src = this.imageFromDB;
                 }
                 else {
                     this.imageFromDB = avatar;
@@ -95,12 +95,12 @@ class Template2 extends React.Component {
                 <div className="container">
 
                     {/* template 2 */}
-                    <div className="container-sm" id="main-container-t2" >
+                    <div className="container-sm main-container">
                         <div className="row container-t">
                             {/* left-container */}
                             <div className="col col-4" id="left-container-t2">
                                 <img id="avatar" src={this.imageFromDB} className="rounded mx-auto d-block" alt="avatar" />
-                                <div className="d-flex flex-row justify-content-start" id='full-name'>
+                                <div className="d-flex flex-row justify-content-start full-name">
                                     <div className="mr-3 text-capitalize text-break name-text txt-white">{this.state.userData.lastName}</div>
                                     <div className="mr-3 text-capitalize name-text txt-white">{this.state.userData.firstName}</div>
                                     <div className="mr-3 text-capitalize name-text txt-white">{this.state.userData.middleName}</div>
@@ -116,9 +116,9 @@ class Template2 extends React.Component {
                                 </div>
                                 <div className="col header-text txt-white">Контакты</div>
 
-                                <div className="col text-capitalize txt-white"><img className="icon-item-t2" src={location} alt="location" />{this.state.userData.сityOfResidence}</div>
-                                <div className="col txt-white"><img className="icon-item-t2" src={phone} alt="phone" />{this.state.userData.phone}</div>
-                                <div className="col long-text txt-white"><img className="icon-item-t2" src={email} alt="email" />{this.state.userData.email}</div>
+                                <div className="col text-capitalize icon-text txt-white"><img className="icon-item-t2" src={location} alt="location" />{this.state.userData.сityOfResidence}</div>
+                                <div className="col icon-text txt-white"><img className="icon-item-t2" src={phone} alt="phone" />{this.state.userData.phone}</div>
+                                <div className="col icon-text long-text txt-white"><img className="icon-item-t2" src={email} alt="email" />{this.state.userData.email}</div>
 
                                 <div className="col text-nowrap header-text txt-white" >Водительские права
                                     <div className="col main-text">{this.driverLicenseStr}</div>
@@ -154,8 +154,8 @@ class Template2 extends React.Component {
                                                     <h5 className="mb-1">{value.companyName}</h5>
                                                     <h5 className="mb-1 years">{value.startWork + " - " + value.endWork}</h5>
                                                 </div>
-                                                <p className="mb-1" >{value.positionWork}</p>
-                                                <small>{value.jobDuties}</small>
+                                                <p className="mb-1 fz-14" >{value.positionWork}</p>
+                                                <p className='mb-1 fz-12'>{value.jobDuties}</p>
                                             </div>
 
                                         );
@@ -171,8 +171,8 @@ class Template2 extends React.Component {
                                                     <h5 className="mb-1">{value.institutName}</h5>
                                                     <h5 className="mb-1 years">{value.ending}</h5>
                                                 </div>
-                                                <p className="mb-1" >{value.faculty}</p>
-                                                <small>{value.specialty + " , " + value.levelEducation}</small>
+                                                <p className="mb-1 fz-14" >{value.faculty}</p>
+                                                <p className='mb-1 fz-12'>{value.specialty + ", " + value.levelEducation}</p>
                                             </div>
                                         );
                                     })}
@@ -188,7 +188,7 @@ class Template2 extends React.Component {
                                                     <h5 className="mb-1">{value.organization}</h5>
                                                     <h5 className="mb-1 years">{value.endingCourse}</h5>
                                                 </div>
-                                                <p className="mb-1" >{value.courseName}</p>
+                                                <p className="mb-1 fz-14" >{value.courseName}</p>
                                             </div>
                                         );
                                     })}
@@ -202,9 +202,8 @@ class Template2 extends React.Component {
                                                 <div className="d-flex w-100 justify-content-between">
                                                     <h5 className="mb-1">{value.company}</h5>
                                                 </div>
-                                                <p className="mb-1 text-capitalize" >{value.personRecommending}</p>
-                                                <div >{value.phoneCompany}</div>
-                                                <div >{value.emailCompany}</div>
+                                                <p className="mb-1 text-capitalize fz-14" >{value.personRecommending}</p>
+                                                <div className="fz-12">{value.phoneCompany + ", " + value.emailCompany}</div>
                                             </div>
                                         );
                                     })}
@@ -213,21 +212,21 @@ class Template2 extends React.Component {
                                 <div className="col header-text border box-t2">Профессиональные навыки</div>
                                 <div className="list-group ">
                                     <div className="list-group-item ">
-                                        <div className="mb-1 long-text" >{this.state.userData.professionalSkills} </div>
+                                        <div className="mb-1 long-text fz-14" >{this.state.userData.professionalSkills} </div>
                                     </div>
                                 </div>
 
                                 <div className="col header-text border box-t2">Личные качества</div>
                                 <div className="list-group ">
                                     <div className="list-group-item ">
-                                        <p className="mb-1" >{this.state.userData.personalQualities} </p>
+                                        <p className="mb-1 fz-14" >{this.state.userData.personalQualities} </p>
                                     </div>
                                 </div>
 
                                 <div className="col header-text border box-t2">Хобби</div>
                                 <div className="list-group ">
                                     <div className="list-group-item ">
-                                        <p className="mb-1" >{this.state.userData.hobby}</p>
+                                        <p className="mb-1 fz-14" >{this.state.userData.hobby}</p>
                                     </div>
                                 </div>
 
@@ -238,146 +237,145 @@ class Template2 extends React.Component {
                         <div className='d-flex justify-content-center'>
                             <button className="btn btn-primary btn-lg btn-save">Распечатать и сохранить в PDF</button>
                         </div>} >
-                        {/* template 2 */}
-                        <div className="container-sm" id="main-container-t2" >
-                            <div className="row container-t">
-                                {/* left-container */}
-                                <div className="col col-4" id="left-container-t2">
-                                    <img id="avatar" src={this.imageFromDB} className="rounded mx-auto d-block" alt="avatar" />
-                                    <div className="d-flex flex-row justify-content-start" id='full-name'>
-                                        <div className="mr-3 text-capitalize text-break name-text txt-white">{this.state.userData.lastName}</div>
-                                        <div className="mr-3 text-capitalize name-text txt-white">{this.state.userData.firstName}</div>
-                                        <div className="mr-3 text-capitalize name-text txt-white">{this.state.userData.middleName}</div>
-                                    </div>
-
-                                    <hr className="hr2 invert" />
-
-                                    <div className="col header-text txt-white">Должность
-                                        <div className="col main-text">{this.state.userData.position}</div>
-                                    </div>
-                                    <div className="col header-text txt-white">Возраст
-                                        <div className="col main-text">{this.age}</div>
-                                    </div>
-                                    <div className="col header-text txt-white">Контакты</div>
-
-                                    <div className="col text-capitalize txt-white"><img className="icon-item-t2" src={location} alt="location" />{this.state.userData.сityOfResidence}</div>
-                                    <div className="col txt-white"><img className="icon-item-t2" src={phone} alt="phone" />{this.state.userData.phone}</div>
-                                    <div className="col long-text txt-white"><img className="icon-item-t2" src={email} alt="email" />{this.state.userData.email}</div>
-
-                                    <div className="col text-nowrap header-text txt-white" >Водительские права
-                                        <div className="col main-text">{this.driverLicenseStr}</div>
-                                    </div>
-
-                                    <div className="col header-text txt-white">Гражданство
-                                        <div className="col main-text">{this.state.userData.nationality}</div>
-                                    </div>
-                                    <div className="col text-nowrap header-text txt-white">Семейное положение
-                                        <div className="col main-text">{this.maritalStatusStr}</div>
-                                    </div>
-                                    <div className="col text-nowrap header-text txt-white">Желаемая зарплата
-                                        <div className="col main-text">{this.salaryStr}</div>
-                                    </div>
-                                    <div className="col header-text txt-white">Занятость
-                                        <div className="col main-text">{this.employmentStr}</div>
-                                    </div>
-                                    <div className="col header-text txt-white">Языки
-                                        {this.state.languagesArr.map(function (value, i) { return (<div className="col main-text" key={'val-' + i}>{value}</div>); })}
-
-                                    </div>
-                                    <div className="col header-text txt-white">{this.army}</div>
+                         {/* template 2 */}
+                    <div className="container-sm main-container">
+                        <div className="row container-t">
+                            {/* left-container */}
+                            <div className="col col-4" id="left-container-t2">
+                                <img id="avatar" src={this.imageFromDB} className="rounded mx-auto d-block" alt="avatar" />
+                                <div className="d-flex flex-row justify-content-start full-name">
+                                    <div className="mr-3 text-capitalize text-break name-text txt-white">{this.state.userData.lastName}</div>
+                                    <div className="mr-3 text-capitalize name-text txt-white">{this.state.userData.firstName}</div>
+                                    <div className="mr-3 text-capitalize name-text txt-white">{this.state.userData.middleName}</div>
                                 </div>
 
-                                {/* right-container */}
-                                <div className="col" id="right-container">
-                                    <div className="col header-text border box-t2">Опыт работы </div>
-                                    <div className="list-group ">
-                                        {this.state.experienceArr.map(function (value, i) {
-                                            return (
-                                                <div className="list-group-item " key={'val-' + i}>
-                                                    <div className="d-flex w-100 justify-content-between">
-                                                        <h5 className="mb-1">{value.companyName}</h5>
-                                                        <h5 className="mb-1 years">{value.startWork + " - " + value.endWork}</h5>
-                                                    </div>
-                                                    <p className="mb-1" >{value.positionWork}</p>
-                                                    <small>{value.jobDuties}</small>
-                                                </div>
+                                <hr className="hr2 invert" />
 
-                                            );
-                                        })}
-                                    </div>
+                                <div className="col header-text txt-white">Должность
+                                    <div className="col main-text">{this.state.userData.position}</div>
+                                </div>
+                                <div className="col header-text txt-white">Возраст
+                                    <div className="col main-text">{this.age}</div>
+                                </div>
+                                <div className="col header-text txt-white">Контакты</div>
 
-                                    <div className="col header-text border box-t2">Образование</div>
-                                    <div className="list-group ">
-                                        {this.state.educationArr.map(function (value, i) {
-                                            return (
-                                                <div className="list-group-item " key={'val-' + i}>
-                                                    <div className="d-flex w-100 justify-content-between">
-                                                        <h5 className="mb-1">{value.institutName}</h5>
-                                                        <h5 className="mb-1 years">{value.ending}</h5>
-                                                    </div>
-                                                    <p className="mb-1" >{value.faculty}</p>
-                                                    <small>{value.specialty + " , " + value.levelEducation}</small>
-                                                </div>
-                                            );
-                                        })}
-                                    </div>
+                                <div className="col text-capitalize icon-text txt-white"><img className="icon-item-t2" src={location} alt="location" />{this.state.userData.сityOfResidence}</div>
+                                <div className="col icon-text txt-white"><img className="icon-item-t2" src={phone} alt="phone" />{this.state.userData.phone}</div>
+                                <div className="col icon-text long-text txt-white"><img className="icon-item-t2" src={email} alt="email" />{this.state.userData.email}</div>
 
-                                    <div className="col header-text border box-t2">Курсы</div>
-                                    <div className="list-group ">
-                                        {this.state.coursesArr.map(function (value, i) {
-                                            return (
+                                <div className="col text-nowrap header-text txt-white" >Водительские права
+                                    <div className="col main-text">{this.driverLicenseStr}</div>
+                                </div>
 
-                                                <div className="list-group-item " key={'val-' + i}>
-                                                    <div className="d-flex w-100 justify-content-between">
-                                                        <h5 className="mb-1">{value.organization}</h5>
-                                                        <h5 className="mb-1 years">{value.endingCourse}</h5>
-                                                    </div>
-                                                    <p className="mb-1" >{value.courseName}</p>
-                                                </div>
-                                            );
-                                        })}
-                                    </div>
-
-                                    <div className="col header-text border box-t2">Рекомендации</div>
-                                    <div className="list-group ">
-                                        {this.state.recomendingArr.map(function (value, i) {
-                                            return (
-                                                <div className="list-group-item " key={'val-' + i}>
-                                                    <div className="d-flex w-100 justify-content-between">
-                                                        <h5 className="mb-1">{value.company}</h5>
-                                                    </div>
-                                                    <p className="mb-1 text-capitalize" >{value.personRecommending}</p>
-                                                    <div >{value.phoneCompany}</div>
-                                                    <div >{value.emailCompany}</div>
-                                                </div>
-                                            );
-                                        })}
-                                    </div>
-
-                                    <div className="col header-text border box-t2">Профессиональные навыки</div>
-                                    <div className="list-group ">
-                                        <div className="list-group-item ">
-                                            <div className="mb-1 long-text" >{this.state.userData.professionalSkills} </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="col header-text border box-t2">Личные качества</div>
-                                    <div className="list-group ">
-                                        <div className="list-group-item ">
-                                            <p className="mb-1" >{this.state.userData.personalQualities} </p>
-                                        </div>
-                                    </div>
-
-                                    <div className="col header-text border box-t2">Хобби</div>
-                                    <div className="list-group ">
-                                        <div className="list-group-item ">
-                                            <p className="mb-1" >{this.state.userData.hobby}</p>
-                                        </div>
-                                    </div>
+                                <div className="col header-text txt-white">Гражданство
+                                    <div className="col main-text">{this.state.userData.nationality}</div>
+                                </div>
+                                <div className="col text-nowrap header-text txt-white">Семейное положение
+                                    <div className="col main-text">{this.maritalStatusStr}</div>
+                                </div>
+                                <div className="col text-nowrap header-text txt-white">Желаемая зарплата
+                                    <div className="col main-text">{this.salaryStr}</div>
+                                </div>
+                                <div className="col header-text txt-white">Занятость
+                                    <div className="col main-text">{this.employmentStr}</div>
+                                </div>
+                                <div className="col header-text txt-white">Языки
+                                    {this.state.languagesArr.map(function (value, i) { return (<div className="col main-text" key={'val-' + i}>{value}</div>); })}
 
                                 </div>
+                                <div className="col header-text txt-white">{this.army}</div>
+                            </div>
+
+                            {/* right-container */}
+                            <div className="col" id="right-container">
+                                <div className="col header-text border box-t2">Опыт работы </div>
+                                <div className="list-group ">
+                                    {this.state.experienceArr.map(function (value, i) {
+                                        return (
+                                            <div className="list-group-item " key={'val-' + i}>
+                                                <div className="d-flex w-100 justify-content-between">
+                                                    <h5 className="mb-1">{value.companyName}</h5>
+                                                    <h5 className="mb-1 years">{value.startWork + " - " + value.endWork}</h5>
+                                                </div>
+                                                <p className="mb-1 fz-14" >{value.positionWork}</p>
+                                                <p className='mb-1 fz-12'>{value.jobDuties}</p>
+                                            </div>
+
+                                        );
+                                    })}
+                                </div>
+
+                                <div className="col header-text border box-t2">Образование</div>
+                                <div className="list-group ">
+                                    {this.state.educationArr.map(function (value, i) {
+                                        return (
+                                            <div className="list-group-item " key={'val-' + i}>
+                                                <div className="d-flex w-100 justify-content-between">
+                                                    <h5 className="mb-1">{value.institutName}</h5>
+                                                    <h5 className="mb-1 years">{value.ending}</h5>
+                                                </div>
+                                                <p className="mb-1 fz-14" >{value.faculty}</p>
+                                                <p className='mb-1 fz-12'>{value.specialty + ", " + value.levelEducation}</p>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+
+                                <div className="col header-text border box-t2">Курсы</div>
+                                <div className="list-group ">
+                                    {this.state.coursesArr.map(function (value, i) {
+                                        return (
+
+                                            <div className="list-group-item " key={'val-' + i}>
+                                                <div className="d-flex w-100 justify-content-between">
+                                                    <h5 className="mb-1">{value.organization}</h5>
+                                                    <h5 className="mb-1 years">{value.endingCourse}</h5>
+                                                </div>
+                                                <p className="mb-1 fz-14" >{value.courseName}</p>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+
+                                <div className="col header-text border box-t2">Рекомендации</div>
+                                <div className="list-group ">
+                                    {this.state.recomendingArr.map(function (value, i) {
+                                        return (
+                                            <div className="list-group-item " key={'val-' + i}>
+                                                <div className="d-flex w-100 justify-content-between">
+                                                    <h5 className="mb-1">{value.company}</h5>
+                                                </div>
+                                                <p className="mb-1 text-capitalize fz-14" >{value.personRecommending}</p>
+                                                <div className="fz-12">{value.phoneCompany + ", " + value.emailCompany}</div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+
+                                <div className="col header-text border box-t2">Профессиональные навыки</div>
+                                <div className="list-group ">
+                                    <div className="list-group-item ">
+                                        <div className="mb-1 long-text fz-14" >{this.state.userData.professionalSkills} </div>
+                                    </div>
+                                </div>
+
+                                <div className="col header-text border box-t2">Личные качества</div>
+                                <div className="list-group ">
+                                    <div className="list-group-item ">
+                                        <p className="mb-1 fz-14" >{this.state.userData.personalQualities} </p>
+                                    </div>
+                                </div>
+
+                                <div className="col header-text border box-t2">Хобби</div>
+                                <div className="list-group ">
+                                    <div className="list-group-item ">
+                                        <p className="mb-1 fz-14" >{this.state.userData.hobby}</p>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
+                    </div>
                     </PrintComponents>
                 </div >
             );

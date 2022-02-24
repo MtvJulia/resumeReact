@@ -47,9 +47,14 @@
     /* CSS для: ширины >= 1200px */
 }
 
+.main-container{
+    width: 620px;
+    /* height: 877px; */
+}
+
 .container-sm {
     margin-top: 30px;
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
     padding-bottom: 20px;
 }
 
@@ -59,33 +64,35 @@
 
 #avatar {
     padding: 30px 0px;
-    max-width: 200px;
+    max-width: 150px;
 }
 
-#full-name {
+.full-name {
     margin-left: 5px;
     flex-wrap: wrap;
 }
 
 .name-text {
     word-wrap: break-word;
-    font-size: 30px;
+    font-size: 20px;
     padding: 0px 15px 0 0;
     margin: 0px;
     font-weight: 700;
 }
 
 .header-text {
-    font-size: 24px;
-    padding: 10px 5px;
-    font-weight: 600;
-   
-  
+    font-size: 16px;
+    padding: 5px;
+    font-weight: 600; 
 }
 
 .main-text {
-    font-size: 1rem;
+    font-size: 14px;
     font-weight: 400;
+}
+
+.icon-text{
+    font-size: 14px;
 }
 
 .icon-item {
@@ -95,8 +102,16 @@
 }
 
 .years {
+    font-size: 14px;
     white-space: nowrap;
     margin-left: 25px;
+}
+
+.fz-14{
+    font-size: 14px;
+}
+.fz-12{
+    font-size: 12px;
 }
 
 .long-text {
@@ -122,4 +137,8 @@
     /* Отступ слева */
     padding-left: 10px;
     /* Расстояние от линии до текста */
+}
+
+.btn-save{
+    margin: 20px 0 50px 0;
 }
