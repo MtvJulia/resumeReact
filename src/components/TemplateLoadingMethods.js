@@ -150,7 +150,8 @@ const getEmployment = (data) => {
 }
 
 const getArmyData=(data)=> {
-    if (data.army === 1) return "Служба в армии";
+    console.log(data.army);
+    if (data.army == true) return "Служба в армии";
     else { return ""; }
 }
 
