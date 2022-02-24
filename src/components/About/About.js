@@ -23,8 +23,8 @@ class About extends React.Component {
 
                 <div className='container-fluid block-yellow py-4'>
                     <div className='container py-5'>
-                        <h2 className="text">Рады приветствовать вас на сайте ResumeOnline!</h2>
-                        <h5 className="text">Наша мисия - помочь вам найти работу мечты</h5>
+                        <h2 className="text">Рады приветствовать вас на сайте OnlineResume!</h2>
+                        <h5 className="text">Наша мисcия - помочь вам найти работу мечты</h5>
                         <a href="/login" className="btn btn-primary" id='header-btn'>Создать резюме</a>
                     </div>
                 </div>
@@ -41,21 +41,14 @@ class About extends React.Component {
                     </ul>
                     <h3 className='h3-about'>Все готово!</h3>
                     <h3 className='h3-about'>Отправляй свое резюме работодателю и готовься к собеседованию</h3>
-
-                    <h1 className='slogan'>ResumeOnline - твое резюме всегда с тобой!</h1>
-
-<div >
-
-</div>
+                    <h1 className='slogan'>OnlineResume - твое резюме всегда с тобой!</h1>
+                   
                     <iframe id='videoPromo' width="560" height="315"
                         src="https://www.youtube.com/embed/uSJhHY0dyfM"
                         title="YouTube video player" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen>
                     </iframe>
-
-
-
                 </div>
             </div>
         );
